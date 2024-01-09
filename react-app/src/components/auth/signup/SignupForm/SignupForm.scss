@@ -1,0 +1,24 @@
+.signup-form {
+  display: flex;
+  flex-flow: column nowrap;
+  max-width: $suggested-form-width;
+  width: 100%;
+  gap: $medium;
+
+  .submit-button-group {
+    display: flex;
+    flex-flow: column nowrap;
+
+    .signup-form-alert {
+      margin-bottom: $medium;
+    }
+
+    .signup-form-button {
+      flex: 1;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+}

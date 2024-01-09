@@ -1,0 +1,31 @@
+// Define font-family names
+$basier-font-family-regular: 'Basier Regular';
+$basier-font-family-medium: 'Basier Medium';
+$basier-font-family-bold: 'Basier Bold';
+
+// Define paths to your font files (adjust these paths as needed)
+$basier-font-path-regular: '../assets/fonts/BasierCircle-Regular.woff2';
+$basier-font-path-medium: '../assets/fonts/BasierCircle-Medium.woff2';
+$basier-font-path-bold: '../assets/fonts/BasierCircle-Bold.woff2';
+
+// Import and define font faces for each font-weight
+@font-face {
+  font-family: 'BasierCircle-Regular';
+  src: url('#{$basier-font-path-regular}') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BasierCircle-Medium';
+  src: url('#{$basier-font-path-medium}') format('woff2');
+  font-weight: 500; // Adjust to match your medium font's weight
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BasierCircle-Bold';
+  src: url('#{$basier-font-path-bold}') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+}

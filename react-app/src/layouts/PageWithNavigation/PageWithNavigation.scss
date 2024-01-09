@@ -1,0 +1,36 @@
+.page-with-navigation-container {
+  flex: 1;
+  display: flex;
+  flex-flow: column nowrap;
+
+  .navigation-bar {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+
+    .logo {
+      width: 2rem;
+      height: 1.5rem;
+    }
+
+    .language-selector {
+      .ant-radio-button-wrapper {
+        &:first-child {
+          border-end-start-radius: 10px;
+          border-start-start-radius: 10px;
+        }
+
+        &:last-child {
+          border-end-end-radius: 10px;
+          border-start-end-radius: 10px;
+        }
+      }
+    }
+  }
+
+  .page-content {
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 0 50px;
+  }
+}

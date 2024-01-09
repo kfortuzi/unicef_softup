@@ -1,0 +1,62 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: CloudFront distribution for Softup X
+
+Parameters:
+  EnvironmentName:
+    Description: Environment name
+    Type: String
+  BucketName:
+    Description: Name of the SoftupX UI
+    Type: String
+  OriginAccessControlID:
+    Description: ID of the OAC
+    Type: String
+  # TODO: Record to be created in Route 53
+  DomainName:
+    Description: Name of the domain to which CloudFront will be connected
+    Type: String
+
+Resources:
+  CloudFrontDistribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Comment: !Sub Softup X ${EnvironmentName}
+        Enabled: 'true'
+        Aliases:
+          - !Ref DomainName
+        Origins:
+          - Id: SoftupXUI
+            DomainName: !Sub ${BucketName}.s3.amazonaws.com
+            OriginAccessControlId: !Ref OriginAccessControlID
+            S3OriginConfig:
+              OriginAccessIdentity: ''
+        DefaultRootObject: index.html
+        DefaultCacheBehavior:
+          TargetOriginId: SoftupXUI
+          AllowedMethods:
+            - GET
+            - HEAD
+          CachedMethods:
+            - GET
+            - HEAD
+          # TODO: Double check if this ID is the same for Softup Account
+          CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6 # CachingOptimized managed policy
+          ViewerProtocolPolicy: redirect-to-https
+          SmoothStreaming: 'false'
+          Compress: 'true'
+        PriceClass: PriceClass_100
+        HttpVersion: http2and3
+        ViewerCertificate:
+          # TODO: Create a certificate in ACM and put the ARN here
+          AcmCertificateArn: ''
+          MinimumProtocolVersion: 'TLSv1.2_2021'
+          SslSupportMethod: 'sni-only'
+
+Outputs:
+  CloudFrontDomain:
+    Description: Domain name of the CloudFront Distribution
+    Value: !GetAtt CloudFrontDistribution.DomainName
+  CloudFrontDistributionID:
+    Description: ID of the CloudFront Distribution
+    Value: !Ref CloudFrontDistribution

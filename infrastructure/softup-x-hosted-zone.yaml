@@ -1,0 +1,16 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Hosted zones of softup x
+
+Resources:
+  DNS:
+    Type: "AWS::Route53::HostedZone"
+    DeletionPolicy: Retain
+    Properties:
+      HostedZoneConfig:
+        Comment: "Hosted zone for managing softup x DNS entries"
+      Name: "softup.x"
+
+Outputs:
+  SoftupXZoneId:
+    Description: ID of the Hosted Zone for softup.x
+    Value: !Ref DNS

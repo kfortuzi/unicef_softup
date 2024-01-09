@@ -1,0 +1,10 @@
+{
+  "token": {
+    "colorPrimary": "#19a0ff",
+    "colorInfo": "#19a0ff",
+    "colorTextBase": "#2d2d2d",
+    "fontSize": 16,
+    "borderRadius": 8,
+    "fontFamily": "BasierCircle-Regular"
+  }
+}

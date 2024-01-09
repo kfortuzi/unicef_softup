@@ -1,0 +1,98 @@
+{
+  "translation": {
+    "auth": {
+      "login": {
+        "header": "Welcome!",
+        "signUp": "Create an account!",
+        "emailRequired": "Email is required",
+        "passwordRequired": "Password is required",
+        "emailWrongFormat": "Wrong email format",
+        "passwordPlaceholder": "Password",
+        "submit": "Log In",
+        "forgotPassword": "Forgot password?",
+        "rememberMe": "Remember me",
+        "newToPlatform": "New to Softup X?",
+        "emailPlaceholder": "E-Mail"
+      },
+      "signUp": {
+        "header": "Create New Account",
+        "logIn": "Log in",
+        "submit": "Sign Up",
+        "emailWrongFormat": "Wrong email format",
+        "emailRequired": "Email is required",
+        "passwordRequired": "Password is required",
+        "firstNameRequired": "First Name is required",
+        "lastNameRequired": "Last Name is required",
+        "confirmPasswordRequired": "Password must be confirmed",
+        "passwordsMustMatch": "Passwords do not match",
+        "alreadyMember": "Already a member?",
+        "confirmPasswordLabel": "Confirm Password",
+        "emailLabel": "E-Mail",
+        "firstNameLabel": "First Name",
+        "lastNameLabel": "Last Name",
+        "passwordLabel": "Password",
+        "signUpSuccess": "You have successfully signed up!",
+        "signUpSuccessInfo": "Please check your email for instructions to verify your account."
+      },
+      "forgotPassword": {
+        "header": "Forgot Your Password?",
+        "subHeader": "Please enter your email address and you should shortly be receiving instructions to reset your password.",
+        "emailLabel": "E-Mail",
+        "submit": "Send Request",
+        "emailRequired": "Email is required",
+        "backToLogin": "Go back",
+        "emailWrongFormat": "Wrong email format"
+      },
+      "resetPassword": {
+        "header": "Reset Password",
+        "subHeader": "Please enter your new password.",
+        "passwordLabel": "Password",
+        "confirmPasswordLabel": "Confirm Password",
+        "passwordRequired": "Password is required",
+        "passwordsMustMatch": "Passwords do not match",
+        "confirmPasswordRequired": "Password must be confirmed",
+        "submit": "Save Password",
+        "requestSuccess": "Password was reset successfully!"
+      },
+      "confirmUser": {
+        "confirming": "Confirming...",
+        "successTitle": "All set up!",
+        "successSubTitle": "Thank you for conforming your account {{firstName}}, now you can log in with your credentials.",
+        "errorTitle": "Confirmation failed!",
+        "errorSubTitle": "Sorry, we could not confirm your account. Please make sure that you are using the correct URL you received in your confirmation email and try again later.",
+        "backToLogin": "Go Back",
+        "sendMeToLogin": "Send Me To Login"
+      }
+    },
+    "globalStrings": {
+      "error": "Error",
+      "success": "Success",
+      "warning": "Warning",
+      "loading": "Please wait...",
+      "info": "Info"
+    },
+    "notFound": {
+      "title": "The page you are looking for was not found!",
+      "subTitle": "Please return to the home page.",
+      "goBack": "Go Back Home"
+    },
+    "home": {
+      "header": "What is Softup X?",
+      "appDescription": "Softup X acts as a reliable boilerplate for Softup developers. It offers a React TypeScript template through Vite, providing a strong and structured foundation for new endeavors. Its primary aim is to assist developers by showcasing best coding practices, ensuring a smooth initiation into projects. The application efficiently manages data flow using React Query, optimizing information dissemination within the system. Additionally, Softup X integrates I18next for seamless translations, enabling easy development of multilingual applications. Employing Ant Design as its UI library, it enhances both the aesthetics and functionality of the interface. Softup X is more than just a starting point; it's a comprehensive solution that not only expedites project initiation but also sets the standard for coding practices within the Softup ecosystem."
+    },
+    "pageWithNavigation": {
+      "sq": "SQ",
+      "en": "EN",
+      "home": "Home",
+      "profile": "My Profile",
+      "logOut": "Log Out",
+      "footerText": "Softup X ©2023 Created with ❤️ by Softup Technologies",
+      "articles": "Articles"
+    },
+    "articles": {
+      "header": "Articles",
+      "loading": "Loading articles...",
+      "noArticles": "No articles yet"
+    }
+  }
+}

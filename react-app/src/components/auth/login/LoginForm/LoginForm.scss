@@ -1,0 +1,27 @@
+.login-form {
+  display: flex;
+  flex-flow: column nowrap;
+  max-width: $suggested-form-width;
+  width: 100%;
+  gap: $medium;
+
+  .remember-me-and-forgot-password {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    gap: $small;
+  }
+
+  .submit-button-group {
+    display: flex;
+    flex-flow: column nowrap;
+
+    .login-form-button {
+      flex: 1;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+}

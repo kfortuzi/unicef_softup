@@ -1,0 +1,59 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: VPC security groups
+
+Parameters:
+  EnvironmentName:
+    Description: Environment name
+    Type: String
+  VpcId:
+    Description: Vpc id
+    Type: String
+
+# Example how to create conditionals
+Conditions:
+  IsProd: !Equals [!Sub "${EnvironmentName}", "prod"]
+
+Resources:
+  LambdaSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: !Sub "Security group of Lambda in VPC in the ${EnvironmentName} environment"
+      GroupName: !Sub "softup-x-lambda-security-group-${EnvironmentName}"
+      VpcId: !Ref VpcId
+      SecurityGroupEgress:
+        - IpProtocol: "tcp"
+          FromPort: 0
+          ToPort: 65535
+          CidrIp: 0.0.0.0/0
+      SecurityGroupIngress:
+        - IpProtocol: "tcp"
+          FromPort: 0
+          ToPort: 65535
+          CidrIp: 0.0.0.0/0
+
+  RDSSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    DependsOn:
+      - LambdaSecurityGroup
+    Properties:
+      GroupDescription: !Sub "Security group of the Postgres instance in the ${EnvironmentName} environment"
+      GroupName: !Sub "softup-x-db-instance-security-group-${EnvironmentName}"
+      VpcId: !Ref VpcId
+      SecurityGroupIngress:
+        #TODO: For bastion host
+        # - IpProtocol: "tcp"
+        #   FromPort: 5432
+        #   ToPort: 5432
+        #   SourceSecurityGroupId: !Ref SandCastleSecurityGroup
+        - IpProtocol: "tcp"
+          FromPort: 5432
+          ToPort: 5432
+          SourceSecurityGroupId: !Ref LambdaSecurityGroup
+
+Outputs:
+  LambdaSecurityGroupId:
+    Description: Lambda security group id (used by e.g. RDS)
+    Value: !Ref LambdaSecurityGroup
+  RDSSecurityGroupId:
+    Description: RDS security group id
+    Value: !Ref RDSSecurityGroup

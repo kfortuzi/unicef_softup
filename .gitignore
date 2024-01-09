@@ -1,0 +1,66 @@
+# Editor directories and files
+.vscode/*
+
+# API compiled output
+nest-rest-api/dist
+nest-rest-api/node_modules
+
+# API logs
+nest-rest-api/logs
+nest-rest-api/*.log
+nest-rest-api/npm-debug.log*
+nest-rest-api/pnpm-debug.log*
+nest-rest-api/yarn-debug.log*
+nest-rest-api/yarn-error.log*
+nest-rest-api/lerna-debug.log*
+
+# API OS files
+nest-rest-api/.DS_Store
+
+# API tests
+nest-rest-api/coverage
+nest-rest-api/.nyc_output
+
+# API editor directories and files
+nest-rest-api/.idea
+nest-rest-api/.project
+nest-rest-api/.classpath
+nest-rest-api/.c9/
+nest-rest-api/*.launch
+nest-rest-api/.settings/
+nest-rest-api/*.sublime-workspace
+nest-rest-api/.vscode/*
+nest-rest-api/.env
+nest-rest-api/log/*
+!nest-rest-api/.vscode/settings.json
+!nest-rest-api/.vscode/tasks.json
+!nest-rest-api/.vscode/launch.json
+!nest-rest-api/.vscode/extensions.json
+
+# React app logs
+react-app/logs
+react-app/*.log
+react-app/npm-debug.log*
+react-app/yarn-debug.log*
+react-app/yarn-error.log*
+react-app/pnpm-debug.log*
+react-app/lerna-debug.log*
+react-app/coverage
+
+# React app compiled output
+react-app/node_modules
+react-app/dist
+react-app/dist-ssr
+react-app/*.local
+
+# React app editor directories and files
+react-app/.vscode/*
+react-app/!.vscode/extensions.json
+react-app/.idea
+react-app/.DS_Store
+react-app/*.suo
+react-app/*.ntvs*
+react-app/*.njsproj
+react-app/*.sln
+react-app/*.sw?
+react-app/.vite

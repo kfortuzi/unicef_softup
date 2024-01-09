@@ -1,0 +1,71 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Softup X api gateway
+
+Parameters:
+  EnvironmentName:
+    Description: Environment name
+    Type: String
+  LambdaArn:
+    Description: ARN of the rest lambda
+    Type: String
+  Version:
+    Description: Version of the lambda
+    Type: String
+
+Resources:
+  HttpApi:
+    Type: AWS::ApiGatewayV2::Api
+    Properties:
+      Name: !Sub ${AWS::StackName}
+      Description: Softup X lambda proxy
+      ProtocolType: HTTP
+      Target: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${LambdaArn}/invocations'
+
+  ApiIntegration:
+    Type: AWS::ApiGatewayV2::Integration
+    Properties:
+      ApiId: !Ref HttpApi
+      Description: Lambda Integration
+      IntegrationType: AWS_PROXY
+      IntegrationUri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${LambdaArn}/invocations'
+      IntegrationMethod: POST
+      PayloadFormatVersion: 1.0
+      ConnectionType: INTERNET
+
+  ApiRoute:
+    Type: AWS::ApiGatewayV2::Route
+    DependsOn:
+      - ApiIntegration
+    Properties:
+      ApiId: !Ref HttpApi
+      RouteKey: 'ANY /{proxy+}'
+      Target: !Sub 'integrations/${ApiIntegration}'
+      # AuthorizationType: JWT
+      # AuthorizerId: !Ref Authorizer
+
+  CORSRoute:
+    Type: AWS::ApiGatewayV2::Route
+    DependsOn:
+      - ApiIntegration
+    Properties:
+      ApiId: !Ref HttpApi
+      RouteKey: 'OPTIONS /{proxy+}'
+      Target: !Sub 'integrations/${ApiIntegration}'
+
+  # Authorizer:
+  # Optional
+
+  Stage:
+    Type: 'AWS::ApiGatewayV2::Stage'
+    Properties:
+      StageName: !Ref EnvironmentName
+      Description: !Sub '${EnvironmentName}-stage'
+      AutoDeploy: true
+      ApiId: !Ref HttpApi
+      DefaultRouteSettings:
+        DetailedMetricsEnabled: true
+
+Outputs:
+  ApiUrl:
+    Description: URL of the API
+    Value: !GetAtt HttpApi.ApiEndpoint

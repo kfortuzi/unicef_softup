@@ -1,0 +1,12 @@
+.not-found-container {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+
+  .not-found-result-component {
+    max-width: $suggested-result-component-width;
+  }
+}

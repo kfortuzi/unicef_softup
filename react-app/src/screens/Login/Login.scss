@@ -1,0 +1,13 @@
+.login-container {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+
+  .divider {
+    min-width: 350px;
+    width: 350px;
+  }
+}

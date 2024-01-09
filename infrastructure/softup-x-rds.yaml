@@ -1,0 +1,117 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Softup X RDS
+
+Parameters:
+  EnvironmentName:
+    Description: Environment name
+    Type: String
+  RDSSecurityGroupId:
+    Description: RDS Security group id
+    Type: String
+  PrivateSubnet1:
+    Description: Private subnet
+
+Conditions:
+  CreateProdResources: !Equals [!Sub "${EnvironmentName}", "prod"]
+
+Resources:
+  RDS:
+    Type: AWS::RDS::DBInstance
+    DeletionPolicy: Retain
+    DependsOn:
+      - RDSSubnetGroup
+      - RDSMasterUserSecret
+    Properties:
+      AllocatedStorage: !If [CreateProdResources, 150, 60]
+      AllowMajorVersionUpgrade: true
+      AvailabilityZone:
+        !If [CreateProdResources, !Ref "AWS::NoValue", "eu-central-1a"]
+      BackupRetentionPeriod: !If [CreateProdResources, 21, 14]
+      CACertificateIdentifier: "rds-ca-rsa4096-g1"
+      CopyTagsToSnapshot: true
+      DBInstanceClass: !If [CreateProdResources, "db.t3.medium", "db.t3.micro"]
+      DBInstanceIdentifier: !Sub "softup-x-db-instance-${EnvironmentName}"
+      DBName: !Sub "softup_x_${EnvironmentName}"
+      DBParameterGroupName: "postgres14-wal-bi-prod"
+      DBSubnetGroupName: !Ref RDSSubnetGroup
+      DeleteAutomatedBackups: false
+      DeletionProtection: true
+      EnablePerformanceInsights: true
+      Engine: "postgres"
+      EngineVersion: "14.7"
+      MasterUsername: !Sub "{{resolve:secretsmanager:${RDSMasterUserSecret}::username}}"
+      MasterUserPassword: !Sub "{{resolve:secretsmanager:${RDSMasterUserSecret}::password}}"
+      PreferredMaintenanceWindow: "thu:04:22-thu:04:52"
+      # Updates do not function if PreferredMaintenanceWindow is there. So it can be used for initial creation and then must be commented.
+      MultiAZ: !If [CreateProdResources, true, false]
+      PerformanceInsightsRetentionPeriod: 7
+      PubliclyAccessible: false
+      SourceRegion: !Sub "${AWS::Region}"
+      StorageEncrypted: !If [CreateProdResources, true, false]
+      StorageType: gp2
+      VPCSecurityGroups:
+        - !Ref RDSSecurityGroupId
+
+  RDSSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription: this is the subnet group where the database is available
+      SubnetIds:
+        - !Ref PrivateSubnet1
+
+  RDSMasterUserSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: "Secret for RDS master user and password"
+      Name: !Sub "rds-db-instance-credentials/master-${EnvironmentName}"
+      GenerateSecretString:
+        SecretStringTemplate: !Sub '{"username": "master_user"}'
+        GenerateStringKey: "password"
+        PasswordLength: 32
+        ExcludePunctuation: true
+
+  RDSInstanceMasterSecretAttachment:
+    Type: AWS::SecretsManager::SecretTargetAttachment
+    Properties:
+      SecretId: !Ref RDSMasterUserSecret
+      TargetId: !Ref RDS
+      TargetType: AWS::RDS::DBInstance
+
+  RDSMasterUserSecretPolicy:
+    Type: AWS::SecretsManager::ResourcePolicy
+    Properties:
+      SecretId: !Ref RDSMasterUserSecret
+      ResourcePolicy:
+        Version: "2012-10-17"
+        Statement:
+          - Resource: !Ref RDSMasterUserSecret
+            Action: secretsmanager:GetSecretValue
+            Effect: Deny
+            Principal: "*"
+            # Condition: TODO: Get the CFN user arn // These credentials can only be used by the pipeline (migrations etc)
+            #   StringNotLike:
+            #     aws:PrincipalArn:
+            #       - arn:aws:iam::598574697325:user/cloudformation
+
+  RDSAppUserSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: "Secret for RDS app user and password"
+      Name: !Sub "rds-db-instance-credentials/application-${EnvironmentName}"
+      GenerateSecretString:
+        SecretStringTemplate: !Sub '{"username": "app_user"}'
+        GenerateStringKey: "password"
+        PasswordLength: 32
+        ExcludePunctuation: true
+
+  RDSInstanceApplicationSecretAttachment:
+    Type: AWS::SecretsManager::SecretTargetAttachment
+    Properties:
+      SecretId: !Ref RDSAppUserSecret
+      TargetId: !Ref RDS
+      TargetType: AWS::RDS::DBInstance
+
+Outputs:
+  DBCredentialsApp:
+    Description: ARN to Secret for DB application user credentials
+    Value: !Ref RDSAppUserSecret

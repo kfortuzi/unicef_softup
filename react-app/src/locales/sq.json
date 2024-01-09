@@ -1,0 +1,98 @@
+{
+  "translation": {
+    "auth": {
+      "login": {
+        "header": "Miresevini!",
+        "signUp": "Krijoni nje llogari!",
+        "emailRequired": "Email eshte i detyrueshem",
+        "passwordRequired": "Fjalekalimi eshte i detyrueshem",
+        "emailWrongFormat": "Format i gabuar email-i",
+        "passwordPlaceholder": "Fjalekalimi",
+        "submit": "Hyni",
+        "forgotPassword": "Harruat fjalekalimin?",
+        "rememberMe": "Me mbaj mend",
+        "newToPlatform": "Hera e pare ne Softup X?",
+        "emailPlaceholder": "E-Mail"
+      },
+      "signUp": {
+        "header": "Krijoni nje Llogari",
+        "logIn": "Identifikohuni",
+        "submit": "Regjistrohuni",
+        "emailWrongFormat": "Format i gabuar email-i",
+        "emailRequired": "Email eshte i detyrueshem",
+        "passwordRequired": "Fjalekalimi eshte i detyrueshem",
+        "firstNameRequired": "Emri eshte i detyrueshem",
+        "lastNameRequired": "Mbiemri eshte i detyrueshem",
+        "confirmPasswordRequired": "Fjalekalimi duhet konfirmuar",
+        "passwordsMustMatch": "Fjalekalimet nuk perputhen",
+        "alreadyMember": "Keni nje llogari ekzistuese?",
+        "confirmPasswordLabel": "Konfirmoni Fjalekalimin",
+        "emailLabel": "E-Mail",
+        "firstNameLabel": "Emri",
+        "lastNameLabel": "Mbiemri",
+        "passwordLabel": "Fjalekalimi",
+        "signUpSuccess": "Llogaria juaj u krijua me sukses!",
+        "signUpSuccessInfo": "Ju lutem kontrolloni email-in tuaj per instruksionet e verifikimit te llogarise."
+      },
+      "forgotPassword": {
+        "header": "Keni Harruar Fjalekalimin?",
+        "subHeader": "Vendosni adresen e email dhe shkurtimisht duhet t'ju vijne instruksionet per te krijuar nje fjalekalim te ri.",
+        "emailLabel": "E-Mail",
+        "submit": "Dergo Kerkesen",
+        "emailRequired": "Email eshte i detyrueshem",
+        "backToLogin": "Kthehu mbrapa",
+        "emailWrongFormat": "Format i gabuar email-i"
+      },
+      "resetPassword": {
+        "header": "Fjalekalimi i Ri",
+        "subHeader": "Vendosni fjalekalimin e ri.",
+        "passwordLabel": "Fjalekalimi",
+        "confirmPasswordLabel": "Konfirmoni Fjalekalimin",
+        "passwordRequired": "Fjalekalimi eshte i detyrueshem",
+        "passwordsMustMatch": "Fjalekalimet nuk perputhen",
+        "confirmPasswordRequired": "Fjalekalimi duhet konfirmuar",
+        "submit": "Ruaj Fjalekalimin",
+        "requestSuccess": "Fjalekalimi i ri u ruajt me sukses!"
+      },
+      "confirmUser": {
+        "confirming": "Duke konfirmuar...",
+        "successTitle": "Gjithçka gati! ",
+        "successSubTitle": "Faleminderit qe konfirmuat llogarine tuaj {{firstName}}, tani ju mund te identifikoheni me kredencialet tuaja.",
+        "errorTitle": "Konfirmimi deshtoi!",
+        "errorSubTitle": "Na vjen keq, ne nuk mundem ta konfirmojme llogarine tuaj. Ju lutem sigurohuni qe po perdorni URL te derguar me email-in e konfirmimit dhe provoni perseri me vone.",
+        "backToLogin": "Kthehu Mbrapa",
+        "sendMeToLogin": "Me Dergo Ne Login"
+      }
+    },
+    "globalStrings": {
+      "error": "Gabim",
+      "success": "Sukses",
+      "warning": "Paralajmerim ",
+      "loading": "Ju lutem prisni...",
+      "info": "Informacion"
+    },
+    "notFound": {
+      "title": "Faqja qe po kerkoni nuk u gjet!",
+      "subTitle": "Ju lutem kthehuni ne faqen kryesore.",
+      "goBack": "Kthehu Ne Kryefaqe"
+    },
+    "home": {
+      "header": "Cfare eshte Softup X?",
+      "appDescription": "Softup X shërben si një boilerplate i besueshëm për zhvilluesit e Softup. Ndërtuar në një template React TypeScript të ofruar nga Vite, Softup X garanton një bazë të fortë dhe të strukturuar për projektet e reja. Synimi kryesor është të ndihmojë zhvilluesit duke treguar praktikat më të mira të kodimit dhe të lehtësojë fillimin e prijekteve. Aplikacioni menaxhon flukset e të dhënave në mënyrë efikase nëpërmjet React Query, duke optimizuar shpërndarjen e informacionit brenda sistemit. Gjithashtu, Softup X integron I18next për përkthimet, duke e bërë zhvillimin e aplikacioneve me shumë gjuhë të lehtë. Përdorimi i Ant Design si librari UI, përmirëson si estetikën ashtu edhe funksionalitetin e ndërfaqes. Softup X është më shumë se një pikë nisjeje; është një zgjidhje e kompletuar që jo vetëm shpejton fillimin e projekteve, por gjithashtu cakton standardet për praktikat e kodimit brenda ekosistemit të Softup."
+    },
+    "pageWithNavigation": {
+      "sq": "SQ",
+      "en": "EN",
+      "home": "Kreu",
+      "profile": "Profili Im",
+      "logOut": "Dil",
+      "footerText": "Softup X ©2023 Krijuar me ❤️ nga Softup Technologies",
+      "articles": "Artikujt"
+    },
+    "articles": {
+      "header": "Artikujt",
+      "loading": "Duke ngarkuar artikujt...",
+      "noArticles": "Nuk ka artikuj per te shfaqur"
+    }
+  }
+}

@@ -1,0 +1,30 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Bucket policy for Softup X UI application
+
+Parameters:
+  EnvironmentName:
+    Description: Environment name
+    Type: String
+  BucketName:
+    Description: Name of the bucket where UI application is located
+    Type: String
+  CloudFrontDistribution:
+    Description: ID of the CloudFront distribution
+    Type: String
+
+Resources:
+  BucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties: 
+      Bucket: !Ref BucketName
+      PolicyDocument: 
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: cloudfront.amazonaws.com
+            Action: s3:GetObject
+            Resource: !Sub "arn:aws:s3:::${BucketName}/*"
+            Condition:
+              StringEquals:
+                AWS:SourceArn: !Sub arn:aws:cloudfront::${AWS::AccountId}:distribution/${CloudFrontDistribution}

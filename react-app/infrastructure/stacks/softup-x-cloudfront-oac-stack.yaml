@@ -1,0 +1,22 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: CloudFront OAC for Softup X
+
+Parameters:
+  EnvironmentName:
+    Description: Environment name
+    Type: String
+
+Resources:
+  OriginAccessControl:
+    Type: AWS::CloudFront::OriginAccessControl
+    Properties: 
+      OriginAccessControlConfig: 
+          Name: !Sub SoftupXOAC-${EnvironmentName}
+          OriginAccessControlOriginType: s3
+          SigningBehavior: always
+          SigningProtocol: sigv4
+
+Outputs:
+  OriginAccessControlID:
+    Description: ID of the Softup X OAC
+    Value: !GetAtt OriginAccessControl.Id

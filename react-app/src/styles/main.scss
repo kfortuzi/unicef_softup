@@ -1,0 +1,34 @@
+// Imports
+
+@import "./fonts.scss";
+@import "./variables.scss";
+
+// Global styles
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $base-font;
+  font-size: $base-font-size;
+  background-color: $background-color;
+  color: $base-font-color;
+
+  > div:first-child {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    overflow-y: hidden;
+  }
+
+  @import "./layouts.scss";
+  @import "./screens.scss";
+  @import "./components.scss";
+}
