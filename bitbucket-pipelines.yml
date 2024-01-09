@@ -1,0 +1,44 @@
+image: node:18
+
+options:
+max-time: 10
+
+definitions:
+  caches:
+    api-node:
+      path: nest-rest-api/node_modules
+    ui-node:
+      path: react-app/node_modules
+
+test-api: &test-api
+  step:
+    name: Test api
+    script:
+      - cd nest-rest-api
+      - npm i
+      - npm test
+    caches:
+      - api-node
+
+test-ui: &test-ui
+  step:
+    name: Test ui
+    script:
+      - cd react-app
+      - npm i
+      - npm test
+    caches:
+      - ui-node
+
+pipelines:
+  pull-requests:
+    "feature/api/*":
+      - <<: *test-api
+    "feature/ui/*":
+      - <<: *test-ui
+
+  branches:
+    master:
+      parallel:
+        - <<: *test-api
+        - <<: *test-ui

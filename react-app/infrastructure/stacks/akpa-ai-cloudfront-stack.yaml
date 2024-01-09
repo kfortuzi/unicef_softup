@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: CloudFront distribution for Softup X
+Description: CloudFront distribution for Akpa Ai
 
 Parameters:
   EnvironmentName:
@@ -21,7 +21,7 @@ Resources:
     Type: AWS::CloudFront::Distribution
     Properties:
       DistributionConfig:
-        Comment: !Sub Softup X ${EnvironmentName}
+        Comment: !Sub Akpa Ai ${EnvironmentName}
         Enabled: 'true'
         Aliases:
           - !Ref DomainName

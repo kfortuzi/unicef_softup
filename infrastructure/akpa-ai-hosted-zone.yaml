@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Description: Hosted zones of softup x
+Description: Hosted zones of Akpa Ai
 
 Resources:
   DNS:
@@ -7,7 +7,7 @@ Resources:
     DeletionPolicy: Retain
     Properties:
       HostedZoneConfig:
-        Comment: "Hosted zone for managing softup x DNS entries"
+        Comment: "Hosted zone for managing Akpa Ai DNS entries"
       Name: "softup.x"
 
 Outputs:

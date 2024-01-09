@@ -1,0 +1,69 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Akpa Ai api instance roles
+
+Parameters:
+  EnvironmentName:
+    Description: Environment name
+    Type: String
+  ECRArn:
+    Description: Arn of ECR
+    Type: String
+  ImagesBucketName:
+    Description: Name of the images S3 where we store user / resume images
+    Type: String
+
+Resources:
+  AkpaEc2InstanceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub ${AWS::StackName}
+      Path: '/'
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Policies:
+        - PolicyName: !Sub ${AWS::StackName}-ecr-read
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'ecr:BatchCheckLayerAvailability'
+                  - 'ecr:GetDownloadUrlForLayer'
+                  - 'ecr:GetRepositoryPolicy'
+                  - 'ecr:DescribeRepositories'
+                  - 'ecr:ListImages'
+                  - 'ecr:DescribeImages'
+                  - 'ecr:BatchGetImage'
+                Resource:
+                  - !Ref ECRArn
+        - PolicyName: !Sub ${AWS::StackName}-images-s3-read-write
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:ListBucket
+                Resource:
+                  - !Sub 'arn:aws:s3:::${ImagesBucketName}'
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:PutObject
+                  - s3:DeleteObject
+                Resource:
+                  - !Sub 'arn:aws:s3:::${ImagesBucketName}/*'
+
+Outputs:
+  AkpaEc2InstanceRoleArn:
+    Description: Akpa instance role arn
+    Value: !GetAtt AkpaEc2InstanceRole.Arn
+  AkpaEc2InstanceRoleName:
+    Description: Akpa instance role name
+    Value: !Ref AkpaEc2InstanceRole

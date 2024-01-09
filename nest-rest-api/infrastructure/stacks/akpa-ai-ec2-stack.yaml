@@ -1,0 +1,134 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Akpa Ai api instance
+
+Parameters:
+  PublicSubnet1:
+    Description: Public subnet 1 id
+    Type: String
+  VpcId:
+    Description: Akpa Vpc Id
+    Type: String
+  EnvironmentName:
+    Description: Environment
+    Type: String
+  KeyPairName:
+    Description: Key pair name
+    Type: String
+  UserData:
+    Description: User data script to be executed in instance launch
+    Type: String
+  InstanceRole:
+    Description: Instance IAM role
+    Type: String
+
+Resources:
+  AkpaInstanceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow ssh, http and https
+      VpcId: !Ref VpcId
+      Tags:
+        - Value: Akpa
+          Key: Name
+        - Value: !Ref EnvironmentName
+          Key: Environment
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: 0.0.0.0/0
+
+  RDSSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    DependsOn:
+      - AkpaInstanceSecurityGroup
+    Properties:
+      GroupName: !Sub 'akpa-rds-sg-${EnvironmentName}'
+      GroupDescription: Open database for access to the instance
+      VpcId: !Ref VpcId
+
+  EC2ToRDSInboundRule:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !Ref RDSSecurityGroup
+      IpProtocol: tcp
+      FromPort: 5432
+      ToPort: 5432
+      SourceSecurityGroupId: !Ref AkpaInstanceSecurityGroup
+
+  EC2ToRDSOutboundRule:
+    Type: AWS::EC2::SecurityGroupEgress
+    Properties:
+      GroupId: !Ref AkpaInstanceSecurityGroup
+      IpProtocol: tcp
+      FromPort: 5432
+      ToPort: 5432
+      DestinationSecurityGroupId: !Ref RDSSecurityGroup
+
+  AkpaNetworkInterface:
+    Type: AWS::EC2::NetworkInterface
+    DependsOn:
+      - AkpaInstanceSecurityGroup
+      - RDSSecurityGroup
+    Properties:
+      SourceDestCheck: 'false'
+      GroupSet:
+        - !Ref AkpaInstanceSecurityGroup
+      SubnetId: !Ref PublicSubnet1
+
+  AkpaEc2IamInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+        - !Ref InstanceRole
+
+  AkpaEC2Instance:
+    Type: AWS::EC2::Instance
+    DependsOn:
+      - AkpaNetworkInterface
+    Properties:
+      ImageId: 'ami-06dd92ecc74fdfb36'
+      KeyName: !Ref KeyPairName
+      InstanceType: t2.micro
+      NetworkInterfaces:
+        - DeviceIndex: 0
+          NetworkInterfaceId: !Ref AkpaNetworkInterface
+      UserData: !Ref UserData
+      IamInstanceProfile: !Ref AkpaEc2IamInstanceProfile
+      Tags:
+        - Key: Name
+          Value: !Sub Akpa-Ec2-Instance-${EnvironmentName}
+        - Key: Environment
+          Value: !Ref EnvironmentName
+
+Outputs:
+  AkpaInstanceSecurityGroupId:
+    Description: Instance SG Id
+    Value: !Ref AkpaInstanceSecurityGroup
+  RDSSecurityGroupId:
+    Description: Instance SG Id for rds access
+    Value: !Ref RDSSecurityGroup
+  AkpaEc2InstanceId:
+    Description: Instance Id
+    Value: !Ref AkpaEC2Instance

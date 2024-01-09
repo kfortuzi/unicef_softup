@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: Bucket policy for Softup X UI application
+Description: Bucket policy for Akpa Ai UI application
 
 Parameters:
   EnvironmentName:

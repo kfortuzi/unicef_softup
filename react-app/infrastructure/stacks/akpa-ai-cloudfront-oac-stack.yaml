@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: CloudFront OAC for Softup X
+Description: CloudFront OAC for Akpa Ai
 
 Parameters:
   EnvironmentName:
@@ -18,5 +18,5 @@ Resources:
 
 Outputs:
   OriginAccessControlID:
-    Description: ID of the Softup X OAC
+    Description: ID of the Akpa Ai OAC
     Value: !GetAtt OriginAccessControl.Id

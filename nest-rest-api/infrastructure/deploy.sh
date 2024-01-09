@@ -2,6 +2,9 @@
 
 set -Eeuox pipefail
 
-./akpa-ai-api-lambda-role.sh
-./akpa-ai-api-lambda.sh
-./akpa-ai-api-gateway.sh
+./akpa-ai-vpc.sh
+./akpa-ai-images-s3.sh
+./akpa-ai-ecr.sh
+./akpa-ai-ec2-roles.sh
+./akpa-ai-ec2.sh
+./akpa-ai-rds.sh

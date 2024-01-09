@@ -1,0 +1,113 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Akpa Ai RDS
+
+Parameters:
+  EnvironmentName:
+    Description: Environment name
+    Type: String
+  PrivateSubnet1:
+    Description: Private subnet 1
+    Type: String
+  PrivateSubnet2:
+    Description: Private subnet 2
+    Type: String
+  AkpaInstanceSecurityGroupId:
+    Description: Akpa Instance SG Id
+    Type: String
+  VpcId:
+    Description: Vpc id
+    Type: String
+  RDSSecurityGroupId:
+    Description: SG for rds access
+    Type: String
+
+Conditions:
+  CreateProdResources: !Equals [!Sub '${EnvironmentName}', 'prod']
+
+Resources:
+  RDSDBParameterGroup:
+    Type: AWS::RDS::DBParameterGroup
+    Properties:
+      DBParameterGroupName: !Sub 'akpa-rds-db-parameter-group-${EnvironmentName}'
+      Description: Postgres Parameter Group
+      Family: postgres14
+      Parameters:
+        application_name: !Sub 'akpa-ai-${EnvironmentName}'
+
+  RDS:
+    Type: AWS::RDS::DBInstance
+    DeletionPolicy: Retain
+    DependsOn:
+      - RDSSubnetGroup
+      - RDSMasterUserSecret
+    Properties:
+      AllocatedStorage: !If [CreateProdResources, 150, 30]
+      AllowMajorVersionUpgrade: true
+      AvailabilityZone: eu-central-1a
+      BackupRetentionPeriod: !If [CreateProdResources, 21, 14]
+      CACertificateIdentifier: 'rds-ca-rsa4096-g1'
+      CopyTagsToSnapshot: true
+      DBInstanceClass: !If [CreateProdResources, 'db.t3.medium', 'db.t3.micro']
+      DBInstanceIdentifier: !Sub 'akpa-ai-db-instance-${EnvironmentName}'
+      DBName: !Sub 'akpa_ai_rds_${EnvironmentName}'
+      DBParameterGroupName: !GetAtt [RDSDBParameterGroup, DBParameterGroupName]
+      DBSubnetGroupName: !Ref RDSSubnetGroup
+      DeleteAutomatedBackups: false
+      DeletionProtection: true
+      EnablePerformanceInsights: true
+      Engine: 'postgres'
+      EngineVersion: '14.7'
+      MasterUsername: !Sub '{{resolve:secretsmanager:${RDSMasterUserSecret}::username}}'
+      MasterUserPassword: !Sub '{{resolve:secretsmanager:${RDSMasterUserSecret}::password}}'
+      PreferredMaintenanceWindow: 'thu:04:22-thu:04:52'
+      # Updates do not function if PreferredMaintenanceWindow is there. So it can be used for initial creation and then must be commented.
+      MultiAZ: !If [CreateProdResources, true, false]
+      PerformanceInsightsRetentionPeriod: 7
+      PubliclyAccessible: false
+      SourceRegion: !Sub '${AWS::Region}'
+      StorageEncrypted: !If [CreateProdResources, true, false]
+      StorageType: gp2
+      VPCSecurityGroups:
+        - !Ref RDSSecurityGroupId
+
+  RDSSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription: this is the subnet group where the database is available
+      SubnetIds:
+        - !Ref PrivateSubnet1
+        - !Ref PrivateSubnet2
+
+  RDSMasterUserSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: 'Secret for RDS master user and password'
+      Name: !Sub 'rds-db-instance-credentials/master-${EnvironmentName}'
+      GenerateSecretString:
+        SecretStringTemplate: !Sub '{"username": "master_user"}'
+        GenerateStringKey: 'password'
+        PasswordLength: 32
+        ExcludePunctuation: true
+
+  RDSInstanceMasterSecretAttachment:
+    Type: AWS::SecretsManager::SecretTargetAttachment
+    Properties:
+      SecretId: !Ref RDSMasterUserSecret
+      TargetId: !Ref RDS
+      TargetType: AWS::RDS::DBInstance
+
+  RDSMasterUserSecretPolicy:
+    Type: AWS::SecretsManager::ResourcePolicy
+    Properties:
+      SecretId: !Ref RDSMasterUserSecret
+      ResourcePolicy:
+        Version: '2012-10-17'
+        Statement:
+          - Resource: !Ref RDSMasterUserSecret
+            Action: secretsmanager:GetSecretValue
+            Effect: Deny
+            Principal: '*'
+            Condition:
+              StringNotLike:
+                aws:PrincipalArn:
+                  - arn:aws:iam::618228892382:user/Cloudformation

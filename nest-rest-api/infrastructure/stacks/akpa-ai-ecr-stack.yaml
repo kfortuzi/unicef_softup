@@ -1,0 +1,20 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Akpa Ai ECR
+
+Resources:
+  AkpaECRRepository:
+    Type: AWS::ECR::Repository
+    Properties:
+      EmptyOnDelete: false
+      ImageScanningConfiguration:
+        ScanOnPush: true
+      ImageTagMutability: IMMUTABLE
+      RepositoryName: akpa-ai-repository
+
+Outputs:
+  AkpaECRRepositoryName:
+    Description: Repository name
+    Value: !Ref AkpaECRRepository
+  AkpaECRRepositoryArn:
+    Description: Akpa ecr arn
+    Value: !GetAtt AkpaECRRepository.Arn

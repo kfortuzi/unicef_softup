@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: Bucket for Akpa Ai UI application
+Description: Bucket to store akpa user and resume images
 
 Parameters:
   EnvironmentName:
@@ -11,13 +11,13 @@ Resources:
     Type: 'AWS::S3::Bucket'
     DeletionPolicy: Retain
     Properties:
-      BucketName: !Sub akpa-ai-ui-${EnvironmentName}
+      BucketName: !Sub akpa-ai-images-${EnvironmentName}
       PublicAccessBlockConfiguration:
         BlockPublicAcls: TRUE
         BlockPublicPolicy: TRUE
         IgnorePublicAcls: TRUE
         RestrictPublicBuckets: TRUE
-  
+
 Outputs:
   BucketName:
     Value: !Ref Bucket
