@@ -2,7 +2,7 @@
 
 set -Eeuox pipefail
 
-./softup-x-s3.sh
-./softup-x-cloudfront-oac.sh
-./softup-x-cloudfront.sh
-./softup-x-s3-policy.sh
+./akpa-ai-s3.sh
+./akpa-ai-cloudfront-oac.sh
+./akpa-ai-cloudfront.sh
+./akpa-ai-s3-policy.sh

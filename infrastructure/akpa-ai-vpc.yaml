@@ -45,14 +45,14 @@ Resources:
       EnableDnsHostnames: true
       Tags:
         - Key: Name
-          Value: !Sub softup-x-vpc-${EnvironmentName}
+          Value: !Sub akpa-ai-vpc-${EnvironmentName}
 
   InternetGateway:
     Type: AWS::EC2::InternetGateway
     Properties:
       Tags:
         - Key: Name
-          Value: !Sub softup-x-ig-${EnvironmentName}
+          Value: !Sub akpa-ai-ig-${EnvironmentName}
 
   InternetGatewayAttachment:
     Type: AWS::EC2::VPCGatewayAttachment
@@ -69,7 +69,7 @@ Resources:
       MapPublicIpOnLaunch: true
       Tags:
         - Key: Name
-          Value: !Sub softup-x-${EnvironmentName} Public Subnet (AZ1)
+          Value: !Sub akpa-ai-${EnvironmentName} Public Subnet (AZ1)
 
   # PublicSubnet2:
   #   Type: AWS::EC2::Subnet
@@ -80,7 +80,7 @@ Resources:
   #     MapPublicIpOnLaunch: true
   #     Tags:
   #       - Key: Name
-  #         Value: !Sub $softup-x-${EnvironmentName} Public Subnet (AZ2)
+  #         Value: !Sub $akpa-ai-${EnvironmentName} Public Subnet (AZ2)
 
   PrivateSubnet1:
     Type: AWS::EC2::Subnet
@@ -91,7 +91,7 @@ Resources:
       MapPublicIpOnLaunch: false
       Tags:
         - Key: Name
-          Value: !Sub $softup-x-${EnvironmentName} Private Subnet (AZ1)
+          Value: !Sub $akpa-ai-${EnvironmentName} Private Subnet (AZ1)
 
   # PrivateSubnet2:
   #   Type: AWS::EC2::Subnet
@@ -102,7 +102,7 @@ Resources:
   #     MapPublicIpOnLaunch: false
   #     Tags:
   #       - Key: Name
-  #         Value: !Sub $softup-x-${EnvironmentName} Private Subnet (AZ2)
+  #         Value: !Sub $akpa-ai-${EnvironmentName} Private Subnet (AZ2)
 
   NatGateway1EIP:
     Type: AWS::EC2::EIP
@@ -134,7 +134,7 @@ Resources:
       VpcId: !Ref VPC
       Tags:
         - Key: Name
-          Value: !Sub softup-x-${EnvironmentName} Public Routes
+          Value: !Sub akpa-ai-${EnvironmentName} Public Routes
 
   DefaultPublicRoute:
     Type: AWS::EC2::Route

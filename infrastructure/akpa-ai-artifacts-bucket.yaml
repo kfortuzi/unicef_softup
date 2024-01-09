@@ -6,7 +6,7 @@ Resources:
     Type: AWS::S3::Bucket
     DeletionPolicy: Retain
     Properties:
-      BucketName: "softup-x-build-artifacts"
+      BucketName: "akpa-ai-build-artifacts"
       VersioningConfiguration:
         Status: "Enabled"
       PublicAccessBlockConfiguration:

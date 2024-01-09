@@ -13,9 +13,9 @@ artifacts_bucket_name='[artifacts bucket name]'
 
 aws cloudformation deploy \
   --region $AWS_REGION \
-  --stack-name softup-x-api-lambda-role-$ENVIRONMENT \
+  --stack-name akpa-ai-api-lambda-role-$ENVIRONMENT \
   --capabilities CAPABILITY_NAMED_IAM \
-  --template-file stacks/softup-x-api-lambda-role-stack.yaml \
+  --template-file stacks/akpa-ai-api-lambda-role-stack.yaml \
   --no-fail-on-empty-changeset \
   --parameter-overrides ArtifactsBucket=$artifacts_bucket_name \
                         EnvironmentName=$ENVIRONMENT

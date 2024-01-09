@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-const prefix = 'softup-x';
+const prefix = 'akpa-ai';
 
 export enum LocalStorageKey {
   SELECTED_LANGUAGE = `${prefix}-selected-language`,

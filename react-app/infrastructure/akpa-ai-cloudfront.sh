@@ -9,14 +9,14 @@ check_environment_var
 
 AWS_REGION=eu-central-1
 
-bucket_output=$(stack_output softup-x-s3-$ENVIRONMENT)
+bucket_output=$(stack_output akpa-ai-s3-$ENVIRONMENT)
 bucket_name=$(param_from_stack_output "$bucket_output" BucketName)
 
-oac_output=$(stack_output softup-x-cloudfront-oac-$ENVIRONMENT)
+oac_output=$(stack_output akpa-ai-cloudfront-oac-$ENVIRONMENT)
 oac_id=$(param_from_stack_output "$oac_output" OriginAccessControlID)
 
 # TODO: Domain name example
-tld='softup-x.de'
+tld='akpa-ai.de'
 if [[ $ENVIRONMENT == 'prod' ]]; then
   domain_name="example.$tld"
 else
@@ -25,8 +25,8 @@ fi
 
 aws cloudformation deploy \
   --region $AWS_REGION \
-  --stack-name softup-x-cloudfront-$ENVIRONMENT \
-  --template-file stacks/softup-x-cloudfront-stack.yaml \
+  --stack-name akpa-ai-cloudfront-$ENVIRONMENT \
+  --template-file stacks/akpa-ai-cloudfront-stack.yaml \
   --no-fail-on-empty-changeset \
   --parameter-overrides EnvironmentName="$ENVIRONMENT" \
                         BucketName="$bucket_name" \

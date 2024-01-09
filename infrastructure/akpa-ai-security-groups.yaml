@@ -18,7 +18,7 @@ Resources:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: !Sub "Security group of Lambda in VPC in the ${EnvironmentName} environment"
-      GroupName: !Sub "softup-x-lambda-security-group-${EnvironmentName}"
+      GroupName: !Sub "akpa-ai-lambda-security-group-${EnvironmentName}"
       VpcId: !Ref VpcId
       SecurityGroupEgress:
         - IpProtocol: "tcp"
@@ -37,7 +37,7 @@ Resources:
       - LambdaSecurityGroup
     Properties:
       GroupDescription: !Sub "Security group of the Postgres instance in the ${EnvironmentName} environment"
-      GroupName: !Sub "softup-x-db-instance-security-group-${EnvironmentName}"
+      GroupName: !Sub "akpa-ai-db-instance-security-group-${EnvironmentName}"
       VpcId: !Ref VpcId
       SecurityGroupIngress:
         #TODO: For bastion host

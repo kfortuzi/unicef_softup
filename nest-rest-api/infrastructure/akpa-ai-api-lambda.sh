@@ -11,17 +11,17 @@ source ../../bash_utils/params.sh
 check_environment_var
 
 artifacts_bucket_name='[artifacts bucket name]'
-lambda_role_output=$(stack_output softup-x-api-lambda-role-$ENVIRONMENT)
+lambda_role_output=$(stack_output akpa-ai-api-lambda-role-$ENVIRONMENT)
 lambda_role_arn=$(param_from_stack_output "$lambda_role_output" LambdaRoleArn)
 
 # TODO: After VPC setup
-vpc_network_output=$(stack_output softup-x-vpc-network-$ENVIRONMENT)
+vpc_network_output=$(stack_output akpa-ai-vpc-network-$ENVIRONMENT)
 vpc_subnet_d_id=$(param_from_stack_output "$vpc_network_output" SubnetDId)
 vpc_subnet_e_id=$(param_from_stack_output "$vpc_network_output" SubnetEId)
 
 # TODO: After VPC SG setup
 
-vpc_security_group_output=$(stack_output softup-x-vpc-security-group-$ENVIRONMENT)
+vpc_security_group_output=$(stack_output akpa-ai-vpc-security-group-$ENVIRONMENT)
 vpc_lambda_security_group_id=$(param_from_stack_output "$vpc_security_group_output" LambdaSecurityGroupId)
 
 # Example how to read credentials from secret manager
@@ -33,9 +33,9 @@ db_name=$(get_secret_value rds-db-instance-credentials/application-$ENVIRONMENT 
 
 aws cloudformation deploy \
   --region $AWS_REGION \
-  --stack-name softup-x-api-lambda-$ENVIRONMENT \
+  --stack-name akpa-ai-api-lambda-$ENVIRONMENT \
   --capabilities CAPABILITY_NAMED_IAM \
-  --template-file stacks/softup-x-api-lambda-stack.yaml \
+  --template-file stacks/akpa-ai-api-lambda-stack.yaml \
   --no-fail-on-empty-changeset \
   --parameter-overrides ArtifactsBucket=$artifacts_bucket_name \
                         LambdaExecutionRole=$lambda_role_arn \

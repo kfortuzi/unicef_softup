@@ -2,6 +2,6 @@
 
 set -Eeuox pipefail
 
-./softup-x-api-lambda-role.sh
-./softup-x-api-lambda.sh
-./softup-x-api-gateway.sh
+./akpa-ai-api-lambda-role.sh
+./akpa-ai-api-lambda.sh
+./akpa-ai-api-gateway.sh

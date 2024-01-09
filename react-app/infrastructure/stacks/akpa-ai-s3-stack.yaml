@@ -11,7 +11,7 @@ Resources:
     Type: 'AWS::S3::Bucket'
     DeletionPolicy: Retain
     Properties:
-      BucketName: !Sub softup-x-ui-${EnvironmentName}
+      BucketName: !Sub akpa-ai-ui-${EnvironmentName}
       PublicAccessBlockConfiguration:
         BlockPublicAcls: TRUE
         BlockPublicPolicy: TRUE

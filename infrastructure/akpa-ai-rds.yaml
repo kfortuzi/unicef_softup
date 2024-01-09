@@ -30,7 +30,7 @@ Resources:
       CACertificateIdentifier: "rds-ca-rsa4096-g1"
       CopyTagsToSnapshot: true
       DBInstanceClass: !If [CreateProdResources, "db.t3.medium", "db.t3.micro"]
-      DBInstanceIdentifier: !Sub "softup-x-db-instance-${EnvironmentName}"
+      DBInstanceIdentifier: !Sub "akpa-ai-db-instance-${EnvironmentName}"
       DBName: !Sub "softup_x_${EnvironmentName}"
       DBParameterGroupName: "postgres14-wal-bi-prod"
       DBSubnetGroupName: !Ref RDSSubnetGroup
