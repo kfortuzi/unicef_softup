@@ -1,6 +1,6 @@
 import { Button as AntButton, ButtonProps } from 'antd';
 import { BaseButtonProps } from 'antd/es/button/button';
-import { MouseEventHandler } from 'react';
+import React, { MouseEventHandler } from 'react';
 
 interface Props extends ButtonProps {
   type: BaseButtonProps['type'];

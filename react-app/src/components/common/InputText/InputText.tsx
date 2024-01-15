@@ -1,6 +1,6 @@
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { Flex, Input, InputProps, InputRef, Tooltip, Typography } from 'antd';
-import { ChangeEventHandler } from 'react';
+import React, { ChangeEventHandler } from 'react';
 
 interface Props extends InputProps {
   inputRef?: React.Ref<InputRef>;
@@ -10,6 +10,7 @@ interface Props extends InputProps {
   onChange?: ChangeEventHandler<HTMLInputElement>;
   placeholder?: string;
   label?: string;
+  textVisible?: boolean;
   type?: 'email' | 'password' | 'tel' | 'url';
   className?: string;
 }
@@ -22,6 +23,7 @@ const InputText: React.FC<Props> = ({
   onChange,
   placeholder,
   label,
+  textVisible = false,
   type,
   className = '',
   ...rest
@@ -59,7 +61,7 @@ const InputText: React.FC<Props> = ({
           placeholder={placeholder}
           status={inputStatus}
           suffix={inputSuffix}
-          type={type}
+          type={!textVisible ? type : 'text'}
           {...rest}
         />
       </Flex>

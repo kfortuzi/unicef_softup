@@ -4,17 +4,5 @@
   "singleQuote": true,
   "trailingComma": "all",
   "bracketSpacing": true,
-  "singleAttributePerLine": true,
-  "importOrder": [
-    "^(util|path|fs|http|http2|crypto|url|os|reflect-metadata)$",
-    "<THIRD_PARTY_MODULES>",
-    "src/",
-    "^[./]",
-    "^\\.$"
-  ],
-  "importOrderSeparation": true,
-  "importOrderSortSpecifiers": true,
-  "plugins": [
-    "@trivago/prettier-plugin-sort-imports"
-  ]
+  "singleAttributePerLine": true
 }

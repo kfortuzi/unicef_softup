@@ -1,7 +1,7 @@
 import { BookOutlined, HomeOutlined, LogoutOutlined, ProfileOutlined, UserOutlined } from '@ant-design/icons';
 import { CheckboxOptionType, Flex, Image, Layout, Menu, MenuProps, Radio } from 'antd';
 import { Content, Footer, Header } from 'antd/es/layout/layout';
-import { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 

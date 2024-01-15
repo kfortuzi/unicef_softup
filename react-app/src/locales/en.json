@@ -11,8 +11,9 @@
         "submit": "Log In",
         "forgotPassword": "Forgot password?",
         "rememberMe": "Remember me",
-        "newToPlatform": "New to Softup X?",
-        "emailPlaceholder": "E-Mail"
+        "newToPlatform": "New to AKPA AI?",
+        "emailPlaceholder": "E-Mail",
+        "showPassword": "Show password"
       },
       "signUp": {
         "header": "Create New Account",

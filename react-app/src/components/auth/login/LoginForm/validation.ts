@@ -1,4 +1,4 @@
-import { ObjectSchema, boolean, object, string } from 'yup';
+import { ObjectSchema, object, string } from 'yup';
 
 import i18n from 'src/locales';
 
@@ -10,7 +10,6 @@ const validationSchema: ObjectSchema<FormValues> = object({
     .email(i18n.t('auth.login.emailWrongFormat'))
     .required(i18n.t('auth.login.emailRequired')),
   [FormField.PASSWORD]: string().required(i18n.t('auth.login.passwordRequired')),
-  [FormField.REMEMBER_ME]: boolean().required(),
 });
 
 export default validationSchema;

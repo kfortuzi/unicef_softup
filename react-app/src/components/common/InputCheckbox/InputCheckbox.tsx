@@ -1,5 +1,6 @@
 import { Checkbox, CheckboxProps } from 'antd';
 import { AbstractCheckboxProps, CheckboxChangeEvent } from 'antd/es/checkbox/Checkbox';
+import React from 'react';
 
 interface Props extends CheckboxProps {
   name: string;

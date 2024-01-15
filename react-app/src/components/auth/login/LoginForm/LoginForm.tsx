@@ -1,6 +1,7 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Typography } from 'antd';
+import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -17,6 +18,8 @@ import validationSchema from './validation';
 
 const LoginForm: React.FC = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'auth.login' });
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const { mutate: logIn, isPending } = useLogIn();
 
@@ -60,22 +63,17 @@ const LoginForm: React.FC = () => {
             onChange={onChange}
             prefix={<LockOutlined />}
             placeholder={t('passwordPlaceholder')}
+            textVisible={showPassword}
             type="password"
           />
         )}
       />
       <div className="remember-me-and-forgot-password">
-        <Controller
-          control={control}
-          name={FormField.REMEMBER_ME}
-          render={({ field: { name, value, onChange } }) => (
-            <InputCheckbox
-              name={name}
-              label={t('rememberMe')}
-              checked={value}
-              onChange={onChange}
-            />
-          )}
+        <InputCheckbox
+          name={FormField.SHOW_PASSWORD}
+          label={t('showPassword')}
+          checked={showPassword}
+          onChange={() => setShowPassword((current) => !current)}
         />
         <Typography.Text>
           <Link

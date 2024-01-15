@@ -1,13 +1,24 @@
 // Font variables
-$basier-regular: 'BasierCircle-Regular';
-$basier-medium: 'BasierCircle-Medium';
-$basier-bold: 'BasierCircle-Bold';
+$karla-bold: 'Karla-Bold';
+$karla-bolditalic: 'Karla-BoldItalic';
+$karla-extrabold: 'Karla-ExtraBold';
+$karla-extrabolditalic: 'Karla-ExtraBoldItalic';
+$karla-extralight: 'Karla-ExtraLight';
+$karla-extralightitalic: 'Karla-ExtraLightItalic';
+$karla-italic: 'Karla-Italic';
+$karla-light: 'Karla-Light';
+$karla-lightitalic: 'Karla-LightItalic';
+$karla-medium: 'Karla-Medium';
+$karla-mediumitalic: 'Karla-MediumItalic';
+$karla-regular: 'Karla-Regular';
+$karla-semibold: 'Karla-SemiBold';
+$karla-semibolditalic: 'Karla-SemiBoldItalic';
 
 // Base variables
-$base-font: $basier-regular;
+$base-font: $karla-regular;
 $base-font-size: 16px;
-$base-font-color: #2d2d2d;
-$background-color: #f5f5f5;
+$base-font-color: #212529;
+$background-color: white;
 
 // Padding, Margin, Gap
 $small: 8px;
@@ -19,7 +30,7 @@ $suggested-form-width: 350px;
 $suggested-result-component-width: 500px;
 
 // Colors
-$primary-color: #19a0ff;
+$primary-color: #c82121;
 $success-color: #52c41a;
 $warning-color: #faad14;
 $error-color: #ff4d4f;

@@ -15,11 +15,11 @@ const useLogIn = () => {
   return useMutation({
     mutationKey: [Keys.LOG_IN],
     mutationFn: logIn,
-    onSuccess: (data, params) => {
+    onSuccess: (data) => {
       if (!data) {
         navigate(`${Route.ACCESS}/${Route.LOGIN}`, { replace: true });
       } else {
-        setUserSessionToken(data.access_token, params.rememberMe);
+        setUserSessionToken(data.access_token);
         navigate(Route.ROOT, { replace: true });
       }
     },

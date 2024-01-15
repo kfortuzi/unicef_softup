@@ -1,5 +1,6 @@
 # Editor directories and files
 .vscode/*
+.idea/*
 
 # API compiled output
 nest-rest-api/dist

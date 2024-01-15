@@ -4,12 +4,29 @@ module.exports = {
   extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:react-hooks/recommended'],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh', 'react-hooks', 'react'],
+  plugins: ['react-refresh', 'react-hooks', 'react', 'import-helpers'],
   rules: {
     indent: [
       'error',
       2,
       { SwitchCase: 1, ignoredNodes: ['TemplateLiteral'], offsetTernaryExpressions: true },
+    ],
+    'import-helpers/order-imports': [
+      "error",
+      {
+        'newlinesBetween': 'always',
+        'groups': [
+          'module',
+          '/prop-types/',
+          '/^src/',
+          '/^[./]/',
+          '/styles/'
+        ],
+        'alphabetize': {
+          'order': 'asc',
+          'ignoreCase': true
+        }
+      }
     ],
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     'newline-before-return': 'error',

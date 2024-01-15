@@ -1,5 +1,5 @@
 import { Result, ResultProps } from 'antd';
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 
 interface Props extends ResultProps {
   status: ResultProps['status'];

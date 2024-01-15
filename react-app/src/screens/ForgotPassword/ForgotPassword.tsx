@@ -1,4 +1,5 @@
 import { Typography } from 'antd';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import ForgotPasswordForm from 'src/components/auth/forgotPassword/ForgotPasswordForm/ForgotPasswordForm';

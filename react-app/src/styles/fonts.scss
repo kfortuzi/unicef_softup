@@ -1,31 +1,114 @@
-// Define font-family names
-$basier-font-family-regular: 'Basier Regular';
-$basier-font-family-medium: 'Basier Medium';
-$basier-font-family-bold: 'Basier Bold';
-
 // Define paths to your font files (adjust these paths as needed)
-$basier-font-path-regular: '../assets/fonts/BasierCircle-Regular.woff2';
-$basier-font-path-medium: '../assets/fonts/BasierCircle-Medium.woff2';
-$basier-font-path-bold: '../assets/fonts/BasierCircle-Bold.woff2';
+$karla-font-path-bold: '../assets/fonts/Karla-Bold.ttf';
+$karla-font-path-bolditalic: '../assets/fonts/Karla-BoldItalic.ttf';
+$karla-font-path-extrabold: '../assets/fonts/Karla-ExtraBold.ttf';
+$karla-font-path-extrabolditalic: '../assets/fonts/Karla-ExtraBoldItalic.ttf';
+$karla-font-path-extralight: '../assets/fonts/Karla-ExtraLight.ttf';
+$karla-font-path-extralightitalic: '../assets/fonts/Karla-ExtraLightItalic.ttf';
+$karla-font-path-italic: '../assets/fonts/Karla-Italic.ttf';
+$karla-font-path-light: '../assets/fonts/Karla-Light.ttf';
+$karla-font-path-lightitalic: '../assets/fonts/Karla-LightItalic.ttf';
+$karla-font-path-medium: '../assets/fonts/Karla-Medium.ttf';
+$karla-font-path-mediumitalic: '../assets/fonts/Karla-MediumItalic.ttf';
+$karla-font-path-regular: '../assets/fonts/Karla-Regular.ttf';
+$karla-font-path-semibold: '../assets/fonts/Karla-SemiBold.ttf';
+$karla-font-path-semibolditalic: '../assets/fonts/Karla-SemiBoldItalic.ttf';
 
 // Import and define font faces for each font-weight
 @font-face {
-  font-family: 'BasierCircle-Regular';
-  src: url('#{$basier-font-path-regular}') format('woff2');
+  font-family: 'Karla-Bold';
+  src: url('#{$karla-font-path-bold}') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'BasierCircle-Medium';
-  src: url('#{$basier-font-path-medium}') format('woff2');
-  font-weight: 500; // Adjust to match your medium font's weight
+  font-family: 'Karla-BoldItalic';
+  src: url('#{$karla-font-path-bolditalic}') format('truetype');
+  font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'BasierCircle-Bold';
-  src: url('#{$basier-font-path-bold}') format('woff2');
-  font-weight: bold;
+  font-family: 'Karla-ExtraBold';
+  src: url('#{$karla-font-path-extrabold}') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Karla-ExtraBoldItalic';
+  src: url('#{$karla-font-path-extrabolditalic}') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Karla-ExtraLight';
+  src: url('#{$karla-font-path-extralight}') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Karla-ExtraLightItalic';
+  src: url('#{$karla-font-path-extralightitalic}') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Karla-Italic';
+  src: url('#{$karla-font-path-italic}') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Karla-Light';
+  src: url('#{$karla-font-path-light}') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Karla-LightItalic';
+  src: url('#{$karla-font-path-lightitalic}') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Karla-Medium';
+  src: url('#{$karla-font-path-medium}') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Karla-MediumItalic';
+  src: url('#{$karla-font-path-mediumitalic}') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Karla-Regular';
+  src: url('#{$karla-font-path-regular}') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Karla-SemiBold';
+  src: url('#{$karla-font-path-semibold}') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Karla-SemiBoldItalic';
+  src: url('#{$karla-font-path-semibolditalic}') format('truetype');
+  font-weight: normal;
   font-style: normal;
 }

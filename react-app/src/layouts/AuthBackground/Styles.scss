@@ -1,0 +1,11 @@
+.auth-background {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  .background-image {
+    background-image: url('src/assets/images/auth-background.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+}

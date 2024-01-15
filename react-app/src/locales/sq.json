@@ -11,8 +11,9 @@
         "submit": "Hyni",
         "forgotPassword": "Harruat fjalekalimin?",
         "rememberMe": "Me mbaj mend",
-        "newToPlatform": "Hera e pare ne Softup X?",
-        "emailPlaceholder": "E-Mail"
+        "newToPlatform": "Hera e pare ne AKPA AI?",
+        "emailPlaceholder": "E-Mail",
+        "showPassword": "Shfaq fjalekalimin"
       },
       "signUp": {
         "header": "Krijoni nje Llogari",

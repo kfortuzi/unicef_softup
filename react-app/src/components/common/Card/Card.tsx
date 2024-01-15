@@ -1,4 +1,5 @@
 import { Card as AntCard, CardProps } from 'antd';
+import React from 'react';
 
 interface Props extends CardProps {
   title: string;

@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { Action, Entity } from './enums';
 import useAllowAccess from './hooks/useAllowAccess';
 

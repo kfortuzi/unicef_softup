@@ -11,12 +11,12 @@ export enum Locale {
   ALBANIAN = 'sq',
 }
 
-const selectedLanguage = getItem<Locale>(LocalStorageKey.SELECTED_LANGUAGE) || Locale.ENGLISH;
+const selectedLanguage = getItem<Locale>(LocalStorageKey.SELECTED_LANGUAGE) || Locale.ALBANIAN;
 
 i18n.use(initReactI18next).init({
   resources: { en, sq },
   lng: selectedLanguage,
-  fallbackLng: 'en',
+  fallbackLng: 'sq',
   interpolation: {
     escapeValue: false,
   },
