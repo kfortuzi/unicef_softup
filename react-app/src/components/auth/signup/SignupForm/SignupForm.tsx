@@ -1,12 +1,14 @@
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Alert, Typography } from 'antd';
-import React from 'react';
+import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import useSignUp from 'src/api/users/hooks/useSignUp';
 import Button from 'src/components/common/Button/Button';
+import InputCheckbox from 'src/components/common/InputCheckbox/InputCheckbox.tsx';
 import InputText from 'src/components/common/InputText/InputText';
 import { Route } from 'src/router/enums';
 
@@ -16,6 +18,8 @@ import validationSchema from './validation';
 
 const SignupForm: React.FC = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'auth.signUp' });
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const { mutate: signUp, isPending, isSuccess } = useSignUp();
 
@@ -42,35 +46,8 @@ const SignupForm: React.FC = () => {
             value={value}
             error={error?.message}
             onChange={onChange}
-            label={t('emailLabel')}
-          />
-        )}
-      />
-      <Controller
-        control={control}
-        name={FormField.FIRST_NAME}
-        render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
-          <InputText
-            inputRef={ref}
-            name={name}
-            value={value}
-            error={error?.message}
-            onChange={onChange}
-            label={t('firstNameLabel')}
-          />
-        )}
-      />
-      <Controller
-        control={control}
-        name={FormField.LAST_NAME}
-        render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
-          <InputText
-            inputRef={ref}
-            name={name}
-            value={value}
-            error={error?.message}
-            onChange={onChange}
-            label={t('lastNameLabel')}
+            prefix={<UserOutlined />}
+            placeholder={t('emailPlaceholder')}
           />
         )}
       />
@@ -84,26 +61,22 @@ const SignupForm: React.FC = () => {
             value={value}
             error={error?.message}
             onChange={onChange}
-            label={t('passwordLabel')}
+            prefix={<LockOutlined />}
+            placeholder={t('passwordPlaceholder')}
+            textVisible={showPassword}
             type="password"
           />
         )}
       />
-      <Controller
-        control={control}
-        name={FormField.CONFIRM_PASSWORD}
-        render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
-          <InputText
-            inputRef={ref}
-            name={name}
-            value={value}
-            error={error?.message}
-            onChange={onChange}
-            label={t('confirmPasswordLabel')}
-            type="password"
-          />
-        )}
-      />
+      <div className="password-rules-and-show-password">
+        <Typography.Text>{t('passwordRules')}</Typography.Text>
+        <InputCheckbox
+          name={FormField.SHOW_PASSWORD}
+          label={t('showPassword')}
+          checked={showPassword}
+          onChange={() => setShowPassword((current) => !current)}
+        />
+      </div>
       <div className="submit-button-group">
         {isSuccess && (
           <Alert

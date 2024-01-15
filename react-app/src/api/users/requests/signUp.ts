@@ -5,7 +5,6 @@ import { SignupRequest, SignupResponse, User } from '../types';
 
 const signUp = async (request: SignupRequest): Promise<User | undefined> => {
   const confirmUserUrl = `${window.location.origin}/#${Route.ACCESS}/${Route.CONFIRM_USER}`;
-  const username = `${request.firstName.toLowerCase()}.${request.lastName.toLowerCase()}`;
 
   const parsedData = await makeRequest<SignupResponse>(
     '/user/signup',
@@ -13,9 +12,6 @@ const signUp = async (request: SignupRequest): Promise<User | undefined> => {
       method: 'POST',
       body: JSON.stringify({
         email: request.email,
-        username,
-        first_name: request.firstName,
-        last_name: request.lastName,
         password: request.password,
         confirm_user_url: confirmUserUrl,
       }),

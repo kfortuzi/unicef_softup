@@ -68,7 +68,7 @@ const LoginForm: React.FC = () => {
           />
         )}
       />
-      <div className="remember-me-and-forgot-password">
+      <div className="show-password-checkbox-and-forgot-password">
         <InputCheckbox
           name={FormField.SHOW_PASSWORD}
           label={t('showPassword')}

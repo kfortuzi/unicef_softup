@@ -5,6 +5,12 @@
   width: 100%;
   gap: $medium;
 
+  .password-rules-and-show-password {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: $small;
+  }
+
   .submit-button-group {
     display: flex;
     flex-flow: column nowrap;
