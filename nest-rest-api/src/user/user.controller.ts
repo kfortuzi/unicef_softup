@@ -23,9 +23,6 @@ import {
   ApiQuery,
 } from '@nestjs/swagger';
 import { User } from './entities/user.entity';
-import { CheckPolicies, PoliciesGuard } from 'src/auth/policy.guard';
-import { Action, AppAbility } from 'src/casl/casl-ability.factory';
-import { GoogleOAuthGuard } from 'src/auth/google-oauth.guard';
 import { ResetPassowrdUserDto } from './dto/reset-password-user.dto';
 
 @Controller('user')
@@ -71,10 +68,10 @@ export class UserController {
   })
   @ApiForbiddenResponse({ status: 403, description: 'Forbidden.' })
   confirm(
-    @Query('id') id: number,
+    @Query('id') id: string,
     @Query('verificationCode') verificationCode: string,
   ) {
-    return this.userService.confirm(Number(id), verificationCode);
+    return this.userService.confirm(id, verificationCode);
   }
 
   @ApiBearerAuth()
@@ -94,10 +91,10 @@ export class UserController {
   @ApiParam({ type: Number, name: 'id' })
   @ApiQuery({ type: String, name: 'verificationCode', required: false })
   update(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Query('verificationCode') verificationCode: string | null,
     @Body() updateUserDto: UpdateUserDto,
   ) {
-    return this.userService.update(+id, verificationCode, updateUserDto);
+    return this.userService.update(id, verificationCode, updateUserDto);
   }
 }

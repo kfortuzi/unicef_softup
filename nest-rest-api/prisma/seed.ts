@@ -4,29 +4,28 @@ const prisma = new PrismaClient();
 
 async function main() {
   console.log('Seeding...');
-  const result = await prisma.user.createMany({ 
+  const result = await prisma.users.createMany({
     data: [
       {
-        first_name: 'softup',
-        last_name: 'softup',
+        firstName: 'softup',
+        lastName: 'softup',
         email: 'admin@softup.co',
-        username: 'SoftupX',
         verificationCode: uuidv4(),
-        confirmed_at: new Date(),
+        confirmedAt: new Date(),
         password: 'softup1234',
       },
       {
-        first_name: 'john',
-        last_name: 'doe',
+        firstName: 'john',
+        lastName: 'doe',
         email: 'john.doe@example.co',
-        username: 'JonDoe',
         verificationCode: uuidv4(),
-        confirmed_at: new Date(),
+        confirmedAt: new Date(),
         password: '123456789',
       },
     ],
-    skipDuplicates: true });
-    console.log('Finished Seeding, result: ', result);
+    skipDuplicates: true,
+  });
+  console.log('Finished Seeding, result: ', result);
 }
 
 main()

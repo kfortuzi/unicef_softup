@@ -7,13 +7,153 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id               Int       @id @default(autoincrement())
+model users {
+  id               String    @id @default(cuid())
   email            String    @unique
-  username         String    @unique
-  first_name       String?
-  last_name        String?
+  firstName        String?   @map("first_name")
+  lastName         String?   @map("last_name")
   password         String
-  verificationCode String?
-  confirmed_at     DateTime?
+  verificationCode String?   @map("verification_code")
+  confirmedAt      DateTime? @db.Timestamp(6)
+  phoneNumber      String?   @map("phone_number")
+  profession       String?
+  profilePicture   String?   @map("profile_picture")
+  birthdayDate     DateTime? @db.Date
+  hobbies          String?
+  createdAt        DateTime  @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt        DateTime? @updatedAt @map("updated_at") @db.Timestamp(6)
+  deletedAt        DateTime? @map("deleted_at") @db.Timestamp(6)
+
+  resumes               resumes[]
+  cover_letters         cover_letters[]
+  user_skills           user_skills[]
+  user_recommended_jobs user_recommended_jobs[]
+}
+
+model user_skills {
+  id     String @id @default(cuid())
+  userId String @map("user_id")
+  name   String
+
+  user users @relation(fields: [userId], references: [id])
+}
+
+enum DrivingLicense {
+  AM
+  A1
+  A2
+  A
+  B1
+  BE
+  C1
+  C1E
+  C
+  CE
+  D1
+  D1E
+  D
+  DE
+}
+
+model resumes {
+  id             String          @id @default(cuid())
+  userId         String          @map("user_id")
+  email          String          @unique
+  firstName      String?         @map("first_name")
+  lastName       String?         @map("last_name")
+  profilePicture String?         @map("profile_picture")
+  nationality    String?
+  linkedinUrl    String?         @map("linkedin_url")
+  location       String?
+  phoneNumber    String?         @map("phone_number")
+  summary        String?
+  education      Json?
+  experiences    Json?
+  languages      Json?
+  digitalSkills  String?         @map("digital_skills")
+  softSkills     String?         @map("soft_skills")
+  hobbies        String?
+  certificates   Json?
+  volunteering   Json?
+  publications   Json?
+  drivingLicense DrivingLicense? @map("driving_license")
+  enhanced       Boolean         @default(false)
+  createdAt      DateTime        @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt      DateTime?       @updatedAt @map("updated_at") @db.Timestamp(6)
+  deletedAt      DateTime?       @map("deleted_at") @db.Timestamp(6)
+
+  user users @relation(fields: [userId], references: [id])
+}
+
+model cover_letters {
+  id             String    @id @default(cuid())
+  userId         String    @map("user_id")
+  to             String
+  company        String
+  companyAddress String?   @map("company_address")
+  content        String?
+  createdAt      DateTime  @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt      DateTime? @updatedAt @map("updated_at") @db.Timestamp(6)
+  deletedAt      DateTime? @map("deleted_at") @db.Timestamp(6)
+  user           users     @relation(fields: [userId], references: [id])
+}
+
+enum JobType {
+  part
+  full
+}
+
+model jobs {
+  id                    String                  @id @default(cuid())
+  referenceId           String                  @map("reference_id")
+  title                 String?
+  description           String?
+  address               String?
+  location              String
+  type                  JobType?
+  tags                  String?
+  company               String?
+  companyLogo           String?                 @map("company_logo")
+  createdAt             DateTime                @default(now()) @map("created_at") @db.Timestamp(6)
+  user_recommended_jobs user_recommended_jobs[]
+}
+
+model user_recommended_jobs {
+  userId String @map("user_id")
+  jobId  String @map("job_id")
+
+  user users @relation(fields: [userId], references: [id])
+  job  jobs  @relation(fields: [jobId], references: [id])
+
+  @@id([userId, jobId])
+}
+
+model videos {
+  id        String    @id @default(cuid())
+  title     String?
+  category  String?
+  duration  BigInt?
+  url       String
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamp(6)
+  deletedAt DateTime? @map("deleted_at") @db.Timestamp(6)
+}
+
+model articles {
+  id        String    @id @default(cuid())
+  title     String?
+  category  String?
+  author    String?
+  url       String?
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamp(6)
+  deletedAt DateTime? @map("deleted_at") @db.Timestamp(6)
+}
+
+model processing {
+  id                String   @id @default(cuid())
+  resumeId          String?  @map("resume_id")
+  coverLetterId     String?  @map("cover_letter_id")
+  duration          BigInt?
+  status            String?
+  processing_status String?
+  createdAt         DateTime @default(now()) @map("created_at") @db.Timestamp(6)
 }

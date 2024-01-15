@@ -13,12 +13,14 @@ export class AuthService {
   async validateUser(email: string, pass: string): Promise<any> {
     if (!email || !pass) return null;
     const user = await this.userService.findOneByEmail(email);
-    if (!user || !user.confirmed_at) throw new BadRequestException('User not confirmed!');
+    if (!user || !user.confirmedAt)
+      throw new BadRequestException('User not confirmed!');
 
     const isMatch = await bcrypt.compare(pass, user.password);
 
     if (!isMatch) return null;
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, ...result } = user;
     return result;
   }

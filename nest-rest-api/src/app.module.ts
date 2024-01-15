@@ -27,11 +27,11 @@ import { LoggerMiddleware } from './logger/logger.middleware';
               level: process.env.NODE_ENV !== 'production' ? 'trace' : 'info',
               target: 'pino-pretty',
               options: { singleLine: true },
-            }
-          ]
+            },
+          ],
         },
       },
-    })
+    }),
   ],
   controllers: [AppController, MailController],
   providers: [AppService, SendgridService, MailService],

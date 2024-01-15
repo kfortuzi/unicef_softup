@@ -32,7 +32,7 @@ export class User {
   password: string;
 
   @ApiProperty({ required: false, nullable: true, type: String })
-  verificationCode: string | null;
+  verification_code: string | null;
 
   @ApiProperty({ required: false, nullable: true, type: Date })
   confirmed_at: Date | null;

@@ -31,7 +31,7 @@ Resources:
       CopyTagsToSnapshot: true
       DBInstanceClass: !If [CreateProdResources, "db.t3.medium", "db.t3.micro"]
       DBInstanceIdentifier: !Sub "akpa-ai-db-instance-${EnvironmentName}"
-      DBName: !Sub "softup_x_${EnvironmentName}"
+      DBName: !Sub "akpa_${EnvironmentName}"
       DBParameterGroupName: "postgres14-wal-bi-prod"
       DBSubnetGroupName: !Ref RDSSubnetGroup
       DeleteAutomatedBackups: false

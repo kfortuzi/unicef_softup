@@ -19,6 +19,7 @@ services:
       - .env
     depends_on:
       - postgres
+
   postgres:
     image: postgres:14-alpine
     ports:
@@ -28,9 +29,16 @@ services:
     env_file:
       - .env
     environment:
+<<<<<<< HEAD
       POSTGRES_DB: 'softup_x_boilerplate'
       POSTGRES_USER: 'user'
       POSTGRES_HOST_AUTH_METHOD: 'trust'
       DB_HOST: 'host.docker.internal'
+=======
+      POSTGRES_DB: 'akpa_boilerplate'
+      POSTGRES_USER: 'user'
+      POSTGRES_PASSWORD: 'postgres'
+      DB_HOST: 'postgres'
+>>>>>>> c5ca3b8 (Database migrations)
 volumes:
   postgres-data:

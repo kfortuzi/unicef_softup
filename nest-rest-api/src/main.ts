@@ -34,7 +34,7 @@ async function bootstrap() {
       initOAuth: {
         clientId: process.env.GOOGLE_CLIENT_ID,
       },
-    }
+    },
   });
 
   app.use(cookieParser());

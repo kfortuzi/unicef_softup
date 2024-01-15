@@ -9,53 +9,54 @@ import { v4 as uuidv4 } from 'uuid';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { MailService } from 'src/mail/mail.service';
-import { User } from './entities/user.entity';
 import { ResetPassowrdUserDto } from './dto/reset-password-user.dto';
 import { ConfigService } from '@nestjs/config';
+import { users } from '@prisma/client';
 
 @Injectable()
 export class UserService {
-  constructor(private prismaService: PrismaService, private configService: ConfigService) {}
+  constructor(
+    private prismaService: PrismaService,
+    private configService: ConfigService,
+  ) {}
 
   async findOneByEmail(email: string) {
-    return await this.prismaService.user.findUnique({
+    return await this.prismaService.users.findUnique({
       where: { email: email },
     });
   }
 
-  async findOne(id: number) {
-    return await this.prismaService.user.findUnique({ where: { id: id } });
+  async findOne(id: string) {
+    return await this.prismaService.users.findUnique({ where: { id: id } });
   }
 
   async update(
-    id: number,
+    id: string,
     verificationCode: string | null,
     updateUserDto: UpdateUserDto,
   ) {
-    let user = await this.findOne(id);
+    const user = await this.findOne(id);
 
     if (!user) throw new NotFoundException({ message: 'User not found!' });
 
-    if (updateUserDto.username) user.username = updateUserDto.username;
-    if (updateUserDto.first_name) user.first_name = updateUserDto.first_name;
-    if (updateUserDto.last_name) user.last_name = updateUserDto.last_name;
+    if (updateUserDto.firstName) user.firstName = updateUserDto.firstName;
+    if (updateUserDto.lastName) user.lastName = updateUserDto.lastName;
 
     if (
       updateUserDto.password &&
       verificationCode &&
-      verificationCode == user.verificationCode
+      verificationCode === user.verificationCode
     ) {
       const salt = await bcrypt.genSalt();
       user.password = await bcrypt.hash(updateUserDto.password, salt);
       user.verificationCode = uuidv4();
     }
 
-    return await this.prismaService.user.update({
+    return await this.prismaService.users.update({
       where: { id: id },
       data: {
-        username: user.username,
-        first_name: user.first_name,
-        last_name: user.last_name,
+        firstName: user.firstName,
+        lastName: user.lastName,
         password: user.password,
         verificationCode: user.verificationCode,
       },
@@ -64,7 +65,7 @@ export class UserService {
 
   isValidEmail(email: string) {
     if (email) {
-      var re =
+      const re =
         /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
     } else return false;
@@ -80,29 +81,32 @@ export class UserService {
         });
       const salt = await bcrypt.genSalt();
       const password = await bcrypt.hash(createUserDto.password, salt);
-      const createdUser: User = await this.prismaService.user.create({
+      const createdUser: users = await this.prismaService.users.create({
         data: {
           email: createUserDto.email,
           password,
           verificationCode: uuidv4(),
-          username: createUserDto.username,
-          first_name: createUserDto.first_name,
-          last_name: createUserDto.last_name,
+          firstName: createUserDto.first_name,
+          lastName: createUserDto.last_name,
         },
       });
 
-      const { password:psw, ...rest } = createdUser
-      const hostURL = this.configService.get<string>('FE_URL') as string
+      const { password: psw, ...rest } = createdUser;
+      const hostURL = this.configService.get<string>('FE_URL') as string;
       const link = `<a href=${createUserDto.confirm_user_url}/?id=${createdUser.id}&verificationCode=${createdUser.verificationCode}> Link to confirm</a>`;
-      await MailService.prototype.sendEmail( createdUser.email, 'Confirmation Email', link);
+      await MailService.prototype.sendEmail(
+        createdUser.email,
+        'Confirmation Email',
+        link,
+      );
       return rest;
     }
   }
 
-  async confirm(id: number, verificationCode: string) {
-    return await this.prismaService.user.update({
+  async confirm(id: string, verificationCode: string) {
+    return await this.prismaService.users.update({
       where: { id: id },
-      data: { confirmed_at: new Date(), verificationCode: verificationCode },
+      data: { confirmedAt: new Date(), verificationCode },
     });
   }
 
