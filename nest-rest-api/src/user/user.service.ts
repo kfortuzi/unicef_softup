@@ -1,4 +1,5 @@
 import {
+  ForbiddenException,
   Injectable,
   NotFoundException,
   UnprocessableEntityException,
@@ -9,9 +10,12 @@ import { v4 as uuidv4 } from 'uuid';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { MailService } from 'src/mail/mail.service';
-import { ResetPassowrdUserDto } from './dto/reset-password-user.dto';
+import { SendResetPasswordUserDto } from './dto/send-reset-password-user.dto';
 import { ConfigService } from '@nestjs/config';
 import { users } from '@prisma/client';
+import exclude from 'src/commons/utils/exclude';
+import dayjs from 'dayjs';
+import { ResetPasswordUserDto } from './dto/reset-password-user.dto';
 
 @Injectable()
 export class UserService {
@@ -30,49 +34,71 @@ export class UserService {
     return await this.prismaService.users.findUnique({ where: { id: id } });
   }
 
-  async update(
-    id: string,
-    verificationCode: string | null,
-    updateUserDto: UpdateUserDto,
-  ) {
+  async findOneByIdAndCode(id: string, verificationCode: string) {
+    return await this.prismaService.users.findUnique({
+      where: { id, verificationCode },
+    });
+  }
+
+  async getProfile(id: string) {
+    const user = await this.findOne(id);
+    if (!user) throw new NotFoundException({ message: 'User not found!' });
+
+    return exclude(user, ['password', 'id']);
+  }
+
+  async update(id: string, updateUserDto: UpdateUserDto) {
     const user = await this.findOne(id);
 
     if (!user) throw new NotFoundException({ message: 'User not found!' });
 
     if (updateUserDto.firstName) user.firstName = updateUserDto.firstName;
     if (updateUserDto.lastName) user.lastName = updateUserDto.lastName;
+    if (updateUserDto.phoneNumber) user.phoneNumber = updateUserDto.phoneNumber;
+    if (updateUserDto.birthdayDate)
+      user.birthdayDate = dayjs(updateUserDto.birthdayDate).toDate();
+    if (updateUserDto.profession) user.profession = updateUserDto.profession;
+    if (updateUserDto.hobbies) user.hobbies = updateUserDto.hobbies;
 
-    if (
-      updateUserDto.password &&
-      verificationCode &&
-      verificationCode === user.verificationCode
-    ) {
-      const salt = await bcrypt.genSalt();
-      user.password = await bcrypt.hash(updateUserDto.password, salt);
-      user.verificationCode = uuidv4();
+    if (updateUserDto.oldPassword && updateUserDto.newPassword) {
+      const isSameOldPass = await bcrypt.compare(
+        updateUserDto.oldPassword,
+        user.password,
+      );
+      if (isSameOldPass) {
+        const salt = await bcrypt.genSalt();
+        const hashedNewPass = await bcrypt.hash(
+          updateUserDto.newPassword,
+          salt,
+        );
+        user.password = hashedNewPass;
+      } else {
+        throw new UnprocessableEntityException({
+          errorCode: 422,
+          message: 'Passwords do not match!',
+        });
+      }
     }
 
-    return await this.prismaService.users.update({
-      where: { id: id },
-      data: {
-        firstName: user.firstName,
-        lastName: user.lastName,
-        password: user.password,
-        verificationCode: user.verificationCode,
-      },
-    });
-  }
-
-  isValidEmail(email: string) {
-    if (email) {
-      const re =
-        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      return re.test(email);
-    } else return false;
+    return exclude(
+      await this.prismaService.users.update({
+        where: { id: id },
+        data: {
+          firstName: user.firstName,
+          lastName: user.lastName,
+          phoneNumber: user.phoneNumber,
+          birthdayDate: user.birthdayDate,
+          profession: user.profession,
+          hobbies: user.hobbies,
+          password: user.password,
+        },
+      }),
+      ['password'],
+    );
   }
 
   async create(createUserDto: CreateUserDto) {
-    if (this.isValidEmail(createUserDto.email) && createUserDto.password) {
+    if (createUserDto.email && createUserDto.password) {
       const user = await this.findOneByEmail(createUserDto.email);
       if (user)
         throw new UnprocessableEntityException({
@@ -91,40 +117,82 @@ export class UserService {
         },
       });
 
-      const { password: psw, ...rest } = createdUser;
-      const hostURL = this.configService.get<string>('FE_URL') as string;
-      const link = `<a href=${createUserDto.confirm_user_url}/?id=${createdUser.id}&verificationCode=${createdUser.verificationCode}> Link to confirm</a>`;
+      const result = exclude(createdUser, ['password']);
+
+      const link = `<a href=${process.env.FE_HOST}/?id=${createdUser.id}&verificationCode=${createdUser.verificationCode}> Link to confirm</a>`;
       await MailService.prototype.sendEmail(
         createdUser.email,
         'Confirmation Email',
         link,
       );
-      return rest;
+      return result;
     }
   }
 
   async confirm(id: string, verificationCode: string) {
-    return await this.prismaService.users.update({
-      where: { id: id },
-      data: { confirmedAt: new Date(), verificationCode },
-    });
+    const user = await this.findOneByIdAndCode(id, verificationCode);
+
+    if (!user) throw new NotFoundException({ message: 'User not found!' });
+
+    if (user.confirmedAt) return;
+
+    return exclude(
+      await this.prismaService.users.update({
+        where: { id, verificationCode },
+        data: { confirmedAt: new Date(), verificationCode: null },
+      }),
+      ['password', 'id'],
+    );
   }
 
-  async sendResetPassword(resetPassowrdUserDto: ResetPassowrdUserDto) {
-    const user = await this.findOneByEmail(resetPassowrdUserDto.email);
+  // TODO: Think of a way to invalidate the code after X minutes.
+  async sendResetPassword({ email }: SendResetPasswordUserDto) {
+    const user = await this.findOneByEmail(email);
 
-    if (!user)
+    if (!user || !user.confirmedAt)
       throw new UnprocessableEntityException({
         errorCode: 422,
         message: 'User does not exists!',
       });
 
-    // const hostURL = new URL(this.configService.get<string>('FE_URL') as string);
-    // const stringId: string = user.id.toString();
-    // const stringVerificationCode: string = user.verificationCode || "";
-    // const searchParams = new URLSearchParams({ id: stringId, verificationCode: stringVerificationCode });
-    // hostURL.search = searchParams.toString()
-    const link = `<a href=${resetPassowrdUserDto.reset_password_url}?id=${user.id}&verificationCode=${user.verificationCode}> Link to reset password</a>`;
+    const userWithVfCode = await this.prismaService.users.update({
+      where: { email },
+      data: {
+        verificationCode: uuidv4(),
+      },
+    });
+
+    const link = `<a href=${process.env.RESET_PASSWORD_URL}?id=${user.id}&verificationCode=${userWithVfCode.verificationCode}> Link to reset password</a>`;
+
     await MailService.prototype.sendEmail(user.email, 'Reset Email', link);
+  }
+
+  async resetPassword({
+    userId,
+    verificationCode,
+    password,
+  }: ResetPasswordUserDto) {
+    const user = await this.findOne(userId);
+
+    if (!user) throw new NotFoundException({ message: 'User not found!' });
+
+    if (
+      password &&
+      verificationCode &&
+      verificationCode === user.verificationCode
+    ) {
+      const salt = await bcrypt.genSalt();
+
+      const hashedPass = await bcrypt.hash(password, salt);
+      await this.prismaService.users.update({
+        where: { id: userId },
+        data: {
+          password: hashedPass,
+          verificationCode: null,
+        },
+      });
+    } else {
+      throw new ForbiddenException();
+    }
   }
 }

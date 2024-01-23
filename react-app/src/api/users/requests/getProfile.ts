@@ -17,7 +17,6 @@ const getProfile = async (): Promise<User | undefined> => {
     const {
       id,
       email,
-      username,
       first_name: firstName,
       last_name: lastName,
       confirmed_at: confirmedAt,
@@ -26,7 +25,6 @@ const getProfile = async (): Promise<User | undefined> => {
     return {
       id,
       email,
-      username,
       firstName,
       lastName,
       confirmedAt,

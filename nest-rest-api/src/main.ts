@@ -14,19 +14,10 @@ async function bootstrap() {
   app.useGlobalInterceptors(new LoggerErrorInterceptor());
 
   const config = new DocumentBuilder()
-    .setTitle('SoftupX')
-    .setDescription('SoftupX API')
+    .setTitle('AkpaAi')
+    .setDescription('AkpaAi API')
     .setVersion('1.0')
     .addBearerAuth()
-    // .addOAuth2({
-    //   type: 'oauth2',
-    //   flows: {
-    //     implicit: {
-    //       scopes: {},
-    //       authorizationUrl: `${configService.get<string>('HOST_URL') as string}/auth`,
-    //     },
-    //   },
-    // })
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/', app, document, {

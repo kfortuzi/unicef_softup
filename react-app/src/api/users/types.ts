@@ -6,7 +6,6 @@ export type Role = {
 export type User = {
   id: string;
   email: string;
-  username: string;
   firstName: string;
   lastName: string;
   verificationCode?: string;
@@ -18,7 +17,6 @@ export type User = {
 export type GetProfileResponse = {
   id: string;
   email: string;
-  username: string;
   first_name: string;
   last_name: string;
   confirmed_at: string | null;
@@ -33,7 +31,6 @@ export type SignupRequest = {
 export type SignupResponse = {
   id: string;
   email: string;
-  username: string;
   first_name: string;
   last_name: string;
   confirmed_at: string | null;

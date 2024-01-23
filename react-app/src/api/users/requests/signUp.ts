@@ -13,6 +13,7 @@ const signUp = async (request: SignupRequest): Promise<User | undefined> => {
       body: JSON.stringify({
         email: request.email,
         password: request.password,
+        // TODO: Remove, not needed
         confirm_user_url: confirmUserUrl,
       }),
     },
@@ -23,7 +24,6 @@ const signUp = async (request: SignupRequest): Promise<User | undefined> => {
     const {
       id,
       email,
-      username: parsedUsername,
       first_name: firstName,
       last_name: lastName,
       confirmed_at: confirmedAt,
@@ -32,7 +32,6 @@ const signUp = async (request: SignupRequest): Promise<User | undefined> => {
     return {
       id,
       email,
-      username: parsedUsername,
       firstName,
       lastName,
       confirmedAt,

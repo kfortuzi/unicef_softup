@@ -1,14 +1,19 @@
 import { ApiProperty } from '@nestjs/swagger/dist/decorators/api-property.decorator';
-import { IsString, IsEmail, MinLength, IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
-export class ResetPassowrdUserDto {
-  @IsEmail()
+export class ResetPasswordUserDto {
+  @IsString()
   @IsNotEmpty()
   @ApiProperty({ type: String })
-  email: string;
+  userId: string;
 
-  @IsNotEmpty()
   @IsString()
-    @ApiProperty({ type: String })
-  reset_password_url: string;
+  @IsNotEmpty()
+  @ApiProperty({ type: String })
+  verificationCode: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty({ type: String })
+  password: string;
 }

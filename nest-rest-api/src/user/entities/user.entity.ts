@@ -8,9 +8,6 @@ export class User {
   @ApiProperty({ type: String, description: "User's email" })
   email: string;
 
-  @ApiProperty({ type: String, description: "User's username" })
-  username: string;
-
   @ApiProperty({
     required: false,
     nullable: true,
