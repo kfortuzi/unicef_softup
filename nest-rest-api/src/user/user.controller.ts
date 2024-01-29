@@ -1,9 +1,12 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  Param,
   Patch,
   Post,
+  Put,
   Query,
   Request,
   UseGuards,
@@ -18,11 +21,13 @@ import {
   ApiTags,
   ApiCreatedResponse,
   ApiForbiddenResponse,
+  ApiParam,
 } from '@nestjs/swagger';
 import { User } from './entities/user.entity';
 import { SendResetPasswordUserDto } from './dto/send-reset-password-user.dto';
 import { RequestWithUser } from 'src/types/request';
 import { ResetPasswordUserDto } from './dto/reset-password-user.dto';
+import { UserSkillDto } from './dto/user-skill.dto';
 
 @Controller('user')
 export class UserController {
@@ -104,5 +109,47 @@ export class UserController {
     @Body() updateUserDto: UpdateUserDto,
   ) {
     return this.userService.update(req.user.id, updateUserDto);
+  }
+
+  @ApiBearerAuth()
+  @ApiTags('users')
+  @UseGuards(JwtAuthGuard)
+  @Get('skills')
+  skills(@Request() req: RequestWithUser) {
+    return this.userService.findUserSkills(req.user.id);
+  }
+
+  @ApiBearerAuth()
+  @ApiTags('users')
+  @UseGuards(JwtAuthGuard)
+  @ApiBody({ type: UserSkillDto })
+  @Post('skills')
+  createSkill(
+    @Request() req: RequestWithUser,
+    @Body() userSkillDto: UserSkillDto,
+  ) {
+    return this.userService.createUserSkill(req.user.id, userSkillDto);
+  }
+
+  @ApiBearerAuth()
+  @ApiTags('users')
+  @UseGuards(JwtAuthGuard)
+  @ApiBody({ type: UserSkillDto })
+  @ApiParam({ name: 'id', required: true })
+  @Put('skills/:id')
+  updateSkill(
+    @Param() params: { id: string },
+    @Body() userSkillDto: UserSkillDto,
+  ) {
+    return this.userService.updateUserSkill(params.id, userSkillDto);
+  }
+
+  @ApiBearerAuth()
+  @ApiTags('users')
+  @UseGuards(JwtAuthGuard)
+  @ApiParam({ name: 'id', required: true })
+  @Delete('skills/:id')
+  deleteSkill(@Param() params: { id: string }) {
+    return this.userService.deleteUserSkill(params.id);
   }
 }

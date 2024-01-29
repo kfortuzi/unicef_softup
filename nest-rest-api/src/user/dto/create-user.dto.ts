@@ -1,7 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger/dist/decorators/api-property.decorator';
 import { IsString, IsEmail, MinLength, IsNotEmpty } from 'class-validator';
 
-// TODO: Convert to camel case (BE, FE)
 export class CreateUserDto {
   @IsEmail()
   @IsNotEmpty()
@@ -10,11 +9,11 @@ export class CreateUserDto {
 
   @IsString()
   @ApiProperty({ type: String })
-  first_name: string;
+  firstName: string;
 
   @IsString()
   @ApiProperty({ type: String })
-  last_name: string;
+  lastName: string;
 
   @IsString()
   @MinLength(8)

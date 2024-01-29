@@ -4,51 +4,32 @@ import {
   NotFoundException,
   UnprocessableEntityException,
 } from '@nestjs/common';
-import { PrismaService } from 'src/commons/prisma/prisma.service';
-import * as bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { MailService } from 'src/mail/mail.service';
 import { SendResetPasswordUserDto } from './dto/send-reset-password-user.dto';
-import { ConfigService } from '@nestjs/config';
 import { users } from '@prisma/client';
 import exclude from 'src/commons/utils/exclude';
 import dayjs from 'dayjs';
 import { ResetPasswordUserDto } from './dto/reset-password-user.dto';
+import { UserRepository } from './user.repository';
+import { compareHash, hashString } from 'src/commons/utils/hash';
+import { UserSkillDto } from './dto/user-skill.dto';
 
 @Injectable()
 export class UserService {
-  constructor(
-    private prismaService: PrismaService,
-    private configService: ConfigService,
-  ) {}
-
-  async findOneByEmail(email: string) {
-    return await this.prismaService.users.findUnique({
-      where: { email: email },
-    });
-  }
-
-  async findOne(id: string) {
-    return await this.prismaService.users.findUnique({ where: { id: id } });
-  }
-
-  async findOneByIdAndCode(id: string, verificationCode: string) {
-    return await this.prismaService.users.findUnique({
-      where: { id, verificationCode },
-    });
-  }
+  constructor(private userRepository: UserRepository) {}
 
   async getProfile(id: string) {
-    const user = await this.findOne(id);
+    const user = await this.userRepository.findOneById(id);
     if (!user) throw new NotFoundException({ message: 'User not found!' });
 
     return exclude(user, ['password', 'id']);
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
-    const user = await this.findOne(id);
+    const user = await this.userRepository.findOneById(id);
 
     if (!user) throw new NotFoundException({ message: 'User not found!' });
 
@@ -61,16 +42,12 @@ export class UserService {
     if (updateUserDto.hobbies) user.hobbies = updateUserDto.hobbies;
 
     if (updateUserDto.oldPassword && updateUserDto.newPassword) {
-      const isSameOldPass = await bcrypt.compare(
+      const isSameOldPass = await compareHash(
         updateUserDto.oldPassword,
         user.password,
       );
       if (isSameOldPass) {
-        const salt = await bcrypt.genSalt();
-        const hashedNewPass = await bcrypt.hash(
-          updateUserDto.newPassword,
-          salt,
-        );
+        const hashedNewPass = await hashString(updateUserDto.newPassword);
         user.password = hashedNewPass;
       } else {
         throw new UnprocessableEntityException({
@@ -81,9 +58,9 @@ export class UserService {
     }
 
     return exclude(
-      await this.prismaService.users.update({
-        where: { id: id },
-        data: {
+      await this.userRepository.update(
+        { id: id },
+        {
           firstName: user.firstName,
           lastName: user.lastName,
           phoneNumber: user.phoneNumber,
@@ -92,29 +69,29 @@ export class UserService {
           hobbies: user.hobbies,
           password: user.password,
         },
-      }),
+      ),
       ['password'],
     );
   }
 
   async create(createUserDto: CreateUserDto) {
     if (createUserDto.email && createUserDto.password) {
-      const user = await this.findOneByEmail(createUserDto.email);
+      const user = await this.userRepository.findOneByEmail(
+        createUserDto.email,
+      );
       if (user)
         throw new UnprocessableEntityException({
           errorCode: 422,
           message: 'User already exists!',
         });
-      const salt = await bcrypt.genSalt();
-      const password = await bcrypt.hash(createUserDto.password, salt);
-      const createdUser: users = await this.prismaService.users.create({
-        data: {
-          email: createUserDto.email,
-          password,
-          verificationCode: uuidv4(),
-          firstName: createUserDto.first_name,
-          lastName: createUserDto.last_name,
-        },
+      const password = await hashString(createUserDto.password);
+
+      const createdUser: users = await this.userRepository.create({
+        email: createUserDto.email,
+        password,
+        verificationCode: uuidv4(),
+        firstName: createUserDto.firstName,
+        lastName: createUserDto.lastName,
       });
 
       const result = exclude(createdUser, ['password']);
@@ -130,24 +107,27 @@ export class UserService {
   }
 
   async confirm(id: string, verificationCode: string) {
-    const user = await this.findOneByIdAndCode(id, verificationCode);
+    const user = await this.userRepository.findOneByIdAndCode(
+      id,
+      verificationCode,
+    );
 
     if (!user) throw new NotFoundException({ message: 'User not found!' });
 
     if (user.confirmedAt) return;
 
     return exclude(
-      await this.prismaService.users.update({
-        where: { id, verificationCode },
-        data: { confirmedAt: new Date(), verificationCode: null },
-      }),
+      await this.userRepository.update(
+        { id, verificationCode },
+        { confirmedAt: new Date(), verificationCode: null },
+      ),
       ['password', 'id'],
     );
   }
 
   // TODO: Think of a way to invalidate the code after X minutes.
   async sendResetPassword({ email }: SendResetPasswordUserDto) {
-    const user = await this.findOneByEmail(email);
+    const user = await this.userRepository.findOneByEmail(email);
 
     if (!user || !user.confirmedAt)
       throw new UnprocessableEntityException({
@@ -155,12 +135,12 @@ export class UserService {
         message: 'User does not exists!',
       });
 
-    const userWithVfCode = await this.prismaService.users.update({
-      where: { email },
-      data: {
+    const userWithVfCode = await this.userRepository.update(
+      { email },
+      {
         verificationCode: uuidv4(),
       },
-    });
+    );
 
     const link = `<a href=${process.env.RESET_PASSWORD_URL}?id=${user.id}&verificationCode=${userWithVfCode.verificationCode}> Link to reset password</a>`;
 
@@ -172,7 +152,7 @@ export class UserService {
     verificationCode,
     password,
   }: ResetPasswordUserDto) {
-    const user = await this.findOne(userId);
+    const user = await this.userRepository.findOneById(userId);
 
     if (!user) throw new NotFoundException({ message: 'User not found!' });
 
@@ -181,18 +161,38 @@ export class UserService {
       verificationCode &&
       verificationCode === user.verificationCode
     ) {
-      const salt = await bcrypt.genSalt();
-
-      const hashedPass = await bcrypt.hash(password, salt);
-      await this.prismaService.users.update({
-        where: { id: userId },
-        data: {
+      const hashedPass = await hashString(password);
+      await this.userRepository.update(
+        { id: userId },
+        {
           password: hashedPass,
           verificationCode: null,
         },
-      });
+      );
     } else {
       throw new ForbiddenException();
     }
+  }
+
+  async findUserSkills(userId: string) {
+    return this.userRepository.findUserSkills(userId);
+  }
+
+  async createUserSkill(userId: string, { name }: UserSkillDto) {
+    return this.userRepository.createUserSkill(userId, name);
+  }
+
+  async updateUserSkill(skillId: string, data: UserSkillDto) {
+    return this.userRepository.updateUserSkill(skillId, data);
+  }
+
+  async deleteUserSkill(skillId: string) {
+    const skill = await this.userRepository.findUserSkillById(skillId);
+
+    if (!skill) {
+      throw new NotFoundException();
+    }
+
+    return this.userRepository.deleteUserSkill(skillId);
   }
 }
