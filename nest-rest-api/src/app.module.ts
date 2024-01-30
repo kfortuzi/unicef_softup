@@ -11,6 +11,7 @@ import { MailService } from './mail/mail.service';
 import { CaslModule } from './casl/casl.module';
 import { LoggerModule } from 'nestjs-pino';
 import { LoggerMiddleware } from './logger/logger.middleware';
+import { JobsModule } from './job/job.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { LoggerMiddleware } from './logger/logger.middleware';
         },
       },
     }),
+    JobsModule,
   ],
   controllers: [AppController, MailController],
   providers: [AppService, SendgridService, MailService],

@@ -103,19 +103,39 @@ enum JobType {
   full
 }
 
+enum EducationType {
+   high_school
+   bachelor
+   master
+}
+
 model jobs {
-  id                    String                  @id @default(cuid())
-  referenceId           String                  @map("reference_id")
-  title                 String?
-  description           String?
-  address               String?
-  location              String
-  type                  JobType?
-  tags                  String?
-  company               String?
-  companyLogo           String?                 @map("company_logo")
-  createdAt             DateTime                @default(now()) @map("created_at") @db.Timestamp(6)
-  user_recommended_jobs user_recommended_jobs[]
+  id                      String                  @id @default(cuid())
+  referenceId             String                  @map("reference_id")
+  title                   String
+  description             String?
+  address                 String?
+  location                String
+  type                    JobType?
+  contractDuration        Int?                    @map("contract_duration") //in months
+  tags                    String?
+  company                 String?
+  vacantPositions         Int?                    @map("vacant_positions")
+  companyLogo             String?                 @map("company_logo")
+  basicSkills             String?                 @map("basic_skills")
+  communicationSkill      Boolean?                @map("communication_skill")
+  computerSkills          String?                 @map("computer_skills")
+  foreignLanguage         String?                 @map("foreign_language")
+  experience              String?                 
+  skills                  String?
+  specializations         String?
+  skillLines              String?                 @map("skill_lines")
+  educationType           EducationType?          @map("education_type")
+  paymentLevel            String?                 @map("payment_level")
+  suitableForDisabilities Boolean?                @map("suitable_for_disabilities")
+  needDrivingLicense      Boolean?                @map("need_driving_license")
+  createdAt               DateTime                @default(now()) @map("created_at") @db.Timestamp(6)
+  user_recommended_jobs   user_recommended_jobs[]
 }
 
 model user_recommended_jobs {
@@ -128,25 +148,6 @@ model user_recommended_jobs {
   @@id([userId, jobId])
 }
 
-model videos {
-  id        String    @id @default(cuid())
-  title     String?
-  category  String?
-  duration  BigInt?
-  url       String
-  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamp(6)
-  deletedAt DateTime? @map("deleted_at") @db.Timestamp(6)
-}
-
-model articles {
-  id        String    @id @default(cuid())
-  title     String?
-  category  String?
-  author    String?
-  url       String?
-  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamp(6)
-  deletedAt DateTime? @map("deleted_at") @db.Timestamp(6)
-}
 
 model processing {
   id                String   @id @default(cuid())
