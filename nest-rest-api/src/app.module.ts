@@ -12,6 +12,7 @@ import { CaslModule } from './casl/casl.module';
 import { LoggerModule } from 'nestjs-pino';
 import { LoggerMiddleware } from './logger/logger.middleware';
 import { JobsModule } from './job/job.module';
+import { ChatbotModule } from './chatbot/chatbot.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { JobsModule } from './job/job.module';
       },
     }),
     JobsModule,
+    ChatbotModule,
   ],
   controllers: [AppController, MailController],
   providers: [AppService, SendgridService, MailService],
