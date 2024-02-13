@@ -5,9 +5,10 @@
   align-items: center;
   height: 100%;
   width: 100%;
+  padding: $large;
+  box-sizing: border-box;
 
-  .divider {
-    min-width: 350px;
-    width: 350px;
+  .header {
+    text-align: center;
   }
 }

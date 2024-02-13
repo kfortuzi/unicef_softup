@@ -42,7 +42,7 @@ const ForgotPasswordForm: React.FC = () => {
             value={value}
             error={error?.message}
             onChange={onChange}
-            label={t('emailLabel')}
+            placeholder={t('emailPlaceholder')}
           />
         )}
       />

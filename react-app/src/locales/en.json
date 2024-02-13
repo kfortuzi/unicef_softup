@@ -34,11 +34,11 @@
       "forgotPassword": {
         "header": "Forgot Your Password?",
         "subHeader": "Please enter your email address and you should shortly be receiving instructions to reset your password.",
-        "emailLabel": "E-Mail",
         "submit": "Send Request",
         "emailRequired": "Email is required",
         "backToLogin": "Go back",
-        "emailWrongFormat": "Wrong email format"
+        "emailWrongFormat": "Wrong email format",
+        "emailPlaceholder": "E-Mail"
       },
       "resetPassword": {
         "header": "Reset Password",
@@ -49,7 +49,8 @@
         "passwordsMustMatch": "Passwords do not match",
         "confirmPasswordRequired": "Password must be confirmed",
         "submit": "Save Password",
-        "requestSuccess": "Password was reset successfully!"
+        "requestSuccess": "Password was reset successfully!",
+        "showPassword": "Show password"
       },
       "confirmUser": {
         "confirming": "Confirming...",

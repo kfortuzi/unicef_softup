@@ -1,4 +1,3 @@
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Typography } from 'antd';
 import React, { useState } from 'react';
@@ -46,7 +45,6 @@ const LoginForm: React.FC = () => {
             value={value}
             error={error?.message}
             onChange={onChange}
-            prefix={<UserOutlined />}
             placeholder={t('emailPlaceholder')}
           />
         )}
@@ -61,7 +59,6 @@ const LoginForm: React.FC = () => {
             value={value}
             error={error?.message}
             onChange={onChange}
-            prefix={<LockOutlined />}
             placeholder={t('passwordPlaceholder')}
             textVisible={showPassword}
             type="password"

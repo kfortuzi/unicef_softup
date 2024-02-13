@@ -1,9 +1,7 @@
 .confirm-user-container {
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
+  align-self: center;
+  justify-self: center;
+  height: max-content;
   width: 100%;
 
   .confirm-user-result-component {

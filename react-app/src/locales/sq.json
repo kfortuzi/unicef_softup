@@ -34,11 +34,11 @@
       "forgotPassword": {
         "header": "Keni Harruar Fjalekalimin?",
         "subHeader": "Vendosni adresen e email dhe shkurtimisht duhet t'ju vijne instruksionet per te krijuar nje fjalekalim te ri.",
-        "emailLabel": "E-Mail",
         "submit": "Dergo Kerkesen",
         "emailRequired": "Email eshte i detyrueshem",
         "backToLogin": "Kthehu mbrapa",
-        "emailWrongFormat": "Format i gabuar email-i"
+        "emailWrongFormat": "Format i gabuar email-i",
+        "emailPlaceholder": "E-Mail"
       },
       "resetPassword": {
         "header": "Fjalekalimi i Ri",
@@ -49,7 +49,8 @@
         "passwordsMustMatch": "Fjalekalimet nuk perputhen",
         "confirmPasswordRequired": "Fjalekalimi duhet konfirmuar",
         "submit": "Ruaj Fjalekalimin",
-        "requestSuccess": "Fjalekalimi i ri u ruajt me sukses!"
+        "requestSuccess": "Fjalekalimi i ri u ruajt me sukses!",
+        "showPassword": "Shfaq fjalekalimin"
       },
       "confirmUser": {
         "confirming": "Duke konfirmuar...",

@@ -14,5 +14,9 @@
     height: max-content;
     box-sizing: border-box;
     padding: $large;
+
+    .header {
+      text-align: center;
+    }
   }
 }

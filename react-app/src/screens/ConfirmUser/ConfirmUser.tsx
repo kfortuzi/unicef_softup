@@ -1,10 +1,10 @@
+import { Spin } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import useConfirmUser from 'src/api/users/hooks/useConfirmUser';
 import Button from 'src/components/common/Button/Button';
-import LoadingFullPage from 'src/components/common/LoadingFullPage/LoadingFullPage';
 import ResultComponent from 'src/components/common/ResultComponent/ResultComponent';
 import { Route } from 'src/router/enums';
 
@@ -16,11 +16,15 @@ const ConfirmUser: React.FC = () => {
   const id = searchParams.get('id');
   const verificationCode = searchParams.get('verificationCode');
 
-  const { data: user, isFetching: isConfirmingUser, error } = useConfirmUser({ id, verificationCode });
-
-  if (isConfirmingUser) {
-    return <LoadingFullPage message={t('confirming')} />;
-  }
+  const {
+    data: user,
+    isFetching: isConfirmingUser,
+    isFetched: executedConfirmation,
+    error,
+  } = useConfirmUser({
+    id,
+    verificationCode,
+  });
 
   const pageContent = error ? (
     <ResultComponent
@@ -52,7 +56,15 @@ const ConfirmUser: React.FC = () => {
     />
   );
 
-  return <div className="confirm-user-container">{pageContent}</div>;
+  return (
+    <Spin
+      spinning={isConfirmingUser}
+      tip={t('confirming')}
+      wrapperClassName="confirm-user-container"
+    >
+      {executedConfirmation && pageContent}
+    </Spin>
+  );
 };
 
 export default ConfirmUser;

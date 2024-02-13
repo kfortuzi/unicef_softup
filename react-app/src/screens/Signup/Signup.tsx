@@ -10,7 +10,7 @@ const Signup: React.FC = () => {
   return (
     <div className="signup-container">
       <div className="signup-centered-content-wrapper">
-        <Typography.Title>{t('header')}</Typography.Title>
+        <Typography.Title className="header">{t('header')}</Typography.Title>
         <SignupForm />
       </div>
     </div>

@@ -9,7 +9,7 @@ const ForgotPassword: React.FC = () => {
 
   return (
     <div className="forgot-password-container">
-      <Typography.Title>{t('header')}</Typography.Title>
+      <Typography.Title className="header">{t('header')}</Typography.Title>
       <Typography.Paragraph
         type="secondary"
         style={{

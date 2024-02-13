@@ -9,7 +9,7 @@ const Login: React.FC = () => {
 
   return (
     <div className="login-container">
-      <Typography.Title>{t('header')}</Typography.Title>
+      <Typography.Title className="header">{t('header')}</Typography.Title>
       <LoginForm />
     </div>
   );

@@ -26,7 +26,7 @@ const ResetPassword: React.FC = () => {
 
   return (
     <div className="reset-password-container">
-      <Typography.Title>{t('header')}</Typography.Title>
+      <Typography.Title className="header">{t('header')}</Typography.Title>
       <Typography.Paragraph
         type="secondary"
         style={{
