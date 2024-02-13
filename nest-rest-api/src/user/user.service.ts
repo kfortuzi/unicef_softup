@@ -7,19 +7,22 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { MailService } from 'src/mail/mail.service';
+import { MailService } from '../mail/mail.service';
 import { SendResetPasswordUserDto } from './dto/send-reset-password-user.dto';
 import { users } from '@prisma/client';
-import exclude from 'src/commons/utils/exclude';
+import exclude from '../commons/utils/exclude';
 import dayjs from 'dayjs';
 import { ResetPasswordUserDto } from './dto/reset-password-user.dto';
 import { UserRepository } from './user.repository';
-import { compareHash, hashString } from 'src/commons/utils/hash';
+import { compareHash, hashString } from '../commons/utils/hash';
 import { UserSkillDto } from './dto/user-skill.dto';
 
 @Injectable()
 export class UserService {
-  constructor(private userRepository: UserRepository) {}
+  constructor(
+    private userRepository: UserRepository,
+    private mailService: MailService,
+  ) {}
 
   async getProfile(id: string) {
     const user = await this.userRepository.findOneById(id);
@@ -97,7 +100,7 @@ export class UserService {
       const result = exclude(createdUser, ['password']);
 
       const link = `<a href=${process.env.FE_HOST}/?id=${createdUser.id}&verificationCode=${createdUser.verificationCode}> Link to confirm</a>`;
-      await MailService.prototype.sendEmail(
+      await this.mailService.sendEmail(
         createdUser.email,
         'Confirmation Email',
         link,
@@ -144,7 +147,7 @@ export class UserService {
 
     const link = `<a href=${process.env.RESET_PASSWORD_URL}?id=${user.id}&verificationCode=${userWithVfCode.verificationCode}> Link to reset password</a>`;
 
-    await MailService.prototype.sendEmail(user.email, 'Reset Email', link);
+    await this.mailService.sendEmail(user.email, 'Reset Email', link);
   }
 
   async resetPassword({

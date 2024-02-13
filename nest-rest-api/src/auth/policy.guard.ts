@@ -5,7 +5,7 @@ import {
   SetMetadata,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { AppAbility, CaslAbilityFactory } from 'src/casl/casl-ability.factory';
+import { AppAbility, CaslAbilityFactory } from '../casl/casl-ability.factory';
 import { PolicyHandler } from './policy-handler';
 
 export const CHECK_POLICIES_KEY = 'check_policy';

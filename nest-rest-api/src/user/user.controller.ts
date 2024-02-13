@@ -25,7 +25,7 @@ import {
 } from '@nestjs/swagger';
 import { User } from './entities/user.entity';
 import { SendResetPasswordUserDto } from './dto/send-reset-password-user.dto';
-import { RequestWithUser } from 'src/types/request';
+import { RequestWithUser } from '../types/request';
 import { ResetPasswordUserDto } from './dto/reset-password-user.dto';
 import { UserSkillDto } from './dto/user-skill.dto';
 

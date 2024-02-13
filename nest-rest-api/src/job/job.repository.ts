@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { jobs } from '@prisma/client';
-import { PrismaService } from 'src/commons/prisma/prisma.service';
+import { PrismaService } from '../commons/prisma/prisma.service';
 
 type PaginationOptions =
   | {
@@ -31,7 +31,7 @@ export class JobRepository {
 
     if (isPaginationWithCursor) {
       return {
-        take ,
+        take,
         skip: 0,
         cursor: {
           id: cursor,
