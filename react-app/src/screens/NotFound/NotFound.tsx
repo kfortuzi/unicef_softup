@@ -21,7 +21,7 @@ const NotFound: React.FC = () => {
           <Button
             type="primary"
             text={t('goBack')}
-            onClick={() => navigate(`${Route.ROOT}${Route.HOME}`, { replace: true })}
+            onClick={() => navigate(`${Route.ROOT}${Route.YOUTH_CAREER_ORIENTATION}`, { replace: true })}
           />
         }
       />

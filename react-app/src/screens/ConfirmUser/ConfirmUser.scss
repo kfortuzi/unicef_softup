@@ -4,7 +4,14 @@
   height: max-content;
   width: 100%;
 
-  .confirm-user-result-component {
-    max-width: $suggested-result-component-width;
+  .ant-spin-container {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+
+    .confirm-user-result-component {
+      max-width: $suggested-result-component-width;
+    }
   }
 }

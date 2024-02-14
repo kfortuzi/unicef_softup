@@ -26,6 +26,6 @@ describe('Home', () => {
     render(<Home />);
 
     expect(screen.getByText('header')).toBeInTheDocument();
-    expect(screen.getByText('appDescription')).toBeInTheDocument();
+    expect(screen.getByText('subHeader')).toBeInTheDocument();
   });
 });

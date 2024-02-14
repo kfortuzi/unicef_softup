@@ -1,5 +1,5 @@
 export enum Entity {
-  ARTICLES = 'articles',
+  JOBS = 'jobs',
 }
 
 // TODO: Check actions with backend

@@ -2,13 +2,11 @@ import React from 'react';
 import { RouterProvider, createHashRouter } from 'react-router-dom';
 
 import useGetProfile from 'src/api/users/hooks/useGetProfile';
-import { Entity } from 'src/components/acl/enums';
 import LoadingFullPage from 'src/components/common/LoadingFullPage/LoadingFullPage';
 import PrivateRoute from 'src/components/router/PrivateRoute';
 import PublicRoute from 'src/components/router/PublicRoute';
 import AuthBackground from 'src/layouts/AuthBackground/AuthBackground';
 import PageWithNavigation from 'src/layouts/PageWithNavigation/PageWithNavigation';
-import Articles from 'src/screens/Articles/Articles';
 import ConfirmUser from 'src/screens/ConfirmUser/ConfirmUser';
 import ForgotPassword from 'src/screens/ForgotPassword/ForgotPassword';
 import Home from 'src/screens/Home/Home';
@@ -18,17 +16,13 @@ import ResetPassword from 'src/screens/ResetPassword/ResetPassword';
 import Signup from 'src/screens/Signup/Signup';
 
 import { Route } from './enums';
-import getAccessibleRoutes from './helpers/getAccessibleRoutes';
 
 const Router: React.FC = () => {
-  const { data: user, isFetching } = useGetProfile();
+  const { isFetching } = useGetProfile();
 
   if (isFetching) {
     return <LoadingFullPage />;
   }
-
-  const accessibleRoutes = getAccessibleRoutes(user?.role);
-  const unaccessibleRoute = { path: undefined };
 
   const router = createHashRouter([
     {
@@ -39,15 +33,25 @@ const Router: React.FC = () => {
           element: <PageWithNavigation />,
           children: [
             {
-              path: Route.HOME,
+              path: Route.YOUTH_CAREER_ORIENTATION,
               element: <Home />,
             },
-            accessibleRoutes[Entity.ARTICLES]
-              ? {
-                  path: Route.ARTICLES,
-                  element: <Articles />,
-                }
-              : { ...unaccessibleRoute },
+            {
+              path: Route.RESUME,
+              element: <Home />,
+            },
+            {
+              path: Route.COVER_LETTER,
+              element: <Home />,
+            },
+            {
+              path: Route.JOBS,
+              element: <Home />,
+            },
+            {
+              path: Route.TRAINING,
+              element: <Home />,
+            },
           ],
         },
       ],

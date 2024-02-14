@@ -1,4 +1,20 @@
 {
+  "components": {
+    "Layout": {
+      "headerBg": "#f2eeff",
+      "siderBg": "#f2eeff"
+    },
+    "Menu": {
+      "darkItemBg": "transparent",
+      "darkItemSelectedBg": "transparent",
+      "darkSubMenuItemBg": "transparent",
+      "darkPopupBg": "transparent",
+      "horizontalItemHoverColor": "transparent",
+      "horizontalItemSelectedColor": "transparent",
+      "darkSubMenuItemBg": "transparent",
+      "colorTextLightSolid": "#212529"
+    }
+  },
   "token": {
     "colorPrimary": "#c82121",
     "colorInfo": "#19a0ff",

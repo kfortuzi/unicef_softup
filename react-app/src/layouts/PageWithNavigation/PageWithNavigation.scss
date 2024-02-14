@@ -2,35 +2,35 @@
   flex: 1;
   display: flex;
   flex-flow: column nowrap;
+  overflow-y: auto;
+  height: 100%;
+  background-color: $layout-background;
 
   .navigation-bar {
     display: flex;
     flex-flow: row nowrap;
-    justify-content: space-between;
+    justify-content: flex-end;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    border-bottom: 1px solid $base-font-color;
 
-    .logo {
-      width: 2rem;
-      height: 1.5rem;
-    }
-
-    .language-selector {
-      .ant-radio-button-wrapper {
-        &:first-child {
-          border-end-start-radius: 10px;
-          border-start-start-radius: 10px;
-        }
-
-        &:last-child {
-          border-end-end-radius: 10px;
-          border-start-end-radius: 10px;
-        }
-      }
+    > .ant-menu {
+      min-width: 100%;
+      justify-content: flex-end;
     }
   }
 
-  .page-content {
-    display: flex;
-    flex-flow: column nowrap;
-    padding: 0 50px;
+  .page-content-and-footer {
+    min-height: max-content;
+    background-color: transparent;
+
+    .page-content {
+      display: flex;
+      flex-flow: column nowrap;
+      padding: 0 50px;
+    }
   }
+
+  @import "../Footer/Footer.scss";
 }

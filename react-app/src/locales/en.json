@@ -75,22 +75,49 @@
       "goBack": "Go Back Home"
     },
     "home": {
-      "header": "What is Softup X?",
-      "appDescription": "Softup X acts as a reliable boilerplate for Softup developers. It offers a React TypeScript template through Vite, providing a strong and structured foundation for new endeavors. Its primary aim is to assist developers by showcasing best coding practices, ensuring a smooth initiation into projects. The application efficiently manages data flow using React Query, optimizing information dissemination within the system. Additionally, Softup X integrates I18next for seamless translations, enabling easy development of multilingual applications. Employing Ant Design as its UI library, it enhances both the aesthetics and functionality of the interface. Softup X is more than just a starting point; it's a comprehensive solution that not only expedites project initiation but also sets the standard for coding practices within the Softup ecosystem."
+      "header": "The Power of national employment",
+      "subHeader": "Sub header paragraph.",
+      "learnMore": "Learn more",
+      "service1": "Tailor resume",
+      "service2": "Generate cover letter",
+      "service3": "Counseling",
+      "service1Description": "Service 1 description",
+      "service2Description": "Serviec 2 description",
+      "service3Description": "Serviec 3 description",
+      "servicesTitle": "Services",
+      "tipOfTheDay": "Tip of the day"
     },
     "pageWithNavigation": {
-      "sq": "SQ",
-      "en": "EN",
-      "home": "Home",
-      "profile": "My Profile",
       "logOut": "Log Out",
-      "footerText": "Softup X ©2023 Created with ❤️ by Softup Technologies",
-      "articles": "Articles"
+      "youthCareerOrientation": "Youth career orientation",
+      "resume": "Resume",
+      "coverLetter": "Cover letter",
+      "jobs": "Jobs",
+      "training": "Training"
     },
     "articles": {
       "header": "Articles",
       "loading": "Loading articles...",
       "noArticles": "No articles yet"
+    },
+    "footer": {
+      "nationalEmploymentService": "NATIONAL EMPLOYMENT SERVICE",
+      "whatDoesTheNationalEmploymentServiceDo": "What does the national employment service do for you?",
+      "rulesToBeAppliedDuringApplication": "Rules to be applied during application",
+      "privacyPolicy": "Privacy policy",
+      "help": "Help",
+      "contact": "CONTACT",
+      "officesInAlbania": "Offices in Albania",
+      "tel": "Tel",
+      "email": "Email",
+      "mondayToThursday": "Monday - Thursday",
+      "friday": "Friday",
+      "partnerInstitutions": "PARTNER INSTITUTIONS",
+      "mostValuedServices": "MOST VALUED SERVICES",
+      "searchForJob": "Search for job",
+      "announceAJob": "Announce a job",
+      "unemploymentBenefit": "Unemployment benefit",
+      "employmentIncentivePrograms": "Employment incentive programs"
     }
   }
 }

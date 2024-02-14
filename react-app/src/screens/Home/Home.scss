@@ -2,4 +2,93 @@
   flex: 1;
   display: flex;
   flex-flow: column nowrap;
+  box-sizing: border-box;
+
+  .home-header {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: $medium;
+    padding: calc(2 * $large) 0 calc(10 * $large) 0;
+    max-width: 40%;
+    margin: 0;
+
+    .title {
+      font-family: $karla-bold;
+      font-size: 150%;
+    }
+  }
+
+  .services {
+    display: flex;
+    flex-flow: row wrap;
+    gap: calc(2 * $large) $large;
+    background-color: $background-color;
+    padding: calc(2 * $large);
+    margin: 0 -50px;
+
+    .services-title {
+      width: 100%;
+      font-family: $karla-bold;
+      font-size: 150%;
+      text-align: center;
+      color: $primary-color;
+      margin: 0;
+    }
+
+    .service-wrapper {
+      flex: 1;
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      gap: $small;
+      text-align: center;
+
+      .icon {
+        font-size: 300%;
+        color: $primary-color;
+        text-align: center;
+      }
+
+      .title {
+        font-family: $karla-semibold;
+        font-size: 115%;
+        margin: 0;
+      }
+
+      .description {
+        font-family: $karla-regular;
+        font-size: 100%;
+        margin: 0;
+      }
+    }
+  }
+
+  .tip-of-the-day {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    gap: $large;
+    padding: calc(2 * $large) 0;
+    margin: 0;
+    text-align: center;
+
+    .title {
+      font-family: $karla-bold;
+      font-size: 150%;
+      color: $primary-color;
+      margin: 0;
+    }
+
+    .description {
+      font-family: $karla-regular;
+      font-size: 100%;
+      margin: 0;
+    }
+
+    .author {
+      font-family: $karla-regular;
+      font-size: 87.5%;
+      margin: 0;
+    }
+  }
 }

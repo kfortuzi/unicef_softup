@@ -10,7 +10,7 @@ type AccessibleRoutes = {
 
 const getAccessibleRoutes = (userRole: User['role']): AccessibleRoutes => {
   const accessibleRoutes: AccessibleRoutes = {
-    [Entity.ARTICLES]: false,
+    [Entity.JOBS]: false,
   };
 
   Object.keys(accessibleRoutes).forEach((entity) => {

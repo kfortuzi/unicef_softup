@@ -75,22 +75,49 @@
       "goBack": "Kthehu Ne Kryefaqe"
     },
     "home": {
-      "header": "Cfare eshte Softup X?",
-      "appDescription": "Softup X shërben si një boilerplate i besueshëm për zhvilluesit e Softup. Ndërtuar në një template React TypeScript të ofruar nga Vite, Softup X garanton një bazë të fortë dhe të strukturuar për projektet e reja. Synimi kryesor është të ndihmojë zhvilluesit duke treguar praktikat më të mira të kodimit dhe të lehtësojë fillimin e prijekteve. Aplikacioni menaxhon flukset e të dhënave në mënyrë efikase nëpërmjet React Query, duke optimizuar shpërndarjen e informacionit brenda sistemit. Gjithashtu, Softup X integron I18next për përkthimet, duke e bërë zhvillimin e aplikacioneve me shumë gjuhë të lehtë. Përdorimi i Ant Design si librari UI, përmirëson si estetikën ashtu edhe funksionalitetin e ndërfaqes. Softup X është më shumë se një pikë nisjeje; është një zgjidhje e kompletuar që jo vetëm shpejton fillimin e projekteve, por gjithashtu cakton standardet për praktikat e kodimit brenda ekosistemit të Softup."
+      "header": "Forca e punësimit kombëtar",
+      "subHeader": "Paragrafi i sub header.",
+      "learnMore": "Meso me shume",
+      "service1": "Përshtatni CV-në",
+      "service2": "Gjeneroni letër motivimi",
+      "service3": "Këshillim",
+      "service1Description": "Pershkrimi i sherbimit 1",
+      "service2Description": "Pershkrimi i sherbimit 2",
+      "service3Description": "Pershkrimi i sherbimit 3",
+      "servicesTitle": "Sherbimet",
+      "tipOfTheDay": "Keshilla e dites"
     },
     "pageWithNavigation": {
-      "sq": "SQ",
-      "en": "EN",
-      "home": "Kreu",
-      "profile": "Profili Im",
       "logOut": "Dil",
-      "footerText": "Softup X ©2023 Krijuar me ❤️ nga Softup Technologies",
-      "articles": "Artikujt"
+      "youthCareerOrientation": "Orientim kariere per te rinjte",
+      "resume": "Resume",
+      "coverLetter": "Leter motivimi",
+      "jobs": "Punet",
+      "training": "Trajnim"
     },
     "articles": {
       "header": "Artikujt",
       "loading": "Duke ngarkuar artikujt...",
       "noArticles": "Nuk ka artikuj per te shfaqur"
+    },
+    "footer": {
+      "nationalEmploymentService": "RRJETI KOMBËTAR I PUNËSIMIT",
+      "whatDoesTheNationalEmploymentServiceDo": "Çfarë bën për ju Sistemi Kombëtar i Punësimit?",
+      "rulesToBeAppliedDuringApplication": "Rregullat që duhen zbatuar gjatë aplikimit",
+      "privacyPolicy": "Politikat e privatësisë",
+      "help": "Ndihmë",
+      "contact": "KONTAKT",
+      "officesInAlbania": "Zyrat e Punës në të gjithë Shqipërinë",
+      "tel": "Tel",
+      "email": "Email",
+      "mondayToThursday": "Hënë - Enjte",
+      "friday": "Premte",
+      "partnerInstitutions": "INSTITUCIONET PARTNERE",
+      "mostValuedServices": "SHËRBIMET MË TË VLERESUARA",
+      "searchForJob": "Kërko për punë",
+      "announceAJob": "Shpall një vend të lire pune",
+      "unemploymentBenefit": "Pagesa e Papunësisë",
+      "employmentIncentivePrograms": "Programet e Nxitjes së Punësimit"
     }
   }
 }
