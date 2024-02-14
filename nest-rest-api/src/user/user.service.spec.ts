@@ -3,7 +3,6 @@ import * as dayjs from 'dayjs';
 import { UserService } from './user.service';
 import { UserRepository } from './user.repository';
 import exclude from '../commons/utils/exclude';
-import { MailService } from '../mail/mail.service';
 import { PrismaService } from '../commons/prisma/prisma.service';
 
 describe('UserService', () => {
@@ -32,7 +31,7 @@ describe('UserService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [UserService, UserRepository, MailService, PrismaService],
+      providers: [UserService, UserRepository, PrismaService],
     }).compile();
 
     service = module.get<UserService>(UserService);

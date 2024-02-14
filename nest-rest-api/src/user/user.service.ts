@@ -19,10 +19,7 @@ import { UserSkillDto } from './dto/user-skill.dto';
 
 @Injectable()
 export class UserService {
-  constructor(
-    private userRepository: UserRepository,
-    private mailService: MailService,
-  ) {}
+  constructor(private userRepository: UserRepository) {}
 
   async getProfile(id: string) {
     const user = await this.userRepository.findOneById(id);
@@ -99,8 +96,8 @@ export class UserService {
 
       const result = exclude(createdUser, ['password']);
 
-      const link = `<a href=${process.env.FE_HOST}/?id=${createdUser.id}&verificationCode=${createdUser.verificationCode}> Link to confirm</a>`;
-      await this.mailService.sendEmail(
+      const link = `<a href=${process.env.FE_HOST}/#/access/confirm-user?id=${createdUser.id}&verificationCode=${createdUser.verificationCode}> Link to confirm</a>`;
+      await MailService.prototype.sendEmail(
         createdUser.email,
         'Confirmation Email',
         link,
@@ -147,7 +144,7 @@ export class UserService {
 
     const link = `<a href=${process.env.RESET_PASSWORD_URL}?id=${user.id}&verificationCode=${userWithVfCode.verificationCode}> Link to reset password</a>`;
 
-    await this.mailService.sendEmail(user.email, 'Reset Email', link);
+    await MailService.prototype.sendEmail(user.email, 'Reset Email', link);
   }
 
   async resetPassword({
