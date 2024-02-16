@@ -99,19 +99,23 @@ model cover_letters {
 }
 
 enum JobType {
-  part
-  full
+  FullTime
+  PartTime
+  Contract
 }
 
 enum EducationType {
-   high_school
-   bachelor
-   master
+  HighSchool
+  Bachelor
+  Master
+  PhD
 }
 
 model jobs {
   id                      String                  @id @default(cuid())
-  referenceId             String                  @map("reference_id")
+  referenceId             Int                     @map("reference_id")
+  dateStart               DateTime                @map("date_start")
+  dateEnd                 DateTime                @map("date_end")
   title                   String
   description             String?
   address                 String?
@@ -126,7 +130,7 @@ model jobs {
   communicationSkill      Boolean?                @map("communication_skill")
   computerSkills          String?                 @map("computer_skills")
   foreignLanguage         String?                 @map("foreign_language")
-  experience              String?                 
+  experience              String?
   skills                  String?
   specializations         String?
   skillLines              String?                 @map("skill_lines")
@@ -135,6 +139,9 @@ model jobs {
   suitableForDisabilities Boolean?                @map("suitable_for_disabilities")
   needDrivingLicense      Boolean?                @map("need_driving_license")
   createdAt               DateTime                @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt               DateTime?               @updatedAt @map("updated_at") @db.Timestamp(6)
+  deletedAt               DateTime?               @map("deleted_at") @db.Timestamp(6)
+  isUnvailable            Boolean?
   user_recommended_jobs   user_recommended_jobs[]
 }
 
@@ -147,7 +154,6 @@ model user_recommended_jobs {
 
   @@id([userId, jobId])
 }
-
 
 model processing {
   id                String   @id @default(cuid())

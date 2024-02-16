@@ -1,4 +1,7 @@
-import { ApiProperty,ApiPropertyOptional } from '@nestjs/swagger/dist/decorators/api-property.decorator';
+import {
+  ApiProperty,
+  ApiPropertyOptional,
+} from '@nestjs/swagger/dist/decorators/api-property.decorator';
 import { IsBoolean, IsInt, IsOptional, IsString } from 'class-validator';
 
 export class CreateJobDto {
@@ -39,5 +42,4 @@ export class CreateJobDto {
   @IsBoolean()
   @IsOptional()
   suitableForDisabilities?: boolean;
-
 }

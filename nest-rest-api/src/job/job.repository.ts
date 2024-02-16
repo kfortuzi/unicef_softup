@@ -1,6 +1,9 @@
+import { AnyAbility } from '@casl/ability';
 import { Injectable } from '@nestjs/common';
 import { jobs } from '@prisma/client';
-import { PrismaService } from '../commons/prisma/prisma.service';
+import { Prisma } from '@prisma/client';
+import { PrismaService } from 'src/commons/prisma/prisma.service';
+import { Job } from './dto/job.dto';
 
 type PaginationOptions =
   | {
@@ -45,6 +48,9 @@ export class JobRepository {
   async findMany(cursor?: string, take?: number) {
     return this.prismaService.jobs.findMany({
       ...this.getPaginationOptions(cursor, take),
+      where: {
+        isUnvailable: false,
+      },
       orderBy: {
         createdAt: 'desc',
       },
@@ -58,8 +64,47 @@ export class JobRepository {
           { title: { contains: title } },
           { description: { contains: title } },
         ],
+        AND: { isUnvailable: false },
       },
       orderBy: { id: 'desc' },
     });
+  }
+
+  async create(data: any) {
+    return this.prismaService.jobs.create({ data });
+  }
+
+  async findOneReferenceId(referenceId: number) {
+    return this.prismaService.jobs.findFirst({
+      where: { referenceId: referenceId },
+    });
+  }
+
+  async findOneById(id: string) {
+    return this.prismaService.jobs.findMany({ where: { id: id } });
+  }
+
+  async updateJobStatus(id: string) {
+    return this.prismaService.jobs.update({
+      where: { id: id },
+      data: { isUnvailable: true },
+    });
+  }
+
+  async updateTagsJob(id: number, tags: string): Promise<void> {
+    const jobsToUpdate = await this.prismaService.jobs.findMany({
+      where: {
+        referenceId: id,
+      },
+    });
+
+    const updatePromises = jobsToUpdate.map((job) => {
+      return this.prismaService.jobs.update({
+        where: { id: job.id },
+        data: { tags: tags },
+      });
+    });
+
+    await Promise.all(updatePromises);
   }
 }
