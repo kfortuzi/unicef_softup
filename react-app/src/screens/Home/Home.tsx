@@ -3,6 +3,7 @@ import { Typography } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import Chatbot from 'src/components/chatbot/Chatbot';
 import Button from 'src/components/common/Button/Button';
 
 const Home: React.FC = () => {
@@ -22,6 +23,7 @@ const Home: React.FC = () => {
           type="primary"
           text={t('learnMore')}
         />
+        <Chatbot />
       </div>
       <div className="services">
         <Typography.Title className="services-title">{t('servicesTitle')}</Typography.Title>

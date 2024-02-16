@@ -8,10 +8,9 @@
       "darkItemBg": "transparent",
       "darkItemSelectedBg": "transparent",
       "darkSubMenuItemBg": "transparent",
-      "darkPopupBg": "transparent",
+      "darkPopupBg": "#f2eeff",
       "horizontalItemHoverColor": "transparent",
       "horizontalItemSelectedColor": "transparent",
-      "darkSubMenuItemBg": "transparent",
       "colorTextLightSolid": "#212529"
     }
   },

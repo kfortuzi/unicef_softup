@@ -5,6 +5,7 @@
 @import "../components/common/InputText/InputText.scss";
 @import "../components/common/LoadingFullPage/LoadingFullPage.scss";
 @import "../components/common/ResultComponent/ResultComponent.scss";
+@import "../components/common/TypingIndicator/TypingIndicator.scss";
 // login
 @import "../components/auth/login/LoginForm/LoginForm.scss";
 // signup
@@ -17,3 +18,5 @@
 @import "../components/common/ResultComponent/ResultComponent.scss";
 // articles
 @import "../components/articles/Article.scss";
+// chatbot
+@import "../components/chatbot/Chatbot.scss";

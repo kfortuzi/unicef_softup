@@ -9,8 +9,8 @@
     flex-flow: column nowrap;
     gap: $medium;
     padding: calc(2 * $large) 0 calc(10 * $large) 0;
-    max-width: 40%;
     margin: 0;
+    position: relative;
 
     .title {
       font-family: $karla-bold;

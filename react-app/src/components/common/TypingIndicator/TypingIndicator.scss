@@ -1,0 +1,35 @@
+.typing-indicator {
+  $dot-color: radial-gradient(farthest-side, #{$base-font-color} 90%, #0000);
+  $background-color: $dot-color, $dot-color, $dot-color;
+
+  width: 1.5rem;
+  height: 1rem;
+  background-image: $background-color;
+  background-size: 0.3rem 0.3rem;
+  background-repeat: no-repeat;
+  animation: d3 1s infinite linear;
+}
+
+@keyframes d3 {
+  0% {
+    background-position: calc(0 * 100% / 2) 50%, calc(1 * 100% / 2) 50%, calc(2 * 100% / 2) 50%
+  }
+  16.67% {
+    background-position: calc(0 * 100% / 2) 0, calc(1 * 100% / 2) 50%, calc(2 * 100% / 2) 50%
+  }
+  33.33% {
+    background-position: calc(0 * 100% / 2) 100%, calc(1 * 100% / 2) 0, calc(2 * 100% / 2) 50%
+  }
+  50% {
+    background-position: calc(0 * 100% / 2) 50%, calc(1 * 100% / 2) 100%, calc(2 * 100% / 2) 0
+  }
+  66.67% {
+    background-position: calc(0 * 100% / 2) 50%, calc(1 * 100% / 2) 50%, calc(2 * 100% / 2) 100%
+  }
+  83.33% {
+    background-position: calc(0 * 100% / 2) 50%, calc(1 * 100% / 2) 50%, calc(2 * 100% / 2) 50%
+  }
+  100% {
+    background-position: calc(0 * 100% / 2) 50%, calc(1 * 100% / 2) 50%, calc(2 * 100% / 2) 50%
+  }
+}
