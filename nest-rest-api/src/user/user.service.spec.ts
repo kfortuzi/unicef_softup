@@ -46,7 +46,15 @@ describe('UserService', () => {
     jest.spyOn(repository, 'findOneById').mockResolvedValueOnce(userData);
 
     await expect(service.getProfile('1')).resolves.toEqual(
-      exclude(userData, ['password', 'id']),
+      exclude(userData, [
+        'password',
+        'id',
+        'verificationCode',
+        'confirmedAt',
+        'createdAt',
+        'updatedAt',
+        'deletedAt',
+      ]),
     );
   });
 });

@@ -9,13 +9,25 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { MailService } from '../mail/mail.service';
 import { SendResetPasswordUserDto } from './dto/send-reset-password-user.dto';
-import { users } from '@prisma/client';
+import { user_skills, users } from '@prisma/client';
 import exclude from '../commons/utils/exclude';
 import dayjs from 'dayjs';
 import { ResetPasswordUserDto } from './dto/reset-password-user.dto';
 import { UserRepository } from './user.repository';
 import { compareHash, hashString } from '../commons/utils/hash';
 import { UserSkillDto } from './dto/user-skill.dto';
+
+const userExcludedData = [
+  'password',
+  'id',
+  'verificationCode',
+  'confirmedAt',
+  'createdAt',
+  'updatedAt',
+  'deletedAt',
+] as unknown as (keyof users)[];
+
+const userSkillsExcludedData = ['userId'] as unknown as (keyof user_skills)[];
 
 @Injectable()
 export class UserService {
@@ -25,7 +37,7 @@ export class UserService {
     const user = await this.userRepository.findOneById(id);
     if (!user) throw new NotFoundException({ message: 'User not found!' });
 
-    return exclude(user, ['password', 'id']);
+    return exclude(user, userExcludedData);
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
@@ -70,7 +82,7 @@ export class UserService {
           password: user.password,
         },
       ),
-      ['password'],
+      userExcludedData,
     );
   }
 
@@ -121,7 +133,7 @@ export class UserService {
         { id, verificationCode },
         { confirmedAt: new Date(), verificationCode: null },
       ),
-      ['password', 'id'],
+      userExcludedData,
     );
   }
 
@@ -144,7 +156,9 @@ export class UserService {
 
     const link = `<a href=${process.env.RESET_PASSWORD_URL}?id=${user.id}&verificationCode=${userWithVfCode.verificationCode}> Link to reset password</a>`;
 
-    await MailService.prototype.sendEmail(user.email, 'Reset Email', link);
+    MailService.prototype.sendEmail(user.email, 'Reset Email', link);
+
+    return { description: 'An reset password email has been send.' };
   }
 
   async resetPassword({
@@ -169,21 +183,30 @@ export class UserService {
           verificationCode: null,
         },
       );
+      return { description: 'Success' };
     } else {
       throw new ForbiddenException();
     }
   }
 
   async findUserSkills(userId: string) {
-    return this.userRepository.findUserSkills(userId);
+    return (await this.userRepository.findUserSkills(userId)).map((s) =>
+      exclude(s, userSkillsExcludedData),
+    );
   }
 
   async createUserSkill(userId: string, { name }: UserSkillDto) {
-    return this.userRepository.createUserSkill(userId, name);
+    return exclude(
+      await this.userRepository.createUserSkill(userId, name),
+      userSkillsExcludedData,
+    );
   }
 
   async updateUserSkill(skillId: string, data: UserSkillDto) {
-    return this.userRepository.updateUserSkill(skillId, data);
+    return exclude(
+      await this.userRepository.updateUserSkill(skillId, data),
+      userSkillsExcludedData,
+    );
   }
 
   async deleteUserSkill(skillId: string) {
@@ -193,6 +216,9 @@ export class UserService {
       throw new NotFoundException();
     }
 
-    return this.userRepository.deleteUserSkill(skillId);
+    return exclude(
+      await this.userRepository.deleteUserSkill(skillId),
+      userSkillsExcludedData,
+    );
   }
 }

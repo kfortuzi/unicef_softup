@@ -23,11 +23,12 @@ import {
   ApiForbiddenResponse,
   ApiParam,
 } from '@nestjs/swagger';
-import { User } from './entities/user.entity';
 import { SendResetPasswordUserDto } from './dto/send-reset-password-user.dto';
 import { RequestWithUser } from '../types/request';
 import { ResetPasswordUserDto } from './dto/reset-password-user.dto';
 import { UserSkillDto } from './dto/user-skill.dto';
+import { UserDto } from './dto/user.dto';
+import { UserSkillResponseDto } from './dto/user-skill-response.dto';
 
 @Controller('user')
 export class UserController {
@@ -39,7 +40,7 @@ export class UserController {
   @ApiBody({ type: CreateUserDto })
   @ApiCreatedResponse({
     description: 'The user has been successfully created.',
-    type: User,
+    type: UserDto,
     isArray: false,
   })
   @ApiForbiddenResponse({ status: 403, description: 'Forbidden.' })
@@ -53,7 +54,7 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   @ApiCreatedResponse({
     description: 'Return logged-in user.',
-    type: User,
+    type: UserDto,
     isArray: false,
   })
   @ApiForbiddenResponse({ status: 403, description: 'Forbidden.' })
@@ -66,7 +67,7 @@ export class UserController {
   @Get('confirm')
   @ApiCreatedResponse({
     description: 'The user has been confirmed.',
-    type: User,
+    type: UserDto,
     isArray: false,
   })
   @ApiForbiddenResponse({ status: 403, description: 'Forbidden.' })
@@ -102,6 +103,10 @@ export class UserController {
   @ApiBearerAuth()
   @ApiTags('users')
   @UseGuards(JwtAuthGuard)
+  @ApiCreatedResponse({
+    type: UserDto,
+    isArray: false,
+  })
   @Patch()
   @ApiBody({ type: UpdateUserDto })
   update(
@@ -114,6 +119,10 @@ export class UserController {
   @ApiBearerAuth()
   @ApiTags('users')
   @UseGuards(JwtAuthGuard)
+  @ApiCreatedResponse({
+    type: UserSkillResponseDto,
+    isArray: true,
+  })
   @Get('skills')
   skills(@Request() req: RequestWithUser) {
     return this.userService.findUserSkills(req.user.id);
@@ -122,6 +131,10 @@ export class UserController {
   @ApiBearerAuth()
   @ApiTags('users')
   @UseGuards(JwtAuthGuard)
+  @ApiCreatedResponse({
+    type: UserSkillResponseDto,
+    isArray: false,
+  })
   @ApiBody({ type: UserSkillDto })
   @Post('skills')
   createSkill(
@@ -135,6 +148,10 @@ export class UserController {
   @ApiTags('users')
   @UseGuards(JwtAuthGuard)
   @ApiBody({ type: UserSkillDto })
+  @ApiCreatedResponse({
+    type: UserSkillResponseDto,
+    isArray: false,
+  })
   @ApiParam({ name: 'id', required: true })
   @Put('skills/:id')
   updateSkill(
@@ -147,6 +164,10 @@ export class UserController {
   @ApiBearerAuth()
   @ApiTags('users')
   @UseGuards(JwtAuthGuard)
+  @ApiCreatedResponse({
+    type: UserSkillResponseDto,
+    isArray: false,
+  })
   @ApiParam({ name: 'id', required: true })
   @Delete('skills/:id')
   deleteSkill(@Param() params: { id: string }) {
