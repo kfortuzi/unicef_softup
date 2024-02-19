@@ -4,6 +4,7 @@ import {
   LogoutOutlined,
   ProductOutlined,
   ReadOutlined,
+  SettingOutlined,
   SolutionOutlined,
   UserOutlined,
 } from '@ant-design/icons';
@@ -70,6 +71,12 @@ const PageWithNavigation: React.FC = () => {
         key: 'profile-menu',
         icon: <UserOutlined />,
         children: [
+          {
+            label: t('settings'),
+            key: 'settings',
+            icon: <SettingOutlined />,
+            onClick: () => navigate(Route.PERSONAL_INFO),
+          },
           {
             label: t('logOut'),
             key: 'logOut',

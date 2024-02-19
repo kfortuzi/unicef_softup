@@ -5,6 +5,7 @@ enum Keys {
   GET_PROFILE = 'GET_PROFILE',
   CONFIRM_USER = 'CONFIRM_USER',
   UPDATE_USER = 'UPDATE_USER',
+  PATCH_USER = 'PATCH_USER',
 }
 
 export default Keys;

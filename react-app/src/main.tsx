@@ -9,8 +9,8 @@ import { I18nextProvider } from 'react-i18next';
 import queryClient from './clients/reactQuery';
 import i18n from './locales';
 import Router from './router';
-import './styles/main.scss';
 import theme from './theme.json';
+import './styles/main.scss';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

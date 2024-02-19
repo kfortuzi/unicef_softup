@@ -8,6 +8,10 @@ export type User = {
   email: string;
   firstName: string;
   lastName: string;
+  phoneNumber?: string;
+  profession?: string;
+  profilePicture?: string;
+  birthdayDate?: string;
   verificationCode?: string;
   confirmedAt: string | null;
   accessToken?: string;
@@ -17,9 +21,9 @@ export type User = {
 export type GetProfileResponse = {
   id: string;
   email: string;
-  first_name: string;
-  last_name: string;
-  confirmed_at: string | null;
+  firstName: string;
+  lastName: string;
+  confirmedAt: string | null;
   role: Role;
 };
 
@@ -56,3 +60,17 @@ export type ConfirmUserRequest = {
 };
 
 export type ConfirmUserResponse = User;
+
+//#region User
+export type PatchUserRequest = {
+  firstName?: string;
+  lastName?: string;
+  phoneNumber?: string;
+  profession?: string;
+  birthdayDate?: string;
+  hobbies?: string;
+};
+
+export type PatchUserResponse = PatchUserRequest;
+
+//#endregion

@@ -13,24 +13,7 @@ const getProfile = async (): Promise<User | undefined> => {
     },
   };
 
-  if (parsedData) {
-    const {
-      id,
-      email,
-      first_name: firstName,
-      last_name: lastName,
-      confirmed_at: confirmedAt,
-    } = parsedData;
-
-    return {
-      id,
-      email,
-      firstName,
-      lastName,
-      confirmedAt,
-      role,
-    };
-  }
+  return { ...parsedData, role } as User;
 };
 
 export default getProfile;

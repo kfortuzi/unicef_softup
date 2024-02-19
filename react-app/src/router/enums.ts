@@ -11,4 +11,6 @@ export enum Route {
   FORGOT_PASSWORD = 'forgot-password',
   RESET_PASSWORD = 'reset-password',
   CONFIRM_USER = 'confirm-user',
+  PROFILE_SETTINGS = 'profile-settings',
+  PERSONAL_INFO = '/profile-settings/personal-info',
 }

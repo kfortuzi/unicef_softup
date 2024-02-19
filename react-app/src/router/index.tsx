@@ -7,11 +7,13 @@ import PrivateRoute from 'src/components/router/PrivateRoute';
 import PublicRoute from 'src/components/router/PublicRoute';
 import AuthBackground from 'src/layouts/AuthBackground/AuthBackground';
 import PageWithNavigation from 'src/layouts/PageWithNavigation/PageWithNavigation';
+import ProfileSettingsWithNavigation from 'src/layouts/ProfileSettingsWithNavigation/ProfileSettingsWithNavigation';
 import ConfirmUser from 'src/screens/ConfirmUser/ConfirmUser';
 import ForgotPassword from 'src/screens/ForgotPassword/ForgotPassword';
 import Home from 'src/screens/Home/Home';
 import Login from 'src/screens/Login/Login';
 import NotFound from 'src/screens/NotFound/NotFound';
+import PersonalInfo from 'src/screens/PersonalInfo/PersonalInfo';
 import ResetPassword from 'src/screens/ResetPassword/ResetPassword';
 import Signup from 'src/screens/Signup/Signup';
 
@@ -51,6 +53,16 @@ const Router: React.FC = () => {
             {
               path: Route.TRAINING,
               element: <Home />,
+            },
+            {
+              path: Route.PROFILE_SETTINGS,
+              element: <ProfileSettingsWithNavigation />,
+              children: [
+                {
+                  path: Route.PERSONAL_INFO,
+                  element: <PersonalInfo />,
+                },
+              ],
             },
           ],
         },

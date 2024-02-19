@@ -1,0 +1,36 @@
+.page-with-navigation-container {
+  flex: 1;
+  display: flex;
+  flex-flow: column nowrap;
+  overflow-y: auto;
+  height: 100%;
+  background-color: $layout-background;
+
+  .navigation-bar {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    border-bottom: 1px solid $base-font-color;
+
+    > .ant-menu {
+      min-width: 100%;
+      justify-content: flex-end;
+    }
+  }
+
+  .page-content-and-footer {
+    min-height: max-content;
+    background-color: transparent;
+
+    .page-content {
+      display: flex;
+      flex-flow: column nowrap;
+      padding: 0 50px;
+    }
+  }
+
+  @import "../Footer/Footer.scss";
+}

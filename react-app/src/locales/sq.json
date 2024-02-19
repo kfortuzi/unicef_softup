@@ -62,12 +62,60 @@
         "sendMeToLogin": "Me Dergo Ne Login"
       }
     },
+    "profile": {
+      "personalInfoButtonText": "Informacione Personale",
+      "skillsAndHobbiesButtonText": "Aftesi & Hobi", 
+      "resetPasswordButtonText":"Rivendos Fjalekalimin",
+      "myResumeButtonText":"CV Im",
+      "personalInfo": {
+        "header": "Informacione Personale",
+        "firstName": "Emri",
+        "lastName": "Mbiemri",
+        "phoneNumber": "Telefoni",
+        "profession": "Profesioni",
+        "birthdayDate": "Data e lindjes"
+      },
+      "skillsAndHobbies": {
+        "header": "Skills & Hobbies",
+        "skills": "Skills",
+        "hobbies": "Hobbies",
+        "submit": "Save",
+        "loading": "Loading skills & hobbies...",
+        "success": "Skills & hobbies were saved successfully!",
+        "error": "Failed to save skills & hobbies!"
+      },
+      "resetPassword": {
+        "header": "Reset Password",
+        "passwordLabel": "Password",
+        "confirmPasswordLabel": "Confirm Password",
+        "passwordRequired": "Password is required",
+        "passwordsMustMatch": "Passwords do not match",
+        "confirmPasswordRequired": "Password must be confirmed",
+        "submit": "Save Password",
+        "requestSuccess": "Password was reset successfully!",
+        "showPassword": "Show password"
+      },
+      "myResume": {
+        "header": "My Resume",
+        "loading": "Loading resume...",
+        "noResume": "You have not created a resume yet",
+        "createResume": "Create Resume",
+        "editResume": "Edit Resume",
+        "deleteResume": "Delete Resume",
+        "submit": "Save",
+        "success": "Resume was saved successfully!",
+        "error": "Failed to save resume!"
+      }
+    },
     "globalStrings": {
       "error": "Gabim",
       "success": "Sukses",
       "warning": "Paralajmerim ",
       "loading": "Ju lutem prisni...",
-      "info": "Informacion"
+      "info": "Informacion",
+      "submit": "Dergo",
+      "cancel": "Anullo",
+      "edit": "Ndrysho"
     },
     "notFound": {
       "title": "Faqja qe po kerkoni nuk u gjet!",
@@ -93,7 +141,14 @@
       "resume": "Resume",
       "coverLetter": "Leter motivimi",
       "jobs": "Punet",
-      "training": "Trajnim"
+      "training": "Trajnim",
+      "settings": "Settings"
+    },
+    "profileWithNavigation": {
+      "personalInfo": "Personal Info",
+      "skillsAndHobbies": "Skills & Hobbies",
+      "resetPassword": "Reset Password",
+      "myResume": "My Resume"
     },
     "articles": {
       "header": "Artikujt",

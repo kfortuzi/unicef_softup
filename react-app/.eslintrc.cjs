@@ -30,7 +30,11 @@ module.exports = {
     ],
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     'newline-before-return': 'error',
-    'max-len': ['error', { code: 110 }],
+    'max-len': ['error', {
+      code: 110,
+      ignorePattern: "^import\\s.+\\sfrom\\s.+;$",
+      ignoreUrls: true
+    }],
     'function-call-argument-newline': ['error', 'consistent'],
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',

@@ -62,12 +62,60 @@
         "sendMeToLogin": "Send Me To Login"
       }
     },
+    "profile": {
+      "personalInfoButtonText":"Personal Info",
+      "skillsAndHobbiesButtonText":"Skills & Hobbies",
+      "resetPasswordButtonText":"Reset Password",
+      "myResumeButtonText":"My Resume",
+      "personalInfo": {
+        "header": "Personal Info",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "phoneNumber": "Phone",
+        "profession": "Profession",
+        "birthdayDate": "Birthday Date"
+      },
+      "skillsAndHobbies": {
+        "header": "Skills & Hobbies",
+        "skills": "Skills",
+        "hobbies": "Hobbies",
+        "submit": "Save",
+        "loading": "Loading skills & hobbies...",
+        "success": "Skills & hobbies were saved successfully!",
+        "error": "Failed to save skills & hobbies!"
+      },
+      "resetPassword": {
+        "header": "Reset Password",
+        "passwordLabel": "Password",
+        "confirmPasswordLabel": "Confirm Password",
+        "passwordRequired": "Password is required",
+        "passwordsMustMatch": "Passwords do not match",
+        "confirmPasswordRequired": "Password must be confirmed",
+        "submit": "Save Password",
+        "requestSuccess": "Password was reset successfully!",
+        "showPassword": "Show password"
+      },
+      "myResume": {
+        "header": "My Resume",
+        "loading": "Loading resume...",
+        "noResume": "You have not created a resume yet",
+        "createResume": "Create Resume",
+        "editResume": "Edit Resume",
+        "deleteResume": "Delete Resume",
+        "submit": "Save",
+        "success": "Resume was saved successfully!",
+        "error": "Failed to save resume!"
+      }
+    },
     "globalStrings": {
       "error": "Error",
       "success": "Success",
       "warning": "Warning",
       "loading": "Please wait...",
-      "info": "Info"
+      "info": "Info",
+      "submit": "Submit",
+      "cancel": "Cancel",
+      "edit": "Edit"
     },
     "notFound": {
       "title": "The page you are looking for was not found!",
@@ -93,7 +141,14 @@
       "resume": "Resume",
       "coverLetter": "Cover letter",
       "jobs": "Jobs",
-      "training": "Training"
+      "training": "Training",
+      "settings": "Settings"
+    },
+    "profileWithNavigation": {
+      "personalInfo": "Personal Info",
+      "skillsAndHobbies": "Skills & Hobbies",
+      "resetPassword": "Reset Password",
+      "myResume": "My Resume"
     },
     "articles": {
       "header": "Articles",
