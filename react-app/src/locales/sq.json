@@ -76,13 +76,15 @@
         "birthdayDate": "Data e lindjes"
       },
       "skillsAndHobbies": {
-        "header": "Skills & Hobbies",
-        "skills": "Skills",
-        "hobbies": "Hobbies",
-        "submit": "Save",
-        "loading": "Loading skills & hobbies...",
-        "success": "Skills & hobbies were saved successfully!",
-        "error": "Failed to save skills & hobbies!"
+        "header": "Aftesi & Hobi",
+        "tagsLabel": "Shto Aftesi",
+        "tagsPlaceholder": "Shto Aftesi",
+        "skills": "Aftesi",
+        "hobbies": "Hobi",
+        "submit": "Ruaj",
+        "loading": "Duke ngarkuar aftesite dhe hobite...",
+        "success": "Aftesite dhe hobite u ruajten me sukses!",
+        "error": "Aftesite dhe hobite nuk u ruajten me sukses!"
       },
       "resetPassword": {
         "header": "Reset Password",

@@ -13,4 +13,5 @@ export enum Route {
   CONFIRM_USER = 'confirm-user',
   PROFILE_SETTINGS = 'profile-settings',
   PERSONAL_INFO = '/profile-settings/personal-info',
+  SKILLS_AND_HOBBIES = '/profile-settings/skills-and-hobbies',
 }

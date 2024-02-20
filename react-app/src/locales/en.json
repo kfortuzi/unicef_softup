@@ -77,6 +77,8 @@
       },
       "skillsAndHobbies": {
         "header": "Skills & Hobbies",
+        "tagsLabel": "Add a tag",
+        "tagsPlaceholder": "Type and press enter to add a tag",
         "skills": "Skills",
         "hobbies": "Hobbies",
         "submit": "Save",

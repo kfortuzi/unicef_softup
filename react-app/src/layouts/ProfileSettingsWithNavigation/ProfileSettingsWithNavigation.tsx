@@ -31,7 +31,7 @@ const ProfileSettingsWithNavigation: React.FC = () => {
         label: t('skillsAndHobbiesButtonText'),
         key: 'skillsAndHobbies',
         icon: <SolutionOutlined />,
-        onClick: () => navigate(Route.RESUME),
+        onClick: () => navigate(Route.SKILLS_AND_HOBBIES),
       },
       {
         label: t('resetPasswordButtonText'),

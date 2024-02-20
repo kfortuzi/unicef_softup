@@ -1,25 +1,28 @@
 // common
-@import "../components/common/Button/Button.scss";
-@import "../components/common/Card/Card.scss";
-@import "../components/common/InputCheckbox/InputCheckbox.scss";
-@import "../components/common/InputText/InputText.scss";
-@import "../components/common/LoadingFullPage/LoadingFullPage.scss";
-@import "../components/common/ResultComponent/ResultComponent.scss";
-@import "../components/common/TypingIndicator/TypingIndicator.scss";
+@import '../components/common/Button/Button.scss';
+@import '../components/common/Card/Card.scss';
+@import '../components/common/InputCheckbox/InputCheckbox.scss';
+@import '../components/common/InputText/InputText.scss';
+@import '../components/common/LoadingFullPage/LoadingFullPage.scss';
+@import '../components/common/ResultComponent/ResultComponent.scss';
+@import '../components/common/TypingIndicator/TypingIndicator.scss';
 // login
-@import "../components/auth/login/LoginForm/LoginForm.scss";
+@import '../components/auth/login/LoginForm/LoginForm.scss';
 // signup
-@import "../components/auth/signup/SignupForm/SignupForm.scss";
+@import '../components/auth/signup/SignupForm/SignupForm.scss';
 // forgot password
-@import "../components/auth/forgotPassword/ForgotPasswordForm/ForgotPasswordForm.scss";
+@import '../components/auth/forgotPassword/ForgotPasswordForm/ForgotPasswordForm.scss';
 // reset password
-@import "../components/auth/resetPassword/ResetPasswordForm/ResetPasswordForm.scss";
+@import '../components/auth/resetPassword/ResetPasswordForm/ResetPasswordForm.scss';
 // status report
-@import "../components/common/ResultComponent/ResultComponent.scss";
+@import '../components/common/ResultComponent/ResultComponent.scss';
 // articles
-@import "../components/articles/Article.scss";
+@import '../components/articles/Article.scss';
 // chatbot
-@import "../components/chatbot/Chatbot.scss";
+@import '../components/chatbot/Chatbot.scss';
 // profile
-@import "../components/profile/personalInfo/PersonalInfoDescription/PersonalInfoDescription.scss";
-@import "../components/profile/personalInfo/PersonalInfoEditForm/PersonalInfoEditForm.scss";
+@import '../components/profile/personalInfo/PersonalInfoDescription/PersonalInfoDescription.scss';
+@import '../components/profile/personalInfo/PersonalInfoEditForm/PersonalInfoEditForm.scss';
+// skills and hobbies
+@import '../components/profile/skillsAndHobbies/SkillsEditForm/SkillsEditForm.scss';
+@import '../components/profile/skillsAndHobbies/SkillsView/SkillsView.scss';

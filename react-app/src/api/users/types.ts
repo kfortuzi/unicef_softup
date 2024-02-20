@@ -12,6 +12,7 @@ export type User = {
   profession?: string;
   profilePicture?: string;
   birthdayDate?: string;
+  hobbies?: string;
   verificationCode?: string;
   confirmedAt: string | null;
   accessToken?: string;
@@ -24,6 +25,7 @@ export type GetProfileResponse = {
   firstName: string;
   lastName: string;
   confirmedAt: string | null;
+  hobbies?: string;
   role: Role;
 };
 
@@ -72,5 +74,28 @@ export type PatchUserRequest = {
 };
 
 export type PatchUserResponse = PatchUserRequest;
+
+//#endregion
+
+//#region Skills
+export type PostSkillRequest = {
+  name: string;
+};
+
+export type PostSkillResponse = {
+  id: string;
+  name: string;
+};
+
+export type GetSkillsResponse = {
+  id: string;
+  name: string;
+}[];
+
+export type DeleteSkillRequest = {
+  id: string;
+};
+
+export type DeleteSkillResponse = undefined;
 
 //#endregion

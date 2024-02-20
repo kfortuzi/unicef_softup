@@ -1,0 +1,30 @@
+.hobbies-form-edit {
+  display: flex;
+  flex-flow: column nowrap;
+  max-width: $suggested-form-width;
+  width: 100%;
+  gap: $medium;
+
+  .button-group-container {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: $small;
+  }
+  .input-element-container {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: $small;
+
+    .ant-flex-vertical {
+      gap: $small;
+    }
+
+    .input-select {
+      flex: 1;
+
+      .ant-input {
+        width: 100%;
+      }
+    }
+  }
+}

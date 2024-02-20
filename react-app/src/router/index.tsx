@@ -18,6 +18,7 @@ import ResetPassword from 'src/screens/ResetPassword/ResetPassword';
 import Signup from 'src/screens/Signup/Signup';
 
 import { Route } from './enums';
+import SkillsAndHobbies from 'src/screens/SkillsAndHobbies/SkillsAndHobbies';
 
 const Router: React.FC = () => {
   const { isFetching } = useGetProfile();
@@ -61,6 +62,10 @@ const Router: React.FC = () => {
                 {
                   path: Route.PERSONAL_INFO,
                   element: <PersonalInfo />,
+                },
+                {
+                  path: Route.SKILLS_AND_HOBBIES,
+                  element: <SkillsAndHobbies />,
                 },
               ],
             },
