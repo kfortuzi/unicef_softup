@@ -3,7 +3,6 @@ import { JobService } from './job.service';
 import { JobsFetchService } from './jobFetch.service';
 import { Job } from './dto/job.dto';
 import { UserRecommendedJobsService } from './userJobs.service';
-import { UserJobsDTO } from './dto/user-jobs.dto';
 
 @Controller('jobs')
 export class JobController {

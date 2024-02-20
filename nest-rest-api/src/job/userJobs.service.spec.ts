@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserRecommendedJobsService } from './userJobs.service';
 import { UserJobsRepository } from './userJobs.repository';
-import { UserJobsDTO } from './dto/user-jobs.dto';
+import { UserRecommendedJobsDTO } from './dto/user-jobs.dto';
 import { JobType, EducationType } from '@prisma/client';
 
 describe('UserRecommendedJobsService', () => {
@@ -61,7 +61,7 @@ describe('UserRecommendedJobsService', () => {
 
   describe('recommendJob', () => {
     it('should successfully call createUserRecommendedJob on repository', async () => {
-      const dto: UserJobsDTO = { userId: '1', jobId: '123' };
+      const dto: UserRecommendedJobsDTO = { userId: '1', jobId: '123' };
       const spy = jest
         .spyOn(repository, 'createUserRecommendedJob')
         .mockResolvedValueOnce(dto);

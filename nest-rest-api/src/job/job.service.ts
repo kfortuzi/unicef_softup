@@ -46,7 +46,7 @@ export class JobService {
     return uniqueTags.join(',');
   }
 
-  async updateJobtag(id: string, tags: string): Promise<void> {
+  async updateJobtag(id: number, tags: string): Promise<void> {
     return this.jobRepository.updateTagsJob(id, tags);
   }
 }
