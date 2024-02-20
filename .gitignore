@@ -65,3 +65,5 @@ react-app/*.njsproj
 react-app/*.sln
 react-app/*.sw?
 react-app/.vite
+.DS_Store
+.gitignore

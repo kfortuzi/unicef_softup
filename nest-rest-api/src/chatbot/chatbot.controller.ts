@@ -1,13 +1,16 @@
-import { Controller, Post, Body, Inject } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { ChatbotService } from './chatbot.service';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('chatbot')
 export class ChatbotController {
   constructor(private chatbotService: ChatbotService) {}
 
-  @Post('message')
-  async sendMessage(@Body('message') message: string) {
-    const response = await this.chatbotService.sendMessage(message);
+  @ApiTags('openai')
+  @Get('message')
+  async sendMessage(@Query('message') message: string) {
+    const response =
+      await this.chatbotService.returnJobBasedOnUserRequest(message);
     return { response };
   }
 }

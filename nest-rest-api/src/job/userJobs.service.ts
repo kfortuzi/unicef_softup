@@ -13,6 +13,6 @@ export class UserRecommendedJobsService {
   }
 
   async getRecommendedJobsForUser(userId: string) {
-    return await this.repository.findJobsByUserId(userId);
+    return this.repository.findJobsByUserId(userId);
   }
 }
