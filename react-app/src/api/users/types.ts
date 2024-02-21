@@ -71,9 +71,11 @@ export type PatchUserRequest = {
   profession?: string;
   birthdayDate?: string;
   hobbies?: string;
+  oldPassword?: string;
+  newPassword?: string;
 };
 
-export type PatchUserResponse = PatchUserRequest;
+export type PatchUserResponse = Omit<PatchUserRequest, 'oldPassword' | 'newPassword'>;
 
 //#endregion
 

@@ -50,7 +50,8 @@
         "confirmPasswordRequired": "Fjalekalimi duhet konfirmuar",
         "submit": "Ruaj Fjalekalimin",
         "requestSuccess": "Fjalekalimi i ri u ruajt me sukses!",
-        "showPassword": "Shfaq fjalekalimin"
+        "showPassword": "Shfaq fjalekalimin",
+        "invalidPassword": "Fjalekalimi nuk i ploteson kushtet"
       },
       "confirmUser": {
         "confirming": "Duke konfirmuar...",
@@ -86,16 +87,11 @@
         "success": "Aftesite dhe hobite u ruajten me sukses!",
         "error": "Aftesite dhe hobite nuk u ruajten me sukses!"
       },
-      "resetPassword": {
-        "header": "Reset Password",
-        "passwordLabel": "Password",
-        "confirmPasswordLabel": "Confirm Password",
-        "passwordRequired": "Password is required",
-        "passwordsMustMatch": "Passwords do not match",
-        "confirmPasswordRequired": "Password must be confirmed",
-        "submit": "Save Password",
-        "requestSuccess": "Password was reset successfully!",
-        "showPassword": "Show password"
+      "changePassword": {
+        "header": "Rivendos Fjalekalimin",
+        "oldPassword": "Fjalekalimi i vjeter",
+        "newPassword": "Fjalekalimi i ri",
+        "confirmNewPassword": "Konfirmo Fjalekalimin e ri"
       },
       "myResume": {
         "header": "My Resume",

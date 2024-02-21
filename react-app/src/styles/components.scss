@@ -1,12 +1,12 @@
 // common
-@import "../components/common/Button/Button.scss";
-@import "../components/common/Card/Card.scss";
-@import "../components/common/InputCheckbox/InputCheckbox.scss";
-@import "../components/common/InputText/InputText.scss";
-@import "../components/common/LoadingFullPage/LoadingFullPage.scss";
-@import "../components/common/ResultComponent/ResultComponent.scss";
-@import "../components/common/TypingIndicator/TypingIndicator.scss";
-@import "../components/common/InputSelect/InputSelect.scss";
+@import '../components/common/Button/Button.scss';
+@import '../components/common/Card/Card.scss';
+@import '../components/common/InputCheckbox/InputCheckbox.scss';
+@import '../components/common/InputText/InputText.scss';
+@import '../components/common/LoadingFullPage/LoadingFullPage.scss';
+@import '../components/common/ResultComponent/ResultComponent.scss';
+@import '../components/common/TypingIndicator/TypingIndicator.scss';
+@import '../components/common/InputSelect/InputSelect.scss';
 // login
 @import '../components/auth/login/LoginForm/LoginForm.scss';
 // signup
@@ -16,9 +16,9 @@
 // reset password
 @import '../components/auth/resetPassword/ResetPasswordForm/ResetPasswordForm.scss';
 // status report
-@import "../components/common/ResultComponent/ResultComponent.scss";
+@import '../components/common/ResultComponent/ResultComponent.scss';
 // resume card
-@import "../components/resume/ResumeCard/ResumeCard.scss";
+@import '../components/resume/ResumeCard/ResumeCard.scss';
 // chatbot
 @import '../components/chatbot/Chatbot.scss';
 // profile
@@ -27,3 +27,5 @@
 // skills and hobbies
 @import '../components/profile/skillsAndHobbies/SkillsEditForm/SkillsEditForm.scss';
 @import '../components/profile/skillsAndHobbies/SkillsView/SkillsView.scss';
+// profile reset password
+@import '../components/profile/changePassword/ChangePasswordForm.scss';

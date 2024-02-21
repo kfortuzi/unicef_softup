@@ -7,7 +7,7 @@ interface Props extends SelectProps {
   name: string;
   value: SelectProps<number>['value'];
   error?: string;
-  options: SelectProps['options'];
+  options?: SelectProps['options'];
   onChange?: SelectProps['onChange'];
   placeholder?: string;
   label?: string;
@@ -18,8 +18,8 @@ interface Props extends SelectProps {
 const InputSelect: React.FC<Props> = ({
   inputRef,
   name,
-  value,
   error,
+  value,
   onChange,
   options,
   placeholder,
@@ -51,8 +51,8 @@ const InputSelect: React.FC<Props> = ({
         <Select
           ref={inputRef}
           id={name}
-          onChange={onChange}
           value={value}
+          onChange={onChange}
           options={options}
           placeholder={placeholder}
           status={inputStatus}

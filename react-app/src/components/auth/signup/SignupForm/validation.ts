@@ -1,11 +1,10 @@
 import { ObjectSchema, object, string } from 'yup';
 
+import passwordRegex from 'src/constants/passwordRegex';
 import i18n from 'src/locales';
 
 import { FormField } from './enums';
 import { FormValues } from './types';
-
-const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)[\w\S]{7,}$/;
 
 const validationSchema: ObjectSchema<FormValues> = object({
   [FormField.EMAIL]: string()

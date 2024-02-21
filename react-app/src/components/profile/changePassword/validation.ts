@@ -7,6 +7,7 @@ import { FormField } from './enums';
 import { FormValues } from './types';
 
 const validationSchema: ObjectSchema<FormValues> = object({
+  [FormField.CURRENT_PASSWORD]: string().required(i18n.t('auth.resetPassword.passwordRequired')),
   [FormField.NEW_PASSWORD]: string()
     .matches(passwordRegex, {
       excludeEmptyString: true,

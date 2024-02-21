@@ -86,15 +86,15 @@
         "success": "Skills & hobbies were saved successfully!",
         "error": "Failed to save skills & hobbies!"
       },
-      "resetPassword": {
+      "changePassword": {
         "header": "Reset Password",
-        "passwordLabel": "Password",
-        "confirmPasswordLabel": "Confirm Password",
-        "passwordRequired": "Password is required",
+        "oldPassword": "Old Password",
+        "newPassword": "New Password",
+        "confirmPassword": "Confirm Password",
         "passwordsMustMatch": "Passwords do not match",
+        "oldPasswordRequired": "Old password is required",
+        "newPasswordRequired": "New password is required",
         "confirmPasswordRequired": "Password must be confirmed",
-        "submit": "Save Password",
-        "requestSuccess": "Password was reset successfully!",
         "showPassword": "Show password"
       },
       "myResume": {

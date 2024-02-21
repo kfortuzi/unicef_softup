@@ -8,6 +8,7 @@ import PublicRoute from 'src/components/router/PublicRoute';
 import AuthBackground from 'src/layouts/AuthBackground/AuthBackground';
 import PageWithNavigation from 'src/layouts/PageWithNavigation/PageWithNavigation';
 import ProfileSettingsWithNavigation from 'src/layouts/ProfileSettingsWithNavigation/ProfileSettingsWithNavigation';
+import ChangePassword from 'src/screens/ChangePassword/ChangePassword';
 import ConfirmUser from 'src/screens/ConfirmUser/ConfirmUser';
 import ForgotPassword from 'src/screens/ForgotPassword/ForgotPassword';
 import Home from 'src/screens/Home/Home';
@@ -67,6 +68,10 @@ const Router: React.FC = () => {
                 {
                   path: Route.SKILLS_AND_HOBBIES,
                   element: <SkillsAndHobbies />,
+                },
+                {
+                  path: Route.CHANGE_PASSWORD,
+                  element: <ChangePassword />,
                 },
               ],
             },

@@ -37,7 +37,7 @@ const ProfileSettingsWithNavigation: React.FC = () => {
         label: t('resetPasswordButtonText'),
         key: 'resetPassword',
         icon: <ContainerOutlined />,
-        onClick: () => navigate(Route.COVER_LETTER),
+        onClick: () => navigate(Route.CHANGE_PASSWORD),
       },
       {
         label: t('myResumeButtonText'),

@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
+import useDeleteSkill from 'src/api/users/hooks/useDeleteSkill';
 import useGetSkills from 'src/api/users/hooks/useGetSkills';
 import usePostSkill from 'src/api/users/hooks/usePostSkill';
-import deleteSkill from 'src/api/users/requests/deleteSkill';
 import Button from 'src/components/common/Button/Button';
 import InputSelect from 'src/components/common/InputSelect/InputSelect';
 import LoadingFullPage from 'src/components/common/LoadingFullPage/LoadingFullPage';
@@ -27,9 +27,28 @@ const SkillsEditForm: React.FC<Props> = ({ toggleEditMode }) => {
   const changeLog: Map<string, string> = new Map();
 
   const { mutate: postSkill, isPending } = usePostSkill();
+  const { mutate: deleteSkill } = useDeleteSkill();
   useEffect(() => {
     reset({ [FormField.TAGS]: generateDefaultValues(skills) });
   }, [reset, skills]);
+
+  const handleSubmit = async () => {
+    await Promise.all(changeLog.entries()).then((entries) => {
+      entries.forEach(([skill, status]) => {
+        if (status === 'added') {
+          postSkill({ name: skill });
+        }
+        if (status === 'removed') {
+          const skillToDelete = skills?.find((s) => s.name === skill);
+          if (skillToDelete) {
+            deleteSkill(skillToDelete.id);
+          }
+        }
+      });
+    });
+    toggleEditMode();
+  };
+
   if (isFetching) {
     return <LoadingFullPage />;
   }
@@ -42,35 +61,21 @@ const SkillsEditForm: React.FC<Props> = ({ toggleEditMode }) => {
   return (
     <form
       className="skills-form-edit"
-      onSubmit={() => {
-        Promise.all(changeLog.entries()).then((entries) => {
-          entries.forEach(([skill, status]) => {
-            if (status === 'added') {
-              postSkill({ name: skill });
-            }
-            if (status === 'removed') {
-              const skillToDelete = skills?.find((s) => s.name === skill);
-              if (skillToDelete) {
-                deleteSkill(skillToDelete.id);
-              }
-            }
-          });
-        });
-        toggleEditMode();
-      }}
+      onSubmit={handleSubmit}
     >
       <div className="input-element-container">
         <Controller
           control={control}
           name={FormField.TAGS}
-          render={({ field: { name, onChange, value } }) => (
+          render={({ field: { onChange, value, ref } }) => (
             <InputSelect
-              label={t('tagsLabel')}
-              name={name}
+              placeholder={t('tagsPlaceholder')}
+              inputRef={ref}
+              name={t('tagsLabel')}
+              value={value}
               onChange={onChange}
               tokenSeparators={[',']}
               mode="tags"
-              value={value}
               options={generateDefaultValues(skills)}
               onSelect={(value) => handleSelect(value, skills, changeLog)}
               onDeselect={(value) => handleDeselect(value, skills, changeLog)}
