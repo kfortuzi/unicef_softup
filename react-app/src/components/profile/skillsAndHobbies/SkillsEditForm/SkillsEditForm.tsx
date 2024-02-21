@@ -63,13 +63,15 @@ const SkillsEditForm: React.FC<Props> = ({ toggleEditMode }) => {
         <Controller
           control={control}
           name={FormField.TAGS}
-          render={({ field: { onChange } }) => (
+          render={({ field: { name, onChange, value } }) => (
             <InputSelect
               label={t('tagsLabel')}
+              name={name}
               onChange={onChange}
-              defaultValue={generateDefaultValues(skills)}
               tokenSeparators={[',']}
               mode="tags"
+              value={value}
+              options={generateDefaultValues(skills)}
               onSelect={(value) => handleSelect(value, skills, changeLog)}
               onDeselect={(value) => handleDeselect(value, skills, changeLog)}
             />

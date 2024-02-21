@@ -1,0 +1,31 @@
+.my-resumes-container {
+  flex: 1;
+  display: flex;
+  flex-flow: column nowrap;
+  box-sizing: border-box;
+  gap: calc(2 * $large);
+
+  .my-resumes-header {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: $medium;
+    padding: calc(2 * $large) 0 0;
+    position: relative;
+
+    .title {
+      font-family: $karla-bold;
+      font-size: 150%;
+      margin: 0;
+    }
+  }
+
+  .list-of-resumes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-auto-rows: 1fr;
+    gap: $large;
+    padding-bottom: calc(2 * $large);
+    height: 100%;
+  }
+}

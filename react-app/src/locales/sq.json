@@ -64,9 +64,9 @@
     },
     "profile": {
       "personalInfoButtonText": "Informacione Personale",
-      "skillsAndHobbiesButtonText": "Aftesi & Hobi", 
-      "resetPasswordButtonText":"Rivendos Fjalekalimin",
-      "myResumeButtonText":"CV Im",
+      "skillsAndHobbiesButtonText": "Aftesi & Hobi",
+      "resetPasswordButtonText": "Rivendos Fjalekalimin",
+      "myResumeButtonText": "CV Im",
       "personalInfo": {
         "header": "Informacione Personale",
         "firstName": "Emri",
@@ -152,11 +152,6 @@
       "resetPassword": "Reset Password",
       "myResume": "My Resume"
     },
-    "articles": {
-      "header": "Artikujt",
-      "loading": "Duke ngarkuar artikujt...",
-      "noArticles": "Nuk ka artikuj per te shfaqur"
-    },
     "footer": {
       "nationalEmploymentService": "RRJETI KOMBËTAR I PUNËSIMIT",
       "whatDoesTheNationalEmploymentServiceDo": "Çfarë bën për ju Sistemi Kombëtar i Punësimit?",
@@ -175,6 +170,20 @@
       "announceAJob": "Shpall një vend të lire pune",
       "unemploymentBenefit": "Pagesa e Papunësisë",
       "employmentIncentivePrograms": "Programet e Nxitjes së Punësimit"
+    },
+    "myResumes": {
+      "header": "CV-të e mia",
+      "lastUpdated": "Perditesimi i fundit",
+      "edit": "Edito",
+      "delete": "Fshi",
+      "interviewTips": "Keshilla per interviste"
+    },
+    "chatbot": {
+      "header": "Chatbot",
+      "welcomeMessage": "Pershendetje, une jam Worky. 👋 Si mund t'ju ndihmoj?",
+      "jobOpportunities": "Eksploro Mundesi Punesimi",
+      "craftResume": "Krijo Nje Resume te Mire",
+      "careerAdvice": "Merr Udhezime per Karrieren"
     }
   }
 }

@@ -1,0 +1,52 @@
+.resume-card-container {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  gap: $medium;
+  background-color: $background-color;
+  padding: $medium;
+  border-radius: $base-border-radius;
+  box-shadow: $suggested-box-shadow;
+  text-align: center;
+
+  .metadata {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: $small;
+
+    .name {
+      font-family: $karla-bold;
+      font-size: 100%;
+      margin: 0;
+    }
+
+    .last-updated {
+      font-family: $karla-regular;
+      font-size: 80%;
+      margin: 0;
+    }
+  }
+
+  .actions {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: $small;
+
+    .edit {
+      border: 1px solid $base-font-color;
+      border-radius: $base-border-radius;
+      padding: calc($small / 2) $small;
+      cursor: pointer;
+    }
+
+    .delete {
+      border: 1px solid $base-font-color;
+      padding: calc($small / 2) $small;
+      border-radius: $base-border-radius;
+      cursor: pointer;
+    }
+  }
+}

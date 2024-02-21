@@ -1,15 +1,19 @@
 import { RobotOutlined, UserOutlined } from '@ant-design/icons';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import TypingIndicator from '../common/TypingIndicator/TypingIndicator.tsx';
 import TopicSelectionOptions from './TopicSelectionOptions.tsx';
 
 const ChatBody: React.FC = () => {
+  const { t } = useTranslation('translation', { keyPrefix: 'chatbot' });
+
   return (
     <div className="chat-body">
       <div className="topic-selection">
         <div className="message">
           <RobotOutlined className="icon bot-icon" />
-          <p className="message-content welcome-message">Hi, I am Worky. 👋 How can I help you?</p>
+          <p className="message-content welcome-message">{t('welcomeMessage')}</p>
         </div>
         <TopicSelectionOptions />
       </div>

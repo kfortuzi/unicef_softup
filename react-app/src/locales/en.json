@@ -63,10 +63,10 @@
       }
     },
     "profile": {
-      "personalInfoButtonText":"Personal Info",
-      "skillsAndHobbiesButtonText":"Skills & Hobbies",
-      "resetPasswordButtonText":"Reset Password",
-      "myResumeButtonText":"My Resume",
+      "personalInfoButtonText": "Personal Info",
+      "skillsAndHobbiesButtonText": "Skills & Hobbies",
+      "resetPasswordButtonText": "Reset Password",
+      "myResumeButtonText": "My Resume",
       "personalInfo": {
         "header": "Personal Info",
         "firstName": "First Name",
@@ -152,11 +152,6 @@
       "resetPassword": "Reset Password",
       "myResume": "My Resume"
     },
-    "articles": {
-      "header": "Articles",
-      "loading": "Loading articles...",
-      "noArticles": "No articles yet"
-    },
     "footer": {
       "nationalEmploymentService": "NATIONAL EMPLOYMENT SERVICE",
       "whatDoesTheNationalEmploymentServiceDo": "What does the national employment service do for you?",
@@ -175,6 +170,20 @@
       "announceAJob": "Announce a job",
       "unemploymentBenefit": "Unemployment benefit",
       "employmentIncentivePrograms": "Employment incentive programs"
+    },
+    "myResumes": {
+      "header": "My Resumes",
+      "lastUpdated": "Last updated",
+      "edit": "Edit",
+      "delete": "Dele",
+      "interviewTips": "Interview tips"
+    },
+    "chatbot": {
+      "header": "Chatbot",
+      "welcomeMessage": "Hi, I am Worky. 👋 How can I help you?",
+      "jobOpportunities": "Explore Job Opportunities",
+      "craftResume": "Craft a Winning Resume",
+      "careerAdvice": "Receive Career Guidance"
     }
   }
 }

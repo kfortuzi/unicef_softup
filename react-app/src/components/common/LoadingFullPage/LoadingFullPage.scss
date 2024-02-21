@@ -4,11 +4,11 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: $backdrop-color;
   z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;
   pointer-events: none;
   user-select: none;
+  backdrop-filter: blur(10px);
 }

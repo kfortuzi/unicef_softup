@@ -3,7 +3,7 @@ interface Props {
 }
 
 const TypingIndicator: React.FC<Props> = ({ className = '' }) => {
-  return <div className={`typing-indicator ${className}`}></div>;
+  return <span className={`typing-indicator ${className}`}></span>;
 };
 
 export default TypingIndicator;

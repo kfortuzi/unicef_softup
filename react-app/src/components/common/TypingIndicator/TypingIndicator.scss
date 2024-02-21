@@ -2,6 +2,7 @@
   $dot-color: radial-gradient(farthest-side, #{$base-font-color} 90%, #0000);
   $background-color: $dot-color, $dot-color, $dot-color;
 
+  display: inline-block;
   width: 1.5rem;
   height: 1rem;
   background-image: $background-color;
