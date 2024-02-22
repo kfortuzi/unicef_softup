@@ -15,4 +15,5 @@ export enum Route {
   PERSONAL_INFO = '/profile-settings/personal-info',
   SKILLS_AND_HOBBIES = '/profile-settings/skills-and-hobbies',
   CHANGE_PASSWORD = '/profile-settings/change-password',
+  MY_RESUME = '/profile-settings/my-resume',
 }

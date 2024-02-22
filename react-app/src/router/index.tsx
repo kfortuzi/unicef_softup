@@ -13,6 +13,7 @@ import ConfirmUser from 'src/screens/ConfirmUser/ConfirmUser';
 import ForgotPassword from 'src/screens/ForgotPassword/ForgotPassword';
 import Home from 'src/screens/Home/Home';
 import Login from 'src/screens/Login/Login';
+import MyResume from 'src/screens/MyResume/MyResume';
 import MyResumes from 'src/screens/MyResumes/MyResumes';
 import NotFound from 'src/screens/NotFound/NotFound';
 import PersonalInfo from 'src/screens/PersonalInfo/PersonalInfo';
@@ -72,6 +73,10 @@ const Router: React.FC = () => {
                 {
                   path: Route.CHANGE_PASSWORD,
                   element: <ChangePassword />,
+                },
+                {
+                  path: Route.MY_RESUME,
+                  element: <MyResume />,
                 },
               ],
             },

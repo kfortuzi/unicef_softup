@@ -65,7 +65,7 @@
     "profile": {
       "personalInfoButtonText": "Personal Info",
       "skillsAndHobbiesButtonText": "Skills & Hobbies",
-      "resetPasswordButtonText": "Reset Password",
+      "changePasswordButtonText": "Change Password",
       "myResumeButtonText": "My Resume",
       "personalInfo": {
         "header": "Personal Info",
@@ -117,7 +117,8 @@
       "info": "Info",
       "submit": "Submit",
       "cancel": "Cancel",
-      "edit": "Edit"
+      "edit": "Edit",
+      "download": "Download"
     },
     "notFound": {
       "title": "The page you are looking for was not found!",
