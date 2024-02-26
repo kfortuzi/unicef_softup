@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { OpenAI, ClientOptions } from 'openai';
 import { ChatCompletionMessageParam } from 'openai/resources/chat';
-import { models } from './openAiModels';
+import { AkpaModels } from './models';
 @Injectable()
 export class OpenAIService {
   private openAI;
@@ -11,10 +11,13 @@ export class OpenAIService {
     };
     this.openAI = new OpenAI(configuration);
   }
-  async generateCompletion(userPrompt: ChatCompletionMessageParam[]) {
+  async generateCompletion(
+    userPrompt: ChatCompletionMessageParam[],
+    models: AkpaModels,
+  ) {
     try {
       const response = await this.openAI.chat.completions.create({
-        model: models.chat,
+        model: models,
         messages: userPrompt,
         max_tokens: 1000,
         temperature: 0.3,
