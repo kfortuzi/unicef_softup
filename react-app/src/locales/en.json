@@ -185,6 +185,14 @@
       "jobOpportunities": "Explore Job Opportunities",
       "craftResume": "Craft a Winning Resume",
       "careerAdvice": "Receive Career Guidance"
+    },
+    "myCoverLetters": {
+      "header": "My Cover Letters",
+      "aiGenerated": "My AI generated cover letters",
+      "userGenerated": "My composed cover letters",
+      "delete": "Dele",
+      "edit": "Edit",
+      "lastUpdated": "Last updated"
     }
   }
 }

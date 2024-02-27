@@ -181,6 +181,14 @@
       "jobOpportunities": "Eksploro Mundesi Punesimi",
       "craftResume": "Krijo Nje Resume te Mire",
       "careerAdvice": "Merr Udhezime per Karrieren"
+    },
+    "myCoverLetters": {
+      "header": "Letrat e mia te motivimit",
+      "aiGenerated": "Letrat e motivimit te gjeneruara me AI",
+      "userGenerated": "Letrat e motivimit te krijuara nga une",
+      "delete": "Fshi",
+      "edit": "Edito",
+      "lastUpdated": "Perditesimi i fundit"
     }
   }
 }

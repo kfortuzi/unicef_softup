@@ -27,5 +27,6 @@
     gap: $large;
     padding-bottom: calc(2 * $large);
     height: 100%;
+    box-sizing: border-box;
   }
 }

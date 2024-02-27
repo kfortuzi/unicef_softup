@@ -1,5 +1,8 @@
 import React from 'react';
-import { RouterProvider, createHashRouter } from 'react-router-dom';
+import {
+  createHashRouter,
+  RouterProvider,
+} from 'react-router-dom';
 
 import useGetProfile from 'src/api/users/hooks/useGetProfile';
 import LoadingFullPage from 'src/components/common/LoadingFullPage/LoadingFullPage';
@@ -13,6 +16,7 @@ import ConfirmUser from 'src/screens/ConfirmUser/ConfirmUser';
 import ForgotPassword from 'src/screens/ForgotPassword/ForgotPassword';
 import Home from 'src/screens/Home/Home';
 import Login from 'src/screens/Login/Login';
+import MyCoverLetters from 'src/screens/MyCoverLetters/MyCoverLetters';
 import MyResume from 'src/screens/MyResume/MyResume';
 import MyResumes from 'src/screens/MyResumes/MyResumes';
 import NotFound from 'src/screens/NotFound/NotFound';
@@ -48,7 +52,7 @@ const Router: React.FC = () => {
             },
             {
               path: Route.COVER_LETTER,
-              element: <Home />,
+              element: <MyCoverLetters />,
             },
             {
               path: Route.JOBS,
