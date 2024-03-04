@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  createHashRouter,
-  RouterProvider,
-} from 'react-router-dom';
+import { createHashRouter, RouterProvider } from 'react-router-dom';
 
 import useGetProfile from 'src/api/users/hooks/useGetProfile';
 import LoadingFullPage from 'src/components/common/LoadingFullPage/LoadingFullPage';

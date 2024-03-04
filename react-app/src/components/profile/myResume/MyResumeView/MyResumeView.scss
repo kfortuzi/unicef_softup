@@ -1,0 +1,50 @@
+.my-resume-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: $large;
+  p {
+    margin: 0;
+  }
+  .other-languages-container {
+    display: flex;
+    flex-direction: column;
+    gap: $medium;
+  }
+
+  .section-text {
+    font-size: $medium;
+  }
+
+  .section-subtitle {
+    font-family: $karla-bold;
+    font-weight: bolder;
+    font-size: $medium;
+  }
+
+  .header {
+    display: flex;
+    height: max-content;
+    justify-content: center;
+  }
+  .body {
+    display: flex;
+    justify-content: center;
+    width: 60%;
+
+    .content-section {
+      flex: 1;
+      flex-direction: column;
+      background-color: #ffffff;
+      padding: $large;
+    }
+  }
+
+  .button-group {
+    display: flex;
+    justify-content: center;
+    column-gap: $large;
+    height: max-content;
+  }
+}

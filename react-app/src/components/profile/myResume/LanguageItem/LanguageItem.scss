@@ -1,0 +1,14 @@
+.language-title {
+  font-family: $karla-bold;
+  font-size: $medium;
+}
+
+.language-level-container {
+  font-size: $medium;
+  display: flex;
+  flex-direction: row;
+}
+
+.language-level-text {
+  min-width: 100px;
+}

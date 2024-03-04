@@ -1,0 +1,17 @@
+.section {
+  p {
+    margin: 0;
+  }
+  padding: $medium;
+  gap: $small;
+
+  .section-title {
+    font-size: $large;
+    font-weight: bold;
+    margin-bottom: $small;
+  }
+
+  .section-sub-title {
+    font-size: $medium;
+  }
+}

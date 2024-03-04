@@ -1,0 +1,53 @@
+.contact-info-view-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #c5c5c5;
+  row-gap: 50px;
+  column-gap: 50px;
+  padding: 40px;
+
+  p {
+    margin: 0;
+  }
+
+  .name {
+    font-family: $karla-bold;
+    font-size: $large;
+    margin: 20px;
+  }
+  .info-section {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 10px;
+  }
+  .info-group {
+    display: block;
+  }
+  .group-title {
+    font-family: $karla-bold;
+    font-size: $medium;
+  }
+  .group-value {
+    text-wrap: wrap;
+    font-size: $medium;
+  }
+
+  .profile-pic-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+  }
+  .profile-pic {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .linkedin-link {
+    font-size: $medium;
+    color: $link-color;
+  }
+}

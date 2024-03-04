@@ -101,7 +101,6 @@
         "header": "My Resume",
         "loading": "Loading resume...",
         "noResume": "You have not created a resume yet",
-        "createResume": "Create Resume",
         "editResume": "Edit Resume",
         "deleteResume": "Delete Resume",
         "submit": "Save",
