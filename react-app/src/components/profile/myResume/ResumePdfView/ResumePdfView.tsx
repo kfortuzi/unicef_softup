@@ -17,7 +17,7 @@ import PdfVolunteeringItem from '../PdfVolunteeringItem/PdfVolunteeringItem';
 import PdfWorkExperiences from '../PdfWorkExperience/PdfWorkExperience';
 import styles from './ResumePdfViewStyle';
 
-const MyResume: React.FC = () => {
+const ResumePdfView: React.FC = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume' });
   const imgUrl =
     'https://static.vecteezy.com/system/resources/previews/034/601/899/large_2x/portrait-of-a-cat-wearing-sunglasses-on-the-sunset-background-ai-generated-free-photo.jpg';
@@ -202,4 +202,4 @@ const MyResume: React.FC = () => {
   );
 };
 
-export default MyResume;
+export default ResumePdfView;

@@ -1,9 +1,14 @@
 .section {
+  display: flex;
+  flex-direction: column;
   p {
     margin: 0;
   }
   padding: $medium;
-  gap: $small;
+
+  .edit-button {
+    margin-block-start: $small;
+  }
 
   .section-title {
     font-size: $large;

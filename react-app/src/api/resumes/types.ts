@@ -87,6 +87,31 @@ export type PostResumeRequest = {
   drivingLicenses?: DrivingLicense[];
 };
 
+export type PatchResumeRequest = {
+  id: string;
+  email?: string;
+  firstName?: string;
+  lastName?: string;
+  profilePicture?: string;
+  nationality?: string;
+  linkedinUrl?: string;
+  location?: string;
+  phoneNumber?: string;
+  summary?: string;
+  educations?: Education[];
+  experiences?: WorkExperience[];
+  languages?: Language[];
+  digitalSkills?: string;
+  softSkills?: string;
+  hobbies?: string;
+  certificates?: Certificate[];
+  volunteerings?: Volunteering[];
+  publications?: Publication[];
+  drivingLicenses?: DrivingLicense[];
+};
+
+export type PatchResumeResponse = PostResumeRequest;
+
 export type PostResumeResponse = PostResumeRequest;
 
 export type GetResumeResponse = PostResumeRequest;

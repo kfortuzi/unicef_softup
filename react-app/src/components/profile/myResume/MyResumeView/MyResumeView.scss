@@ -1,8 +1,10 @@
-.my-resume-container {
+.my-resume-layout {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  overflow-x: hidden;
+
+  // align-items: center;
+
   padding: $large;
   p {
     margin: 0;
@@ -23,17 +25,18 @@
     font-size: $medium;
   }
 
-  .header {
+  .my-resume-container {
     display: flex;
-    height: max-content;
-    justify-content: center;
+    flex-direction: column;
+    transform: translateX(20%);
+    transition: transform 0.5s;
   }
-  .body {
+  .my-resume-body {
     display: flex;
-    justify-content: center;
     width: 60%;
 
     .content-section {
+      display: flex;
       flex: 1;
       flex-direction: column;
       background-color: #ffffff;
@@ -47,4 +50,7 @@
     column-gap: $large;
     height: max-content;
   }
+}
+.slide-left {
+  transform: translateX(0%) !important;
 }
