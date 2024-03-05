@@ -7,10 +7,8 @@ export class ChatbotController {
   constructor(private chatbotService: ChatbotService) {}
 
   @ApiTags('openai')
-  @Get('message')
+  @Get('return-jobs')
   async sendMessage(@Query('message') message: string) {
-    const response =
-      await this.chatbotService.returnJobBasedOnUserRequest(message);
-    return { response };
+    return await this.chatbotService.returnJobBasedOnUserRequest(message);
   }
 }

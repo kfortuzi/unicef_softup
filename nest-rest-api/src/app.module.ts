@@ -13,6 +13,8 @@ import { LoggerModule } from 'nestjs-pino';
 import { LoggerMiddleware } from './logger/logger.middleware';
 import { JobsModule } from './job/job.module';
 import { ChatbotModule } from './chatbot/chatbot.module';
+import { OpenAIModule } from './openai/openai.module';
+import { ResumeModule } from './resume/resume.module';
 
 @Module({
   imports: [
@@ -36,6 +38,8 @@ import { ChatbotModule } from './chatbot/chatbot.module';
     }),
     JobsModule,
     ChatbotModule,
+    OpenAIModule,
+    ResumeModule,
   ],
   controllers: [AppController, MailController],
   providers: [AppService, SendgridService, MailService],

@@ -19,8 +19,8 @@ export class OpenAIService {
       const response = await this.openAI.chat.completions.create({
         model: models,
         messages: userPrompt,
-        max_tokens: 1000,
-        temperature: 0.3,
+        temperature: 0.2,
+        response_format: { type: 'json_object' },
       });
 
       return response.choices[0];
@@ -28,5 +28,11 @@ export class OpenAIService {
       console.error('Error calling OpenAI API:', error);
       throw new Error('Failed to generate text from OpenAI');
     }
+  }
+
+  prepareMessageForAIValidation(inputObject: any, prompts: string): string {
+    return `Validate this JSON object: ${JSON.stringify(
+      inputObject,
+    )}. ${prompts}`;
   }
 }

@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { OpenAIService } from './openai.service';
+import { OpenAIService } from '../openai/openai.service';
 import { ChatCompletionMessageParam } from 'openai/resources/chat';
-import { prompts } from './promptContent';
-import { AkpaModels } from './models';
+import { AkpaPrompts } from '../openai/promptContent';
+import { AkpaModels } from '../openai/models';
 
 @Injectable()
 export class ChatbotService {
@@ -12,7 +12,7 @@ export class ChatbotService {
     const messages: ChatCompletionMessageParam[] = [
       {
         role: 'system',
-        content: prompts,
+        content: AkpaPrompts.chatbot,
       },
       {
         role: 'user',
