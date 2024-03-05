@@ -221,4 +221,12 @@ export class UserService {
       userSkillsExcludedData,
     );
   }
+
+  async getUserSkillsAsString(userId: string): Promise<string> {
+    // Fetch user skills from the database
+    return this.findUserSkills(userId).then((data) => {
+      const names = data.map((obj) => obj.name).join(', ');
+      return names;
+    });
+  }
 }

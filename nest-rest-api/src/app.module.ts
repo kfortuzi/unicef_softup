@@ -15,6 +15,7 @@ import { JobsModule } from './job/job.module';
 import { ChatbotModule } from './chatbot/chatbot.module';
 import { OpenAIModule } from './openai/openai.module';
 import { ResumeModule } from './resume/resume.module';
+import { CoverLetterModule } from './coverletter/coverletter.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { ResumeModule } from './resume/resume.module';
     ChatbotModule,
     OpenAIModule,
     ResumeModule,
+    CoverLetterModule,
   ],
   controllers: [AppController, MailController],
   providers: [AppService, SendgridService, MailService],

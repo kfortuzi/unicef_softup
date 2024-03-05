@@ -35,13 +35,13 @@ export class ResumeGeneratorService {
     const messages: ChatCompletionMessageParam[] = [
       {
         role: 'system',
-        content: AkpaPrompts.validatePrompt,
+        content: AkpaPrompts.resumeValidatePrompt,
       },
       {
         role: 'user',
         content: this.openAIService.prepareMessageForAIValidation(
           userInput,
-          AkpaPrompts.validateUserPrompt,
+          AkpaPrompts.resumeValidateUserPrompt,
         ),
       },
     ];

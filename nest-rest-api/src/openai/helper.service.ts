@@ -65,4 +65,52 @@ export class HelperService {
       );
     }
   }
+
+  async generateCoverJsonl(userpInput: string, jobInput: string) {
+    const messages: ChatCompletionMessageParam[] = [
+      {
+        role: 'system',
+        content:
+          'You are a helpful assistant that generates cover letter based on job description and user resume. The structure of the resoponse should be {\n  "to": "String",\n  "company": "String",\n  "companyAddress":  "String",\n    \n  "content": "String"\n} or the message `Ju lutem plotësoni të dhënat e profilit dhe përzgjidhni një pozicion pune speficik për të gjeneruar letrën e motivimit për aplikimin në këtë punë.` in case there is not any user profile or job description.',
+      },
+      {
+        role: 'user',
+        content: `This is the user profile JSON object: ${JSON.stringify(
+          userpInput,
+        )}  and this is the job description ${JSON.stringify(
+          jobInput,
+        )}  The cover letter should be in albanian and should have 250 to 400 words. Translate every word from user profile into albanian.Response only with the right structure.`,
+      },
+    ];
+
+    const json_data = await this.openAIService.generateCompletion(
+      messages,
+      AkpaModels.CHAT,
+    );
+    if (json_data.message.content) {
+      const messages2: ChatCompletionMessageParam[] = [
+        {
+          role: 'system',
+          content:
+            'You are a helpful assistant that generates cover letter based on job description and user resume. The structure of the resoponse should be {\n  "to": "String",\n  "company": "String",\n  "companyAddress":  "String",\n    \n  "content": "String"\n} or the message `Ju lutem plotësoni të dhënat e profilit dhe përzgjidhni një pozicion pune speficik për të gjeneruar letrën e motivimit për aplikimin në këtë punë.` in case there is not any user profile or job description.',
+        },
+        {
+          role: 'user',
+          content: `This is the user profile JSON object: ${JSON.stringify(
+            userpInput,
+          )}  and this is the job description ${JSON.stringify(
+            jobInput,
+          )}  The cover letter should be in albanian and should have 250 to 400 words. Translate every word from user profile into albanian.Response only with the right structure.`,
+        },
+        {
+          role: 'assistant',
+          content: json_data.message.content,
+        },
+      ];
+      appendFileAsync(
+        'jsonl_file',
+        `{"messages": ${JSON.stringify(messages2)}}\n`,
+      );
+    }
+  }
 }

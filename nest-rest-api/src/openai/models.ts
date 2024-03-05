@@ -4,4 +4,5 @@ export enum AkpaModels {
   CHAT = 'gpt-3.5-turbo-1106',
   IS_VALID_ANSWER = 'gpt-4-1106-preview',
   RESUME_GENERATE = 'ft:gpt-3.5-turbo-1106:softup-technologies-gmbh::8z0vxexr',
+  COVER_LETTER = 'ft:gpt-3.5-turbo-1106:softup-technologies-gmbh:cover-letter:8zv2ha7T',
 }

@@ -20,7 +20,7 @@ export class OpenAIService {
         model: models,
         messages: userPrompt,
         temperature: 0.2,
-        response_format: { type: 'json_object' },
+        //response_format: { type: 'json_object' },
       });
 
       return response.choices[0];
@@ -30,9 +30,16 @@ export class OpenAIService {
     }
   }
 
-  prepareMessageForAIValidation(inputObject: any, prompts: string): string {
-    return `Validate this JSON object: ${JSON.stringify(
-      inputObject,
-    )}. ${prompts}`;
+  prepareMessageForAIValidation(
+    prompts: string,
+    inputObject: any,
+    jobObject?: any,
+  ): string {
+    let message = `${JSON.stringify(inputObject)}`;
+    if (jobObject) {
+      message += `. ${JSON.stringify(jobObject)}`;
+    }
+    message += `. ${prompts}`;
+    return message;
   }
 }
