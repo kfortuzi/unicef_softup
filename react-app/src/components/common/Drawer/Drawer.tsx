@@ -40,7 +40,7 @@ const Drawer: React.FC<Props> = ({ title, children, submitForm, isPending, ...re
       />
       <AntdDrawer
         title={title}
-        width={720}
+        width={400}
         onClose={onClose}
         open={open}
         maskClassName="drawer-mask"

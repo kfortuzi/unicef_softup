@@ -105,7 +105,9 @@
         "deleteResume": "Delete Resume",
         "submit": "Save",
         "success": "Resume was saved successfully!",
-        "error": "Failed to save resume!"
+        "error": "Failed to save resume!",
+        "educationAndTraining": "Education & Training",
+        "workExperience": "Work Experience"
       }
     },
     "globalStrings": {

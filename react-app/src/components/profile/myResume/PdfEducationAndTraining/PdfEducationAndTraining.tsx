@@ -1,18 +1,11 @@
 import { Text } from '@react-pdf/renderer';
 
+import { Education } from 'src/api/resumes/types';
+
 import PdfListItem from '../PdfListItem/PdfListItem';
 import styles from './PdfEducationAndTrainingStyle';
 
-interface PdfEducationAndTraining {
-  schoolName: string;
-  fieldOfStudy?: string;
-  degree?: string;
-  grade?: string;
-  description?: string;
-  startDate: string;
-  endDate?: string;
-  location?: string;
-}
+interface PdfEducationAndTraining extends Education {}
 
 interface PdfEducationAndTrainingsProps {
   educationAndTrainings: PdfEducationAndTraining[];
@@ -24,12 +17,12 @@ const PdfEducationAndTrainings: React.FC<PdfEducationAndTrainingsProps> = (props
   const educations = educationAndTrainings.map((education, index) => {
     return (
       <PdfListItem
-        title={`${education.startDate} - ${education.endDate} - ${education.location}`}
+        title={`${education.startDate} - ${education.endDate} - ${education.title}`}
         key={index}
         titleStyle={styles.listTitle}
       >
-        <Text style={styles.subTitle}>{`${education.degree} - ${education.fieldOfStudy}`}</Text>
-        <Text>{education.schoolName}</Text>
+        <Text style={styles.subTitle}>{`${education.type}`}</Text>
+        <Text>{education.location}</Text>
       </PdfListItem>
     );
   });

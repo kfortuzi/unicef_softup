@@ -1,15 +1,8 @@
+import { Education } from 'src/api/resumes/types';
+
 import ListItem from '../ListItem/ListItem';
 
-type EducationAndTraining = {
-  schoolName: string;
-  fieldOfStudy?: string;
-  degree?: string;
-  grade?: string;
-  description?: string;
-  startDate: string;
-  endDate?: string;
-  location?: string;
-};
+type EducationAndTraining = Education;
 
 interface EducationAndTrainingsProps {
   educationAndTrainings: EducationAndTraining[];
@@ -21,12 +14,12 @@ const EducationAndTrainings: React.FC<EducationAndTrainingsProps> = (props) => {
   const experiences = educationAndTrainings.map((education, index) => {
     return (
       <ListItem
-        title={`${education.startDate} - ${education.endDate} - ${education.location}`}
+        title={`${education.startDate} - ${education.endDate} - ${education.title}`}
         key={index}
         titleStyle={{ color: 'blue' }}
       >
-        <p className="education-subtitle">{`${education.degree} - ${education.fieldOfStudy}`}</p>
-        <p>{education.schoolName}</p>
+        <p className="education-subtitle">{education.type}</p>
+        <p>{education.location}</p>
       </ListItem>
     );
   });

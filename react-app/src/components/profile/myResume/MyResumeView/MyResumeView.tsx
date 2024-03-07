@@ -1,119 +1,27 @@
-import dayjs from 'dayjs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { GetResumeResponse } from 'src/api/resumes/types';
-import dateTimeFormats from 'src/constants/dateTimeFormats';
 
+import resume from '../../../../api/resumes/getResumeResponse.json';
 import AboutMeForm from '../AboutMeForm/AboutMeForm';
 import AboutMeView from '../AboutMeView/AboutMeView';
 import Certifications from '../CertificationsView/CertificationsView';
 import ContactInfoView from '../ContactInfoView/ContactInfoView';
 import DrivingLicenseItem from '../DrivingLicenseItem/DrivingLicenseItem';
+import EducationAndTrainingsForm from '../EducationAndTrainingsForm/EducationAndTrainingsForm';
 import EducationAndTrainings from '../EducationAndTrainingsView/EducationAndTrainingsView';
 import LanguageItem from '../LanguageItem/LanguageItem';
 import PublicationItem from '../PublicationItem/PublicationItem';
 import Section from '../Section/Section';
 import VolunteeringItem from '../VolunteeringItem/VolunteeringItem';
+import WorkExperiencesForm from '../WorkExperiencesForm/WorkExperiencesForm';
 import WorkExperiencesView from '../WorkExperiencesView/WorkExperiencesView';
 
 const MyResumeView: React.FC = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.personalInfo' });
-  const resume = {
-    firstName: 'John',
-    lastName: 'Doe',
-    digitalSkills: 'Digital Skills',
-    softSkills: 'Soft Skills',
-    summary: 'Summary',
-    educations: [
-      {
-        school: 'School',
-        degree: 'Degree',
-        fieldOfStudy: 'Field of Study',
-        startDate: '2020',
-        endDate: '2021',
-        description: 'Description',
-        location: 'Location',
-      },
-    ],
-    experiences: [
-      {
-        title: 'Software Developer',
-        companyName: 'Kocaeli University',
-        startDate: '2018',
-        endDate: '2021',
-        location: 'Kocaeli, Turkey',
-        description: `Developed web applications using React.js and Node.js`,
-      },
-      {
-        title: 'Software Developer',
-        companyName: 'Kocaeli University',
-        startDate: '2018',
-        endDate: '2021',
-        location: 'Kocaeli, Turkey',
-        description: 'Developed e-commerce web applications using golang',
-      },
-    ],
-    drivingLicense: 'Driving License',
-    email: 'yunuskas55@gmail.com',
-    volunteerings: [
-      {
-        title: 'Title',
-        organization: 'Organization',
-        imgUrl: 'Img Url',
-        startDate: '2020',
-        endDate: '2021',
-      },
-    ],
-    languages: [
-      {
-        name: 'English',
-        readingLevel: 'C2',
-        writingLevel: 'B2',
-        speakingLevel: 'A2',
-      },
-    ],
-    certificates: [
-      {
-        name: 'Name',
-        organization: 'Organization',
-        date: dayjs().format(dateTimeFormats.albanianDate),
-      },
-    ],
-    hobbies: 'Hobbies',
-    publications: [
-      {
-        name: 'Name',
-        date: dayjs().format(dateTimeFormats.albanianDate),
-      },
-    ],
-    profilePicture:
-      'https://static.vecteezy.com/system/resources/previews/034/601/899/large_2x/portrait-of-a-cat-wearing-sunglasses-on-the-sunset-background-ai-generated-free-photo.jpg',
-    phoneNumber: 'Phone Number',
-    linkedinUrl: 'Linkedin Url',
-  } as GetResumeResponse;
 
-  const {
-    firstName,
-    lastName,
-    digitalSkills,
-    softSkills,
-    summary,
-    educations,
-    experiences,
-    drivingLicense,
-    email,
-    volunteerings,
-    languages,
-    certificates,
-    hobbies,
-    publications,
-    profilePicture,
-    phoneNumber,
-    linkedinUrl,
-    nationality,
-    location,
-  } = resume as GetResumeResponse;
+  const { firstName, summary, email, profilePicture, linkedinUrl, location } = resume as GetResumeResponse;
 
   return (
     <div className="my-resume-layout">
@@ -138,22 +46,36 @@ const MyResumeView: React.FC = () => {
               <EducationAndTrainings
                 educationAndTrainings={[
                   {
-                    schoolName: 'Kocaeli University',
-                    fieldOfStudy: 'Computer Engineering',
-                    degree: 'Bachelor',
-                    startDate: '2015',
-                    endDate: '2019',
+                    title: 'Computer Engineering',
+                    startDate: '2018',
+                    endDate: '2022',
                     location: 'Kocaeli, Turkey',
-                    description: 'GPA: 3.0',
+                    type: 'Bachelor',
                   },
                   {
-                    schoolName: 'Kocaeli University',
-                    fieldOfStudy: 'Computer Engineering',
-                    degree: 'Bachelor',
-                    startDate: '2015',
-                    endDate: '2019',
+                    title: 'Computer Engineering',
+                    startDate: '2018',
+                    endDate: '2022',
                     location: 'Kocaeli, Turkey',
-                    description: 'GPA: 3.0',
+                    type: 'Bachelor',
+                  },
+                ]}
+              />
+              <EducationAndTrainingsForm
+                educationAndTrainings={[
+                  {
+                    title: 'Computer Engineering',
+                    startDate: '2018',
+                    endDate: '2022',
+                    location: 'Kocaeli, Turkey',
+                    type: 'Bachelor',
+                  },
+                  {
+                    title: 'Computer Engineering',
+                    startDate: '2018',
+                    endDate: '2022',
+                    location: 'Kocaeli, Turkey',
+                    type: 'Bachelor',
                   },
                 ]}
               />
@@ -161,6 +83,7 @@ const MyResumeView: React.FC = () => {
             {/* Work Experience*/}
             <Section title="Work Experiences">
               <WorkExperiencesView workExperiences={resume.experiences || []} />
+              <WorkExperiencesForm workExperiences={resume.experiences || []} />
             </Section>
             {/* Languages*/}
             <Section title="Languages">

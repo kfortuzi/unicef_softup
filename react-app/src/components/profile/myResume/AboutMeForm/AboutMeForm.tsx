@@ -1,13 +1,11 @@
 import TextArea from 'antd/es/input/TextArea';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 
 import usePatchResume from 'src/api/resumes/hooks/usePatchResume';
 import Drawer from 'src/components/common/Drawer/Drawer';
 
 const AboutMeForm: React.FC<Props> = () => {
-  const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume' });
   const { handleSubmit, control } = useForm({
     defaultValues: { aboutMe: '' },
     shouldFocusError: true,
@@ -22,10 +20,7 @@ const AboutMeForm: React.FC<Props> = () => {
       isPending={isPending}
       title="About Me"
     >
-      <form
-        className="profile-form-edit"
-        onSubmit={submitForm}
-      >
+      <form onSubmit={submitForm}>
         <div className="input-element-container">
           <Controller
             control={control}

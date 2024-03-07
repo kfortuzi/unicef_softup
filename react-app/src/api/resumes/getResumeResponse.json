@@ -1,0 +1,75 @@
+{
+  "firstName":"John",
+  "lastName":"Doe",
+  "digitalSkills":"Digital Skills",
+  "softSkills":"Soft Skills",
+  "summary":"Summary",
+  "educations":[
+    {
+      "title":"Computer Engineering",
+      "startDate":"2018",
+      "endDate":"2022",
+      "location":"Kocaeli, Turkey",
+      "type":"Bachelor"
+    },
+    {
+      "title":"Computer Engineering",
+      "startDate":"2018",
+      "endDate":"2022",
+      "location":"Kocaeli, Turkey",
+      "type":"Bachelor"
+    }
+  ],
+  "experiences":[
+    {
+      "position":"Software Developer",
+      "company":"Kocaeli University",
+      "startDate":"2018",
+      "endDate":"2021",
+      "responsibilities":"Developed web applications using React.js and Node.js"
+    },
+    {
+      "position":"Software Developer",
+      "company":"Kocaeli University",
+      "startDate":"2018",
+      "endDate":"2021",
+      "responsibilities":"Developed e-commerce web applications using golang"
+    }
+  ],
+  "drivingLicense":"Driving License",
+  "email":"yunuskas55@gmail.com",
+  "volunteerings":[
+    {
+      "title":"Title",
+      "organization":"Organization",
+      "imgUrl":"Img Url",
+      "startDate":"2020",
+      "endDate":"2021"
+    }
+  ],
+  "languages":[
+    {
+      "name":"English",
+      "readingLevel":"C2",
+      "writingLevel":"B2",
+      "speakingLevel":"A2"
+    }
+  ],
+  "certificates":[
+    {
+      "name":"Name",
+      "organization":"Organization",
+      "date":"2021"
+    }
+  ],
+  "hobbies":"Hobbies",
+  "publications":[
+    {
+      "name":"Name",
+      "date":"2021"
+    }
+  ],
+  "profilePicture":"https://static.vecteezy.com/system/resources/previews/034/601/899/large_2x/portrait-of-a-cat-wearing-sunglasses-on-the-sunset-background-ai-generated-free-photo.jpg",
+  "phoneNumber":"Phone Number",
+  "linkedinUrl":"Linkedin Url"
+}

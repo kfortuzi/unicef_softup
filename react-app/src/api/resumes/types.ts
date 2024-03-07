@@ -18,23 +18,19 @@ enum DrivingLicense {
 }
 
 export type Education = {
-  school: string;
-  degree: string;
-  fieldOfStudy?: string;
+  title: string;
+  type: string;
+  location: string;
   startDate: string;
   endDate?: string;
-  grade?: string;
-  location?: string;
-  description?: string;
 };
 
 export type WorkExperience = {
-  title: string;
-  companyName: string;
+  position: string;
+  company: string;
   startDate: string;
   endDate?: string;
-  location?: string;
-  description?: string;
+  responsibilities?: string;
 };
 
 export type Language = {

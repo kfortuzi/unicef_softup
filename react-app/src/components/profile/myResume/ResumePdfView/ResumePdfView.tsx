@@ -58,22 +58,18 @@ const ResumePdfView: React.FC = () => {
                     <PdfEducationAndTrainings
                       educationAndTrainings={[
                         {
-                          schoolName: 'Kocaeli University',
-                          fieldOfStudy: 'Computer Engineering',
-                          degree: 'Bachelor',
-                          startDate: '2015',
-                          endDate: '2019',
+                          title: 'Computer Engineering',
+                          startDate: '2018',
+                          endDate: '2022',
                           location: 'Kocaeli, Turkey',
-                          description: 'GPA: 3.0',
+                          type: 'Bachelor',
                         },
                         {
-                          schoolName: 'Kocaeli University',
-                          fieldOfStudy: 'Computer Engineering',
-                          degree: 'Bachelor',
-                          startDate: '2015',
-                          endDate: '2019',
+                          title: 'Computer Engineering',
+                          startDate: '2018',
+                          endDate: '2022',
                           location: 'Kocaeli, Turkey',
-                          description: 'GPA: 3.0',
+                          type: 'Bachelor',
                         },
                       ]}
                     />
@@ -83,20 +79,18 @@ const ResumePdfView: React.FC = () => {
                     <PdfWorkExperiences
                       workExperiences={[
                         {
-                          title: 'Software Developer',
-                          companyName: 'Kocaeli University',
+                          position: 'Software Developer',
+                          company: 'Kocaeli University',
                           startDate: '2018',
-                          endDate: '2021',
-                          location: 'Kocaeli, Turkey',
-                          description: `Developed web applications using React.js and Node.js`,
+                          endDate: '2022',
+                          responsibilities: 'Developing web applications',
                         },
                         {
-                          title: 'Software Developer',
-                          companyName: 'Kocaeli University',
+                          position: 'Software Developer',
+                          company: 'Kocaeli University',
                           startDate: '2018',
-                          endDate: '2021',
-                          location: 'Kocaeli, Turkey',
-                          description: 'Developed e-commerce web applications using golang',
+                          endDate: '2022',
+                          responsibilities: 'Developing web applications',
                         },
                       ]}
                     />
