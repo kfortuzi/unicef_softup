@@ -5,7 +5,6 @@ import React from 'react';
 interface Props extends SelectProps {
   inputRef?: React.Ref<GetRef<typeof Select>>;
   name: string;
-  value: SelectProps<number>['value'];
   error?: string;
   options?: SelectProps['options'];
   onChange?: SelectProps['onChange'];

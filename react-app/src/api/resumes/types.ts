@@ -35,9 +35,10 @@ export type WorkExperience = {
 
 export type Language = {
   name: string;
-  readingLevel: string;
-  writingLevel: string;
-  speakingLevel: string;
+  reading: string;
+  writing: string;
+  speaking: string;
+  isNative: boolean;
 };
 
 export type Certificate = {

@@ -17,6 +17,7 @@ import Section from '../Section/Section';
 import VolunteeringItem from '../VolunteeringItem/VolunteeringItem';
 import WorkExperiencesForm from '../WorkExperiencesForm/WorkExperiencesForm';
 import WorkExperiencesView from '../WorkExperiencesView/WorkExperiencesView';
+import LanguagesForm from '../LanguageForm/LanguageForm';
 
 const MyResumeView: React.FC = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.personalInfo' });
@@ -89,20 +90,28 @@ const MyResumeView: React.FC = () => {
             <Section title="Languages">
               <div className="section-text">
                 <p className="section-subtitle">Mother Tongue(s): </p>
-                <p>Turkish</p>
+                {resume.languages
+                  .filter((language) => language.isNative)
+                  .map((language) => (
+                    <p>{language.name}</p>
+                  ))}
               </div>
               <div className="other-languages-container">
                 <p className="section-subtitle">Other Language(s): </p>
-                {resume.languages?.map((item, index) => (
-                  <LanguageItem
-                    key={index}
-                    name={item.name}
-                    readingLevel={item.readingLevel}
-                    writingLevel={item.writingLevel}
-                    speakingLevel={item.speakingLevel}
-                  />
-                ))}
+                {resume.languages
+                  .filter((language) => !language.isNative)
+                  .map((language) => (
+                    <LanguageItem
+                      key={language.name}
+                      name={language.name}
+                      reading={language.reading}
+                      writing={language.writing}
+                      speaking={language.speaking}
+                      isNative={language.isNative}
+                    />
+                  ))}
               </div>
+              <LanguagesForm languages={resume.languages} />
             </Section>
             {/* Digital Skills*/}
             <Section title="Digital Skills">

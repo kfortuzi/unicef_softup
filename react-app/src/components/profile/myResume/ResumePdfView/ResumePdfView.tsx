@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import Button from 'src/components/common/Button/Button';
 import i18n from 'src/locales';
 
+import myResume from '../../../../api/resumes/getResumeResponse.json';
 import PdfAboutMe from '../PdfAboutMe/PdfAboutMe';
 import PdfCertifications from '../PdfCertifications/PdfCertifications';
 import PdfContactInfo from '../PdfContactInfo/PdfContactInfo';
@@ -99,22 +100,26 @@ const ResumePdfView: React.FC = () => {
                   <PdfSection title="Languages">
                     <Text style={styles.sectionText}>
                       <Text style={styles.sectionSubTitle}>Mother Toungue(s): </Text>
-                      Turkish
+                      {myResume.languages
+                        .filter((language) => language.isNative)
+                        .map((language) => (
+                          <Text key={language.name}>{language.name}</Text>
+                        ))}
                     </Text>
                     <View style={{ gap: 10 }}>
                       <Text style={styles.sectionSubTitle}>Other Language(s): </Text>
-                      <PdfLanguageItem
-                        name="English"
-                        readingLevel="C1"
-                        writingLevel="C1"
-                        speakingLevel="C1"
-                      />
-                      <PdfLanguageItem
-                        name="English"
-                        readingLevel="C1"
-                        writingLevel="C1"
-                        speakingLevel="C1"
-                      />
+                      {myResume.languages
+                        .filter((language) => !language.isNative)
+                        .map((language) => (
+                          <PdfLanguageItem
+                            key={language.name}
+                            name={language.name}
+                            reading={language.reading}
+                            writing={language.writing}
+                            speaking={language.speaking}
+                            isNative={language.isNative}
+                          />
+                        ))}
                     </View>
                   </PdfSection>
 

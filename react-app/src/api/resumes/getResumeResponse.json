@@ -50,9 +50,17 @@
   "languages":[
     {
       "name":"English",
-      "readingLevel":"C2",
-      "writingLevel":"B2",
-      "speakingLevel":"A2"
+      "reading":"C2",
+      "writing":"B2",
+      "speaking":"A2",
+      "isNative":false
+    },
+    {
+      "name":"Turkish",
+      "reading":"C2",
+      "writing":"B2",
+      "speaking":"A2",
+      "isNative":true
     }
   ],
   "certificates":[

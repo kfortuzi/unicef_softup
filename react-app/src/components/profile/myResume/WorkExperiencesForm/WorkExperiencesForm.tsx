@@ -135,7 +135,7 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
               type="default"
               text="Remove"
               onClick={() => remove(index)}
-              className="add-another-experience-button"
+              className="add-remove-experience-button"
             />
           )}
         </div>
@@ -160,7 +160,7 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
         type="default"
         text="Add Another Experience"
         onClick={addExperience}
-        className="add-another-experience-button"
+        className="add-remove-experience-button"
       />
     </Drawer>
   );

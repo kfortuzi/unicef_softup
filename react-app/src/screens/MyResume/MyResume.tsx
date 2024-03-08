@@ -9,8 +9,8 @@ const MyResume: React.FC = () => {
 
   return (
     <div>
-      {/* <MyResumeView /> */}
-      <ResumePdfView />
+      <MyResumeView />
+      {/* <ResumePdfView /> */}
     </div>
   );
 };
