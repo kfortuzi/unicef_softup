@@ -41,11 +41,10 @@ export type Language = {
   isNative: boolean;
 };
 
-export type Certificate = {
+export type Certification = {
   name: string;
-  organization: string;
-  date: string;
-  description?: string;
+  receivedDate: string;
+  expirationDate?: string;
 };
 
 export type Volunteering = {
@@ -79,7 +78,7 @@ export type PostResumeRequest = {
   technicalSkills?: string[];
   softSkills?: string[];
   hobbies?: string[];
-  certificates?: Certificate[];
+  certifications?: Certification[];
   volunteerings?: Volunteering[];
   publications?: Publication[];
   drivingLicenses?: DrivingLicense[];
@@ -103,7 +102,7 @@ export type PatchResumeRequest = {
   softSkills?: string[];
   technicalSkills?: string[];
   hobbies?: string[];
-  certificates?: Certificate[];
+  certifications?: Certification[];
   volunteerings?: Volunteering[];
   publications?: Publication[];
   drivingLicenses?: DrivingLicense[];

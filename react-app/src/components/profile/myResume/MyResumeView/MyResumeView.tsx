@@ -22,6 +22,7 @@ import TechnicalSkillsForm from '../TechnicalSkillsForm/TechnicalSkillsForm';
 import VolunteeringItem from '../VolunteeringItem/VolunteeringItem';
 import WorkExperiencesForm from '../WorkExperiencesForm/WorkExperiencesForm';
 import WorkExperiencesView from '../WorkExperiencesView/WorkExperiencesView';
+import CertificationsForm from '../CertificationsForm/CertificationsForm';
 
 const MyResumeView: React.FC = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.personalInfo' });
@@ -139,21 +140,8 @@ const MyResumeView: React.FC = () => {
             </Section>
             {/* Certificates*/}
             <Section title="Certifications">
-              <Certifications
-                certifications={[
-                  {
-                    title: 'React js',
-                    companyName: 'Kocaeli University',
-                    startDate: '2021',
-                    endDate: '2022',
-                  },
-                  {
-                    title: 'React js',
-                    companyName: 'Kocaeli University',
-                    startDate: '2021',
-                  },
-                ]}
-              />
+              <Certifications certifications={resume.certifications || []} />
+              <CertificationsForm certifications={resume.certifications || []} />
             </Section>
             {/* Volunteering*/}
             <Section title="Volunteerings">

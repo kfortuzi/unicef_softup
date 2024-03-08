@@ -1,0 +1,14 @@
+p {
+  margin: 0;
+}
+.certification-subtitle {
+  font-family: $karla-bold;
+  font-size: $medium;
+}
+
+.add-remove-certification-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+}

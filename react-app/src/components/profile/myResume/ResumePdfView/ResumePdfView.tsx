@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import Button from 'src/components/common/Button/Button';
 import i18n from 'src/locales';
 
-import myResume from '../../../../api/resumes/getResumeResponse.json';
+import resume from '../../../../api/resumes/getResumeResponse.json';
 import PdfAboutMe from '../PdfAboutMe/PdfAboutMe';
 import PdfCertifications from '../PdfCertifications/PdfCertifications';
 import PdfContactInfo from '../PdfContactInfo/PdfContactInfo';
@@ -56,51 +56,17 @@ const ResumePdfView: React.FC = () => {
                   </PdfSection>
                   {/* Education And Training*/}
                   <PdfSection title="Education And Trainings">
-                    <PdfEducationAndTrainings
-                      educationAndTrainings={[
-                        {
-                          title: 'Computer Engineering',
-                          startDate: '2018',
-                          endDate: '2022',
-                          location: 'Kocaeli, Turkey',
-                          type: 'Bachelor',
-                        },
-                        {
-                          title: 'Computer Engineering',
-                          startDate: '2018',
-                          endDate: '2022',
-                          location: 'Kocaeli, Turkey',
-                          type: 'Bachelor',
-                        },
-                      ]}
-                    />
+                    <PdfEducationAndTrainings educationAndTrainings={resume.educations || []} />
                   </PdfSection>
                   {/* Work Experience*/}
                   <PdfSection title="Work Experiences">
-                    <PdfWorkExperiences
-                      workExperiences={[
-                        {
-                          position: 'Software Developer',
-                          company: 'Kocaeli University',
-                          startDate: '2018',
-                          endDate: '2022',
-                          responsibilities: 'Developing web applications',
-                        },
-                        {
-                          position: 'Software Developer',
-                          company: 'Kocaeli University',
-                          startDate: '2018',
-                          endDate: '2022',
-                          responsibilities: 'Developing web applications',
-                        },
-                      ]}
-                    />
+                    <PdfWorkExperiences workExperiences={resume.experiences || []} />
                   </PdfSection>
                   {/* Languages*/}
                   <PdfSection title="Languages">
                     <Text style={styles.sectionText}>
                       <Text style={styles.sectionSubTitle}>Mother Toungue(s): </Text>
-                      {myResume.languages
+                      {resume.languages
                         .filter((language) => language.isNative)
                         .map((language) => (
                           <Text key={language.name}>{language.name}</Text>
@@ -108,7 +74,7 @@ const ResumePdfView: React.FC = () => {
                     </Text>
                     <View style={{ gap: 10 }}>
                       <Text style={styles.sectionSubTitle}>Other Language(s): </Text>
-                      {myResume.languages
+                      {resume.languages
                         .filter((language) => !language.isNative)
                         .map((language) => (
                           <PdfLanguageItem
@@ -125,37 +91,23 @@ const ResumePdfView: React.FC = () => {
 
                   {/* Digital Skills*/}
                   <PdfSection title="Digital Skills">
-                    <Text style={styles.sectionText}>JavaScript, TypeScript, C#</Text>
+                    <Text style={styles.sectionText}>{resume.digitalSkills.join(', ')}</Text>
                   </PdfSection>
                   {/* Soft Skills*/}
                   <PdfSection title="Soft Skills">
-                    <Text style={styles.sectionText}>Communication</Text>
+                    <Text style={styles.sectionText}>{resume.softSkills.join(', ')}</Text>
                   </PdfSection>
                   {/* Technical Skills*/}
                   <PdfSection title="Technical Skills">
-                    <Text style={styles.sectionText}>Communication</Text>
+                    <Text style={styles.sectionText}>{resume.technicalSkills.join(', ')}</Text>
                   </PdfSection>
                   {/* Hobbies and Interests*/}
                   <PdfSection title="Hobbies and Interests">
-                    <Text style={styles.sectionText}>Classic guitar, Dance, Book club</Text>
+                    <Text style={styles.sectionText}>{resume.hobbies.join(', ')}</Text>
                   </PdfSection>
                   {/* Certification(s)*/}
                   <PdfSection title="Certifications">
-                    <PdfCertifications
-                      certifications={[
-                        {
-                          title: 'React js',
-                          companyName: 'Kocaeli University',
-                          startDate: '2021',
-                          endDate: '2022',
-                        },
-                        {
-                          title: 'React js',
-                          companyName: 'Kocaeli University',
-                          startDate: '2021',
-                        },
-                      ]}
-                    />
+                    <PdfCertifications certifications={resume.certifications || []} />
                   </PdfSection>
                   {/* Volunteering*/}
                   <PdfSection title="Volunteerings">

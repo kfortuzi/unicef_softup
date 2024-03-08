@@ -1,13 +1,6 @@
-import ListItem from '../ListItem/ListItem';
+import { Certification } from 'src/api/resumes/types';
 
-type Certification = {
-  title: string;
-  companyName: string;
-  description?: string;
-  location?: string;
-  startDate?: string;
-  endDate?: string;
-};
+import ListItem from '../ListItem/ListItem';
 
 interface CertificationsProps {
   certifications: Certification[];
@@ -19,13 +12,12 @@ const CertificationsView: React.FC<CertificationsProps> = (props) => {
   const experiences = certifications.map((certification, index) => {
     return (
       <ListItem
-        title={certification.title}
+        title={certification.name}
         key={index}
         titleStyle={{ color: 'blue' }}
       >
-        <p>{certification.companyName}</p>
-        <p>{certification.description}</p>
-        {certification.endDate && <p>{`Expires in ${certification.endDate}`}</p>}
+        <p>Recieved Date: {certification.receivedDate}</p>
+        {certification.expirationDate && <p>{`Expires in ${certification.expirationDate}`}</p>}
       </ListItem>
     );
   });
