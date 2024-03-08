@@ -1,8 +1,12 @@
 {
   "firstName":"John",
   "lastName":"Doe",
-  "digitalSkills":"Digital Skills",
-  "softSkills":"Soft Skills",
+  "digitalSkills":["Word","Excel"],
+  "softSkills":["Teamwork","Problem Solving"],
+  "technicalSkills":[
+    "React.js",
+    "Node.js"
+  ],
   "summary":"Summary",
   "educations":[
     {
@@ -70,7 +74,11 @@
       "date":"2021"
     }
   ],
-  "hobbies":"Hobbies",
+  "hobbies":[
+    "Reading",
+    "Swimming",
+    "Cycling"
+  ],
   "publications":[
     {
       "name":"Name",

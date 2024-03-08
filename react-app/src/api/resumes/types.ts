@@ -75,9 +75,10 @@ export type PostResumeRequest = {
   educations?: Education[];
   experiences?: WorkExperience[];
   languages?: Language[];
-  digitalSkills?: string;
-  softSkills?: string;
-  hobbies?: string;
+  digitalSkills?: string[];
+  technicalSkills?: string[];
+  softSkills?: string[];
+  hobbies?: string[];
   certificates?: Certificate[];
   volunteerings?: Volunteering[];
   publications?: Publication[];
@@ -98,9 +99,10 @@ export type PatchResumeRequest = {
   educations?: Education[];
   experiences?: WorkExperience[];
   languages?: Language[];
-  digitalSkills?: string;
-  softSkills?: string;
-  hobbies?: string;
+  digitalSkills?: string[];
+  softSkills?: string[];
+  technicalSkills?: string[];
+  hobbies?: string[];
   certificates?: Certificate[];
   volunteerings?: Volunteering[];
   publications?: Publication[];

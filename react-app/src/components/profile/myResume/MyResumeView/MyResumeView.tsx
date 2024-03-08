@@ -8,16 +8,20 @@ import AboutMeForm from '../AboutMeForm/AboutMeForm';
 import AboutMeView from '../AboutMeView/AboutMeView';
 import Certifications from '../CertificationsView/CertificationsView';
 import ContactInfoView from '../ContactInfoView/ContactInfoView';
+import DigitalSkillsForm from '../DigitalSkillsForm/DigitalSkillsForm';
 import DrivingLicenseItem from '../DrivingLicenseItem/DrivingLicenseItem';
 import EducationAndTrainingsForm from '../EducationAndTrainingsForm/EducationAndTrainingsForm';
 import EducationAndTrainings from '../EducationAndTrainingsView/EducationAndTrainingsView';
+import HobbiesForm from '../HobbiesForm/HobbiesForm';
+import LanguagesForm from '../LanguageForm/LanguageForm';
 import LanguageItem from '../LanguageItem/LanguageItem';
 import PublicationItem from '../PublicationItem/PublicationItem';
 import Section from '../Section/Section';
+import SoftSkillsForm from '../SoftSkillsForm/SoftSkillsForm';
+import TechnicalSkillsForm from '../TechnicalSkillsForm/TechnicalSkillsForm';
 import VolunteeringItem from '../VolunteeringItem/VolunteeringItem';
 import WorkExperiencesForm from '../WorkExperiencesForm/WorkExperiencesForm';
 import WorkExperiencesView from '../WorkExperiencesView/WorkExperiencesView';
-import LanguagesForm from '../LanguageForm/LanguageForm';
 
 const MyResumeView: React.FC = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.personalInfo' });
@@ -115,19 +119,23 @@ const MyResumeView: React.FC = () => {
             </Section>
             {/* Digital Skills*/}
             <Section title="Digital Skills">
-              <p className="section-text">JavaScript, TypeScript, C#</p>
+              <p className="section-text">{resume.digitalSkills.join(', ')}</p>
+              <DigitalSkillsForm digitalSkills={resume.digitalSkills} />
             </Section>
             {/* Soft Skills*/}
             <Section title="Soft Skills">
-              <p className="section-text">Communication</p>
+              <p className="section-text">{resume.softSkills.join(', ')}</p>
+              <SoftSkillsForm softSkills={resume.softSkills} />
             </Section>
             {/* Technical Skills*/}
             <Section title="Technical Skills">
-              <p className="section-text">Communication</p>
+              <p className="section-text">{resume.technicalSkills.join(', ')}</p>
+              <TechnicalSkillsForm technicalSkills={resume.technicalSkills} />
             </Section>
             {/* Hobbies and Interests*/}
             <Section title="Hobbies and Interests">
-              <p className="section-text">Classic guitar, Dance, Book club</p>
+              <p className="section-text">{resume.hobbies.join(', ')}</p>
+              <HobbiesForm hobbies={resume.hobbies} />
             </Section>
             {/* Certificates*/}
             <Section title="Certifications">
