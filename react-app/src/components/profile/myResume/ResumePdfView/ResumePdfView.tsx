@@ -110,9 +110,9 @@ const ResumePdfView: React.FC = () => {
                     <PdfCertifications certifications={resume.certifications || []} />
                   </PdfSection>
                   {/* Volunteering*/}
-                  <PdfSection title="Volunteerings">
+                  <PdfSection title="Volunteering">
                     <PdfVolunteeringItem
-                      title="Volunteer"
+                      role="Volunteer"
                       organization="Kocaeli University"
                       startDate="2015"
                       endDate="2016"
@@ -122,7 +122,7 @@ const ResumePdfView: React.FC = () => {
                   <PdfSection title="Publications">
                     <PdfPublicationItem
                       name="React js Technical Article"
-                      date="2021"
+                      releaseDate="2021"
                     />
                   </PdfSection>
                   <PdfSection title="Driving Licenses">

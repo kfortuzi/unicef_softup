@@ -1,26 +1,22 @@
-interface VolunteeringItemItemProps {
-  organization?: string;
-  title: string;
-  imgUrl?: string;
-  startDate: string;
-  endDate?: string;
-}
+import { Volunteering } from 'src/api/resumes/types';
+
+type VolunteeringItemItemProps = Volunteering;
 
 const VolunteeringItem: React.FC<VolunteeringItemItemProps> = (props) => {
-  const { organization, title, imgUrl, startDate, endDate = 'present' } = props;
+  const { role, organization, icon, startDate, endDate = 'present' } = props;
 
   return (
     <div className="volunteering-item">
-      {imgUrl && (
+      {icon && (
         <img
           className="volunteering-item-image"
-          src={imgUrl}
+          src={icon}
           alt="Volunteering Item Image"
         />
       )}
 
       <div>
-        <p className="volunteering-title">{title}</p>
+        <p className="volunteering-title">{role}</p>
         <p className="volunteering-organization">{organization}</p>
         <p className="volunteering-date">
           {startDate} - {endDate}

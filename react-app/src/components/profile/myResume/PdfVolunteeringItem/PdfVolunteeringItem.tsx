@@ -1,17 +1,13 @@
 import { Text, View, Image } from '@react-pdf/renderer';
 
+import { Volunteering } from 'src/api/resumes/types';
+
 import styles from './PdfVolunteeringItemStyle';
 
-interface PdfVolunteeringItemItemProps {
-  organization?: string;
-  title: string;
-  imgUrl?: string;
-  startDate: string;
-  endDate?: string;
-}
+type PdfVolunteeringItemItemProps = Volunteering;
 
 const PdfVolunteeringItem: React.FC<PdfVolunteeringItemItemProps> = (props) => {
-  const { organization, title, imgUrl, startDate, endDate = 'present' } = props;
+  const { organization, role, icon, startDate, endDate = 'present' } = props;
 
   return (
     <View
@@ -20,15 +16,15 @@ const PdfVolunteeringItem: React.FC<PdfVolunteeringItemItemProps> = (props) => {
         gap: 10,
       }}
     >
-      {imgUrl && (
+      {icon && (
         <Image
           style={{ width: '20%' }}
-          src={imgUrl}
+          src={icon}
         />
       )}
 
       <View>
-        <Text style={styles.volunteeringTitle}>{title}</Text>
+        <Text style={styles.volunteeringTitle}>{role}</Text>
         <Text style={styles.volunteeringOrganization}>{organization}</Text>
         <Text style={styles.volunteeringDate}>
           {startDate} - {endDate}

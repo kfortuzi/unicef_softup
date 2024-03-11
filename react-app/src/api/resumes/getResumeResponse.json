@@ -42,11 +42,11 @@
   ],
   "drivingLicense":"Driving License",
   "email":"yunuskas55@gmail.com",
-  "volunteerings":[
+  "volunteering":[
     {
-      "title":"Title",
+      "role":"Title",
       "organization":"Organization",
-      "imgUrl":"Img Url",
+      "icon":"Img Url",
       "startDate":"2020",
       "endDate":"2021"
     }
@@ -85,8 +85,9 @@
   ],
   "publications":[
     {
-      "name":"Name",
-      "date":"2021"
+      "name":"Node.js Best Practices",
+      "releaseDate":"2021",
+      "link": "Link"
     }
   ],
   "profilePicture":"https://static.vecteezy.com/system/resources/previews/034/601/899/large_2x/portrait-of-a-cat-wearing-sunglasses-on-the-sunset-background-ai-generated-free-photo.jpg",

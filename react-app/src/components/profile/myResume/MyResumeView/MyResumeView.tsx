@@ -6,6 +6,7 @@ import { GetResumeResponse } from 'src/api/resumes/types';
 import resume from '../../../../api/resumes/getResumeResponse.json';
 import AboutMeForm from '../AboutMeForm/AboutMeForm';
 import AboutMeView from '../AboutMeView/AboutMeView';
+import CertificationsForm from '../CertificationsForm/CertificationsForm';
 import Certifications from '../CertificationsView/CertificationsView';
 import ContactInfoView from '../ContactInfoView/ContactInfoView';
 import DigitalSkillsForm from '../DigitalSkillsForm/DigitalSkillsForm';
@@ -15,14 +16,15 @@ import EducationAndTrainings from '../EducationAndTrainingsView/EducationAndTrai
 import HobbiesForm from '../HobbiesForm/HobbiesForm';
 import LanguagesForm from '../LanguageForm/LanguageForm';
 import LanguageItem from '../LanguageItem/LanguageItem';
+import PublicationsForm from '../PublicationForm/PublicationForm';
 import PublicationItem from '../PublicationItem/PublicationItem';
 import Section from '../Section/Section';
 import SoftSkillsForm from '../SoftSkillsForm/SoftSkillsForm';
 import TechnicalSkillsForm from '../TechnicalSkillsForm/TechnicalSkillsForm';
+import VolunteeringForm from '../VolunteeringForm/VolunteeringForm';
 import VolunteeringItem from '../VolunteeringItem/VolunteeringItem';
 import WorkExperiencesForm from '../WorkExperiencesForm/WorkExperiencesForm';
 import WorkExperiencesView from '../WorkExperiencesView/WorkExperiencesView';
-import CertificationsForm from '../CertificationsForm/CertificationsForm';
 
 const MyResumeView: React.FC = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.personalInfo' });
@@ -144,20 +146,26 @@ const MyResumeView: React.FC = () => {
               <CertificationsForm certifications={resume.certifications || []} />
             </Section>
             {/* Volunteering*/}
-            <Section title="Volunteerings">
+            <Section title="Volunteering">
               <VolunteeringItem
-                title="Volunteer"
+                role="Volunteer"
                 organization="Kocaeli University"
                 startDate="2015"
                 endDate="2016"
               />
+              <VolunteeringForm volunteering={resume.volunteering || []} />
             </Section>
             {/* Publications*/}
             <Section title="Publications">
-              <PublicationItem
-                name="React js Technical Article"
-                date="2021"
-              />
+              {resume.publications?.map((publication, index) => (
+                <PublicationItem
+                  key={index}
+                  name={publication.name}
+                  releaseDate={publication.releaseDate}
+                  link={publication.link}
+                />
+              ))}
+              <PublicationsForm publications={resume.publications || []} />
             </Section>
             <Section title="Driving Licenses">
               <DrivingLicenseItem drivingLicenses={[{ drivingLicense: 'B2' }, { drivingLicense: 'A1' }]} />

@@ -48,17 +48,17 @@ export type Certification = {
 };
 
 export type Volunteering = {
-  organization?: string;
-  title: string;
-  imgUrl?: string;
+  role: string;
+  organization: string;
+  icon?: string;
   startDate: string;
   endDate?: string;
 };
 
 export type Publication = {
   name: string;
-  date: string;
-  description?: string;
+  releaseDate: string;
+  link?: string;
 };
 
 export type PostResumeRequest = {
@@ -79,7 +79,7 @@ export type PostResumeRequest = {
   softSkills?: string[];
   hobbies?: string[];
   certifications?: Certification[];
-  volunteerings?: Volunteering[];
+  volunteering?: Volunteering[];
   publications?: Publication[];
   drivingLicenses?: DrivingLicense[];
 };
@@ -103,7 +103,7 @@ export type PatchResumeRequest = {
   technicalSkills?: string[];
   hobbies?: string[];
   certifications?: Certification[];
-  volunteerings?: Volunteering[];
+  volunteering?: Volunteering[];
   publications?: Publication[];
   drivingLicenses?: DrivingLicense[];
 };
