@@ -9,7 +9,7 @@ import resume from '../../../../api/resumes/getResumeResponse.json';
 import PdfAboutMe from '../PdfAboutMe/PdfAboutMe';
 import PdfCertifications from '../PdfCertifications/PdfCertifications';
 import PdfContactInfo from '../PdfContactInfo/PdfContactInfo';
-import PdfDrivingLicenseItem from '../PdfDrivingLicenseItem/PdfDrivingLicenseItem';
+import PdfDrivingLicenceItem from '../PdfDrivingLicenceItem/PdfDrivingLicenceItem';
 import PdfEducationAndTrainings from '../PdfEducationAndTraining/PdfEducationAndTraining';
 import PdfLanguageItem from '../PdfLanguageItem/PdfLanguageItem';
 import PdfPublicationItem from '../PdfPublicationItem/PdfPublicationItem';
@@ -125,10 +125,8 @@ const ResumePdfView: React.FC = () => {
                       releaseDate="2021"
                     />
                   </PdfSection>
-                  <PdfSection title="Driving Licenses">
-                    <PdfDrivingLicenseItem
-                      drivingLicenses={[{ drivingLicense: 'B2' }, { drivingLicense: 'A1' }]}
-                    />
+                  <PdfSection title="Driving Licences">
+                    <PdfDrivingLicenceItem drivingLicences={resume.drivingLicences || []} />
                   </PdfSection>
                 </View>
               </View>

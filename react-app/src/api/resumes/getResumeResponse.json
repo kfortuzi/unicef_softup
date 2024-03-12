@@ -40,7 +40,7 @@
       "responsibilities":"Developed e-commerce web applications using golang"
     }
   ],
-  "drivingLicense":"Driving License",
+  "drivingLicences": [{"level": "B"}],
   "email":"yunuskas55@gmail.com",
   "volunteering":[
     {

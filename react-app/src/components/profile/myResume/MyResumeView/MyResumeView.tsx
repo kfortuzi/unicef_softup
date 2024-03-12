@@ -10,7 +10,8 @@ import CertificationsForm from '../CertificationsForm/CertificationsForm';
 import Certifications from '../CertificationsView/CertificationsView';
 import ContactInfoView from '../ContactInfoView/ContactInfoView';
 import DigitalSkillsForm from '../DigitalSkillsForm/DigitalSkillsForm';
-import DrivingLicenseItem from '../DrivingLicenseItem/DrivingLicenseItem';
+import DrivingLicenceForm from '../DrivingLicenceForm/DrivingLicenceForm';
+import DrivingLicenceItem from '../DrivingLicenceItem/DrivingLicenceItem';
 import EducationAndTrainingsForm from '../EducationAndTrainingsForm/EducationAndTrainingsForm';
 import EducationAndTrainings from '../EducationAndTrainingsView/EducationAndTrainingsView';
 import HobbiesForm from '../HobbiesForm/HobbiesForm';
@@ -167,8 +168,9 @@ const MyResumeView: React.FC = () => {
               ))}
               <PublicationsForm publications={resume.publications || []} />
             </Section>
-            <Section title="Driving Licenses">
-              <DrivingLicenseItem drivingLicenses={[{ drivingLicense: 'B2' }, { drivingLicense: 'A1' }]} />
+            <Section title="Driving Licences">
+              <DrivingLicenceItem drivingLicences={resume.drivingLicences || []} />
+              <DrivingLicenceForm driverLicences={resume.drivingLicences || []} />
             </Section>
           </div>
         </div>

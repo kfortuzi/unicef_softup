@@ -1,21 +1,8 @@
 //#region Resume
 
-enum DrivingLicense {
-  AM,
-  A1,
-  A2,
-  A,
-  B1,
-  BE,
-  C1,
-  C1E,
-  C,
-  CE,
-  D1,
-  D1E,
-  D,
-  DE,
-}
+export type DrivingLicence = {
+  level: string;
+};
 
 export type Education = {
   title: string;
@@ -81,7 +68,7 @@ export type PostResumeRequest = {
   certifications?: Certification[];
   volunteering?: Volunteering[];
   publications?: Publication[];
-  drivingLicenses?: DrivingLicense[];
+  drivingLicences?: DrivingLicence[];
 };
 
 export type PatchResumeRequest = {
@@ -105,7 +92,7 @@ export type PatchResumeRequest = {
   certifications?: Certification[];
   volunteering?: Volunteering[];
   publications?: Publication[];
-  drivingLicenses?: DrivingLicense[];
+  drivingLicences?: DrivingLicence[];
 };
 
 export type PatchResumeResponse = PostResumeRequest;
