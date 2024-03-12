@@ -1,9 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { OpenAIService } from '../openai/openai.service';
-import {
-  ChatCompletion,
-  ChatCompletionMessageParam,
-} from 'openai/resources/chat';
+import { ChatCompletionMessageParam } from 'openai/resources/chat';
 import { AkpaModels } from '../openai/models';
 import { AkpaPrompts } from '../openai/promptContent';
 import { ExperieneceDTO } from './dto/experience.dto';
@@ -13,16 +10,20 @@ export class ResumeGeneratorService {
   constructor(private openAIService: OpenAIService) {}
 
   async handleResumeGeneration(
+    userId: string,
     userInput: string,
-  ): Promise<ChatCompletion.Choice | undefined> {
+  ): Promise<string | null | undefined> {
     try {
-      const validatedJson = await this.validateQuestionWizard(userInput);
+      const validatedJson = await this.validateQuestionWizard(
+        userId,
+        userInput,
+      );
 
-      if (validatedJson.message.content) {
-        const data = JSON.parse(validatedJson.message.content);
+      if (validatedJson) {
+        const data = JSON.parse(validatedJson);
         const isValidResponese = this.evaluateResponse(data);
         if (isValidResponese) {
-          return this.generateResumeJson(userInput);
+          return this.generateResumeJson(userId, userInput);
         }
       }
     } catch (error) {
@@ -31,8 +32,9 @@ export class ResumeGeneratorService {
   }
 
   async validateQuestionWizard(
+    userId: string,
     userInput: string,
-  ): Promise<ChatCompletion.Choice> {
+  ): Promise<string | null> {
     const messages: ChatCompletionMessageParam[] = [
       {
         role: 'system',
@@ -49,10 +51,15 @@ export class ResumeGeneratorService {
     return this.openAIService.generateCompletion(
       messages,
       AkpaModels.IS_VALID_ANSWER,
+      userId,
+      'ValidateResume',
     );
   }
 
-  async generateResumeJson(userInput: string): Promise<ChatCompletion.Choice> {
+  async generateResumeJson(
+    userId: string,
+    userInput: string,
+  ): Promise<string | null> {
     const messages: ChatCompletionMessageParam[] = [
       {
         role: 'system',
@@ -66,7 +73,12 @@ export class ResumeGeneratorService {
         ),
       },
     ];
-    return this.openAIService.generateCompletion(messages, AkpaModels.CHAT);
+    return this.openAIService.generateCompletion(
+      messages,
+      AkpaModels.CHAT,
+      userId,
+      'ResumeWizard',
+    );
   }
 
   private evaluateResponse(response: { [key: string]: boolean }): boolean {
@@ -91,11 +103,14 @@ export class ResumeGeneratorService {
   }
 
   async generateSummary(
+    userId: string,
     userInput: string | ExperieneceDTO[],
-  ): Promise<ChatCompletion.Choice | undefined> {
+  ): Promise<string | null> {
     try {
-      const yearsOfExperience =
-        await this.calculateYearsOfExperience(userInput);
+      const yearsOfExperience = await this.calculateYearsOfExperience(
+        userId,
+        userInput,
+      );
       let systemPrompt: string = AkpaPrompts.generateSummaryWithoutExperience;
       if (yearsOfExperience > 0) {
         systemPrompt = `${AkpaPrompts.generateSummary}. ${yearsOfExperience}`;
@@ -110,13 +125,19 @@ export class ResumeGeneratorService {
           content: `${JSON.stringify(userInput)}`,
         },
       ];
-      return this.openAIService.generateCompletion(messages, AkpaModels.CHAT);
+      return this.openAIService.generateCompletion(
+        messages,
+        AkpaModels.CHAT,
+        userId,
+        'Summary',
+      );
     } catch (error) {
       throw new Error(`${error}`);
     }
   }
 
   async calculateYearsOfExperience(
+    userId: string,
     userInput: string | ExperieneceDTO[],
   ): Promise<number> {
     let yearsOfExperience = 0;
@@ -133,16 +154,19 @@ export class ResumeGeneratorService {
     const response = await this.openAIService.generateCompletion(
       messages,
       AkpaModels.CHAT,
+      userId,
+      'YearsOfExperience',
     );
-    if (response.message.content) {
-      yearsOfExperience = JSON.parse(response.message.content).Total;
+    if (response) {
+      yearsOfExperience = JSON.parse(response).Total;
     }
     return yearsOfExperience;
   }
 
   async generateResponsibility(
+    userId: string,
     userInput: string | ExperieneceDTO,
-  ): Promise<ChatCompletion.Choice | undefined> {
+  ): Promise<string | null> {
     try {
       const messages: ChatCompletionMessageParam[] = [
         {
@@ -155,7 +179,12 @@ export class ResumeGeneratorService {
         },
       ];
 
-      return this.openAIService.generateCompletion(messages, AkpaModels.CHAT);
+      return this.openAIService.generateCompletion(
+        messages,
+        AkpaModels.CHAT,
+        userId,
+        'Responsibility',
+      );
     } catch (error) {
       throw new Error(`${error}`);
     }

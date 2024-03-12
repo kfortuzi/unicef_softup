@@ -28,6 +28,7 @@ model users {
   cover_letters         cover_letters[]
   user_skills           user_skills[]
   user_recommended_jobs user_recommended_jobs[]
+  prompts               prompts[]
 }
 
 model user_skills {
@@ -121,7 +122,7 @@ model jobs {
   address                 String?
   location                String
   type                    JobType?
-  contractDuration        Int?                    @map("contract_duration") //in months
+  contractDuration        Int?                    @map("contract_duration")
   tags                    String?
   company                 String?
   vacantPositions         Int?                    @map("vacant_positions")
@@ -155,12 +156,16 @@ model user_recommended_jobs {
   @@id([userId, jobId])
 }
 
-model processing {
-  id                String   @id @default(cuid())
-  resumeId          String?  @map("resume_id")
-  coverLetterId     String?  @map("cover_letter_id")
-  duration          BigInt?
-  status            String?
-  processing_status String?
-  createdAt         DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+model prompts {
+  id             String   @id @default(cuid())
+  userId         String   @map("user_id")
+  promptType     String   @map("prompt_type")
+  requireHistory Boolean  @default(false) @map("require_history")
+  promptRequest  String   @map("prompt_request")
+  prompResponse  String?  @map("promp_response")
+  startedAt      DateTime @default(now()) @map("started_at")
+  endedAt        DateTime @default(now()) @map("ended_at")
+  user           users    @relation(fields: [userId], references: [id])
+
+  @@map("prompts")
 }

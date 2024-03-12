@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards, Request } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiBody,
@@ -9,6 +9,7 @@ import {
 import { ResumeGeneratorService } from '../resume/resumeGenerator.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { ExperieneceDTO } from './dto/experience.dto';
+import { RequestWithUser } from 'src/types/request';
 
 @Controller('resume')
 export class ResumeController {
@@ -26,8 +27,11 @@ export class ResumeController {
   @ApiCreatedResponse({
     description: 'The resume has been successfully created.',
   })
-  async handleResumeGeneration(@Body() body: string) {
-    return this.ResumeService.handleResumeGeneration(body);
+  async handleResumeGeneration(
+    @Request() req: RequestWithUser,
+    @Body() body: string,
+  ) {
+    return this.ResumeService.handleResumeGeneration(req.user.id, body);
   }
 
   @ApiBearerAuth()
@@ -39,8 +43,11 @@ export class ResumeController {
     description: 'The summary has been successfully created.',
   })
   @ApiForbiddenResponse({ status: 403, description: 'Forbidden.' })
-  async generateSummary(@Body() experieneces: ExperieneceDTO[]) {
-    return this.ResumeService.generateSummary(experieneces);
+  async generateSummary(
+    @Request() req: RequestWithUser,
+    @Body() experieneces: ExperieneceDTO[],
+  ) {
+    return this.ResumeService.generateSummary(req.user.id, experieneces);
   }
   @ApiBearerAuth()
   @ApiTags('resume')
@@ -51,7 +58,10 @@ export class ResumeController {
     description: 'The responsibilities have been successfully created.',
   })
   @ApiForbiddenResponse({ status: 403, description: 'Forbidden.' })
-  async generateResponsibility(@Body() experieneces: ExperieneceDTO) {
-    return this.ResumeService.generateResponsibility(experieneces);
+  async generateResponsibility(
+    @Request() req: RequestWithUser,
+    @Body() experieneces: ExperieneceDTO,
+  ) {
+    return this.ResumeService.generateResponsibility(req.user.id, experieneces);
   }
 }

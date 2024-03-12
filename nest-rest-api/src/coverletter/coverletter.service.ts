@@ -1,9 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { OpenAIService } from '../openai/openai.service';
-import {
-  ChatCompletion,
-  ChatCompletionMessageParam,
-} from 'openai/resources/chat';
+import { ChatCompletionMessageParam } from 'openai/resources/chat';
 import { AkpaModels } from '../openai/models';
 import { AkpaPrompts } from '../openai/promptContent';
 import { CoverLetterWizardDTO } from './dto/cover-letter-wizard.dto';
@@ -22,7 +19,7 @@ export class CoverLetterService {
     wizard: CoverLetterWizardDTO,
   ) {
     try {
-      const data = await this.validateAndParseUserInput(wizard);
+      const data = await this.validateAndParseUserInput(userId, wizard);
       this.assertValidResponse(data);
       return this.generateCoverLetter(userId, wizard);
     } catch (error) {
@@ -38,7 +35,10 @@ export class CoverLetterService {
     }
   }
 
-  async validateQuestionWizard(wizard: any): Promise<ChatCompletion.Choice> {
+  async validateQuestionWizard(
+    userId: string,
+    wizard: any,
+  ): Promise<string | null> {
     const messages: ChatCompletionMessageParam[] = [
       {
         role: 'system',
@@ -51,10 +51,16 @@ export class CoverLetterService {
         } `,
       },
     ];
-    return this.openAIService.generateCompletion(messages, AkpaModels.CHAT);
+    return this.openAIService.generateCompletion(
+      messages,
+      AkpaModels.CHAT,
+      userId,
+      'ValidateCoverLetter',
+    );
   }
 
   private async validateAndParseUserInput(
+    userId: string,
     wizard: CoverLetterWizardDTO,
   ): Promise<string> {
     try {
@@ -67,12 +73,14 @@ export class CoverLetterService {
         },
         {} as Partial<CoverLetterWizardDTO>,
       );
-      const validatedResponse =
-        await this.validateQuestionWizard(filteredWizard);
-      if (!validatedResponse.message.content) {
+      const validatedResponse = await this.validateQuestionWizard(
+        userId,
+        filteredWizard,
+      );
+      if (!validatedResponse) {
         throw new Error('No data to process');
       }
-      return JSON.parse(validatedResponse.message.content);
+      return JSON.parse(validatedResponse);
     } catch (error) {
       throw new Error(`${error}`);
     }
@@ -81,7 +89,7 @@ export class CoverLetterService {
   async generateCoverLetter(
     userId: string,
     input: JobSummaryDTO | CoverLetterWizardDTO,
-  ): Promise<ChatCompletion.Choice> {
+  ): Promise<string | null> {
     const userInput = this.userService.getUserSkillsAsString(userId);
     const messages: ChatCompletionMessageParam[] = [
       {
@@ -100,6 +108,8 @@ export class CoverLetterService {
     return this.openAIService.generateCompletion(
       messages,
       AkpaModels.COVER_LETTER,
+      userId,
+      'CoverLetterWizard',
     );
   }
 
