@@ -113,4 +113,59 @@ export class HelperService {
       );
     }
   }
+  async generateSummaryJsonl() {
+    // get profiles
+    try {
+      profilesJson.forEach((profile) => {
+        const selectedProperties = {
+          experience: profile.experience,
+          education: profile.education,
+          technical_skills: profile.technical_skills,
+          digital_skills: profile.digital_skills,
+        };
+        this.generatefileJsonlSummary(selectedProperties);
+      });
+    } catch {
+      console.log(Error);
+    }
+    // generate jsol file
+  }
+  async generatefileJsonlSummary(userInput: any) {
+    const messages: ChatCompletionMessageParam[] = [
+      {
+        role: 'system',
+        content:
+          "Generate a resume summary, written on first person that evaluates the job seeker's profile against the provided job listing (if any), focusing on key strengths, areas for improvement, and future objectives. The summary should be concise, no longer than 150 words, and include:\n\nEssential matches or gaps between the job seeker's skills/education and job requirements.\nNotable strengths and areas for potential growth.\nShort-term objectives for professional development and suggested types of roles or industries that align with the job seeker’s profile.\nJob Seeker Profile:\n\nEducation: [List details]\nSkills: [List details]\nAdditional Qualifications: [List details]\nJob Listing (if provided):\n\nTitle: [If available]\nDescription: [If available]\nRequired Skills: [If available]\nPreferred Education: [If available]\nSummarize the alignment and provide focused guidance on professional pathways and objectives, keeping the entire summary under 150 words. The summary should be in albanian.",
+      },
+      {
+        role: 'user',
+        content: ` ${JSON.stringify(userInput)}`,
+      },
+    ];
+    const json_data = await this.openAIService.generateCompletion(
+      messages,
+      AkpaModels.CHAT,
+    );
+    if (json_data.message.content) {
+      const messages2: ChatCompletionMessageParam[] = [
+        {
+          role: 'system',
+          content:
+            "Generate a resume summary, written on first person that evaluates the job seeker's profile against the provided job listing (if any), focusing on key strengths, areas for improvement, and future objectives. The summary should be concise, no longer than 150 words, and include:\n\nEssential matches or gaps between the job seeker's skills/education and job requirements.\nNotable strengths and areas for potential growth.\nShort-term objectives for professional development and suggested types of roles or industries that align with the job seeker’s profile.\nJob Seeker Profile:\n\nEducation: [List details]\nSkills: [List details]\nAdditional Qualifications: [List details]\nJob Listing (if provided):\n\nTitle: [If available]\nDescription: [If available]\nRequired Skills: [If available]\nPreferred Education: [If available]\nSummarize the alignment and provide focused guidance on professional pathways and objectives, keeping the entire summary under 150 words. The summary should be in albanian.",
+        },
+        {
+          role: 'user',
+          content: `${JSON.stringify(userInput)}`,
+        },
+        {
+          role: 'assistant',
+          content: json_data.message.content,
+        },
+      ];
+      appendFileAsync(
+        'jsonl_file',
+        `{"messages": ${JSON.stringify(messages2)}}\n`,
+      );
+    }
+  }
 }
