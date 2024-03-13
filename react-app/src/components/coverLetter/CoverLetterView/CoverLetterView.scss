@@ -1,0 +1,52 @@
+.cover-letter-layout {
+  display: flex;
+  width: 70%;
+  flex-flow: column nowrap;
+  gap: $small;
+  margin: $large;
+  height: 100%;
+
+  .slide-container {
+    border: 1px solid black;
+    transform: translateX(20%);
+    transition: transform 0.5s;
+  }
+
+  .cover-letter-personal-info {
+    display: flex;
+    flex-direction: column;
+    gap: $medium;
+    background-color: whitesmoke;
+    border-bottom: 1px solid black;
+    padding: $medium;
+
+    .cover-letter-personal-info-title {
+      font-size: $large;
+      color: $link-color;
+    }
+
+    .cover-letter-personal-info-icon {
+      color: $link-color;
+      margin: $small;
+    }
+
+    .cover-letter-personal-info-content {
+      display: flex;
+      flex-flow: row nowrap;
+      gap: $medium;
+
+      .cover-letter-body-to-information {
+      }
+    }
+  }
+
+  .cover-letter-body {
+    display: flex;
+    flex-direction: column;
+    margin: $medium;
+    gap: $medium;
+  }
+}
+.slide-left {
+  transform: translateX(0%) !important;
+}

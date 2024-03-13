@@ -1,0 +1,18 @@
+.cover-letter-form {
+  p {
+    margin: 0;
+  }
+  display: flex;
+  flex-direction: column;
+  gap: $medium;
+
+  .button-group-container {
+    display: flex;
+    flex-direction: row;
+    gap: $medium;
+  }
+
+  .ai-button {
+    display: flex;
+  }
+}

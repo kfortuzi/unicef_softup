@@ -1,0 +1,11 @@
+{
+  "id": "1",
+  "userId": "1",
+  "to": "Stivi",
+  "company": "Softup",
+  "companyAddress": "Bulevar Mihajla Pupina 10",
+  "content": "Hello, I am interested in your job offer. I am a full stack developer with 5 years of experience. I am looking forward to hearing from you. Best regards, Yunus Emre KAS",
+  "createdAt": "2021-05-20T12:00:00Z",
+  "updatedAt": "2021-05-20T12:00:00Z",
+  "deletedAt": "2021-05-20T12:00:00Z"
+}

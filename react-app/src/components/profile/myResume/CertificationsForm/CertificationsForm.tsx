@@ -35,8 +35,6 @@ const CertificationsForm: React.FC<CertificationsFormProps> = (props) => {
 
   const { mutate: patchResume, isPending } = usePatchResume();
   const submitForm = handleSubmit((values) => {
-    console.log('values', values);
-
     patchResume({ id: '', certifications: values.certifications });
   });
 

@@ -52,7 +52,7 @@ const PageWithNavigation: React.FC = () => {
         label: t('coverLetter'),
         key: 'coverLetter',
         icon: <ContainerOutlined />,
-        onClick: () => navigate(Route.COVER_LETTER),
+        onClick: () => navigate(Route.COVER_LETTERS),
       },
       {
         label: t('jobs'),

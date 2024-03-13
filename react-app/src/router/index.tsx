@@ -13,6 +13,7 @@ import ConfirmUser from 'src/screens/ConfirmUser/ConfirmUser';
 import ForgotPassword from 'src/screens/ForgotPassword/ForgotPassword';
 import Home from 'src/screens/Home/Home';
 import Login from 'src/screens/Login/Login';
+import MyCoverLetter from 'src/screens/MyCoverLetter/MyCoverLetter';
 import MyCoverLetters from 'src/screens/MyCoverLetters/MyCoverLetters';
 import MyResume from 'src/screens/MyResume/MyResume';
 import MyResumes from 'src/screens/MyResumes/MyResumes';
@@ -48,8 +49,12 @@ const Router: React.FC = () => {
               element: <MyResumes />,
             },
             {
-              path: Route.COVER_LETTER,
+              path: Route.COVER_LETTERS,
               element: <MyCoverLetters />,
+            },
+            {
+              path: Route.COVER_LETTERS_DETAILS,
+              element: <MyCoverLetter />,
             },
             {
               path: Route.JOBS,

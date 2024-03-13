@@ -1,5 +1,5 @@
 const slideResumeLeft = (slideStatus: boolean): void => {
-  const form = document.querySelector('.my-resume-container');
+  const form = document.querySelector('.slide-container');
   if (slideStatus) {
     form?.classList.remove('slide-left');
   } else {

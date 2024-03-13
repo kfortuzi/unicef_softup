@@ -34,7 +34,7 @@ const MyResumeView: React.FC = () => {
 
   return (
     <div className="my-resume-layout">
-      <div className="my-resume-container">
+      <div className="slide-container">
         <h1>{t('header')}</h1>
         <div className="my-resume-body">
           <ContactInfoView
