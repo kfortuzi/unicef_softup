@@ -1,19 +1,112 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { DrivingLicense } from '@prisma/client';
-import {
-  IsBoolean,
-  IsDateString,
-  IsJSON,
-  IsOptional,
-  IsString,
-} from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsBoolean, IsDate, IsOptional, IsString } from 'class-validator';
 
-export class ResumeDto {
+export class ExperienceDto {
   @ApiProperty()
   @IsString()
-  userId: string;
+  position: string;
+
+  @ApiPropertyOptional()
+  startDate?: Date;
+
+  @ApiPropertyOptional()
+  endDate?: Date;
+
+  @ApiPropertyOptional()
+  @IsString()
+  company?: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  responsibilities?: string;
+}
+
+class EducationDto {
+  @ApiProperty()
+  @IsString()
+  title: string;
 
   @ApiProperty()
+  @IsString()
+  type: string;
+
+  @ApiProperty()
+  @IsString()
+  location: string;
+
+  @ApiPropertyOptional()
+  @IsDate()
+  startDate?: Date;
+
+  @ApiPropertyOptional()
+  @IsDate()
+  endDate?: Date;
+}
+
+class LanguageDto {
+  @ApiProperty()
+  @IsString()
+  name: string;
+
+  @ApiProperty()
+  @IsBoolean()
+  isNative: boolean;
+
+  @ApiPropertyOptional()
+  @IsString()
+  reading?: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  listening?: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  speaking?: string;
+}
+
+class CertificateDto {
+  @ApiProperty()
+  @IsString()
+  name: string;
+
+  @ApiPropertyOptional()
+  @IsDate()
+  receivedDate?: Date;
+
+  @ApiPropertyOptional()
+  @IsDate()
+  expirationDate?: Date;
+}
+
+class VolunteeringDto {
+  @ApiProperty()
+  @IsString()
+  role: string;
+
+  @ApiProperty()
+  @IsString()
+  organization: string;
+}
+
+class PublicationDto {
+  @ApiProperty()
+  @IsString()
+  name: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  link?: string;
+
+  @ApiPropertyOptional()
+  @IsDate()
+  releaseDate?: Date;
+}
+
+export class ResumeDto {
+  @ApiPropertyOptional()
   @IsString()
   email: string;
 
@@ -57,20 +150,17 @@ export class ResumeDto {
   @IsOptional()
   summary?: string;
 
-  @ApiPropertyOptional()
-  @IsJSON()
-  @IsOptional()
-  education?: object;
+  @ApiPropertyOptional({ type: [EducationDto] })
+  @Type(() => EducationDto)
+  educations?: EducationDto[];
 
-  @ApiPropertyOptional()
-  @IsJSON()
-  @IsOptional()
-  experiences?: object;
+  @ApiPropertyOptional({ type: [ExperienceDto] })
+  @Type(() => ExperienceDto)
+  experiences?: ExperienceDto[];
 
-  @ApiPropertyOptional()
-  @IsJSON()
-  @IsOptional()
-  languages?: object;
+  @ApiPropertyOptional({ type: [LanguageDto] })
+  @Type(() => LanguageDto)
+  languages?: LanguageDto[];
 
   @ApiPropertyOptional()
   @IsString()
@@ -87,40 +177,19 @@ export class ResumeDto {
   @IsOptional()
   hobbies?: string;
 
-  @ApiPropertyOptional()
-  @IsJSON()
-  @IsOptional()
-  certificates?: object;
+  @ApiPropertyOptional({ type: [CertificateDto] })
+  @Type(() => CertificateDto)
+  certificates?: CertificateDto[];
 
-  @ApiPropertyOptional()
-  @IsJSON()
-  @IsOptional()
-  volunteering?: object;
+  @ApiPropertyOptional({ type: [VolunteeringDto] })
+  @Type(() => VolunteeringDto)
+  volunteering?: VolunteeringDto[];
 
-  @ApiPropertyOptional()
-  @IsJSON()
-  @IsOptional()
-  publications?: object;
+  @ApiPropertyOptional({ type: [PublicationDto] })
+  @Type(() => PublicationDto)
+  publications?: PublicationDto[];
 
   @ApiPropertyOptional()
   @IsOptional()
   drivingLicense?: DrivingLicense;
-
-  @ApiProperty()
-  @IsBoolean()
-  enhanced: boolean;
-
-  @ApiProperty()
-  @IsDateString()
-  createdAt: Date;
-
-  @ApiPropertyOptional()
-  @IsDateString()
-  @IsOptional()
-  updatedAt?: Date;
-
-  @ApiPropertyOptional()
-  @IsDateString()
-  @IsOptional()
-  deletedAt?: Date;
 }

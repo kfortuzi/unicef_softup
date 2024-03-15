@@ -1,4 +1,15 @@
-import { Body, Controller, Post, UseGuards, Request } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  UseGuards,
+  Request,
+  Get,
+  Delete,
+  Param,
+  Patch,
+  Query,
+} from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiBody,
@@ -6,62 +17,139 @@ import {
   ApiForbiddenResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { ResumeGeneratorService } from '../resume/resumeGenerator.service';
+import { ResumeService } from './resume.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { ExperieneceDTO } from './dto/experience.dto';
 import { RequestWithUser } from 'src/types/request';
+import { ExperienceDto, ResumeDto } from './dto/resume.dto';
 
-@Controller('resume')
+@Controller('resumes')
 export class ResumeController {
-  constructor(private ResumeService: ResumeGeneratorService) {}
+  constructor(private resumeService: ResumeService) {}
 
   @ApiBearerAuth()
-  @ApiTags('resume')
+  @ApiTags('resumes')
   @UseGuards(JwtAuthGuard)
   @Post()
-  @ApiBody({
-    schema: {
-      type: 'string',
-    },
-  })
+  @ApiBody({ type: ResumeDto })
   @ApiCreatedResponse({
     description: 'The resume has been successfully created.',
   })
   async handleResumeGeneration(
     @Request() req: RequestWithUser,
-    @Body() body: string,
+    @Body() createResumeDto: ResumeDto,
   ) {
-    return this.ResumeService.handleResumeGeneration(req.user.id, body);
+    return this.resumeService.createResume(req.user.id, createResumeDto);
   }
 
   @ApiBearerAuth()
-  @ApiTags('resume')
+  @ApiTags('resumes')
+  @UseGuards(JwtAuthGuard)
+  @ApiCreatedResponse({
+    description: 'Resume created sucessfully from question wizard.',
+    type: ResumeDto,
+  })
+  @Post('wizard')
+  async createResumeFromWizard(
+    @Request() req: RequestWithUser,
+    @Body() createResumeDto: ResumeDto,
+  ) {
+    return this.resumeService.resumeGenerationFromWizard(
+      req.user.id,
+      createResumeDto,
+    );
+  }
+  @ApiBearerAuth()
+  @ApiTags('resumes')
+  @UseGuards(JwtAuthGuard)
+  @ApiCreatedResponse({
+    description: 'Resume created sucessfully from job tailor.',
+    type: ResumeDto,
+  })
+  @Post('for-job')
+  async createResumeFromJob(
+    @Request() req: RequestWithUser,
+    @Query('jobId') jobId: string,
+  ) {
+    return this.resumeService.resumeGenerationFromJob(req.user.id, jobId);
+  }
+
+  @ApiBearerAuth()
+  @ApiTags('resumes')
+  @UseGuards(JwtAuthGuard)
+  @ApiCreatedResponse({
+    description: 'Return user resumes.',
+    type: ResumeDto,
+  })
+  @ApiForbiddenResponse({ status: 403, description: 'Forbidden.' })
+  @Get()
+  async getAllResumes(@Request() req: RequestWithUser) {
+    return this.resumeService.findAllResumes(req.user.id);
+  }
+
+  @ApiBearerAuth()
+  @ApiTags('resumes')
+  @UseGuards(JwtAuthGuard)
+  @ApiCreatedResponse({
+    description: 'Return resume.',
+    type: ResumeDto,
+  })
+  @Get(':id')
+  async getResumeById(
+    @Param('id') id: string,
+    @Request() req: RequestWithUser,
+  ) {
+    return this.resumeService.findResumeById(id, req.user.id);
+  }
+
+  @ApiBearerAuth()
+  @ApiTags('resumes')
   @UseGuards(JwtAuthGuard)
   @Post('summary')
-  @ApiBody({ type: [ExperieneceDTO] })
+  @ApiBody({ type: [ExperienceDto] })
   @ApiCreatedResponse({
     description: 'The summary has been successfully created.',
   })
   @ApiForbiddenResponse({ status: 403, description: 'Forbidden.' })
   async generateSummary(
     @Request() req: RequestWithUser,
-    @Body() experieneces: ExperieneceDTO[],
+    @Body() experiences: ExperienceDto[],
   ) {
-    return this.ResumeService.generateSummary(req.user.id, experieneces);
+    return this.resumeService.generateSummary(req.user.id, experiences);
   }
+
   @ApiBearerAuth()
-  @ApiTags('resume')
+  @ApiTags('resumes')
   @UseGuards(JwtAuthGuard)
   @Post('responsibility')
-  @ApiBody({ type: ExperieneceDTO })
+  @ApiBody({ type: ExperienceDto })
   @ApiCreatedResponse({
     description: 'The responsibilities have been successfully created.',
   })
   @ApiForbiddenResponse({ status: 403, description: 'Forbidden.' })
   async generateResponsibility(
     @Request() req: RequestWithUser,
-    @Body() experieneces: ExperieneceDTO,
+    @Body() experiences: ExperienceDto,
   ) {
-    return this.ResumeService.generateResponsibility(req.user.id, experieneces);
+    return this.resumeService.generateResponsibility(req.user.id, experiences);
+  }
+
+  @ApiBearerAuth()
+  @ApiTags('resumes')
+  @UseGuards(JwtAuthGuard)
+  @Patch(':id')
+  async updateResume(
+    @Param('id') id: string,
+    @Request() req: RequestWithUser,
+    @Body() updateResumeDto: ResumeDto,
+  ) {
+    return this.resumeService.updateResume(id, req.user.id, updateResumeDto);
+  }
+
+  @ApiBearerAuth()
+  @ApiTags('resumes')
+  @UseGuards(JwtAuthGuard)
+  @Delete(':id')
+  async deleteResume(@Param('id') id: string, @Request() req: RequestWithUser) {
+    return this.resumeService.deleteResume(id, req.user.id);
   }
 }

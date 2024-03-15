@@ -1,9 +1,6 @@
-import { AnyAbility } from '@casl/ability';
 import { Injectable } from '@nestjs/common';
 import { jobs } from '@prisma/client';
-import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/commons/prisma/prisma.service';
-import { Job } from './dto/job.dto';
 
 type PaginationOptions =
   | {
@@ -81,7 +78,7 @@ export class JobRepository {
   }
 
   async findOneById(id: string) {
-    return this.prismaService.jobs.findMany({ where: { id: id } });
+    return this.prismaService.jobs.findFirst({ where: { id: id } });
   }
 
   async updateJobStatus(id: string) {

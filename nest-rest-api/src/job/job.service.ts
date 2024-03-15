@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { JobRepository } from './job.repository';
 import { Job } from './dto/job.dto';
+import { JobSummaryDTO } from './dto/job-summary.dto';
 
 @Injectable()
 export class JobService {
@@ -9,6 +10,17 @@ export class JobService {
 
   findJobs(cursor?: string, take?: number) {
     return this.jobRepository.findMany(cursor, take);
+  }
+
+  async findJob(jobId: string): Promise<JobSummaryDTO> {
+    const jobData = await this.jobRepository.findOneById(jobId);
+    if (!jobData) throw new NotFoundException({ message: 'Job not found!' });
+    return {
+      title: jobData.title,
+      description: jobData.description,
+      location: jobData.location,
+      experience: jobData.experience,
+    };
   }
 
   async getLatestJobsByTitle(title: string): Promise<string> {

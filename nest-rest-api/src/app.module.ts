@@ -11,7 +11,7 @@ import { MailService } from './mail/mail.service';
 import { CaslModule } from './casl/casl.module';
 import { LoggerModule } from 'nestjs-pino';
 import { LoggerMiddleware } from './logger/logger.middleware';
-import { JobsModule } from './job/job.module';
+import { JobModule } from './job/job.module';
 import { ChatbotModule } from './chatbot/chatbot.module';
 import { OpenAIModule } from './openai/openai.module';
 import { ResumeModule } from './resume/resume.module';
@@ -37,7 +37,7 @@ import { CoverLetterModule } from './coverletter/coverletter.module';
         },
       },
     }),
-    JobsModule,
+    JobModule,
     ChatbotModule,
     OpenAIModule,
     ResumeModule,

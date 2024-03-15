@@ -18,4 +18,4 @@ import { UserRecommendedJobsService } from './userJobs.service';
     UserJobsRepository,
   ],
 })
-export class JobsModule {}
+export class JobModule {}
