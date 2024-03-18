@@ -20,6 +20,9 @@ export class JobService {
       description: jobData.description,
       location: jobData.location,
       experience: jobData.experience,
+      basicSkills: jobData.basicSkills,
+      skillLines: jobData.skillLines,
+      skills: jobData.skills,
     };
   }
 
