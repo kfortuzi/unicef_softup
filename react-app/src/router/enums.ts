@@ -18,4 +18,6 @@ export enum Route {
   CHANGE_PASSWORD = '/profile-settings/change-password',
   MY_RESUME = '/profile-settings/my-resume',
   CREATE_RESUME = '/profile-settings/create-resume',
+  RESUME_QUESTIONNAIRE = 'resume-questionnaire',
+  COVER_LETTER_QUESTIONNAIRE = 'cover-letter-questionnaire',
 }

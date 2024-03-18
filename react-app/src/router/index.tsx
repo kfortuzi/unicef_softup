@@ -10,6 +10,7 @@ import PageWithNavigation from 'src/layouts/PageWithNavigation/PageWithNavigatio
 import ProfileSettingsWithNavigation from 'src/layouts/ProfileSettingsWithNavigation/ProfileSettingsWithNavigation';
 import ChangePassword from 'src/screens/ChangePassword/ChangePassword';
 import ConfirmUser from 'src/screens/ConfirmUser/ConfirmUser';
+import CoverLetterQuestionnaire from 'src/screens/CoverLetterQuestionnaire/CoverLetterQuestionnaire';
 import ForgotPassword from 'src/screens/ForgotPassword/ForgotPassword';
 import Home from 'src/screens/Home/Home';
 import Login from 'src/screens/Login/Login';
@@ -20,6 +21,7 @@ import MyResumes from 'src/screens/MyResumes/MyResumes';
 import NotFound from 'src/screens/NotFound/NotFound';
 import PersonalInfo from 'src/screens/PersonalInfo/PersonalInfo';
 import ResetPassword from 'src/screens/ResetPassword/ResetPassword';
+import ResumeQuestionnaire from 'src/screens/ResumeQuestionnaire/ResumeQuestionnaire';
 import Signup from 'src/screens/Signup/Signup';
 import SkillsAndHobbies from 'src/screens/SkillsAndHobbies/SkillsAndHobbies';
 
@@ -85,6 +87,14 @@ const Router: React.FC = () => {
                   element: <MyResume />,
                 },
               ],
+            },
+            {
+              path: Route.COVER_LETTER_QUESTIONNAIRE,
+              element: <CoverLetterQuestionnaire />,
+            },
+            {
+              path: Route.RESUME_QUESTIONNAIRE,
+              element: <ResumeQuestionnaire />,
             },
           ],
         },
