@@ -1,12 +1,12 @@
 import TextArea from 'antd/es/input/TextArea';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 
 import useGetCoverLetter from 'src/api/coverLetters/hooks/useGetCoverLetter';
 import usePatchCoverLetter from 'src/api/coverLetters/hooks/usePatchCoverLetter';
-import { GetCoverLetterRequest } from 'src/api/coverLetters/types';
-import AiButtonGroup from 'src/components/common/AiButtonGroup/AiButtonGroup';
+import { GetCoverLetterRequest, GetCoverLetterResponse } from 'src/api/coverLetters/types';
+import AskWizardModal from 'src/components/common/AskWizardModal/AskWizardModal';
 import Drawer from 'src/components/common/Drawer/Drawer';
 import InputText from 'src/components/common/InputText/InputText';
 
@@ -14,19 +14,32 @@ import { FormField } from './enums';
 
 const CoverLetterForm: React.FC = () => {
   const { id } = useParams();
-  const { data: getCoverLetter } = useGetCoverLetter({ id } as GetCoverLetterRequest);
+  const { data: coverLetter, isFetched } = useGetCoverLetter({ id } as GetCoverLetterRequest);
   const { mutate: patchCoverLetter, isPending } = usePatchCoverLetter();
 
-  const { handleSubmit, control, setValue } = useForm({
-    defaultValues: getCoverLetter,
+  const { handleSubmit, control, setValue, reset } = useForm({
     shouldFocusError: true,
   });
 
+  useEffect(() => {
+    if (isFetched) {
+      reset(coverLetter as GetCoverLetterResponse);
+    }
+  }, [isFetched, reset, coverLetter]);
+
   const submitForm = handleSubmit((data) => {
-    patchCoverLetter(data);
+    patchCoverLetter({ id, ...data } as GetCoverLetterResponse);
   });
 
-  const handleAi = (text: string) => {
+  const handleAutoGenerate = () => {
+    //ask to the ai and take the response and set it to the content
+
+    setValue(FormField.CONTENT, 'asdasd');
+  };
+
+  const handleResponseOnClick = (text: string) => {
+    //ask to the ai and take the response and set it to the content
+
     setValue(FormField.CONTENT, text);
   };
 
@@ -99,12 +112,11 @@ const CoverLetterForm: React.FC = () => {
               </div>
             )}
           />
-          <div className="ai-button">
-            <AiButtonGroup
-              autogenerateOnClick={handleAi}
-              askWizardOnClick={handleAi}
-            />
-          </div>
+          <AskWizardModal
+            content={coverLetter?.content || ''}
+            autoGenerateOnClick={handleAutoGenerate}
+            responseOnClick={handleResponseOnClick}
+          />
         </div>
       </form>
     </Drawer>

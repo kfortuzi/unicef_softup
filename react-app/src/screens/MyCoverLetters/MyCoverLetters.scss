@@ -25,7 +25,6 @@
     flex-flow: column nowrap;
     gap: $large;
     padding-bottom: calc(2 * $large);
-    height: 100%;
     box-sizing: border-box;
 
     .category {
@@ -39,7 +38,6 @@
       grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
       grid-auto-rows: 1fr;
       gap: $large;
-      height: 100%;
       padding-bottom: $large;
       box-sizing: border-box;
     }

@@ -1,0 +1,50 @@
+.ask-wizard-messages {
+  display: flex;
+  flex-direction: column;
+  gap: $large;
+
+  .ask-wizard-message {
+    display: flex;
+    gap: $medium;
+    min-width: 250px;
+    max-width: 80%;
+
+    &.user {
+      margin-left: auto;
+    }
+
+    .ask-wizard-icon {
+      display: flex;
+      font-size: $large;
+      align-items: start;
+      justify-content: end;
+      font-size: $large;
+    }
+
+    .ask-wizard-message-text {
+      font-size: $medium;
+      border: 1px solid gray;
+      border-radius: 5px;
+      padding: 10px;
+    }
+  }
+
+  .ask-wizard-message-container {
+    display: flex;
+    flex-direction: column;
+    gap: $small;
+  }
+
+  .ask-wizard-button-group {
+    display: flex;
+    gap: $small;
+
+    button {
+      padding: 5px;
+      height: auto;
+      line-height: 1;
+      border-radius: 5px;
+      border: none;
+    }
+  }
+}
