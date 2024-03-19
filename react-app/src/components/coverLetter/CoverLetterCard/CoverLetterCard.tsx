@@ -1,4 +1,4 @@
-import { Image } from 'antd';
+import { Card, Image } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -10,22 +10,35 @@ const CoverLetterCard: React.FC = () => {
 
   return (
     <div className="cover-letter-card-container">
-      <div className="header">
-        <Image
-          src={CoverLetter}
-          alt="resume"
-        />
-      </div>
-      <div className="metadata">
-        <h3 className="name">John Doe</h3>
-        <p className="last-updated">{t('lastUpdated')}: 24 Jun 2021</p>
-      </div>
-      <div className="actions">
-        <div className="edit">
-          <Link to={'1'}>{t('edit')}</Link>
+      <Card
+        cover={
+          <Image
+            alt="example"
+            src={CoverLetter}
+          />
+        }
+        bordered={false}
+        className="cover-letter-card-body"
+      >
+        <div className="metadata">
+          <h3 className="name">Jane Doe</h3>
+          <p className="last-updated">{t('lastUpdated')}: 24 Jun 2021</p>
         </div>
-        <div className="delete">{t('delete')}</div>
-      </div>
+        <div className="actions">
+          <Link
+            to="#"
+            className="edit"
+          >
+            {t('edit')}
+          </Link>
+          <Link
+            to="#"
+            className="delete"
+          >
+            {t('delete')}
+          </Link>
+        </div>
+      </Card>
     </div>
   );
 };

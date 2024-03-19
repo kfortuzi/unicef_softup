@@ -60,7 +60,6 @@ const Drawer: React.FC<Props> = ({ title, children, submitForm, isPending, ...re
               loading={isPending}
             />
             <Button
-              type="primary"
               text={i18n.t('globalStrings.cancel')}
               onClick={onClose}
               loading={isPending}

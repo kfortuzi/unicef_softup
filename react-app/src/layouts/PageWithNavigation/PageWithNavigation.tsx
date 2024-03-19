@@ -2,7 +2,6 @@ import {
   BarsOutlined,
   ContainerOutlined,
   LogoutOutlined,
-  ProductOutlined,
   ReadOutlined,
   SettingOutlined,
   SolutionOutlined,
@@ -16,6 +15,7 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import useLogOut from 'src/api/auth/hooks/useLogOut';
 import useGetProfile from 'src/api/users/hooks/useGetProfile';
+import logo from 'src/assets/images/logo.png';
 import { Route } from 'src/router/enums';
 
 import Footer from '../Footer/Footer';
@@ -36,12 +36,6 @@ const PageWithNavigation: React.FC = () => {
 
   const navigationItems: MenuProps['items'] = useMemo(
     () => [
-      {
-        label: t('youthCareerOrientation'),
-        key: 'youthCareerOrientation',
-        icon: <ProductOutlined />,
-        onClick: () => navigate(Route.YOUTH_CAREER_ORIENTATION),
-      },
       {
         label: t('resume'),
         key: 'resume',
@@ -92,7 +86,13 @@ const PageWithNavigation: React.FC = () => {
   return (
     <Layout className="page-with-navigation-container">
       <Header className="navigation-bar">
+        <img
+          onClick={() => navigate(Route.YOUTH_CAREER_ORIENTATION)}
+          className="logo"
+          src="src/assets/images/logo.png"
+        />
         <Menu
+          className="navigation-menu"
           items={navigationItems}
           theme="dark"
           mode="horizontal"

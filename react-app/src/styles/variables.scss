@@ -17,9 +17,13 @@ $karla-semibolditalic: 'Karla-SemiBoldItalic';
 // Base variables
 $base-font: $karla-regular;
 $base-font-size: 16px;
-$base-font-color: #212529;
+$base-font-color: #36383b;
 $base-border-radius: 5px;
-$background-color: white;
+$background-color: #f4f3f2;
+
+// Base dark mode variables
+$base-dark-font-color: #f4f3f2;
+$base-dark-background-color: #1e1e1e;
 
 // Padding, Margin, Gap
 $small: 8px;
@@ -32,9 +36,12 @@ $suggested-result-component-width: 500px;
 $suggested-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
 
 // Colors
-$primary-color: #c82121;
+$primary-color: #e53f25;
 $success-color: #52c41a;
 $warning-color: #faad14;
-$error-color: #ff4d4f;
-$link-color: #0186e5;
-$layout-background: #f2eeff;
+$error-color: #f5222d;
+$error-hover-color: #ffccc7;
+$info-color: #559afc;
+$link-color: #559afc;
+$layout-background: #f4f3f2;
+$card-background-color: #36383b;

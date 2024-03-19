@@ -22,7 +22,7 @@ const sizeVariables = {
 };
 
 const colors = {
-  primary: '#c82121',
+  primary: '#E53F25',
   success: '#52c41a',
   warning: '#faad14',
   error: '#ff4d4f',
@@ -33,7 +33,7 @@ const colors = {
 const baseVariables = {
   font: fonts.karlaRegular,
   fontSize: '12px',
-  fontColor: '#212529',
+  fontColor: '#36383B',
   borderRadius: '5px',
   backgroundColor: 'white',
   small: sizeVariables.small,

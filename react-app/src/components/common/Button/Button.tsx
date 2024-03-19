@@ -3,7 +3,7 @@ import { BaseButtonProps } from 'antd/es/button/button';
 import React, { MouseEventHandler } from 'react';
 
 interface Props extends ButtonProps {
-  type: BaseButtonProps['type'];
+  type?: BaseButtonProps['type'];
   text: string;
   onClick?: MouseEventHandler<HTMLElement>;
   htmlType?: ButtonProps['htmlType'];

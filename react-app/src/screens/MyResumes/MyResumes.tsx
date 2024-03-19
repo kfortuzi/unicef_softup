@@ -18,6 +18,7 @@ const MyResumes: React.FC = () => {
         <ResumeCard />
         <ResumeCard />
         <ResumeCard />
+        <ResumeCard />
       </div>
     </div>
   );
