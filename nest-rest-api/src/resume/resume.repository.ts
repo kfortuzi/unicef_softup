@@ -36,13 +36,20 @@ export class ResumeRepository {
 
   async getUserResumeExperiences(
     userId: string,
-  ): Promise<Prisma.JsonValue | undefined> {
+  ): Promise<Prisma.JsonArray | undefined> {
     const resume = await this.prisma.resumes.findFirst({
       where: { userId: userId, referenceId: null, deletedAt: null },
       select: { experiences: true },
     });
 
-    return resume?.experiences;
+    if (
+      resume?.experiences &&
+      typeof resume?.experiences === 'object' &&
+      Array.isArray(resume?.experiences)
+    ) {
+      const experience = resume?.experiences as Prisma.JsonArray;
+      return experience;
+    }
   }
 
   async findOne(id: string, userId: string): Promise<resumes | null> {

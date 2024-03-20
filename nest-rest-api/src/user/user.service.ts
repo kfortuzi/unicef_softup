@@ -40,6 +40,9 @@ export class UserService {
     return exclude(user, userExcludedData);
   }
 
+  async findOne(id: string) {
+    return this.userRepository.findOneById(id);
+  }
   async update(id: string, updateUserDto: UpdateUserDto) {
     const user = await this.userRepository.findOneById(id);
 
@@ -223,7 +226,6 @@ export class UserService {
   }
 
   async getUserSkillsAsString(userId: string): Promise<string> {
-    // Fetch user skills from the database
     return this.findUserSkills(userId).then((data) => {
       const names = data.map((obj) => obj.name).join(', ');
       return names;

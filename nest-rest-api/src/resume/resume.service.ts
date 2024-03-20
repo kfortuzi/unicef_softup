@@ -9,6 +9,8 @@ import { UserService } from 'src/user/user.service';
 import { ExperienceDto, ResumeDto } from './dto/resume.dto';
 import { JobService } from 'src/job/job.service';
 import { JobSummaryDTO } from 'src/job/dto/job-summary.dto';
+import { ResumeWizardDto } from './dto/resume-wizard.dto';
+import { JsonValue } from '@prisma/client/runtime/library';
 
 @Injectable()
 export class ResumeService {
@@ -104,11 +106,7 @@ export class ResumeService {
     return this.resumeRepository.softDelete(id);
   }
 
-  //TODO: Change the input type
-  async resumeGenerationFromWizard(
-    userId: string,
-    userInput: ResumeDto,
-  ): Promise<string | null | undefined> {
+  async resumeGenerationFromWizard(userId: string, userInput: ResumeWizardDto) {
     try {
       const validatedJson = await this.validateQuestionWizard(
         userId,
@@ -119,7 +117,13 @@ export class ResumeService {
         const data = JSON.parse(validatedJson);
         const isValidResponese = this.evaluateResponse(data);
         if (isValidResponese) {
-          return this.generateResumeJson(userId, userInput);
+          const generatedResume = await this.generateResumeJson(
+            userId,
+            userInput,
+          );
+          if (generatedResume) {
+            return this.mapResumeOutputdata(generatedResume, userId);
+          }
         }
       }
     } catch (error) {
@@ -127,38 +131,31 @@ export class ResumeService {
     }
   }
 
-  //TODO: test the post of new resume
   async resumeGenerationFromJob(userId: string, jobId: string) {
     try {
       const resumeData = await this.resumeRepository.findUserResume(
         userId,
         null,
       );
+
       if (!resumeData)
         throw new NotFoundException({ message: 'Resume not found!' });
-
       const jobData = await this.jobService.findJob(jobId);
       const userExperience = await this.getUserExperiences(userId);
+      const updatedUserExperiences = await this.enhanceResponsibility(
+        userExperience,
+        userId,
+      );
+
       const summary = await this.generateSummary(
         userId,
         userExperience as any,
         jobData,
       );
-      if (userExperience) {
-        /*userExperience = userExperience.forEach((experience: any) => {
-          if (experience.responsibilities) {
-            experience.responsibilities = this.generateResponsibility(
-              userId,
-              experience,
-            );
-          }
-        });*/
-      }
 
       resumeData.referenceId = jobId;
-      // resumeData.experiences = userExperience;
-      //this.resumeRepository.createResume
-      return {
+      resumeData.experiences = updatedUserExperiences as unknown as JsonValue;
+      return this.resumeRepository.createResume({
         email: resumeData.email,
         firstName: resumeData.firstName,
         lastName: resumeData.lastName,
@@ -167,16 +164,16 @@ export class ResumeService {
         linkedinUrl: resumeData.linkedinUrl,
         location: resumeData.location,
         phoneNumber: resumeData.phoneNumber,
-        educations: resumeData.educations,
+        educations: resumeData.educations || undefined,
         summary: summary,
-        experiences: resumeData.experiences,
-        languages: resumeData.languages,
+        experiences: resumeData.experiences || undefined,
+        languages: resumeData.languages || undefined,
         digitalSkills: resumeData.digitalSkills,
         softSkills: resumeData.softSkills,
         hobbies: resumeData.hobbies,
-        certificates: resumeData.certificates,
-        volunteering: resumeData.volunteering,
-        publications: resumeData.publications,
+        certificates: resumeData.certificates || undefined,
+        volunteering: resumeData.volunteering || undefined,
+        publications: resumeData.publications || undefined,
         drivingLicense: resumeData.drivingLicense,
         job: {
           connect: { id: jobId },
@@ -184,15 +181,64 @@ export class ResumeService {
         user: {
           connect: { id: userId },
         },
-      };
+      });
     } catch (error) {
       throw new Error(`${error}`);
     }
   }
 
+  async enhanceResponsibility(
+    userExperience: any,
+    userId: string,
+  ): Promise<ExperienceDto[]> {
+    return await Promise.all(
+      Object.entries(userExperience).map(
+        async (experience: [string, string]) => {
+          const data: ExperienceDto = JSON.parse(experience[1]);
+          if (data.responsibilities) {
+            const enhancedResponsibility = await this.generateResponsibility(
+              userId,
+              data,
+            );
+            if (enhancedResponsibility)
+              data.responsibilities = enhancedResponsibility;
+          }
+          return data;
+        },
+      ),
+    );
+  }
+
+  async mapResumeOutputdata(data: string, userId: string) {
+    const userData = await this.userService.findOne(userId);
+    if (userData) {
+      const datas = JSON.parse(data);
+      return this.resumeRepository.createResume({
+        firstName: userData.firstName || null,
+        lastName: userData.lastName,
+        email: userData.email,
+        phoneNumber: userData.profession || null,
+        experiences: datas.experiences || null,
+        educations: datas.educations || null,
+        languages: datas.languages || null,
+        summary: datas.summary || null,
+        digitalSkills: datas.digitalSkills || null,
+        softSkills: datas.softSkills || null,
+        hobbies: datas.hobbies || null,
+        certificates: datas.certificates || null,
+        volunteering: datas.volunteering || null,
+        publications: datas.publications || null,
+        drivingLicense: datas.drivingLicense || null,
+        user: {
+          connect: { id: userId },
+        },
+      });
+    }
+  }
+
   async validateQuestionWizard(
     userId: string,
-    userInput: ResumeDto,
+    userInput: ResumeWizardDto,
   ): Promise<string | null> {
     const messages: ChatCompletionMessageParam[] = [
       {
@@ -217,7 +263,7 @@ export class ResumeService {
 
   async generateResumeJson(
     userId: string,
-    userInput: ResumeDto,
+    userInput: ResumeDto | ResumeWizardDto,
   ): Promise<string | null> {
     const messages: ChatCompletionMessageParam[] = [
       {
@@ -347,10 +393,9 @@ export class ResumeService {
         },
         {
           role: 'user',
-          content: `${this.toString(userInput)}`,
+          content: JSON.stringify(userInput),
         },
       ];
-
       return this.openAIService.generateCompletion(
         messages,
         AkpaModels.CHAT,

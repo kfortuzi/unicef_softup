@@ -21,6 +21,7 @@ import { ResumeService } from './resume.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { RequestWithUser } from 'src/types/request';
 import { ExperienceDto, ResumeDto } from './dto/resume.dto';
+import { ResumeWizardDto } from './dto/resume-wizard.dto';
 
 @Controller('resumes')
 export class ResumeController {
@@ -48,10 +49,11 @@ export class ResumeController {
     description: 'Resume created sucessfully from question wizard.',
     type: ResumeDto,
   })
+  @ApiBody({ type: ResumeWizardDto })
   @Post('wizard')
   async createResumeFromWizard(
     @Request() req: RequestWithUser,
-    @Body() createResumeDto: ResumeDto,
+    @Body() createResumeDto: ResumeWizardDto,
   ) {
     return this.resumeService.resumeGenerationFromWizard(
       req.user.id,
@@ -128,7 +130,7 @@ export class ResumeController {
   @ApiForbiddenResponse({ status: 403, description: 'Forbidden.' })
   async generateResponsibility(
     @Request() req: RequestWithUser,
-    @Body() experiences: ExperienceDto,
+    @Body() experiences: string,
   ) {
     return this.resumeService.generateResponsibility(req.user.id, experiences);
   }
