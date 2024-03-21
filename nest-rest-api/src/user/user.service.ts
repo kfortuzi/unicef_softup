@@ -16,6 +16,7 @@ import { ResetPasswordUserDto } from './dto/reset-password-user.dto';
 import { UserRepository } from './user.repository';
 import { compareHash, hashString } from '../commons/utils/hash';
 import { UserSkillDto } from './dto/user-skill.dto';
+import { S3Service } from 'src/s3/s3.service';
 
 const userExcludedData = [
   'password',
@@ -31,11 +32,20 @@ const userSkillsExcludedData = ['userId'] as unknown as (keyof user_skills)[];
 
 @Injectable()
 export class UserService {
-  constructor(private userRepository: UserRepository) {}
+  constructor(
+    private userRepository: UserRepository,
+    private s3service: S3Service,
+  ) {}
 
   async getProfile(id: string) {
     const user = await this.userRepository.findOneById(id);
     if (!user) throw new NotFoundException({ message: 'User not found!' });
+    if (user.profilePicture) {
+      const userProfilePicture = await this.s3service.generatePresignedUrl(
+        user.profilePicture,
+      );
+      user.profilePicture = userProfilePicture;
+    }
 
     return exclude(user, userExcludedData);
   }
@@ -55,6 +65,8 @@ export class UserService {
       user.birthdayDate = dayjs(updateUserDto.birthdayDate).toDate();
     if (updateUserDto.profession) user.profession = updateUserDto.profession;
     if (updateUserDto.hobbies) user.hobbies = updateUserDto.hobbies;
+    if (updateUserDto.profilePicture)
+      user.profilePicture = updateUserDto.profilePicture;
 
     if (updateUserDto.oldPassword && updateUserDto.newPassword) {
       const isSameOldPass = await compareHash(
@@ -83,6 +95,7 @@ export class UserService {
           profession: user.profession,
           hobbies: user.hobbies,
           password: user.password,
+          profilePicture: user.profilePicture,
         },
       ),
       userExcludedData,
@@ -230,5 +243,20 @@ export class UserService {
       const names = data.map((obj) => obj.name).join(', ');
       return names;
     });
+  }
+
+  async uploadProfilePicture(file: Express.Multer.File, userId: string) {
+    try {
+      const mimeType = file.mimetype.split('/')[1];
+      const photoKey = `user/${userId}.${mimeType}`;
+      const uploadResponse = await this.s3service.uploadPhoto(file, photoKey);
+      if (uploadResponse.$metadata.httpStatusCode == 200) {
+        this.update(userId, {
+          profilePicture: photoKey,
+        });
+      }
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
   }
 }

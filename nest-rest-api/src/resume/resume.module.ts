@@ -11,8 +11,10 @@ import { JobRepository } from 'src/job/job.repository';
 import { WizardModule } from 'src/wizard/wizard.module';
 import { WizardService } from 'src/wizard/wizard.service';
 import { WizardRepository } from 'src/wizard/wizard.repository';
+import { S3Module } from 'src/s3/s3.module';
+import { S3Service } from 'src/s3/s3.service';
 @Module({
-  imports: [OpenAIModule, UserModule, JobModule, WizardModule],
+  imports: [OpenAIModule, UserModule, JobModule, WizardModule, S3Module],
   controllers: [ResumeController],
   providers: [
     ResumeService,
@@ -22,6 +24,7 @@ import { WizardRepository } from 'src/wizard/wizard.repository';
     JobRepository,
     WizardService,
     WizardRepository,
+    S3Service,
   ],
 })
 export class ResumeModule {}

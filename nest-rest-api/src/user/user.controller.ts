@@ -9,7 +9,9 @@ import {
   Put,
   Query,
   Request,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { UserService } from './user.service';
@@ -29,6 +31,7 @@ import { ResetPasswordUserDto } from './dto/reset-password-user.dto';
 import { UserSkillDto } from './dto/user-skill.dto';
 import { UserDto } from './dto/user.dto';
 import { UserSkillResponseDto } from './dto/user-skill-response.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('user')
 export class UserController {
@@ -172,5 +175,17 @@ export class UserController {
   @Delete('skills/:id')
   deleteSkill(@Param() params: { id: string }) {
     return this.userService.deleteUserSkill(params.id);
+  }
+
+  @ApiBearerAuth()
+  @Post('uploadFile')
+  @UseGuards(JwtAuthGuard)
+  @ApiTags('users')
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadFile(
+    @Request() req: RequestWithUser,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    return this.userService.uploadProfilePicture(file, req.user.id);
   }
 }

@@ -24,6 +24,9 @@
     "prisma:generate": "npx prisma generate"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.540.0",
+    "@aws-sdk/lib-storage": "^3.540.0",
+    "@aws-sdk/s3-request-presigner": "^3.537.0",
     "@casl/ability": "^6.5.0",
     "@casl/prisma": "^1.4.1",
     "@nestjs/common": "^10.0.0",
@@ -42,6 +45,7 @@
     "class-validator": "^0.14.0",
     "cookie-parser": "^1.4.6",
     "dayjs": "^1.11.10",
+    "file-type": "^19.0.0",
     "nestjs-pino": "^3.5.0",
     "openai": "^4.28.0",
     "passport": "^0.6.0",
@@ -62,6 +66,7 @@
     "@types/cookie-parser": "^1.4.6",
     "@types/express": "^4.17.17",
     "@types/jest": "^29.5.2",
+    "@types/multer": "^1.4.11",
     "@types/node": "^20.3.1",
     "@types/passport-google-oauth20": "^2.0.14",
     "@types/passport-jwt": "^3.0.12",

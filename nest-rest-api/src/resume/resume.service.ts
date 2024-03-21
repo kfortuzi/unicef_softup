@@ -12,6 +12,7 @@ import { JobSummaryDTO } from 'src/job/dto/job-summary.dto';
 import { ResumeWizardDto } from './dto/resume-wizard.dto';
 import { JsonValue } from '@prisma/client/runtime/library';
 import { WizardService } from 'src/wizard/wizard.service';
+import { S3Service } from 'src/s3/s3.service';
 
 @Injectable()
 export class ResumeService {
@@ -21,6 +22,7 @@ export class ResumeService {
     private userService: UserService,
     private jobService: JobService,
     private wizardService: WizardService,
+    private s3Service: S3Service,
   ) {}
 
   async createResume(userId: string, data: ResumeDto, jobId?: string) {
@@ -92,14 +94,60 @@ export class ResumeService {
     if (!resume) {
       throw new NotFoundException(`Resume with ID "${id}" not found`);
     }
+    if (resume.profilePicture) {
+      const resumePicture = await this.s3Service.generatePresignedUrl(
+        resume.profilePicture,
+      );
+      resume.profilePicture = resumePicture;
+    }
     return resume;
   }
 
   async updateResume(id: string, userId: string, data: ResumeDto) {
     try {
       const resume = await this.findResumeById(id, userId);
-      const dataUpdate = this.mapInputData(userId, data, resume.email);
-      return this.resumeRepository.updateResume(id, dataUpdate);
+      return this.resumeRepository.updateResume(id, {
+        email: data.email ? data.email : resume.email,
+        firstName: data.firstName ? data.firstName : resume.firstName,
+        lastName: data.lastName ? data.lastName : resume.lastName,
+        profilePicture: data.profilePicture
+          ? data.profilePicture
+          : resume.profilePicture,
+        nationality: data.nationality ? data.nationality : resume.nationality,
+        linkedinUrl: data.linkedinUrl ? data.linkedinUrl : resume.linkedinUrl,
+        location: data.location ? data.location : resume.location,
+        phoneNumber: data.phoneNumber ? data.phoneNumber : resume.phoneNumber,
+        summary: data.summary ? data.summary : resume.summary,
+        educations: data.educations
+          ? data.educations.map((obj) => this.toString(obj))
+          : (resume.educations as Prisma.InputJsonValue),
+        experiences: data.experiences
+          ? data.experiences.map((obj) => this.toString(obj))
+          : (resume.experiences as Prisma.InputJsonValue),
+        languages: data.languages
+          ? data.languages.map((obj) => this.toString(obj))
+          : (resume.languages as Prisma.InputJsonValue),
+        digitalSkills: data.digitalSkills
+          ? data.digitalSkills
+          : resume.digitalSkills,
+        softSkills: data.softSkills ? data.softSkills : resume.softSkills,
+        hobbies: data.hobbies ? data.hobbies : resume.hobbies,
+        certificates: data.certificates
+          ? data.certificates.map((obj) => this.toString(obj))
+          : (resume.certificates as Prisma.InputJsonValue),
+        volunteering: data.volunteering
+          ? data.volunteering.map((obj) => this.toString(obj))
+          : (resume.volunteering as Prisma.InputJsonValue),
+        publications: data.publications
+          ? data.publications.map((obj) => this.toString(obj))
+          : (resume.publications as Prisma.InputJsonValue),
+        drivingLicense: data.drivingLicense
+          ? data.drivingLicense
+          : resume.drivingLicense,
+        user: {
+          connect: { id: userId },
+        },
+      });
     } catch (error) {
       throw new Error(`${error}`);
     }
@@ -437,5 +485,23 @@ export class ResumeService {
 
   toString(input: any): string {
     return JSON.stringify(input);
+  }
+
+  async uploadResumePicture(
+    file: Express.Multer.File,
+    resumeId: string,
+    userId: string,
+  ) {
+    try {
+      const mimeType = file.mimetype.split('/')[1];
+      const photoKey = `resume/${resumeId}.${mimeType}`;
+      console.log(photoKey);
+      const uploadResponse = await this.s3Service.uploadPhoto(file, photoKey);
+      if (uploadResponse.$metadata.httpStatusCode == 200) {
+        this.updateResume(resumeId, userId, { profilePicture: photoKey });
+      }
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
   }
 }

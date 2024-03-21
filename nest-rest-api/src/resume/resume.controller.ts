@@ -9,6 +9,8 @@ import {
   Param,
   Patch,
   Query,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -22,6 +24,7 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { RequestWithUser } from 'src/types/request';
 import { ExperienceDto, ResumeDto } from './dto/resume.dto';
 import { ResumeWizardDto } from './dto/resume-wizard.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('resumes')
 export class ResumeController {
@@ -153,5 +156,18 @@ export class ResumeController {
   @Delete(':id')
   async deleteResume(@Param('id') id: string, @Request() req: RequestWithUser) {
     return this.resumeService.deleteResume(id, req.user.id);
+  }
+
+  @ApiBearerAuth()
+  @Post('uploadFile')
+  @UseGuards(JwtAuthGuard)
+  @ApiTags('resumes')
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadFile(
+    @UploadedFile() file: Express.Multer.File,
+    @Query('resumeId') resumeId: string,
+    @Request() req: RequestWithUser,
+  ) {
+    return this.resumeService.uploadResumePicture(file, resumeId, req.user.id);
   }
 }

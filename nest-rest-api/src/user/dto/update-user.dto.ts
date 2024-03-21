@@ -10,42 +10,47 @@ export class UpdateUserDto {
   @IsString()
   @IsOptional()
   @ApiProperty({ type: String })
-  firstName: string;
+  firstName?: string;
 
   @IsString()
   @IsOptional()
   @ApiProperty({ type: String })
-  lastName: string;
+  lastName?: string;
 
   @IsString()
   @IsOptional()
   @IsPhoneNumber('AL')
   @ApiProperty({ type: String })
-  phoneNumber: string;
+  phoneNumber?: string;
 
   @IsString()
   @IsOptional()
   @ApiProperty({ type: String })
-  profession: string;
+  profession?: string;
 
   @IsString()
   @IsOptional()
   @IsDateString()
   @ApiProperty({ type: String })
-  birthdayDate: string;
+  birthdayDate?: string;
 
   @IsString()
   @IsOptional()
   @ApiProperty({ type: String })
-  hobbies: string;
+  hobbies?: string;
 
   @IsString()
   @IsOptional()
   @ApiProperty({ type: String })
-  oldPassword: string;
+  oldPassword?: string;
 
   @IsString()
   @IsOptional()
   @ApiProperty({ type: String })
-  newPassword: string;
+  newPassword?: string;
+
+  @IsString()
+  @IsOptional()
+  @ApiProperty({ type: String })
+  profilePicture: string;
 }
