@@ -9,6 +9,7 @@ import { JobSummaryDTO } from 'src/job/dto/job-summary.dto';
 import { CoverLetterDto } from './dto/cover-letter-dto';
 import { CoverLetterRepository } from './coverletter.repository';
 import { JobService } from 'src/job/job.service';
+import { WizardService } from 'src/wizard/wizard.service';
 
 @Injectable()
 export class CoverLetterService {
@@ -17,6 +18,7 @@ export class CoverLetterService {
     private userService: UserService,
     private coverLetterRepository: CoverLetterRepository,
     private jobService: JobService,
+    private wizardService: WizardService,
   ) {}
 
   async createCoverLetter(userId: string, data: CoverLetterDto) {
@@ -66,6 +68,7 @@ export class CoverLetterService {
     try {
       const data = await this.validateAndParseUserInput(userId, wizardData);
       this.assertValidResponse(data);
+      this.wizardService.saveWizardAnswers(wizardData, userId, 'CoverLetter');
       const generatedCoverLetter = await this.generateCoverLetter(
         userId,
         wizardData,
@@ -161,7 +164,8 @@ export class CoverLetterService {
     userId: string,
     input: JobSummaryDTO | CoverLetterWizardDto,
   ): Promise<string | null> {
-    const userInput = this.userService.getUserSkillsAsString(userId);
+    const userInput = await this.userService.getUserSkillsAsString(userId);
+
     const messages: ChatCompletionMessageParam[] = [
       {
         role: 'system',
@@ -171,8 +175,8 @@ export class CoverLetterService {
         role: 'user',
         content: this.openAIService.prepareMessageForAIValidation(
           AkpaPrompts.generateCoverLetter,
-          userInput,
           input,
+          userInput,
         ),
       },
     ];

@@ -29,6 +29,7 @@ model users {
   user_skills           user_skills[]
   user_recommended_jobs user_recommended_jobs[]
   prompts               prompts[]
+  wizard_answer         wizard_answer[]
 }
 
 model user_skills {
@@ -54,6 +55,11 @@ enum DrivingLicense {
   D1E
   D
   DE
+}
+
+enum SourceType {
+  Resume
+  CoverLetter
 }
 
 model resumes {
@@ -170,4 +176,14 @@ model prompts {
   user           users    @relation(fields: [userId], references: [id])
 
   @@map("prompts")
+}
+
+model wizard_answer {
+  id        String     @id @default(cuid())
+  text      Json
+  source    SourceType
+  userId    String     @map("user_id")
+  createdAt DateTime   @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt DateTime?  @updatedAt @map("updated_at") @db.Timestamp(6)
+  user      users      @relation(fields: [userId], references: [id])
 }

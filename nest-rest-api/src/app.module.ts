@@ -16,6 +16,7 @@ import { ChatbotModule } from './chatbot/chatbot.module';
 import { OpenAIModule } from './openai/openai.module';
 import { ResumeModule } from './resume/resume.module';
 import { CoverLetterModule } from './coverletter/coverletter.module';
+import { WizardModule } from './wizard/wizard.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { CoverLetterModule } from './coverletter/coverletter.module';
     OpenAIModule,
     ResumeModule,
     CoverLetterModule,
+    WizardModule,
   ],
   controllers: [AppController, MailController],
   providers: [AppService, SendgridService, MailService],

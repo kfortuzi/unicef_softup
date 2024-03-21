@@ -11,6 +11,7 @@ import { JobService } from 'src/job/job.service';
 import { JobSummaryDTO } from 'src/job/dto/job-summary.dto';
 import { ResumeWizardDto } from './dto/resume-wizard.dto';
 import { JsonValue } from '@prisma/client/runtime/library';
+import { WizardService } from 'src/wizard/wizard.service';
 
 @Injectable()
 export class ResumeService {
@@ -19,13 +20,14 @@ export class ResumeService {
     private resumeRepository: ResumeRepository,
     private userService: UserService,
     private jobService: JobService,
+    private wizardService: WizardService,
   ) {}
 
   async createResume(userId: string, data: ResumeDto, jobId?: string) {
     try {
-      const user = this.userService.getProfile(userId);
+      const user = await this.userService.findOne(userId);
       if (!user) throw new NotFoundException({ message: 'User not found!' });
-      const resumeInput = this.mapInputData(userId, data, jobId);
+      const resumeInput = this.mapInputData(userId, data, user.email, jobId);
       return this.resumeRepository.createResume(resumeInput);
     } catch (error) {
       throw new Error(`${error}`);
@@ -35,10 +37,11 @@ export class ResumeService {
   private mapInputData(
     userId: string,
     data: ResumeDto,
+    email: string,
     jobId?: string,
   ): Prisma.resumesCreateInput {
     return {
-      email: data.email,
+      email: data.email ? data.email : email,
       firstName: data.firstName ? data.firstName : null,
       lastName: data.lastName ? data.lastName : null,
       profilePicture: data.profilePicture ? data.profilePicture : null,
@@ -93,9 +96,13 @@ export class ResumeService {
   }
 
   async updateResume(id: string, userId: string, data: ResumeDto) {
-    await this.findResumeById(id, userId);
-    const dataUpdate = this.mapInputData(userId, data);
-    return this.resumeRepository.updateResume(id, dataUpdate);
+    try {
+      const resume = await this.findResumeById(id, userId);
+      const dataUpdate = this.mapInputData(userId, data, resume.email);
+      return this.resumeRepository.updateResume(id, dataUpdate);
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
   }
 
   async deleteResume(id: string, userId: string) {
@@ -117,6 +124,7 @@ export class ResumeService {
         const data = JSON.parse(validatedJson);
         const isValidResponese = this.evaluateResponse(data);
         if (isValidResponese) {
+          this.wizardService.saveWizardAnswers(userInput, userId, 'Resume');
           const generatedResume = await this.generateResumeJson(
             userId,
             userInput,
@@ -240,25 +248,44 @@ export class ResumeService {
     userId: string,
     userInput: ResumeWizardDto,
   ): Promise<string | null> {
-    const messages: ChatCompletionMessageParam[] = [
-      {
-        role: 'system',
-        content: AkpaPrompts.resumeValidatePrompt,
-      },
-      {
-        role: 'user',
-        content: this.openAIService.prepareMessageForAIValidation(
-          AkpaPrompts.resumeValidateUserPrompt,
-          userInput,
-        ),
-      },
-    ];
-    return this.openAIService.generateCompletion(
-      messages,
-      AkpaModels.IS_VALID_ANSWER,
-      userId,
-      'ValidateResume',
-    );
+    try {
+      const filteredWizard = Object.entries(userInput).reduce(
+        (acc, [key, value]) => {
+          if (value !== null && value !== undefined && value !== '') {
+            (acc as any)[key] = value;
+          }
+          return acc;
+        },
+        {} as Partial<ResumeWizardDto>,
+      );
+      const messages: ChatCompletionMessageParam[] = [
+        {
+          role: 'system',
+          content: AkpaPrompts.resumeValidatePrompt,
+        },
+        {
+          role: 'user',
+          content: this.openAIService.prepareMessageForAIValidation(
+            AkpaPrompts.resumeValidateUserPrompt,
+            filteredWizard,
+          ),
+        },
+      ];
+      const validatedResponse = await this.openAIService.generateCompletion(
+        messages,
+        AkpaModels.IS_VALID_ANSWER,
+        userId,
+        'ValidateResume',
+      );
+
+      if (!validatedResponse) {
+        throw new Error('No data to process');
+      }
+
+      return JSON.parse(validatedResponse);
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
   }
 
   async generateResumeJson(
@@ -287,6 +314,7 @@ export class ResumeService {
   }
 
   private evaluateResponse(response: { [key: string]: boolean }): boolean {
+    //TODO EVALUATE ONLY THE RESPONSES THAT ARE NOT EMPTY
     if (response) {
       return this.checkUserResponses(response);
     } else {

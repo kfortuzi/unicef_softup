@@ -63,13 +63,13 @@ export class OpenAIService {
   prepareMessageForAIValidation(
     prompts: string,
     inputObject: any,
-    jobObject?: any,
+    inputString?: string,
   ): string {
-    let message = `${JSON.stringify(inputObject)}`;
-    if (jobObject) {
-      message += `. ${JSON.stringify(jobObject)}`;
+    let message = '';
+    if (inputString) {
+      message = inputString;
     }
-    message += `. ${prompts}`;
-    return message;
+    message += `. ${JSON.stringify(inputObject)} . ${prompts}`;
+    return JSON.stringify(message);
   }
 }

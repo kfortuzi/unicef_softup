@@ -108,7 +108,8 @@ class PublicationDto {
 export class ResumeDto {
   @ApiPropertyOptional()
   @IsString()
-  email: string;
+  @IsOptional()
+  email?: string;
 
   @ApiPropertyOptional()
   @IsString()
