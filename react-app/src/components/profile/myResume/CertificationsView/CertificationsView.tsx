@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import { Certification } from 'src/api/resumes/types';
 
 import ListItem from '../ListItem/ListItem';
@@ -7,6 +9,7 @@ interface CertificationsProps {
 }
 
 const CertificationsView: React.FC<CertificationsProps> = (props) => {
+  const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.certificationsSection' });
   const { certifications } = props;
 
   const experiences = certifications.map((certification, index) => {
@@ -16,8 +19,10 @@ const CertificationsView: React.FC<CertificationsProps> = (props) => {
         key={index}
         titleStyle={{ color: 'blue' }}
       >
-        <p>Recieved Date: {certification.receivedDate}</p>
-        {certification.expirationDate && <p>{`Expires in ${certification.expirationDate}`}</p>}
+        <p>
+          {t('receivedDate')} {certification.receivedDate}
+        </p>
+        {certification.expirationDate && <p>{`${t('expirationDate')} ${certification.expirationDate}`}</p>}
       </ListItem>
     );
   });

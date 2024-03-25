@@ -1,4 +1,5 @@
 import { Controller, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 import usePatchResume from 'src/api/resumes/hooks/usePatchResume';
 import Drawer from 'src/components/common/Drawer/Drawer';
@@ -11,6 +12,7 @@ interface DigitalSkillsProps {
 }
 
 const DigitalSkillsForm: React.FC<DigitalSkillsProps> = ({ digitalSkills }) => {
+  const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.digitalSkillsSection' });
   const { handleSubmit, control } = useForm({
     defaultValues: {
       digitalSkills: digitalSkills,
@@ -24,18 +26,20 @@ const DigitalSkillsForm: React.FC<DigitalSkillsProps> = ({ digitalSkills }) => {
     <Drawer
       submitForm={submitForm}
       isPending={isPending}
-      title="Digital Skills"
+      title={t('headerPlural')}
     >
       <form onSubmit={submitForm}>
         <div className="input-element-container">
           <Controller
             control={control}
             name={FormField.DIGITAL_SKILLS}
-            render={({ field: { onChange, value, ref, name } }) => (
+            render={({ field: { onChange, value, ref, name }, fieldState: { error } }) => (
               <InputSelect
-                placeholder={'Digital Skills'}
+                label={t('headerPlural')}
+                placeholder={t('headerPlural')}
                 inputRef={ref}
                 name={name}
+                error={error?.message}
                 value={value}
                 onChange={onChange}
                 tokenSeparators={[',']}

@@ -1,7 +1,9 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import type { CollapseProps } from 'antd';
 import { Collapse } from 'antd';
 import dayjs from 'dayjs';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 import usePatchResume from 'src/api/resumes/hooks/usePatchResume';
 import { Volunteering } from 'src/api/resumes/types';
@@ -13,16 +15,19 @@ import dateTimeFormats from 'src/constants/dateTimeFormats';
 
 import { defaultValues } from './constants';
 import { FormField } from './enums';
+import fieldsValidationSchema from './validation';
 
 interface VolunteeringProps {
   volunteering: Volunteering[];
 }
 
 const VolunteeringForm: React.FC<VolunteeringProps> = (props) => {
+  const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.volunteeringsSection' });
   const { handleSubmit, control, setValue } = useForm({
     defaultValues: {
       volunteering: props.volunteering,
     },
+    resolver: yupResolver(fieldsValidationSchema),
     shouldFocusError: true,
   });
 
@@ -43,20 +48,21 @@ const VolunteeringForm: React.FC<VolunteeringProps> = (props) => {
   const items: CollapseProps['items'] = fields.map((field, index) => {
     return {
       key: field.id,
-      label: `Volunteering ${index + 1}`,
+      label: `${t('headerSingular')} ${index + 1}`,
       children: (
         <div className="input-element-container">
           <Controller
             control={control}
             name={`volunteering.${index}.${FormField.ROLE}`}
-            render={({ field: { name, value, onChange, ref } }) => (
+            render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
               <InputText
-                label="Name"
+                label={t('role')}
                 inputRef={ref}
+                error={error?.message}
                 name={name}
                 value={value}
                 onChange={onChange}
-                placeholder={'Name'}
+                placeholder={t('role')}
                 className="input-element"
               />
             )}
@@ -64,29 +70,15 @@ const VolunteeringForm: React.FC<VolunteeringProps> = (props) => {
           <Controller
             control={control}
             name={`volunteering.${index}.${FormField.ORGANIZATION}`}
-            render={({ field: { name, value, onChange, ref } }) => (
+            render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
               <InputText
-                label="Organization"
+                label={t('organization')}
                 inputRef={ref}
                 name={name}
+                error={error?.message}
                 value={value}
                 onChange={onChange}
-                placeholder={'Organization'}
-                className="input-element"
-              />
-            )}
-          />
-          <Controller
-            control={control}
-            name={`volunteering.${index}.${FormField.ICON}`}
-            render={({ field: { name, value, onChange, ref } }) => (
-              <InputText
-                label="Icon"
-                inputRef={ref}
-                name={name}
-                value={value || ''}
-                onChange={onChange}
-                placeholder={'Icon'}
+                placeholder={t('organization')}
                 className="input-element"
               />
             )}
@@ -94,11 +86,13 @@ const VolunteeringForm: React.FC<VolunteeringProps> = (props) => {
           <Controller
             control={control}
             name={`volunteering.${index}.${FormField.START_DATE}`}
-            render={({ field: { name, value, ref } }) => (
+            render={({ field: { name, value, ref }, fieldState: { error } }) => (
               <InputDatePicker
-                label="Start Date"
+                label={t('startDate')}
+                placeholder={t('startDate')}
                 inputRef={ref}
                 name={name}
+                error={error?.message}
                 value={value ? dayjs(value) : undefined}
                 onChange={(dateObject) => {
                   setValue(name, dateObject.format(dateTimeFormats.backendDate));
@@ -111,11 +105,13 @@ const VolunteeringForm: React.FC<VolunteeringProps> = (props) => {
           <Controller
             control={control}
             name={`volunteering.${index}.${FormField.END_DATE}`}
-            render={({ field: { name, value, ref } }) => (
+            render={({ field: { name, value, ref }, fieldState: { error } }) => (
               <InputDatePicker
-                label="End Date"
+                label={t('endDate')}
+                placeholder={t('endDate')}
                 inputRef={ref}
                 name={name}
+                error={error?.message}
                 value={value ? dayjs(value) : undefined}
                 onChange={(dateObject) => {
                   setValue(name, dateObject.format(dateTimeFormats.backendDate));
@@ -128,7 +124,7 @@ const VolunteeringForm: React.FC<VolunteeringProps> = (props) => {
           {index > 0 && (
             <Button
               type="default"
-              text="Remove"
+              text={t('removeButtonTitle')}
               onClick={() => remove(index)}
               className="add-remove-volunteering-button"
             />
@@ -142,7 +138,7 @@ const VolunteeringForm: React.FC<VolunteeringProps> = (props) => {
     <Drawer
       submitForm={submitForm}
       isPending={isPending}
-      title="Volunteering"
+      title={t('headerPlural')}
     >
       <form onSubmit={submitForm}>
         <Collapse
@@ -153,7 +149,7 @@ const VolunteeringForm: React.FC<VolunteeringProps> = (props) => {
       </form>
       <Button
         type="default"
-        text="Add Another Volunteering"
+        text={t('addButtonTitle')}
         onClick={addVolunteering}
         className="add-remove-volunteering-button"
       />

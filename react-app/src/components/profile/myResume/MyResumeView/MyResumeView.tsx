@@ -28,7 +28,7 @@ import WorkExperiencesForm from '../WorkExperiencesForm/WorkExperiencesForm';
 import WorkExperiencesView from '../WorkExperiencesView/WorkExperiencesView';
 
 const MyResumeView: React.FC = () => {
-  const { t } = useTranslation('translation', { keyPrefix: 'profile.personalInfo' });
+  const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume' });
 
   const { firstName, summary, email, profilePicture, linkedinUrl, location } = resume as GetResumeResponse;
 
@@ -46,12 +46,12 @@ const MyResumeView: React.FC = () => {
             address={location}
           />
           <div className="content-section">
-            <Section title="About Me">
+            <Section title={t('aboutMeSection.header')}>
               <AboutMeView description={summary} />
               <AboutMeForm />
             </Section>
             {/* Education And Training*/}
-            <Section title="Education and Trainings">
+            <Section title={t('educationAndTrainingsSection.headerPlural')}>
               <EducationAndTrainings
                 educationAndTrainings={[
                   {
@@ -90,14 +90,14 @@ const MyResumeView: React.FC = () => {
               />
             </Section>
             {/* Work Experience*/}
-            <Section title="Work Experiences">
+            <Section title={t('workExperiencesSection.headerPlural')}>
               <WorkExperiencesView workExperiences={resume.experiences || []} />
               <WorkExperiencesForm workExperiences={resume.experiences || []} />
             </Section>
             {/* Languages*/}
-            <Section title="Languages">
+            <Section title={t('languagesSection.headerPlural')}>
               <div className="section-text">
-                <p className="section-subtitle">Mother Tongue(s): </p>
+                <p className="section-subtitle">{t('languagesSection.motherTongue')} </p>
                 {resume.languages
                   .filter((language) => language.isNative)
                   .map((language) => (
@@ -105,7 +105,7 @@ const MyResumeView: React.FC = () => {
                   ))}
               </div>
               <div className="other-languages-container">
-                <p className="section-subtitle">Other Language(s): </p>
+                <p className="section-subtitle">{t('languagesSection.otherLanguages')} </p>
                 {resume.languages
                   .filter((language) => !language.isNative)
                   .map((language) => (
@@ -122,32 +122,32 @@ const MyResumeView: React.FC = () => {
               <LanguagesForm languages={resume.languages} />
             </Section>
             {/* Digital Skills*/}
-            <Section title="Digital Skills">
+            <Section title={t('digitalSkillsSection.headerPlural')}>
               <p className="section-text">{resume.digitalSkills.join(', ')}</p>
               <DigitalSkillsForm digitalSkills={resume.digitalSkills} />
             </Section>
             {/* Soft Skills*/}
-            <Section title="Soft Skills">
+            <Section title={t('softSkillsSection.headerPlural')}>
               <p className="section-text">{resume.softSkills.join(', ')}</p>
               <SoftSkillsForm softSkills={resume.softSkills} />
             </Section>
             {/* Technical Skills*/}
-            <Section title="Technical Skills">
+            <Section title={t('technicalSkillsSection.headerPlural')}>
               <p className="section-text">{resume.technicalSkills.join(', ')}</p>
               <TechnicalSkillsForm technicalSkills={resume.technicalSkills} />
             </Section>
             {/* Hobbies and Interests*/}
-            <Section title="Hobbies and Interests">
+            <Section title={t('hobbiesSection.headerPlural')}>
               <p className="section-text">{resume.hobbies.join(', ')}</p>
               <HobbiesForm hobbies={resume.hobbies} />
             </Section>
             {/* Certificates*/}
-            <Section title="Certifications">
+            <Section title={t('certificationsSection.headerPlural')}>
               <Certifications certifications={resume.certifications || []} />
               <CertificationsForm certifications={resume.certifications || []} />
             </Section>
             {/* Volunteering*/}
-            <Section title="Volunteering">
+            <Section title={t('volunteeringsSection.headerPlural')}>
               <VolunteeringItem
                 role="Volunteer"
                 organization="Kocaeli University"
@@ -157,7 +157,7 @@ const MyResumeView: React.FC = () => {
               <VolunteeringForm volunteering={resume.volunteering || []} />
             </Section>
             {/* Publications*/}
-            <Section title="Publications">
+            <Section title={t('publicationsSection.headerPlural')}>
               {resume.publications?.map((publication, index) => (
                 <PublicationItem
                   key={index}
@@ -168,9 +168,9 @@ const MyResumeView: React.FC = () => {
               ))}
               <PublicationsForm publications={resume.publications || []} />
             </Section>
-            <Section title="Driving Licences">
+            <Section title={t('drivingLicencesSection.headerPlural')}>
               <DrivingLicenceItem drivingLicences={resume.drivingLicences || []} />
-              <DrivingLicenceForm driverLicences={resume.drivingLicences || []} />
+              <DrivingLicenceForm drivingLicences={resume.drivingLicences || []} />
             </Section>
           </div>
         </div>

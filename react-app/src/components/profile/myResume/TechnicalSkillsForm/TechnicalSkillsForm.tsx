@@ -1,4 +1,5 @@
 import { Controller, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 import usePatchResume from 'src/api/resumes/hooks/usePatchResume';
 import Drawer from 'src/components/common/Drawer/Drawer';
@@ -11,6 +12,7 @@ interface TechnicalSkillsProps {
 }
 
 const TechnicalSkillsForm: React.FC<TechnicalSkillsProps> = ({ technicalSkills }) => {
+  const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.technicalSkillsSection' });
   const { handleSubmit, control } = useForm({
     defaultValues: {
       technicalSkills: technicalSkills,
@@ -26,7 +28,7 @@ const TechnicalSkillsForm: React.FC<TechnicalSkillsProps> = ({ technicalSkills }
     <Drawer
       submitForm={submitForm}
       isPending={isPending}
-      title="Technical Skills"
+      title={t('headerPlural')}
     >
       <form onSubmit={submitForm}>
         <div className="input-element-container">
@@ -35,7 +37,8 @@ const TechnicalSkillsForm: React.FC<TechnicalSkillsProps> = ({ technicalSkills }
             name={FormField.TECHNICAL_SKILLS}
             render={({ field: { onChange, value, ref, name } }) => (
               <InputSelect
-                placeholder={'Technical Skills'}
+                placeholder={t('headerPlural')}
+                label={t('headerPlural')}
                 inputRef={ref}
                 name={name}
                 value={value}

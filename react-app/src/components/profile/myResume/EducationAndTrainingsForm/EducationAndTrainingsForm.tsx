@@ -1,7 +1,9 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import type { CollapseProps } from 'antd';
 import { Collapse } from 'antd';
 import dayjs from 'dayjs';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 import usePatchResume from 'src/api/resumes/hooks/usePatchResume';
 import { Education } from 'src/api/resumes/types';
@@ -12,14 +14,17 @@ import InputText from 'src/components/common/InputText/InputText';
 import dateTimeFormats from 'src/constants/dateTimeFormats';
 
 import { FormField } from './enums';
+import validationSchema from './validation';
 
 type EducationAndTrainingsFormProps = {
   educationAndTrainings: Education[];
 };
 
 const EducationAndTrainingsForm: React.FC<EducationAndTrainingsFormProps> = (props) => {
+  const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.educationAndTrainingsSection' });
   const { handleSubmit, control, setValue } = useForm({
     defaultValues: { educations: props.educationAndTrainings },
+    resolver: yupResolver(validationSchema),
     shouldFocusError: true,
   });
 
@@ -46,7 +51,7 @@ const EducationAndTrainingsForm: React.FC<EducationAndTrainingsFormProps> = (pro
   const items: CollapseProps['items'] = fields.map((field, index) => {
     return {
       key: field.id,
-      label: `Education ${index}`,
+      label: `${t('headerSingular')} ${index + 1}`,
       children: (
         <div className="input-element-container">
           <Controller
@@ -54,13 +59,13 @@ const EducationAndTrainingsForm: React.FC<EducationAndTrainingsFormProps> = (pro
             name={`educations.${index}.${FormField.TITLE}`}
             render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
               <InputText
-                label="Title"
+                label={t('title')}
                 inputRef={ref}
                 name={name}
                 value={value}
                 error={error?.message}
                 onChange={onChange}
-                placeholder={'Title'}
+                placeholder={t('title')}
               />
             )}
           />
@@ -69,13 +74,13 @@ const EducationAndTrainingsForm: React.FC<EducationAndTrainingsFormProps> = (pro
             name={`educations.${index}.${FormField.TYPE}`}
             render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
               <InputText
-                label="Education Type"
+                label={t('type')}
                 inputRef={ref}
                 name={name}
                 value={value}
                 error={error?.message}
                 onChange={onChange}
-                placeholder={'Education Type'}
+                placeholder={t('type')}
               />
             )}
           />
@@ -84,24 +89,26 @@ const EducationAndTrainingsForm: React.FC<EducationAndTrainingsFormProps> = (pro
             name={`educations.${index}.${FormField.LOCATION}`}
             render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
               <InputText
-                label="Location"
+                label={t('location')}
                 inputRef={ref}
                 name={name}
                 value={value}
                 error={error?.message}
                 onChange={onChange}
-                placeholder={'Location'}
+                placeholder={t('location')}
               />
             )}
           />
           <Controller
             control={control}
             name={`educations.${index}.${FormField.START_DATE}`}
-            render={({ field: { name, value, ref } }) => (
+            render={({ field: { name, value, ref }, fieldState: { error } }) => (
               <InputDatePicker
-                label="Start Date"
+                label={t('startDate')}
+                placeholder={t('startDate')}
                 inputRef={ref}
                 name={name}
+                error={error?.message}
                 value={value ? dayjs(value) : undefined}
                 onChange={(dateObject) => {
                   setValue(name, dateObject.format(dateTimeFormats.backendDate));
@@ -116,7 +123,8 @@ const EducationAndTrainingsForm: React.FC<EducationAndTrainingsFormProps> = (pro
             name={`educations.${index}.${FormField.END_DATE}`}
             render={({ field: { name, value, ref } }) => (
               <InputDatePicker
-                label="End Date"
+                label={t('endDate')}
+                placeholder={t('endDate')}
                 inputRef={ref}
                 name={name}
                 value={value ? dayjs(value) : undefined}
@@ -131,7 +139,7 @@ const EducationAndTrainingsForm: React.FC<EducationAndTrainingsFormProps> = (pro
           {index > 0 && (
             <Button
               type="default"
-              text="Remove"
+              text={t('removeButtonTitle')}
               onClick={() => remove(index)}
               className="add-another-education-button"
             />
@@ -145,7 +153,7 @@ const EducationAndTrainingsForm: React.FC<EducationAndTrainingsFormProps> = (pro
     <Drawer
       submitForm={submitForm}
       isPending={isPending}
-      title="Education and Trainings"
+      title={t('headerPlural')}
     >
       <form onSubmit={submitForm}>
         <Collapse
@@ -155,7 +163,7 @@ const EducationAndTrainingsForm: React.FC<EducationAndTrainingsFormProps> = (pro
         />
         <Button
           type="default"
-          text="Add Another Education"
+          text={t('addButtonTitle')}
           onClick={addEducation}
           className="add-another-education-button"
         />

@@ -1,4 +1,5 @@
 import { Image, View, Text, Link } from '@react-pdf/renderer';
+import { useTranslation } from 'react-i18next';
 
 import styles from './PdfContactInfoStyle';
 
@@ -14,6 +15,7 @@ interface PdfContactInfoProps {
 }
 
 const PdfContactInfo: React.FC<PdfContactInfoProps> = (props) => {
+  const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.contactInfoSection' });
   const { imgUrl, name, nationality, address, phone, email, linkedIn, linkedInText } = props;
 
   return (
@@ -32,19 +34,19 @@ const PdfContactInfo: React.FC<PdfContactInfoProps> = (props) => {
       </View>
       <View style={styles.infoSection}>
         <View style={styles.infoGroup}>
-          <Text style={styles.groupTitle}>Nationality:</Text>
+          <Text style={styles.groupTitle}>{t('nationality')}</Text>
           <Text style={styles.groupValue}>{nationality}</Text>
         </View>
         <View style={styles.infoGroup}>
-          <Text style={styles.groupTitle}>Phone:</Text>
+          <Text style={styles.groupTitle}>{t('phoneNumber')}</Text>
           <Text style={styles.groupValue}>{phone}</Text>
         </View>
         <View style={styles.infoGroup}>
-          <Text style={styles.groupTitle}>Email:</Text>
+          <Text style={styles.groupTitle}>{t('email')}</Text>
           <Text style={styles.groupValue}>{email}</Text>
         </View>
         <View style={styles.infoGroup}>
-          <Text style={styles.groupTitle}>Linkedin:</Text>
+          <Text style={styles.groupTitle}>{t('linkedin')}</Text>
           <Link
             href={linkedIn}
             style={styles.groupValue}
@@ -53,7 +55,7 @@ const PdfContactInfo: React.FC<PdfContactInfoProps> = (props) => {
           </Link>
         </View>
         <View style={styles.infoGroup}>
-          <Text style={styles.groupTitle}>Address:</Text>
+          <Text style={styles.groupTitle}>{t('address')}</Text>
           <Text style={styles.groupValue}>{address}</Text>
         </View>
       </View>

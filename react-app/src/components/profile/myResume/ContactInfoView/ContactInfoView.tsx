@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 interface ContactInfoViewProps {
   profilePicture?: string;
   imgUrl?: string;
@@ -11,6 +13,7 @@ interface ContactInfoViewProps {
 }
 
 const ContactInfoView: React.FC<ContactInfoViewProps> = (props) => {
+  const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.contactInfoSection' });
   const { profilePicture, name, nationality, phoneNumber, email, linkedinUrl, address, linkedinText } = props;
 
   return (
@@ -25,19 +28,19 @@ const ContactInfoView: React.FC<ContactInfoViewProps> = (props) => {
       </div>
       <div className="info-section">
         <div className="info-group">
-          <p className="group-title">Nationality:</p>
+          <p className="group-title">{t('nationality')}</p>
           <p className="group-value">{nationality}</p>
         </div>
         <div className="info-group">
-          <p className="group-title">Phone:</p>
+          <p className="group-title">{t('phoneNumber')}</p>
           <p className="group-value">{phoneNumber}</p>
         </div>
         <div className="info-group">
-          <p className="group-title">Email:</p>
+          <p className="group-title">{t('email')}</p>
           <p className="group-value">{email}</p>
         </div>
         <div className="info-group">
-          <p className="group-title">Linkedin:</p>
+          <p className="group-title">{t('linkedin')}</p>
           <a
             href={linkedinUrl}
             className="group-value linkedin-link"
@@ -46,7 +49,7 @@ const ContactInfoView: React.FC<ContactInfoViewProps> = (props) => {
           </a>
         </div>
         <div className="info-group">
-          <p className="group-title">Address:</p>
+          <p className="group-title">{t('address')}</p>
           <p className="group-value">{address}</p>
         </div>
       </div>

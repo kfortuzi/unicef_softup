@@ -107,7 +107,108 @@
         "success": "Resume was saved successfully!",
         "error": "Failed to save resume!",
         "educationAndTraining": "Education & Training",
-        "workExperience": "Work Experience"
+        "workExperience": "Work Experience",
+        "aboutMeSection": {
+          "header": "About Me",
+          "aboutMe": "About Me",
+          "placeholder": "Write a few words about yourself..."
+        },
+        "certificationsSection": {
+          "headerSingular": "Certification",
+          "headerPlural": "Certifications",
+          "addButtonTitle": "Add",
+          "removeButtonTitle": "Remove",
+          "name": "Name",
+          "receivedDate": "Received Date",
+          "expirationDate": "Expiration Date"
+        },
+        "contactInfoSection": {
+          "header": "Contact Info",
+          "name": "Name",
+          "nationality": "Nationality",
+          "email": "Email",
+          "phoneNumber": "Phone Number",
+          "address": "Address",
+          "linkedin": "LinkedIn"
+        },
+        "educationAndTrainingsSection": {
+          "headerSingular": "Education & Training",
+          "headerPlural": "Education & Trainings",
+          "addButtonTitle": "Add",
+          "removeButtonTitle": "Remove",
+          "title": "Title",
+          "type": "Type",
+          "location": "Location",
+          "startDate": "Start Date",
+          "endDate": "End Date"
+        },
+        "workExperiencesSection": {
+          "headerSingular": "Work Experience",
+          "headerPlural": "Work Experiences",
+          "addButtonTitle": "Add",
+          "removeButtonTitle": "Remove",
+          "position": "Position",
+          "company": "Company",
+          "location": "Location",
+          "startDate": "Start Date",
+          "endDate": "End Date",
+          "responsibilities": "Responsibilities"
+        },
+        "digitalSkillsSection": {
+          "headerPlural": "Digital Skills",
+          "headerSingular": "Digital Skill"
+        },
+        "softSkillsSection": {
+          "headerPlural": "Soft Skills",
+          "headerSingular": "Soft Skill"
+        },
+        "technicalSkillsSection": {
+          "headerPlural": "Technical Skills",
+          "headerSingular": "Technical Skill"
+        },
+        "driverLicenseSection": {
+          "headerPlural": "Driver Licenses",
+          "headerSingular": "Driver License"
+        },
+        "hobbiesSection": {
+          "headerPlural": "Hobbies",
+          "headerSingular": "Hobby"
+        },
+        "languagesSection": {
+          "headerPlural": "Languages",
+          "headerSingular": "Language",
+          "name": "Name",
+          "yes": "Yes",
+          "no": "No",
+          "reading": "Reading",
+          "writing": "Writing",
+          "speaking": "Speaking",
+          "isNative": "Is Native?",
+          "addButtonTitle": "Add",
+          "removeButtonTitle": "Remove",
+          "motherTongue": "Mother Tongue",
+          "otherLanguages": "Other Languages"
+        },
+        "publicationsSection": {
+          "headerPlural": "Publications",
+          "headerSingular": "Publication",
+          "name": "Name",
+          "releaseDate": "Release Date",
+          "link": "Link",
+          "addButtonTitle": "Add",
+          "removeButtonTitle": "Remove"
+        },
+        "volunteeringsSection" : {
+          "headerPlural": "Volunteerings",
+          "headerSingular": "Volunteering",
+          "role": "Role",
+          "organization": "Organization",
+          "startDate": "Start Date",
+          "endDate": "End Date",
+          "addButtonTitle": "Add",
+          "removeButtonTitle": "Remove"
+        },
+        "required": "{{field}} is required"
       }
     },
     "globalStrings": {

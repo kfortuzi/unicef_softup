@@ -1,7 +1,5 @@
-import { DrivingLicence } from '../../../../api/resumes/types';
-
 interface DrivingLicenceItemProps {
-  drivingLicences: DrivingLicence[];
+  drivingLicences: string[];
 }
 
 const DrivingLicenceItem: React.FC<DrivingLicenceItemProps> = ({ drivingLicences }) => {
@@ -16,7 +14,7 @@ const DrivingLicenceItem: React.FC<DrivingLicenceItemProps> = ({ drivingLicences
           className="driving-licence-image"
           alt="Driving License Icon"
         />
-        <p className="driving-licence-text">{drivingLicence.level}</p>
+        <p className="driving-licence-text">{drivingLicence}</p>
       </div>
     );
   });

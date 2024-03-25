@@ -1,11 +1,9 @@
 import { View, Text, Image } from '@react-pdf/renderer';
 
-import { DrivingLicence } from 'src/api/resumes/types';
-
 import styles from './PdfDrivingLicenceItemStyle';
 
 interface PdfDrivingLicenceItemProps {
-  drivingLicences: DrivingLicence[];
+  drivingLicences: string[];
 }
 
 const PdfDrivingLicenceItem: React.FC<PdfDrivingLicenceItemProps> = ({ drivingLicences }) => {
@@ -19,7 +17,7 @@ const PdfDrivingLicenceItem: React.FC<PdfDrivingLicenceItemProps> = ({ drivingLi
           src={'https://cdn-icons-png.flaticon.com/512/1023/1023397.png'}
           style={styles.drivingLicenceImage}
         />
-        <Text style={styles.drivingLicensText}>{drivingLicence.level}</Text>
+        <Text style={styles.drivingLicensText}>{drivingLicence}</Text>
       </View>
     );
   });

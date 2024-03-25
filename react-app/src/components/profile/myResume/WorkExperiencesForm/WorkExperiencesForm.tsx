@@ -1,7 +1,9 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import type { CollapseProps } from 'antd';
 import { Collapse } from 'antd';
 import dayjs from 'dayjs';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 import usePatchResume from 'src/api/resumes/hooks/usePatchResume';
 import { WorkExperience } from 'src/api/resumes/types';
@@ -12,16 +14,19 @@ import InputText from 'src/components/common/InputText/InputText';
 import dateTimeFormats from 'src/constants/dateTimeFormats';
 
 import { FormField } from './enums';
+import fieldsValidationSchema from './validation';
 
 interface WorkExperiencesProps {
   workExperiences: WorkExperience[];
 }
 
 const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
+  const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.workExperiencesSection' });
   const { handleSubmit, control, setValue } = useForm({
     defaultValues: {
       experiences: props.workExperiences,
     },
+    resolver: yupResolver(fieldsValidationSchema),
     shouldFocusError: true,
   });
 
@@ -48,20 +53,21 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
   const items: CollapseProps['items'] = fields.map((field, index) => {
     return {
       key: field.id,
-      label: `Work Experience ${index}`,
+      label: `${t('headerSingular')} ${index + 1}`,
       children: (
         <div className="input-element-container">
           <Controller
             control={control}
             name={`experiences.${index}.${FormField.POSITION}`}
-            render={({ field: { name, value, onChange, ref } }) => (
+            render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
               <InputText
-                label="Position"
+                label={t('position')}
                 inputRef={ref}
                 name={name}
+                error={error?.message}
                 value={value}
                 onChange={onChange}
-                placeholder={'Position'}
+                placeholder={t('position')}
                 className="input-element"
               />
             )}
@@ -69,14 +75,15 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
           <Controller
             control={control}
             name={`experiences.${index}.${FormField.COMPANY}`}
-            render={({ field: { name, value, onChange, ref } }) => (
+            render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
               <InputText
-                label="Company Name"
+                label={t('company')}
                 inputRef={ref}
                 name={name}
+                error={error?.message}
                 value={value}
                 onChange={onChange}
-                placeholder={'Company Name'}
+                placeholder={t('company')}
                 className="input-element"
               />
             )}
@@ -86,12 +93,12 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
             name={`experiences.${index}.${FormField.RESPONSIBILITIES}`}
             render={({ field: { name, value, onChange, ref } }) => (
               <InputText
-                label="Responsibilities"
+                label={t('responsibilities')}
                 inputRef={ref}
                 name={name}
                 value={value || ''}
                 onChange={onChange}
-                placeholder={'Responsibilities'}
+                placeholder={t('responsibilities')}
                 className="input-element"
               />
             )}
@@ -99,11 +106,13 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
           <Controller
             control={control}
             name={`experiences.${index}.${FormField.START_DATE}`}
-            render={({ field: { name, value, ref } }) => (
+            render={({ field: { name, value, ref }, fieldState: { error } }) => (
               <InputDatePicker
-                label="Start Date"
+                label={t('startDate')}
+                placeholder={t('startDate')}
                 inputRef={ref}
                 name={name}
+                error={error?.message}
                 value={value ? dayjs(value) : undefined}
                 onChange={(dateObject) => {
                   setValue(name, dateObject.format(dateTimeFormats.backendDate));
@@ -116,11 +125,13 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
           <Controller
             control={control}
             name={`experiences.${index}.${FormField.END_DATE}`}
-            render={({ field: { name, value, ref } }) => (
+            render={({ field: { name, value, ref }, fieldState: { error } }) => (
               <InputDatePicker
-                label="End Date"
+                label={t('endDate')}
+                placeholder={t('endDate')}
                 inputRef={ref}
                 name={name}
+                error={error?.message}
                 value={value ? dayjs(value) : undefined}
                 onChange={(dateObject) => {
                   setValue(name, dateObject.format(dateTimeFormats.backendDate));
@@ -133,7 +144,7 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
           {index > 0 && (
             <Button
               type="default"
-              text="Remove"
+              text={t('removeButtonTitle')}
               onClick={() => remove(index)}
               className="add-remove-experience-button"
             />
@@ -147,7 +158,7 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
     <Drawer
       submitForm={submitForm}
       isPending={isPending}
-      title="Work Experiences"
+      title={t('headerPlural')}
     >
       <form onSubmit={submitForm}>
         <Collapse
@@ -158,7 +169,7 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
       </form>
       <Button
         type="default"
-        text="Add Another Experience"
+        text={t('addButtonTitle')}
         onClick={addExperience}
         className="add-remove-experience-button"
       />

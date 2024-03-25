@@ -6,9 +6,16 @@ interface Props extends DatePickerProps {
   name: string;
   label?: string;
   className?: string;
+  error?: string;
 }
 
-const InputDatePicker: React.FC<Props> = ({ name, label, onChange, className, ...rest }) => {
+const InputDatePicker: React.FC<Props> = ({ name, label, onChange, className, error, ...rest }) => {
+  let datePickerStatus: DatePickerProps['status'] = rest.status;
+
+  if (error) {
+    datePickerStatus = 'error';
+  }
+
   return (
     <div className={`input-datepicker ${className}`}>
       <Flex vertical>
@@ -20,8 +27,10 @@ const InputDatePicker: React.FC<Props> = ({ name, label, onChange, className, ..
         <DatePicker
           name={name}
           onChange={onChange}
+          status={datePickerStatus}
           {...rest}
         />
+        {error && <Typography.Text type="danger">{error}</Typography.Text>}
       </Flex>
     </div>
   );

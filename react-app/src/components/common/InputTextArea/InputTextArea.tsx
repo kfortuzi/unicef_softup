@@ -7,20 +7,28 @@ interface Props extends TextAreaProps {
   inputRef?: React.Ref<InputRef>;
   name: string;
   value: string;
+  error?: string;
   placeholder?: string;
   label?: string;
   className?: string;
 }
 
-const InputText: React.FC<Props> = ({
+const InputTextArea: React.FC<Props> = ({
   inputRef,
   name,
   value,
+  error,
   placeholder,
   label,
   className = '',
   ...rest
 }) => {
+  let textAreaStatus: TextAreaProps['status'] = rest.status;
+
+  if (error) {
+    textAreaStatus = 'error';
+  }
+
   return (
     <div className={`input-text-area ${className}`}>
       <Flex vertical>
@@ -35,11 +43,13 @@ const InputText: React.FC<Props> = ({
           name={name}
           value={value}
           placeholder={placeholder}
+          status={textAreaStatus}
           {...rest}
         />
+        {error && <Typography.Text type="danger">{error}</Typography.Text>}
       </Flex>
     </div>
   );
 };
 
-export default InputText;
+export default InputTextArea;

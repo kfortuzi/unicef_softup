@@ -15,6 +15,8 @@
     }
   },
   "token": {
+    "colorLink": "#0958D9",
+    "linkDecoration": "none",
     "colorPrimary": "#E53F25",
     "colorInfo": "#559AFC",
     "colorSuccess": "#52C41A",

@@ -1,9 +1,5 @@
 //#region Resume
 
-export type DrivingLicence = {
-  level: string;
-};
-
 export type Education = {
   title: string;
   type: string;
@@ -37,7 +33,6 @@ export type Certification = {
 export type Volunteering = {
   role: string;
   organization: string;
-  icon?: string;
   startDate: string;
   endDate?: string;
 };
@@ -68,11 +63,11 @@ export type PostResumeRequest = {
   certifications?: Certification[];
   volunteering?: Volunteering[];
   publications?: Publication[];
-  drivingLicences?: DrivingLicence[];
+  drivingLicences?: string[];
 };
 
 export type PatchResumeRequest = {
-  id: string;
+  id?: string;
   email?: string;
   firstName?: string;
   lastName?: string;
@@ -92,7 +87,7 @@ export type PatchResumeRequest = {
   certifications?: Certification[];
   volunteering?: Volunteering[];
   publications?: Publication[];
-  drivingLicences?: DrivingLicence[];
+  drivingLicences?: string[];
 };
 
 export type PatchResumeResponse = PostResumeRequest;

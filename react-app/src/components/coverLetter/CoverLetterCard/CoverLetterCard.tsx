@@ -1,9 +1,9 @@
 import { Card, Image } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 
 import CoverLetter from 'src/assets/images/cover-letter.png';
+import Button from 'src/components/common/Button/Button';
 
 const CoverLetterCard: React.FC = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'myCoverLetters' });
@@ -25,18 +25,18 @@ const CoverLetterCard: React.FC = () => {
           <p className="last-updated">{t('lastUpdated')}: 24 Jun 2021</p>
         </div>
         <div className="actions">
-          <Link
-            to="#"
+          <Button
+            type="link"
             className="edit"
-          >
-            {t('edit')}
-          </Link>
-          <Link
-            to="#"
-            className="delete"
-          >
-            {t('delete')}
-          </Link>
+            text={t('edit')}
+            size="small"
+          />
+
+          <Button
+            type="primary"
+            text={t('delete')}
+            size="small"
+          />
         </div>
       </Card>
     </div>

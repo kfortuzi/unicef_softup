@@ -94,14 +94,115 @@
         "confirmNewPassword": "Konfirmo Fjalekalimin e ri"
       },
       "myResume": {
-        "header": "My Resume",
-        "loading": "Loading resume...",
-        "noResume": "You have not created a resume yet",
-        "editResume": "Edit Resume",
-        "deleteResume": "Delete Resume",
-        "submit": "Save",
-        "success": "Resume was saved successfully!",
-        "error": "Failed to save resume!"
+        "header": "CV Im",
+        "loading": "Duke ngarkuar CV-në...",
+        "noResume": "Ju nuk keni CV te krijuara.",
+        "editResume": "Ndrysho CV-në",
+        "deleteResume": "Fshi CV-në",
+        "submit": "Ruaj",
+        "success": "CV u ruajt me sukses!",
+        "error": "CV nuk u ruajt me sukses!",
+        "aboutMeSection": {
+          "header": "Rreth meje",
+          "aboutMe": "Rreth meje",
+          "placeholder": "Pershkruani veten tuaj"
+        },
+        "certificationsSection": {
+          "headerPlural": "Certifikimet",
+          "headerSingular": "Certifikimi",
+          "addButtonTitle": "Shto",
+          "removeButtonTitle": "Fshi",
+          "name": "Emri",
+          "receivedDate": "Data e marrjes",
+          "expirationDate": "Data e skadimit"
+        },
+        "contactInfoSection": {
+          "header": "Informacioni i kontaktit",
+          "name": "Emri",
+          "nationality": "Shtetesia",
+          "email": "Email",
+          "phoneNumber": "Telefoni",
+          "address": "Adresa",
+          "linkedin": "LinkedIn"
+        },
+        "educationAndTrainingsSection": {
+          "headerPlural": "Arsimimi & Trajnimet",
+          "headerSingular": "Arsimi & Trajnimi",
+          "addButtonTitle": "Shto",
+          "removeButtonTitle": "Fshi",
+          "title": "Titulli",
+          "type": "Lloji",
+          "location": "Vendndodhja",
+          "startDate": "Data e fillimit",
+          "endDate": "Data e perfundimit"
+        },
+        "workExperiencesSection": {
+          "headerSingular": "Eksperience pune",
+          "headerPlural": "Eksperienca pune",
+          "addButtonTitle": "Shto",
+          "removeButtonTitle": "Fshi",
+          "position": "Pozicioni",
+          "company": "Kompania",
+          "location": "Vendndodhja",
+          "startDate": "Data e fillimit",
+          "endDate": "Data e perfundimit",
+          "responsibilities": "Detyrat"
+        },
+        "digitalSkillsSection": {
+          "headerPlural": "Aftësitë dixhitale",
+          "headerSingular": "Aftësi dixhitale"
+        },
+        "softSkillsSection": {
+          "headerPlural": "Aftësitë personale",
+          "headerSingular": "Aftësi personale"
+        },
+        "technicalSkillsSection": {
+          "headerPlural": "Aftësitë teknike",
+          "headerSingular": "Aftësi teknike"
+        },
+        "drivingLicencesSection": {
+          "headerPlural": "Patentat e drejtimit",
+          "headerSingular": "Patenta e drejtimit"
+        },
+        "hobbiesSection": {
+          "headerPlural": "Hobite",
+          "headerSingular": "Hobi"
+        },
+        "languagesSection": {
+          "headerPlural": "Gjuhet",
+          "headerSingular": "Gjuha",
+          "name": "Emri",
+          "yes": "Po",
+          "no": "Jo",
+          "reading": "Leximi",
+          "writing": "Shkrimi",
+          "speaking": "Folja",
+          "isNative": "Gjuha amtare",
+          "addButtonTitle": "Shto",
+          "removeButtonTitle": "Fshi",
+          "motherTongue": "Gjuha amtare",
+          "otherLanguages": "Gjuhet e tjera"
+        },
+        "publicationsSection": {
+          "headerPlural": "Publikimet",
+          "headerSingular": "Publikimi",
+          "addButtonTitle": "Shto",
+          "removeButtonTitle": "Fshi",
+          "name": "Emri",
+          "releaseDate": "Data e publikimit",
+          "link": "Linku"
+        },
+        "volunteeringsSection" : {
+          "headerPlural": "Vullnetarizimet",
+          "headerSingular": "Vullnetarizimi",
+          "role": "Roli",
+          "organization": "Organizata",
+          "startDate": "Data e fillimit",
+          "endDate": "Data e perfundimit",
+          "addButtonTitle": "Shto",
+          "removeButtonTitle": "Fshi"
+        },
+        "required": "{{field}} eshte i detyrueshem"
       }
     },
     "globalStrings": {

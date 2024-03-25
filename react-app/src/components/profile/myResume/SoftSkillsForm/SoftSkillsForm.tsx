@@ -1,4 +1,5 @@
 import { Controller, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 import usePatchResume from 'src/api/resumes/hooks/usePatchResume';
 import Drawer from 'src/components/common/Drawer/Drawer';
@@ -11,6 +12,7 @@ interface SoftSkillsProps {
 }
 
 const SoftSkillsForm: React.FC<SoftSkillsProps> = ({ softSkills }) => {
+  const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.softSkillsSection' });
   const { handleSubmit, control } = useForm({
     defaultValues: {
       softSkills: softSkills,
@@ -24,7 +26,7 @@ const SoftSkillsForm: React.FC<SoftSkillsProps> = ({ softSkills }) => {
     <Drawer
       submitForm={submitForm}
       isPending={isPending}
-      title="Soft Skills"
+      title={t('headerPlural')}
     >
       <form onSubmit={submitForm}>
         <div className="input-element-container">
@@ -33,7 +35,8 @@ const SoftSkillsForm: React.FC<SoftSkillsProps> = ({ softSkills }) => {
             name={FormField.SOFT_SKILLS}
             render={({ field: { onChange, value, ref, name } }) => (
               <InputSelect
-                placeholder={'Soft Skills'}
+                placeholder={t('headerPlural')}
+                label={t('headerPlural')}
                 inputRef={ref}
                 name={name}
                 value={value}

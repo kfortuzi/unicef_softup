@@ -1,96 +1,89 @@
 {
-  "firstName":"John",
-  "lastName":"Doe",
-  "digitalSkills":["Word","Excel"],
-  "softSkills":["Teamwork","Problem Solving"],
-  "technicalSkills":[
-    "React.js",
-    "Node.js"
-  ],
-  "summary":"Summary",
-  "educations":[
+  "firstName": "John",
+  "lastName": "Doe",
+  "digitalSkills": ["Word", "Excel"],
+  "softSkills": ["Teamwork", "Problem Solving"],
+  "technicalSkills": ["React.js", "Node.js"],
+  "summary": "Summary",
+  "educations": [
     {
-      "title":"Computer Engineering",
-      "startDate":"2018",
-      "endDate":"2022",
-      "location":"Kocaeli, Turkey",
-      "type":"Bachelor"
+      "title": "Computer Engineering",
+      "startDate": "2018",
+      "endDate": "2022",
+      "location": "Kocaeli, Turkey",
+      "type": "Bachelor"
     },
     {
-      "title":"Computer Engineering",
-      "startDate":"2018",
-      "endDate":"2022",
-      "location":"Kocaeli, Turkey",
-      "type":"Bachelor"
+      "title": "Computer Engineering",
+      "startDate": "2018",
+      "endDate": "2022",
+      "location": "Kocaeli, Turkey",
+      "type": "Bachelor"
     }
   ],
-  "experiences":[
+  "experiences": [
     {
-      "position":"Software Developer",
-      "company":"Kocaeli University",
-      "startDate":"2018",
-      "endDate":"2021",
-      "responsibilities":"Developed web applications using React.js and Node.js"
+      "position": "Software Developer",
+      "company": "Kocaeli University",
+      "startDate": "2018",
+      "endDate": "2021",
+      "responsibilities": "Developed web applications using React.js and Node.js"
     },
     {
-      "position":"Software Developer",
-      "company":"Kocaeli University",
-      "startDate":"2018",
-      "endDate":"2021",
-      "responsibilities":"Developed e-commerce web applications using golang"
+      "position": "Software Developer",
+      "company": "Kocaeli University",
+      "startDate": "2018",
+      "endDate": "2021",
+      "responsibilities": "Developed e-commerce web applications using golang"
     }
   ],
-  "drivingLicences": [{"level": "B"}],
-  "email":"yunuskas55@gmail.com",
-  "volunteering":[
+  "drivingLicences": ["B"],
+  "email": "yunuskas55@gmail.com",
+  "volunteering": [
     {
-      "role":"Title",
-      "organization":"Organization",
-      "icon":"Img Url",
-      "startDate":"2020",
-      "endDate":"2021"
+      "role": "Title",
+      "organization": "Organization",
+      "icon": "Img Url",
+      "startDate": "2020",
+      "endDate": "2021"
     }
   ],
-  "languages":[
+  "languages": [
     {
-      "name":"English",
-      "reading":"C2",
-      "writing":"B2",
-      "speaking":"A2",
-      "isNative":false
+      "name": "English",
+      "reading": "C2",
+      "writing": "B2",
+      "speaking": "A2",
+      "isNative": false
     },
     {
-      "name":"Turkish",
-      "reading":"C2",
-      "writing":"B2",
-      "speaking":"A2",
-      "isNative":true
+      "name": "Turkish",
+      "reading": "C2",
+      "writing": "B2",
+      "speaking": "A2",
+      "isNative": true
     }
   ],
-  "certifications":[
+  "certifications": [
     {
-      "name":"Linkedin Node.js Certificate",
-      "receivedDate":"2021",
-      "expirationDate":"2022"
+      "name": "Linkedin Node.js Certificate",
+      "receivedDate": "2021",
+      "expirationDate": "2022"
     },
     {
-      "name":"Linkedin React.js Certificate",
-      "receivedDate":"2021"
+      "name": "Linkedin React.js Certificate",
+      "receivedDate": "2021"
     }
   ],
-  "hobbies":[
-    "Reading",
-    "Swimming",
-    "Cycling"
-  ],
-  "publications":[
+  "hobbies": ["Reading", "Swimming", "Cycling"],
+  "publications": [
     {
-      "name":"Node.js Best Practices",
-      "releaseDate":"2021",
+      "name": "Node.js Best Practices",
+      "releaseDate": "2021",
       "link": "Link"
     }
   ],
-  "profilePicture":"https://static.vecteezy.com/system/resources/previews/034/601/899/large_2x/portrait-of-a-cat-wearing-sunglasses-on-the-sunset-background-ai-generated-free-photo.jpg",
-  "phoneNumber":"Phone Number",
-  "linkedinUrl":"Linkedin Url"
+  "profilePicture": "https://static.vecteezy.com/system/resources/previews/034/601/899/large_2x/portrait-of-a-cat-wearing-sunglasses-on-the-sunset-background-ai-generated-free-photo.jpg",
+  "phoneNumber": "Phone Number",
+  "linkedinUrl": "Linkedin Url"
 }

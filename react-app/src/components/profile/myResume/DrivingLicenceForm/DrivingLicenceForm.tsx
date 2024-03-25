@@ -1,7 +1,7 @@
 import { Controller, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 import usePatchResume from 'src/api/resumes/hooks/usePatchResume';
-import { DrivingLicence } from 'src/api/resumes/types';
 import Drawer from 'src/components/common/Drawer/Drawer';
 import InputSelect from 'src/components/common/InputSelect/InputSelect';
 
@@ -9,13 +9,14 @@ import { drivingLicenceOptions } from './constants';
 import { FormField } from './enums';
 
 interface DrivingLicenceProps {
-  driverLicences: DrivingLicence[];
+  drivingLicences: string[];
 }
 
-const DrivingLicenceForm: React.FC<DrivingLicenceProps> = ({ driverLicences }) => {
+const DrivingLicenceForm: React.FC<DrivingLicenceProps> = ({ drivingLicences }) => {
+  const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.drivingLicencesSection' });
   const { handleSubmit, control } = useForm({
     defaultValues: {
-      drivingLicences: driverLicences,
+      drivingLicences: drivingLicences,
     },
     shouldFocusError: true,
   });
@@ -37,10 +38,11 @@ const DrivingLicenceForm: React.FC<DrivingLicenceProps> = ({ driverLicences }) =
             name={FormField.DRIVING_LICENCES}
             render={({ field: { onChange, value, ref, name } }) => (
               <InputSelect
-                placeholder={'Driving License'}
+                placeholder={t('headerPlural')}
+                label={t('headerPlural')}
                 inputRef={ref}
                 name={name}
-                value={value.map((item) => item.level)}
+                value={value}
                 onChange={onChange}
                 tokenSeparators={[',']}
                 mode="tags"

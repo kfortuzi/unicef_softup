@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import Resume from 'src/assets/images/resume.webp';
+import Button from 'src/components/common/Button/Button';
 
 const ResumeCard: React.FC = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'myResumes' });
@@ -34,8 +35,18 @@ const ResumeCard: React.FC = () => {
           </Link>
         </div>
         <div className="actions">
-          <div className="edit">{t('edit')}</div>
-          <a className="delete">{t('delete')}</a>
+          <Button
+            type="link"
+            className="edit"
+            text={t('edit')}
+            size="small"
+          />
+
+          <Button
+            type="primary"
+            text={t('delete')}
+            size="small"
+          />
         </div>
       </Card>
     </div>

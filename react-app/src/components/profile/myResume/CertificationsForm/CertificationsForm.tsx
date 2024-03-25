@@ -1,7 +1,9 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import type { CollapseProps } from 'antd';
 import { Collapse } from 'antd';
 import dayjs from 'dayjs';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 import usePatchResume from 'src/api/resumes/hooks/usePatchResume';
 import { Certification } from 'src/api/resumes/types';
@@ -13,14 +15,17 @@ import dateTimeFormats from 'src/constants/dateTimeFormats';
 
 import { defaultValues } from './constants';
 import { FormField } from './enums';
+import fieldsValidationSchema from './validation';
 
 type CertificationsFormProps = {
   certifications?: Certification[];
 };
 
 const CertificationsForm: React.FC<CertificationsFormProps> = (props) => {
+  const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.certificationsSection' });
   const { handleSubmit, control, setValue } = useForm({
-    defaultValues: { certifications: props.certifications },
+    defaultValues: { certifications: props.certifications || [] },
+    resolver: yupResolver(fieldsValidationSchema),
     shouldFocusError: true,
   });
 
@@ -41,7 +46,7 @@ const CertificationsForm: React.FC<CertificationsFormProps> = (props) => {
   const items: CollapseProps['items'] = fields.map((field, index) => {
     return {
       key: field.id,
-      label: `Certification ${index}`,
+      label: `${t('headerSingular')} ${index + 1}`,
       children: (
         <div className="input-element-container">
           <Controller
@@ -49,24 +54,26 @@ const CertificationsForm: React.FC<CertificationsFormProps> = (props) => {
             name={`certifications.${index}.${FormField.NAME}`}
             render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
               <InputText
-                label="Name"
+                label={t('name')}
                 inputRef={ref}
                 name={name}
                 value={value}
                 error={error?.message}
                 onChange={onChange}
-                placeholder={'Name'}
+                placeholder={t('name')}
               />
             )}
           />
           <Controller
             control={control}
             name={`certifications.${index}.${FormField.RECEIVED_DATE}`}
-            render={({ field: { name, value, ref } }) => (
+            render={({ field: { name, value, ref }, fieldState: { error } }) => (
               <InputDatePicker
-                label="Received Date"
+                label={t('receivedDate')}
+                placeholder={t('receivedDate')}
                 inputRef={ref}
                 name={name}
+                error={error?.message}
                 value={value ? dayjs(value) : undefined}
                 onChange={(dateObject) => {
                   setValue(name, dateObject.format(dateTimeFormats.backendDate));
@@ -81,7 +88,8 @@ const CertificationsForm: React.FC<CertificationsFormProps> = (props) => {
             name={`certifications.${index}.${FormField.EXPIRATION_DATE}`}
             render={({ field: { name, value, ref } }) => (
               <InputDatePicker
-                label="Expiration Date"
+                label={t('expirationDate')}
+                placeholder={t('expirationDate')}
                 inputRef={ref}
                 name={name}
                 value={value ? dayjs(value) : undefined}
@@ -96,7 +104,7 @@ const CertificationsForm: React.FC<CertificationsFormProps> = (props) => {
           {index > 0 && (
             <Button
               type="default"
-              text="Remove"
+              text={t('removeButtonTitle')}
               onClick={() => remove(index)}
               className="add-remove-certification-button"
             />
@@ -110,7 +118,7 @@ const CertificationsForm: React.FC<CertificationsFormProps> = (props) => {
     <Drawer
       submitForm={submitForm}
       isPending={isPending}
-      title="Certifications"
+      title={t('headerPlural')}
     >
       <form onSubmit={submitForm}>
         <Collapse
@@ -120,7 +128,7 @@ const CertificationsForm: React.FC<CertificationsFormProps> = (props) => {
         />
         <Button
           type="default"
-          text="Add Certification"
+          text={t('addButtonTitle')}
           onClick={addCertification}
           className="add-remove-certification-button"
         />

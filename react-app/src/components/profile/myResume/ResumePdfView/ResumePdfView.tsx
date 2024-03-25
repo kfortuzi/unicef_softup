@@ -49,23 +49,23 @@ const ResumePdfView: React.FC = () => {
                 />
                 <View style={styles.contentSection}>
                   {/* About Me*/}
-                  <PdfSection title="About Me">
+                  <PdfSection title={t('aboutMeSection.header')}>
                     <PdfAboutMe
                       description={`I am a software developer with 3 years of experience in web development.`}
                     />
                   </PdfSection>
                   {/* Education And Training*/}
-                  <PdfSection title="Education And Trainings">
+                  <PdfSection title={t('educationAndTrainingsSection.headerPlural')}>
                     <PdfEducationAndTrainings educationAndTrainings={resume.educations || []} />
                   </PdfSection>
                   {/* Work Experience*/}
-                  <PdfSection title="Work Experiences">
+                  <PdfSection title={t('workExperiencesSection.headerPlural')}>
                     <PdfWorkExperiences workExperiences={resume.experiences || []} />
                   </PdfSection>
                   {/* Languages*/}
-                  <PdfSection title="Languages">
+                  <PdfSection title={t('languagesSection.headerPlural')}>
                     <Text style={styles.sectionText}>
-                      <Text style={styles.sectionSubTitle}>Mother Toungue(s): </Text>
+                      <Text style={styles.sectionSubTitle}>{t('languagesSection.motherTongue')}: </Text>
                       {resume.languages
                         .filter((language) => language.isNative)
                         .map((language) => (
@@ -73,7 +73,7 @@ const ResumePdfView: React.FC = () => {
                         ))}
                     </Text>
                     <View style={{ gap: 10 }}>
-                      <Text style={styles.sectionSubTitle}>Other Language(s): </Text>
+                      <Text style={styles.sectionSubTitle}>{t('languagesSection.otherLanguages')}: </Text>
                       {resume.languages
                         .filter((language) => !language.isNative)
                         .map((language) => (
@@ -90,27 +90,27 @@ const ResumePdfView: React.FC = () => {
                   </PdfSection>
 
                   {/* Digital Skills*/}
-                  <PdfSection title="Digital Skills">
+                  <PdfSection title={t('digitalSkillsSection.headerPlural')}>
                     <Text style={styles.sectionText}>{resume.digitalSkills.join(', ')}</Text>
                   </PdfSection>
                   {/* Soft Skills*/}
-                  <PdfSection title="Soft Skills">
+                  <PdfSection title={t('softSkillsSection.headerPlural')}>
                     <Text style={styles.sectionText}>{resume.softSkills.join(', ')}</Text>
                   </PdfSection>
                   {/* Technical Skills*/}
-                  <PdfSection title="Technical Skills">
+                  <PdfSection title={t('technicalSkillsSection.headerPlural')}>
                     <Text style={styles.sectionText}>{resume.technicalSkills.join(', ')}</Text>
                   </PdfSection>
                   {/* Hobbies and Interests*/}
-                  <PdfSection title="Hobbies and Interests">
+                  <PdfSection title={t('hobbiesSection.headerPlural')}>
                     <Text style={styles.sectionText}>{resume.hobbies.join(', ')}</Text>
                   </PdfSection>
                   {/* Certification(s)*/}
-                  <PdfSection title="Certifications">
+                  <PdfSection title={t('certificationsSection.headerPlural')}>
                     <PdfCertifications certifications={resume.certifications || []} />
                   </PdfSection>
                   {/* Volunteering*/}
-                  <PdfSection title="Volunteering">
+                  <PdfSection title={t('volunteeringsSection.headerPlural')}>
                     <PdfVolunteeringItem
                       role="Volunteer"
                       organization="Kocaeli University"
@@ -119,13 +119,13 @@ const ResumePdfView: React.FC = () => {
                     />
                   </PdfSection>
                   {/* Publication(s)*/}
-                  <PdfSection title="Publications">
+                  <PdfSection title={t('publicationsSection.headerPlural')}>
                     <PdfPublicationItem
                       name="React js Technical Article"
                       releaseDate="2021"
                     />
                   </PdfSection>
-                  <PdfSection title="Driving Licences">
+                  <PdfSection title={t('drivingLicencesSection.headerPlural')}>
                     <PdfDrivingLicenceItem drivingLicences={resume.drivingLicences || []} />
                   </PdfSection>
                 </View>
