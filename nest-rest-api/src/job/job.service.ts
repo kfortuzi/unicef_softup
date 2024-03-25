@@ -3,13 +3,20 @@ import { JobRepository } from './job.repository';
 import { Job } from './dto/job.dto';
 import { JobSummaryDTO } from './dto/job-summary.dto';
 import { jobs } from '@prisma/client';
+import { ChatCompletionMessageParam } from 'openai/resources';
+import { AkpaModels } from 'src/openai/models';
+import { AkpaPrompts } from 'src/openai/promptContent';
+import { OpenAIService } from 'src/openai/openai.service';
 
 @Injectable()
 export class JobService {
   keySkills: any;
-  constructor(private jobRepository: JobRepository) {}
+  constructor(
+    private jobRepository: JobRepository,
+    private openAIService: OpenAIService,
+  ) {}
 
-  async getJobs(cursor: string, take: string) {
+  async getJobs(take: string, cursor?: string) {
     return this.jobRepository.findMany(cursor, parseInt(take));
   }
 
@@ -32,6 +39,7 @@ export class JobService {
     if (!jobData) throw new NotFoundException({ message: 'Job not found!' });
     return jobData;
   }
+
   async getLatestJobsByTitle(title: string): Promise<string> {
     const jobs = await this.jobRepository.getLatestJobsByTitle(title);
     if (jobs.length === 0) {
@@ -69,5 +77,59 @@ export class JobService {
 
   async updateJobtag(id: number, tags: string): Promise<void> {
     return this.jobRepository.updateTagsJob(id, tags);
+  }
+
+  async getTipsAndInterviewQuestions(jobTitle: string, userId: string) {
+    try {
+      const tips = await this.getJobTips(jobTitle, userId);
+      const interviewQuestions = await this.getJobCommonInterviewQuestion(
+        jobTitle,
+        userId,
+      );
+      return {
+        tips,
+        interviewQuestions,
+      };
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
+  }
+
+  async getJobTips(jobTitle: string, userId: string) {
+    const messages: ChatCompletionMessageParam[] = [
+      {
+        role: 'system',
+        content: AkpaPrompts.consuelingCareerPrompt,
+      },
+      {
+        role: 'user',
+        content: jobTitle,
+      },
+    ];
+    return this.openAIService.generateCompletion(
+      messages,
+      AkpaModels.CHAT,
+      userId,
+      'TipsAndAdvices',
+    );
+  }
+
+  async getJobCommonInterviewQuestion(jobTitle: string, userId: string) {
+    const messages: ChatCompletionMessageParam[] = [
+      {
+        role: 'system',
+        content: AkpaPrompts.commonInterviewQuestion,
+      },
+      {
+        role: 'user',
+        content: jobTitle,
+      },
+    ];
+    return this.openAIService.generateCompletion(
+      messages,
+      AkpaModels.CHAT,
+      userId,
+      'InterviewQuestions',
+    );
   }
 }

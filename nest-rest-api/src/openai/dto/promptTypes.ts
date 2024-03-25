@@ -6,4 +6,8 @@ export type PromptType =
   | 'Responsibility'
   | 'YearsOfExperience'
   | 'ValidateCoverLetter'
-  | 'ValidateResume';
+  | 'ValidateResume'
+  | 'TipsAndAdvices'
+  | 'InterviewQuestions'
+  | 'CoverLetter'
+  | 'Resume';

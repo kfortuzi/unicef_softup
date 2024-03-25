@@ -8,9 +8,11 @@ import { UserJobsRepository } from './userJobs.repository';
 import { UserRecommendedJobsService } from './userJobs.service';
 import { UserModule } from 'src/user/user.module';
 import { UserRepository } from 'src/user/user.repository';
+import { OpenAIModule } from 'src/openai/openai.module';
+import { OpenAIService } from 'src/openai/openai.service';
 
 @Module({
-  imports: [ScheduleModule.forRoot(), UserModule],
+  imports: [ScheduleModule.forRoot(), UserModule, OpenAIModule],
   controllers: [JobController],
   providers: [
     JobService,
@@ -19,6 +21,7 @@ import { UserRepository } from 'src/user/user.repository';
     UserRecommendedJobsService,
     UserJobsRepository,
     UserRepository,
+    OpenAIService,
   ],
 })
 export class JobModule {}

@@ -199,4 +199,31 @@ export class CoverLetterService {
       throw new Error(errorMessage);
     }
   }
+
+  async askWizardCoverLetter(
+    userId: string,
+    userRequest: string,
+  ): Promise<string | null> {
+    try {
+      const messages: ChatCompletionMessageParam[] = [
+        {
+          role: 'system',
+          content: AkpaPrompts.coverLetterWizard,
+        },
+        {
+          role: 'user',
+          content: userRequest,
+        },
+      ];
+      return this.openAIService.generateCompletion(
+        messages,
+        AkpaModels.MAIN_CHAT,
+        userId,
+        'CoverLetter',
+      );
+    } catch (error) {
+      console.error('Error calling OpenAI API:', error);
+      throw new Error('Failed to generate text from OpenAI');
+    }
+  }
 }

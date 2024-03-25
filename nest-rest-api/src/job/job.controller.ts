@@ -1,4 +1,12 @@
-import { Controller, Get, Query, UseGuards, Request } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Query,
+  UseGuards,
+  Request,
+  Post,
+  Param,
+} from '@nestjs/common';
 import { JobService } from './job.service';
 import { UserRecommendedJobsService } from './userJobs.service';
 import {
@@ -6,6 +14,7 @@ import {
   ApiForbiddenResponse,
   ApiResponse,
   ApiTags,
+  ApiQuery,
 } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { RequestWithUser } from 'src/types/request';
@@ -23,10 +32,22 @@ export class JobController {
   @ApiResponse({
     description: 'Jobs retrieved successfully',
   })
+  @ApiQuery({
+    name: 'take',
+    required: true,
+    type: String,
+    description: 'Number of jobs to take',
+  })
+  @ApiQuery({
+    name: 'cursor',
+    required: false,
+    type: String,
+    description: 'Cursor for pagination',
+  })
   @ApiForbiddenResponse({ status: 403, description: 'Forbidden.' })
   @Get()
-  findJobs(@Query('cursor') cursor: string, @Query('take') take: string) {
-    return this.jobService.getJobs(cursor, take);
+  findJobs(@Query('take') take: string, @Query('cursor') cursor?: string) {
+    return this.jobService.getJobs(take, cursor);
   }
 
   @ApiBearerAuth()
@@ -49,7 +70,22 @@ export class JobController {
   })
   @ApiForbiddenResponse({ status: 403, description: 'Forbidden.' })
   @Get('/:id')
-  async getJobDetails(@Query('id') id: string) {
+  async getJobDetails(@Param('id') id: string) {
     return this.jobService.getJobDetails(id);
+  }
+
+  @ApiBearerAuth()
+  @ApiTags('jobs')
+  @UseGuards(JwtAuthGuard)
+  @ApiResponse({
+    description: 'Jobs details retrieved successfully',
+  })
+  @ApiForbiddenResponse({ status: 403, description: 'Forbidden.' })
+  @Post('tips-and-advices')
+  async getTipsAndInterviewQuestions(
+    @Query('title') title: string,
+    @Request() req: RequestWithUser,
+  ) {
+    return this.jobService.getTipsAndInterviewQuestions(title, req.user.id);
   }
 }

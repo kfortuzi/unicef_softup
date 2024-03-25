@@ -21,6 +21,7 @@ import { CoverLetterWizardDto } from './dto/cover-letter-wizard.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { RequestWithUser } from 'src/types/request';
 import { CoverLetterDto } from './dto/cover-letter-dto';
+import { MessageDto } from 'src/chatbot/dto/message.dto';
 
 @Controller('cover-letters')
 export class CoverLetterController {
@@ -64,7 +65,7 @@ export class CoverLetterController {
   @ApiBearerAuth()
   @ApiTags('cover-letters')
   @UseGuards(JwtAuthGuard)
-  @Post('for-job')
+  @Post('for-job/:jobId')
   @ApiCreatedResponse({
     description: 'The cover letter has been successfully created.',
   })
@@ -125,5 +126,23 @@ export class CoverLetterController {
     @Request() req: RequestWithUser,
   ) {
     return this.coverLetter.deleteCoverLetter(id, req.user.id);
+  }
+
+  @ApiBearerAuth()
+  @ApiTags('cover-letters')
+  @UseGuards(JwtAuthGuard)
+  @ApiBody({ type: MessageDto })
+  @ApiCreatedResponse({
+    description: 'Cover letter wizard is ON!',
+  })
+  @Post('ask-wizard')
+  async askWizardCoverLetter(
+    @Request() req: RequestWithUser,
+    @Body() body: MessageDto,
+  ) {
+    return await this.coverLetter.askWizardCoverLetter(
+      req.user.id,
+      body.message,
+    );
   }
 }

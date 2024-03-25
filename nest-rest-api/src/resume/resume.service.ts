@@ -53,25 +53,25 @@ export class ResumeService {
       phoneNumber: data.phoneNumber ? data.phoneNumber : null,
       summary: data.summary ? data.summary : null,
       educations: data.educations
-        ? data.educations.map((obj) => this.toString(obj))
+        ? (data.educations as unknown as Prisma.JsonObject)
         : undefined,
       experiences: data.experiences
-        ? data.experiences.map((obj) => this.toString(obj))
+        ? (data.experiences as unknown as Prisma.JsonObject)
         : undefined,
       languages: data.languages
-        ? data.languages.map((obj) => this.toString(obj))
+        ? (data.languages as unknown as Prisma.JsonObject)
         : undefined,
       digitalSkills: data.digitalSkills ? data.digitalSkills : null,
       softSkills: data.softSkills ? data.softSkills : null,
       hobbies: data.hobbies ? data.hobbies : null,
       certificates: data.certificates
-        ? data.certificates.map((obj) => this.toString(obj))
+        ? (data.certificates as unknown as Prisma.JsonObject)
         : undefined,
       volunteering: data.volunteering
-        ? data.volunteering.map((obj) => this.toString(obj))
+        ? (data.volunteering as unknown as Prisma.JsonObject)
         : undefined,
       publications: data.publications
-        ? data.publications.map((obj) => this.toString(obj))
+        ? (data.publications as unknown as Prisma.JsonObject)
         : undefined,
       drivingLicense: data.drivingLicense ? data.drivingLicense : null,
       user: {
@@ -115,27 +115,27 @@ export class ResumeService {
         location: data.location || resume.location,
         phoneNumber: data.phoneNumber || resume.phoneNumber,
         summary: data.summary || resume.summary,
-        educations: data.educations
-          ? data.educations.map((obj) => this.toString(obj))
-          : (resume.educations as Prisma.InputJsonValue),
-        experiences: data.experiences
-          ? data.experiences.map((obj) => this.toString(obj))
-          : (resume.experiences as Prisma.InputJsonValue),
-        languages: data.languages
-          ? data.languages.map((obj) => this.toString(obj))
-          : (resume.languages as Prisma.InputJsonValue),
+        educations:
+          (data.educations as unknown as Prisma.JsonObject) ||
+          (resume.educations as Prisma.JsonObject),
+        experiences:
+          (data.experiences as unknown as Prisma.JsonObject) ||
+          (resume.experiences as Prisma.JsonObject),
+        languages:
+          (data.languages as unknown as Prisma.JsonObject) ||
+          (resume.languages as Prisma.JsonObject),
         digitalSkills: data.digitalSkills || resume.digitalSkills,
         softSkills: data.softSkills || resume.softSkills,
         hobbies: data.hobbies || resume.hobbies,
-        certificates: data.certificates
-          ? data.certificates.map((obj) => this.toString(obj))
-          : (resume.certificates as Prisma.InputJsonValue),
-        volunteering: data.volunteering
-          ? data.volunteering.map((obj) => this.toString(obj))
-          : (resume.volunteering as Prisma.InputJsonValue),
-        publications: data.publications
-          ? data.publications.map((obj) => this.toString(obj))
-          : (resume.publications as Prisma.InputJsonValue),
+        certificates:
+          (data.certificates as unknown as Prisma.JsonObject) ||
+          (resume.certificates as Prisma.JsonObject),
+        volunteering:
+          (data.volunteering as unknown as Prisma.JsonObject) ||
+          (resume.volunteering as Prisma.JsonObject),
+        publications:
+          (data.publications as unknown as Prisma.JsonObject) ||
+          (resume.publications as Prisma.JsonObject),
         drivingLicense: data.drivingLicense || resume.drivingLicense,
         user: {
           connect: { id: userId },
@@ -355,7 +355,6 @@ export class ResumeService {
   }
 
   private evaluateResponse(response: { [key: string]: boolean }): boolean {
-    //TODO EVALUATE ONLY THE RESPONSES THAT ARE NOT EMPTY
     if (response) {
       return this.checkUserResponses(response);
     } else {
@@ -498,6 +497,33 @@ export class ResumeService {
       }
     } catch (error) {
       throw new Error(`${error}`);
+    }
+  }
+
+  async askWizardResume(
+    userId: string,
+    userRequest: string,
+  ): Promise<string | null> {
+    try {
+      const messages: ChatCompletionMessageParam[] = [
+        {
+          role: 'system',
+          content: AkpaPrompts.resumeWizard,
+        },
+        {
+          role: 'user',
+          content: userRequest,
+        },
+      ];
+      return this.openAIService.generateCompletion(
+        messages,
+        AkpaModels.MAIN_CHAT,
+        userId,
+        'Resume',
+      );
+    } catch (error) {
+      console.error('Error calling OpenAI API:', error);
+      throw new Error('Failed to generate text from OpenAI');
     }
   }
 }

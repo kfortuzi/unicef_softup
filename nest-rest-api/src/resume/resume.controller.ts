@@ -8,13 +8,13 @@ import {
   Delete,
   Param,
   Patch,
-  Query,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiBody,
+  ApiConsumes,
   ApiCreatedResponse,
   ApiForbiddenResponse,
   ApiTags,
@@ -25,6 +25,7 @@ import { RequestWithUser } from 'src/types/request';
 import { ExperienceDto, ResumeDto } from './dto/resume.dto';
 import { ResumeWizardDto } from './dto/resume-wizard.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { MessageDto } from 'src/chatbot/dto/message.dto';
 
 @Controller('resumes')
 export class ResumeController {
@@ -70,10 +71,10 @@ export class ResumeController {
     description: 'Resume created sucessfully from job tailor.',
     type: ResumeDto,
   })
-  @Post('for-job')
+  @Post('for-job/:jobId')
   async createResumeFromJob(
     @Request() req: RequestWithUser,
-    @Query('jobId') jobId: string,
+    @Param('jobId') jobId: string,
   ) {
     return this.resumeService.resumeGenerationFromJob(req.user.id, jobId);
   }
@@ -159,15 +160,42 @@ export class ResumeController {
   }
 
   @ApiBearerAuth()
-  @Post('uploadFile')
+  @Post(':id/upload-photo')
   @UseGuards(JwtAuthGuard)
   @ApiTags('resumes')
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(
     @UploadedFile() file: Express.Multer.File,
-    @Query('resumeId') resumeId: string,
+    @Param('id') id: string,
     @Request() req: RequestWithUser,
   ) {
-    return this.resumeService.uploadResumePicture(file, resumeId, req.user.id);
+    return this.resumeService.uploadResumePicture(file, id, req.user.id);
+  }
+
+  @ApiBearerAuth()
+  @ApiTags('resumes')
+  @UseGuards(JwtAuthGuard)
+  @ApiBody({ type: MessageDto })
+  @ApiCreatedResponse({
+    description: 'Resume wizard is ON!',
+  })
+  @Post('ask-wizard')
+  async askWizardResume(
+    @Request() req: RequestWithUser,
+    @Body() body: MessageDto,
+  ) {
+    return await this.resumeService.askWizardResume(req.user.id, body.message);
   }
 }

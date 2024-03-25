@@ -24,6 +24,7 @@ import {
   ApiCreatedResponse,
   ApiForbiddenResponse,
   ApiParam,
+  ApiConsumes,
 } from '@nestjs/swagger';
 import { SendResetPasswordUserDto } from './dto/send-reset-password-user.dto';
 import { RequestWithUser } from '../types/request';
@@ -178,9 +179,21 @@ export class UserController {
   }
 
   @ApiBearerAuth()
-  @Post('uploadFile')
+  @Post('upload-photo')
   @UseGuards(JwtAuthGuard)
   @ApiTags('users')
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(
     @Request() req: RequestWithUser,
