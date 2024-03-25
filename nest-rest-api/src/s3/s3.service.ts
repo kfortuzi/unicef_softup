@@ -22,7 +22,7 @@ export class S3Service {
     files: Express.Multer.File,
     photoKey: string,
     bucketName = this.bucketName,
-  ): Promise<any> {
+  ) {
     try {
       if (!files.mimetype.startsWith('image/')) {
         throw new Error('File uploaded is not an image');
@@ -34,7 +34,7 @@ export class S3Service {
       };
       const command = new PutObjectCommand(uploadParams);
       const response = await this.s3.send(command);
-      return response;
+      return response.$metadata.httpStatusCode;
     } catch (error) {
       throw new Error(`${error}`);
     }

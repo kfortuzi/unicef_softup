@@ -107,17 +107,14 @@ export class ResumeService {
     try {
       const resume = await this.findResumeById(id, userId);
       return this.resumeRepository.updateResume(id, {
-        email: data.email ? data.email : resume.email,
-        firstName: data.firstName ? data.firstName : resume.firstName,
-        lastName: data.lastName ? data.lastName : resume.lastName,
-        profilePicture: data.profilePicture
-          ? data.profilePicture
-          : resume.profilePicture,
-        nationality: data.nationality ? data.nationality : resume.nationality,
-        linkedinUrl: data.linkedinUrl ? data.linkedinUrl : resume.linkedinUrl,
-        location: data.location ? data.location : resume.location,
-        phoneNumber: data.phoneNumber ? data.phoneNumber : resume.phoneNumber,
-        summary: data.summary ? data.summary : resume.summary,
+        email: data.email || resume.email,
+        firstName: data.firstName || resume.firstName,
+        lastName: data.lastName || resume.lastName,
+        nationality: data.nationality || resume.nationality,
+        linkedinUrl: data.linkedinUrl || resume.linkedinUrl,
+        location: data.location || resume.location,
+        phoneNumber: data.phoneNumber || resume.phoneNumber,
+        summary: data.summary || resume.summary,
         educations: data.educations
           ? data.educations.map((obj) => this.toString(obj))
           : (resume.educations as Prisma.InputJsonValue),
@@ -127,11 +124,9 @@ export class ResumeService {
         languages: data.languages
           ? data.languages.map((obj) => this.toString(obj))
           : (resume.languages as Prisma.InputJsonValue),
-        digitalSkills: data.digitalSkills
-          ? data.digitalSkills
-          : resume.digitalSkills,
-        softSkills: data.softSkills ? data.softSkills : resume.softSkills,
-        hobbies: data.hobbies ? data.hobbies : resume.hobbies,
+        digitalSkills: data.digitalSkills || resume.digitalSkills,
+        softSkills: data.softSkills || resume.softSkills,
+        hobbies: data.hobbies || resume.hobbies,
         certificates: data.certificates
           ? data.certificates.map((obj) => this.toString(obj))
           : (resume.certificates as Prisma.InputJsonValue),
@@ -141,9 +136,7 @@ export class ResumeService {
         publications: data.publications
           ? data.publications.map((obj) => this.toString(obj))
           : (resume.publications as Prisma.InputJsonValue),
-        drivingLicense: data.drivingLicense
-          ? data.drivingLicense
-          : resume.drivingLicense,
+        drivingLicense: data.drivingLicense || resume.drivingLicense,
         user: {
           connect: { id: userId },
         },
@@ -493,12 +486,15 @@ export class ResumeService {
     userId: string,
   ) {
     try {
+      const resume = this.findResumeById(resumeId, userId);
+      if (!resume) throw new NotFoundException(`Resume not found`);
       const mimeType = file.mimetype.split('/')[1];
       const photoKey = `resume/${resumeId}.${mimeType}`;
-      console.log(photoKey);
       const uploadResponse = await this.s3Service.uploadPhoto(file, photoKey);
-      if (uploadResponse.$metadata.httpStatusCode == 200) {
-        this.updateResume(resumeId, userId, { profilePicture: photoKey });
+      if (uploadResponse == 200) {
+        this.resumeRepository.updateResume(resumeId, {
+          profilePicture: photoKey,
+        });
       }
     } catch (error) {
       throw new Error(`${error}`);

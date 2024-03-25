@@ -52,5 +52,5 @@ export class UpdateUserDto {
   @IsString()
   @IsOptional()
   @ApiProperty({ type: String })
-  profilePicture: string;
+  profilePicture?: string;
 }

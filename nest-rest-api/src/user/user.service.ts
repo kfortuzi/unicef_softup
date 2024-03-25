@@ -65,9 +65,6 @@ export class UserService {
       user.birthdayDate = dayjs(updateUserDto.birthdayDate).toDate();
     if (updateUserDto.profession) user.profession = updateUserDto.profession;
     if (updateUserDto.hobbies) user.hobbies = updateUserDto.hobbies;
-    if (updateUserDto.profilePicture)
-      user.profilePicture = updateUserDto.profilePicture;
-
     if (updateUserDto.oldPassword && updateUserDto.newPassword) {
       const isSameOldPass = await compareHash(
         updateUserDto.oldPassword,
@@ -95,7 +92,6 @@ export class UserService {
           profession: user.profession,
           hobbies: user.hobbies,
           password: user.password,
-          profilePicture: user.profilePicture,
         },
       ),
       userExcludedData,
@@ -250,10 +246,13 @@ export class UserService {
       const mimeType = file.mimetype.split('/')[1];
       const photoKey = `user/${userId}.${mimeType}`;
       const uploadResponse = await this.s3service.uploadPhoto(file, photoKey);
-      if (uploadResponse.$metadata.httpStatusCode == 200) {
-        this.update(userId, {
-          profilePicture: photoKey,
-        });
+      if (uploadResponse == 200) {
+        this.userRepository.update(
+          { id: userId },
+          {
+            profilePicture: photoKey,
+          },
+        );
       }
     } catch (error) {
       throw new Error(`${error}`);
