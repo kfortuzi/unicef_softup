@@ -116,12 +116,6 @@ class skills {
   id: number;
 }
 
-class EducationLevel {
-  @IsArray()
-  @IsNotEmpty()
-  education_level: ArrayOfNumAndString;
-}
-
 class ContractDuration {
   @IsArray()
   @IsNotEmpty()
@@ -185,8 +179,8 @@ export class AkpaJobDTO {
   @Type(() => ContractDuration)
   contract_duration_id: ContractDuration;
 
-  @IsBoolean()
-  job_mobility: boolean;
+  @IsString()
+  job_mobility: string;
 
   @ValidateNested({ each: true })
   @Type(() => basicSkills)
@@ -195,9 +189,7 @@ export class AkpaJobDTO {
   @IsBoolean()
   vlp_private_url: boolean;
 
-  @ValidateNested()
-  @Type(() => EducationLevel)
-  education_level: EducationLevel;
+  education_level: ArrayOfNumAndString;
 
   @IsDate()
   date_start_notification: string;

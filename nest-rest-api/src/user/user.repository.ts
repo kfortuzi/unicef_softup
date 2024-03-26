@@ -66,4 +66,8 @@ export class UserRepository {
       where: { id: skillId },
     });
   }
+
+  async findMany() {
+    return this.prismaService.users.findMany();
+  }
 }

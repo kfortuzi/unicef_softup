@@ -1,4 +1,3 @@
-import { Type } from 'class-transformer';
 import {
   IsBoolean,
   IsDateString,
@@ -7,10 +6,8 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
-  ValidateNested,
 } from 'class-validator';
 import { JobType, EducationType } from '@prisma/client';
-import { UserRecommendedJobsDTO } from './user-jobs.dto';
 
 export class Job {
   @IsNotEmpty()

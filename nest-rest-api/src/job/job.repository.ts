@@ -25,13 +25,12 @@ export class JobRepository {
 
     if (isPaginationWithoutCursor) {
       return {
-        take,
+        take: take,
       };
     }
-
     if (isPaginationWithCursor) {
       return {
-        take,
+        take: take,
         skip: 0,
         cursor: {
           id: cursor,
@@ -49,7 +48,7 @@ export class JobRepository {
         isUnvailable: false,
       },
       orderBy: {
-        createdAt: 'desc',
+        id: 'asc',
       },
     });
   }
@@ -103,5 +102,19 @@ export class JobRepository {
     });
 
     await Promise.all(updatePromises);
+  }
+
+  async findJobsMatchingUserProfession(userProfession: string) {
+    return this.prismaService.jobs.findMany({
+      where: {
+        OR: [
+          { title: { contains: userProfession } },
+          { description: { contains: userProfession } },
+        ],
+        AND: { isUnvailable: false },
+      },
+      orderBy: { id: 'desc' },
+      take: 3,
+    });
   }
 }

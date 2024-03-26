@@ -26,10 +26,10 @@ export class UserJobsRepository {
         job: {
           isUnvailable: false,
         },
+        userId: userId,
       },
-      select: {
-        userId: true,
-        jobId: true,
+      include: {
+        job: true,
       },
     });
   }

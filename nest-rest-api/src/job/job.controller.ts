@@ -1,29 +1,55 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Query, UseGuards, Request } from '@nestjs/common';
 import { JobService } from './job.service';
-import { JobsFetchService } from './jobFetch.service';
-import { Job } from './dto/job.dto';
 import { UserRecommendedJobsService } from './userJobs.service';
+import {
+  ApiBearerAuth,
+  ApiForbiddenResponse,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { RequestWithUser } from 'src/types/request';
 
 @Controller('jobs')
 export class JobController {
   constructor(
     private readonly jobService: JobService,
-    private readonly jobFetch: JobsFetchService,
     private readonly userJobs: UserRecommendedJobsService,
   ) {}
 
+  @ApiBearerAuth()
+  @ApiTags('jobs')
+  @UseGuards(JwtAuthGuard)
+  @ApiResponse({
+    description: 'Jobs retrieved successfully',
+  })
+  @ApiForbiddenResponse({ status: 403, description: 'Forbidden.' })
   @Get()
-  findJobs(@Query('cursor') cursor?: string, @Query('take') take?: number) {
-    return this.jobService.findJobs(cursor, take);
+  findJobs(@Query('cursor') cursor: string, @Query('take') take: string) {
+    return this.jobService.getJobs(cursor, take);
   }
 
-  @Get('latest-jobs')
-  async getLatestJobsByTitle(@Query('title') title: string): Promise<string> {
-    return this.jobService.getLatestJobsByTitle(title);
-  }
-
+  @ApiBearerAuth()
+  @ApiTags('jobs')
+  @UseGuards(JwtAuthGuard)
+  @ApiResponse({
+    description: 'User Jobs retrieved successfully',
+  })
+  @ApiForbiddenResponse({ status: 403, description: 'Forbidden.' })
   @Get('user-recommended-jobs')
-  async getUserJobs(@Query('userId') userId: string) {
-    return this.userJobs.getRecommendedJobsForUser(userId);
+  async getUserJobs(@Request() req: RequestWithUser) {
+    return this.userJobs.getRecommendedJobsForUser(req.user.id);
+  }
+
+  @ApiBearerAuth()
+  @ApiTags('jobs')
+  @UseGuards(JwtAuthGuard)
+  @ApiResponse({
+    description: 'Jobs details retrieved successfully',
+  })
+  @ApiForbiddenResponse({ status: 403, description: 'Forbidden.' })
+  @Get('/:id')
+  async getJobDetails(@Query('id') id: string) {
+    return this.jobService.getJobDetails(id);
   }
 }

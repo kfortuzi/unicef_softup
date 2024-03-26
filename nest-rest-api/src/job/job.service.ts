@@ -2,14 +2,15 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { JobRepository } from './job.repository';
 import { Job } from './dto/job.dto';
 import { JobSummaryDTO } from './dto/job-summary.dto';
+import { jobs } from '@prisma/client';
 
 @Injectable()
 export class JobService {
   keySkills: any;
   constructor(private jobRepository: JobRepository) {}
 
-  findJobs(cursor?: string, take?: number) {
-    return this.jobRepository.findMany(cursor, take);
+  async getJobs(cursor: string, take: string) {
+    return this.jobRepository.findMany(cursor, parseInt(take));
   }
 
   async findJob(jobId: string): Promise<JobSummaryDTO> {
@@ -26,6 +27,11 @@ export class JobService {
     };
   }
 
+  async getJobDetails(jobId: string): Promise<jobs> {
+    const jobData = await this.jobRepository.findOneById(jobId);
+    if (!jobData) throw new NotFoundException({ message: 'Job not found!' });
+    return jobData;
+  }
   async getLatestJobsByTitle(title: string): Promise<string> {
     const jobs = await this.jobRepository.getLatestJobsByTitle(title);
     if (jobs.length === 0) {
@@ -34,7 +40,7 @@ export class JobService {
     const jobTitles = jobs.map((job) => job.title).join(', ');
     return `Latest jobs related to "${title}": ${jobTitles}`;
   }
-  // generate tags
+
   generateTagsForJob(job: Job): string {
     const skillsFields = [
       job.basicSkills,

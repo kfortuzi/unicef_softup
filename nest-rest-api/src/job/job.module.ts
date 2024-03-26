@@ -6,9 +6,11 @@ import { JobsFetchService } from './jobFetch.service';
 import { ScheduleModule } from '@nestjs/schedule';
 import { UserJobsRepository } from './userJobs.repository';
 import { UserRecommendedJobsService } from './userJobs.service';
+import { UserModule } from 'src/user/user.module';
+import { UserRepository } from 'src/user/user.repository';
 
 @Module({
-  imports: [ScheduleModule.forRoot()],
+  imports: [ScheduleModule.forRoot(), UserModule],
   controllers: [JobController],
   providers: [
     JobService,
@@ -16,6 +18,7 @@ import { UserRecommendedJobsService } from './userJobs.service';
     JobsFetchService,
     UserRecommendedJobsService,
     UserJobsRepository,
+    UserRepository,
   ],
 })
 export class JobModule {}

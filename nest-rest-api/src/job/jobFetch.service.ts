@@ -2,9 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { JobRepository } from './job.repository';
 import { Job } from './dto/job.dto';
 import dayjs from 'dayjs';
-import { Cron } from '@nestjs/schedule';
 import { JobListDTO } from './dto/job-list.dto';
 import { AkpaJobDTO } from './dto/akpa-job.dto';
+import { jobs, EducationType, JobType } from '@prisma/client';
+import { Cron } from '@nestjs/schedule';
 
 @Injectable()
 export class JobsFetchService {
@@ -34,33 +35,29 @@ export class JobsFetchService {
   }
 
   async fetchFeaturedJobs() {
-    const url: string = process.env.FEATURED_JOBS_URL as string;
+    const url = process.env.FEATURED_JOBS_URL as string;
     const response = await fetch(url, {
       method: 'POST',
       headers: {
         Accept: 'application/json, text/plain, */*',
         'Content-Type': 'application/json;charset=UTF-8',
+        Referer: 'https://www.puna.gov.al/',
+        cookie:
+          '_ga=GA1.1.2060805193.1707859283;visitid_incap_ses_1083_2810608=iipSdafv5SfUb+bMeJgHD8CiAmYAAAAA7ERApt9a2i29AANkyFWMbg==; visid_incap_2810608=N02tJvG/TFq9GzpRKpMkJo2VAmYAAAAAQUIPAAAAAAB/xOXhPoRC8kxsajJEwq/x',
       },
       body: JSON.stringify({
         token: null,
-        filters: [],
-        punaLoce: [],
-        punaProfe: [],
-        punaUnitLocation: [],
-        showOnlyFavourites: false,
-        ascending: false,
-        whatIsAscending: 'create_date',
-        qarksIds: [],
       }),
     });
+
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    return await response.json();
+    return response.json();
   }
 
-  async fetchJobDetails(jobId: number): Promise<AkpaJobDTO> {
-    const url: string = `${process.env.BASE_JOB_URL}${jobId}` as string;
+  async fetchJobDetails(jobId: number) {
+    const url = `${process.env.BASE_JOB_URL}${jobId}` as string;
     const response = await fetch(url, {
       method: 'POST',
       headers: {
@@ -73,7 +70,7 @@ export class JobsFetchService {
       throw new Error('Network response was not ok.');
     }
     const detail = await response.json();
-    return detail[0];
+    return detail.response[0];
   }
 
   async saveJob(job: Job) {
@@ -96,49 +93,79 @@ export class JobsFetchService {
     }
   }
 
-  transformJobDetailsToModel(job: JobListDTO, details: AkpaJobDTO): Job {
-    const concatenateSkills = (skills: any[]) => {
-      return skills && skills.length
-        ? skills.map((obj) => obj.name[1]).join(',')
-        : '';
-    };
+  concatenateSkills = (skills: any[]) => {
+    return skills && skills.length
+      ? skills.map((obj) => obj.name[1]).join(',')
+      : '';
+  };
 
+  transformJobDetailsToModel(job: JobListDTO, details: AkpaJobDTO): jobs {
     return {
       referenceId: job.id,
       title: job.name,
-      description: job.description,
-      dateStart: details.date_start_notification,
-      dateEnd: details.date_end_notification,
+      description: job.description || null,
+      dateStart: new Date(),
+      dateEnd: new Date(),
       address: job.address_id ? job.address_id[1] : null,
       location: job.county_id ? job.county_id[1] : '',
-      type: details.contract_type_id ? details.contract_type_id[1] : null,
-      contractDuration: details.contract_duration_id
-        ? details.contract_duration_id.contract_duration_id[1]
+      type: details.contract_type_id
+        ? this.mapContractTypeToEnum(details.contract_type_id[1])
         : null,
+      contractDuration: null,
       company: job.punedhenes_id ? job.punedhenes_id.name : '',
       vacantPositions: job.vacant_positions,
       companyLogo: null,
-      basicSkills: concatenateSkills(details.basic_skill_ids),
+      basicSkills: this.concatenateSkills(details.basic_skill_ids),
       communicationSkill: details.communication_skills === 'yes',
-      computerSkills: concatenateSkills(details.computer_line_ids),
-      foreignLanguage: concatenateSkills(details.foreign_language_ids),
+      computerSkills: this.concatenateSkills(details.computer_line_ids),
+      foreignLanguage: this.concatenateSkills(details.foreign_language_ids),
       experience: details.job_experience_id
         ? details.job_experience_id[1]
         : null,
-      skills: concatenateSkills(details.ss_skills),
-      specializations: concatenateSkills(details.specialization_lines_ids),
-      skillLines: concatenateSkills(details.skill_lines_ids),
+      skills: this.concatenateSkills(details.ss_skills),
+      specializations: this.concatenateSkills(details.specialization_lines_ids),
+      skillLines: this.concatenateSkills(details.skill_lines_ids),
       educationType: details.education_level
-        ? details.education_level.education_level[1]
+        ? this.mapEducationLevelToEnum(details.education_level[1])
         : null,
-      paymentLevel: details.payment_level_id
-        ? details.payment_level_id.payment_level_id[1]
-        : null,
+      paymentLevel: null,
       suitableForDisabilities:
         job.suitable_for_disabilities === 'jo' ? false : true,
-      needDrivingLicense: details.job_mobility,
+      needDrivingLicense: details.job_mobility === 'jo' ? false : true,
       isUnvailable: false,
       createdAt: new Date(),
-    } as unknown as Job;
+    } as jobs;
+  }
+
+  private mapContractTypeToEnum(contractType: string): JobType | null {
+    switch (contractType.toLowerCase()) {
+      case 'Me kohë të plotë':
+        return JobType.FullTime;
+      case 'Me kohë të pjesshme':
+        return JobType.PartTime;
+      case 'Punë në Sektorin Publik':
+        return JobType.Contract;
+      default:
+        return null;
+    }
+  }
+
+  private mapEducationLevelToEnum(
+    educationLevel: string,
+  ): EducationType | null {
+    switch (educationLevel.toLowerCase()) {
+      case 'Arsim i mesëm i lartë (Gjimnaz)':
+      case 'Arsim fillor (6-vjeçar)':
+        return EducationType.HighSchool;
+      case 'Bachelor (3 vjeçar)':
+        return EducationType.Bachelor;
+      case 'Master profesional (3+1.5 vjet)':
+      case 'Master shkencor (3+2 vjet)':
+        return EducationType.Master;
+      case 'Doktoraturë':
+        return EducationType.PhD;
+      default:
+        return null;
+    }
   }
 }
