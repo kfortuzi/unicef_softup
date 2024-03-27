@@ -295,6 +295,15 @@
       "delete": "Dele",
       "edit": "Edit",
       "lastUpdated": "Last updated"
+    },
+    "jobs": {
+      "header": "Open Job Positions",
+      "recommendedJobs": "Recommended Jobs",
+      "allJobs": "All Jobs",
+      "viewDetails": "View Details",
+      "applyButtonText": "Apply",
+      "getPreparedButtonText": "Get Prepared",
+      "viewDetailsButtonText": "View Details"
     }
   }
 }

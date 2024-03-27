@@ -5,6 +5,7 @@ export enum Route {
   COVER_LETTERS = 'cover-letters',
   COVER_LETTERS_DETAILS = 'cover-letters/:id',
   JOBS = 'jobs',
+  JOB_DETAILS = 'jobs/:id',
   TRAINING = 'training',
   ACCESS = '/access',
   LOGIN = 'login',

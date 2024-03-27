@@ -1,0 +1,21 @@
+.job-details-container {
+  display: flex;
+  flex-direction: column;
+  gap: $small;
+  padding: $large;
+  margin: $large;
+  border: 5px solid $primary-color;
+  border-radius: 35px;
+
+  h2,
+  p,
+  h3 {
+    margin: 0;
+  }
+
+  .job-details {
+    display: flex;
+    flex-direction: column;
+    gap: $small;
+  }
+}

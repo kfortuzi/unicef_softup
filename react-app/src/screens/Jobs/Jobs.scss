@@ -1,0 +1,25 @@
+.jobs-container {
+  .col-job-card {
+    padding-left: 0 !important;
+  }
+  .recommended-jobs {
+    border: 3px solid $primary-color;
+    border-radius: 35px;
+  }
+
+  .title {
+    font-family: $karla-bold;
+    font-size: 150%;
+    margin: $large 0;
+  }
+  .list-of-jobs {
+    padding: $medium;
+    margin-bottom: $large;
+
+    .category {
+      font-family: $karla-bold;
+      font-size: 125%;
+      margin: 0;
+    }
+  }
+}

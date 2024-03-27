@@ -1,0 +1,84 @@
+$job-card-border-radius: 20px;
+
+.job-card-container {
+  border-radius: $job-card-border-radius;
+  box-shadow: $suggested-box-shadow;
+
+  .job-card-body {
+    background-color: $card-background-color;
+    border-radius: $job-card-border-radius;
+    width: 100%;
+    .ant-card-body {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+    }
+    .ant-card-body::before {
+      content: none;
+    }
+    .ant-card-body::after {
+      content: none;
+    }
+
+    .metadata {
+      display: flex;
+      flex-direction: column;
+      gap: $small;
+      color: white;
+
+      .job-description-group {
+        display: flex;
+        flex-direction: row;
+        column-gap: $small;
+        margin: 0;
+
+        .job-description {
+        }
+      }
+
+      .view-details-link {
+        color: $primary-color;
+      }
+
+      .position {
+        font-family: $karla-bold;
+        margin: 0;
+      }
+
+      .last-updated {
+        font-family: $karla-regular;
+        font-size: 80%;
+        margin: 0;
+      }
+    }
+    .logo-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .actions-container {
+    display: flex;
+    flex-direction: column;
+    margin: $small 0;
+    gap: $small;
+
+    .view-details-link {
+      color: $primary-color;
+    }
+
+    .buttons-container {
+      display: flex;
+      flex-flow: row nowrap;
+      gap: $small;
+
+      .apply {
+        color: $info-color;
+        background-color: white;
+        border-radius: $base-border-radius;
+        cursor: pointer;
+      }
+    }
+  }
+}

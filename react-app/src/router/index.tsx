@@ -13,6 +13,7 @@ import ConfirmUser from 'src/screens/ConfirmUser/ConfirmUser';
 import CoverLetterQuestionnaire from 'src/screens/CoverLetterQuestionnaire/CoverLetterQuestionnaire';
 import ForgotPassword from 'src/screens/ForgotPassword/ForgotPassword';
 import Home from 'src/screens/Home/Home';
+import Jobs from 'src/screens/Jobs/Jobs';
 import Login from 'src/screens/Login/Login';
 import MyCoverLetter from 'src/screens/MyCoverLetter/MyCoverLetter';
 import MyCoverLetters from 'src/screens/MyCoverLetters/MyCoverLetters';
@@ -26,6 +27,7 @@ import Signup from 'src/screens/Signup/Signup';
 import SkillsAndHobbies from 'src/screens/SkillsAndHobbies/SkillsAndHobbies';
 
 import { Route } from './enums';
+import JobDetails from 'src/screens/JobDetails/JobDetails';
 
 const Router: React.FC = () => {
   const { isFetching } = useGetProfile();
@@ -60,7 +62,11 @@ const Router: React.FC = () => {
             },
             {
               path: Route.JOBS,
-              element: <Home />,
+              element: <Jobs />,
+            },
+            {
+              path: Route.JOB_DETAILS,
+              element: <JobDetails />,
             },
             {
               path: Route.TRAINING,

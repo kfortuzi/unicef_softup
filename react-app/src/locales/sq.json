@@ -289,6 +289,15 @@
       "delete": "Fshi",
       "edit": "Edito",
       "lastUpdated": "Perditesimi i fundit"
+    },
+    "jobs": {
+      "header": "Punet",
+      "recommendedJobs": "Punet e rekomanduara",
+      "allJobs": "Te gjitha punet",
+      "viewDetails": "Shiko Detajet",
+      "applyButtonText": "Apliko",
+      "getPreparedButtonText": "Pergatitu per intervisten",
+      "viewDetailsButtonText": "Shiko detajet"
     }
   }
 }
