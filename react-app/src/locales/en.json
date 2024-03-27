@@ -73,7 +73,11 @@
         "lastName": "Last Name",
         "phoneNumber": "Phone",
         "profession": "Profession",
-        "birthdayDate": "Birthday Date"
+        "birthdayDate": "Birthday Date",
+        "changePhotoButtonText": "Change Photo",
+        "uploading": "Uploading...",
+        "uploadSuccess": "Photo was uploaded successfully!",
+        "uploadError": "Failed to upload photo!"
       },
       "skillsAndHobbies": {
         "header": "Skills & Hobbies",

@@ -74,7 +74,11 @@
         "lastName": "Mbiemri",
         "phoneNumber": "Telefoni",
         "profession": "Profesioni",
-        "birthdayDate": "Data e lindjes"
+        "birthdayDate": "Data e lindjes",
+        "changePhotoButtonText": "Ndrysho Foton e Profilit",
+        "uploading": "Duke ngarkuar foton...",
+        "uploadSuccess": "Fotografia u ngarkua me sukses!",
+        "uploadError": "Fotografia nuk u ngarkua me sukses!"
       },
       "skillsAndHobbies": {
         "header": "Aftesi & Hobi",
