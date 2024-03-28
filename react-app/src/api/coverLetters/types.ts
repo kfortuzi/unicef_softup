@@ -30,6 +30,12 @@ export type GetCoverLetterRequest = {
   id: string;
 };
 
+export type PostCoverLetterForJobRequest = {
+  jobId: string;
+};
+
+export type PostCoverLetterForJobResponse = BaseResponse;
+
 export type GetCoverLetterResponse = BaseResponse;
 
 export type GetCoverLettersResponse = BaseResponse[];

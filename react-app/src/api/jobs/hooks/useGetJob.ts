@@ -8,7 +8,7 @@ const useGetJob = (req: GetJobRequest) => {
   return useQuery({
     queryKey: [Keys.GET_JOB, req.id],
     queryFn: () => getJob(req),
-    refetchOnMount: false,
+    refetchOnMount: true,
   });
 };
 

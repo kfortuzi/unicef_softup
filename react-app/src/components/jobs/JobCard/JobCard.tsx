@@ -1,35 +1,68 @@
-import { BankOutlined, EnvironmentOutlined, FileSearchOutlined, HourglassOutlined } from '@ant-design/icons';
-import { Card, Image } from 'antd';
+import { BankOutlined, EnvironmentOutlined, FileSearchOutlined } from '@ant-design/icons';
+import { Card, Dropdown, Image, MenuProps } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import Button from 'src/components/common/Button/Button';
+import usePostCoverLetterForJob from 'src/api/coverLetters/hooks/usePostCoverLetterForJob';
 
 type JobCardProps = {
-  jobId: number;
-  position: string;
+  jobId: string;
+  referenceId: number;
+  title: string;
   description?: string;
   companyName: string;
   location: string;
 };
 
-const JobCard: React.FC<JobCardProps> = ({ jobId, position, description, companyName, location }) => {
+const JobCard: React.FC<JobCardProps> = ({
+  jobId,
+  title,
+  description,
+  companyName,
+  location,
+  referenceId,
+}) => {
   const { t } = useTranslation('translation', { keyPrefix: 'jobs' });
-  const navigate = useNavigate();
-  const openInAkpa = (jobId: number) => {
-    const win = window.open(`https://www.puna.gov.al/job/${jobId}`, '_blank');
+  const openInAkpa = (referenceId: number) => {
+    const win = window.open(`https://www.puna.gov.al/job/${referenceId}`, '_blank');
     if (win) {
       win.focus();
     }
   };
+
+  const { mutate: postCoverLetterForJob } = usePostCoverLetterForJob();
+
+  const getPreparedItems: MenuProps['items'] = [
+    //will implement this later
+    {
+      key: 'tailorResumeButton',
+      label: (
+        <Button
+          type="link"
+          text={t('tailorResumeButtonText')}
+        />
+      ),
+    },
+    {
+      key: 'generateCoverLetterButton',
+      label: (
+        <Button
+          type="link"
+          onClick={() => postCoverLetterForJob({ jobId })}
+          text={t('generateCoverLetterButtonText')}
+        />
+      ),
+    },
+  ];
 
   return (
     <div className="job-card-container">
       <Card className="job-card-body">
         <div className="metadata">
           <div>
-            <h3 className="position">{position}</h3>
+            <h3 className="position">{title}</h3>
             {description && (
               <p className="job-description-group">
                 <FileSearchOutlined />
@@ -56,16 +89,18 @@ const JobCard: React.FC<JobCardProps> = ({ jobId, position, description, company
               <Button
                 type="link"
                 className="apply"
-                onClick={() => openInAkpa(jobId)}
+                onClick={() => openInAkpa(referenceId)}
                 text={t('applyButtonText')}
                 size="middle"
               />
 
-              <Button
-                type="primary"
-                text={t('getPreparedButtonText')}
-                size="middle"
-              />
+              <Dropdown menu={{ items: getPreparedItems }}>
+                <Button
+                  type="primary"
+                  text={t('getPreparedButtonText')}
+                  size="middle"
+                />
+              </Dropdown>
             </div>
           </div>
         </div>
@@ -73,8 +108,8 @@ const JobCard: React.FC<JobCardProps> = ({ jobId, position, description, company
           <Image
             preview={false}
             className="logo"
-            width={200}
-            src="/src/assets/images/logo.png"
+            width={40}
+            src="/akpa.ico"
           />
         </div>
       </Card>

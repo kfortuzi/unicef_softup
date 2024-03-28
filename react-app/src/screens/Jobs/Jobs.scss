@@ -1,6 +1,14 @@
 .jobs-container {
+  display: flex;
+  flex-direction: column;
+  padding: $large;
+
+  .load-more-button {
+    align-self: center;
+  }
   .col-job-card {
     padding-left: 0 !important;
+    height: auto;
   }
   .recommended-jobs {
     border: 3px solid $primary-color;
@@ -13,6 +21,7 @@
     margin: $large 0;
   }
   .list-of-jobs {
+    display: flex;
     padding: $medium;
     margin-bottom: $large;
 

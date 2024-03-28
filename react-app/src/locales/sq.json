@@ -300,8 +300,23 @@
       "allJobs": "Te gjitha punet",
       "viewDetails": "Shiko Detajet",
       "applyButtonText": "Apliko",
+      "loadMoreButtonText": "Ngarko me shume",
       "getPreparedButtonText": "Pergatitu per intervisten",
-      "viewDetailsButtonText": "Shiko detajet"
+      "viewDetailsButtonText": "Shiko detajet",
+      "tailorResumeButtonText": "Përshtatni CV-në",
+      "generateCoverLetterButtonText": "Gjeneroni Letër Motivimi"
+    },
+    "jobDetails": {
+      "title": "Titulli",
+      "company": "Kompania",
+      "location": "Vendndodhja",
+      "address": "Adresa",
+      "vacantPositions": "Pozicionet e lira",
+      "dateStart": "Data e fillimit",
+      "dateEnd": "Data e perfundimit",
+      "description": "Pershkrimi",
+      "skillLines": "Aftesite",
+      "experience": "Eksperienca"
     }
   }
 }

@@ -24,7 +24,7 @@ export type Language = {
   isNative: boolean;
 };
 
-export type Certification = {
+export type Certificate = {
   name: string;
   receivedDate: string;
   expirationDate?: string;
@@ -41,6 +41,31 @@ export type Publication = {
   name: string;
   releaseDate: string;
   link?: string;
+};
+
+type BaseResponse = {
+  id: string;
+  email: string;
+  firstName?: string;
+  lastName?: string;
+  profilePicture?: string;
+  nationality?: string;
+  linkedinUrl?: string;
+  location?: string;
+  phoneNumber?: string;
+  summary?: string;
+  educations?: Education[];
+  experiences?: WorkExperience[];
+  languages?: Language[];
+  digitalSkills?: string[];
+  technicalSkills?: string[];
+  softSkills?: string[];
+  hobbies?: string[];
+  certificates?: Certificate[];
+  volunteering?: Volunteering[];
+  publications?: Publication[];
+  drivingLicences?: string[];
+  referenceId?: boolean;
 };
 
 export type PostResumeRequest = {
@@ -60,7 +85,7 @@ export type PostResumeRequest = {
   technicalSkills?: string[];
   softSkills?: string[];
   hobbies?: string[];
-  certifications?: Certification[];
+  certificates?: Certificate[];
   volunteering?: Volunteering[];
   publications?: Publication[];
   drivingLicences?: string[];
@@ -84,16 +109,24 @@ export type PatchResumeRequest = {
   softSkills?: string[];
   technicalSkills?: string[];
   hobbies?: string[];
-  certifications?: Certification[];
+  certificates?: Certificate[];
   volunteering?: Volunteering[];
   publications?: Publication[];
   drivingLicences?: string[];
 };
 
-export type PatchResumeResponse = PostResumeRequest;
+export type GetResumeRequest = {
+  id: string;
+};
+
+export type GetResumesRequest = null;
+
+export type GetResumesResponse = BaseResponse[];
+
+export type PatchResumeResponse = BaseResponse;
 
 export type PostResumeResponse = PostResumeRequest;
 
-export type GetResumeResponse = PostResumeRequest;
+export type GetResumeResponse = BaseResponse;
 
 //#endregion

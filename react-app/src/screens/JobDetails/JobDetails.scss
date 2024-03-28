@@ -1,16 +1,26 @@
 .job-details-container {
   display: flex;
   flex-direction: column;
-  gap: $small;
+  gap: $medium;
   padding: $large;
   margin: $large;
   border: 5px solid $primary-color;
   border-radius: 35px;
 
+  .job-main-details {
+    display: flex;
+    flex-direction: column;
+    gap: $small;
+  }
+
   h2,
   p,
   h3 {
     margin: 0;
+  }
+
+  .data-name {
+    font-family: $karla-bold;
   }
 
   .job-details {

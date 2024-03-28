@@ -1,13 +1,34 @@
 export type BaseResponse = {
   id: string;
-  userId: string;
-  to: string;
+  title: string;
+  description: string;
+  address: string;
+  location: string;
+  type: string;
+  tags: string;
   company: string;
-  companyAddress: string;
-  content: string;
-  createdAt: string;
-  updatedAt?: string;
-  deletedAt?: string;
+  companyLogo: string;
+  createdAt: Date;
+  contractDuration: number;
+  suitableForDisabilities: boolean;
+  vacantPositions: number;
+  basicSkills: string;
+  communicationSkill: boolean;
+  computerSkills: string;
+  dateEnd: Date;
+  dateStart: Date;
+  deletedAt: Date;
+  educationType: string;
+  experience: string;
+  foreignLanguage: string;
+  isUnavailable: boolean;
+  needDrivingLicense: boolean;
+  paymentLevel: string;
+  skillLines: string;
+  skills: string;
+  specializations: string;
+  updatedAt: Date;
+  referenceId: number;
 };
 
 export type PostJobRequest = {
@@ -27,8 +48,15 @@ export type PatchJobRequest = {
 };
 
 export type GetJobRequest = {
-  id: string;
+  id?: string;
 };
+
+export type GetJobRequests = {
+  take: number;
+  cursor?: string;
+};
+
+export type GetRecommendedJobsResponse = BaseResponse[];
 
 export type GetJobResponse = BaseResponse;
 
