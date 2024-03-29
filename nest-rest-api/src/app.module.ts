@@ -17,6 +17,7 @@ import { OpenAIModule } from './openai/openai.module';
 import { ResumeModule } from './resume/resume.module';
 import { CoverLetterModule } from './coverletter/coverletter.module';
 import { WizardModule } from './wizard/wizard.module';
+import { AssetModule } from './asset/asset.module';
 
 @Module({
   imports: [
@@ -44,6 +45,7 @@ import { WizardModule } from './wizard/wizard.module';
     ResumeModule,
     CoverLetterModule,
     WizardModule,
+    AssetModule,
   ],
   controllers: [AppController, MailController],
   providers: [AppService, SendgridService, MailService],
