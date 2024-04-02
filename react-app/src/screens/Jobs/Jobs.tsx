@@ -32,56 +32,54 @@ const Jobs: React.FC = () => {
         className="list-of-jobs recommended-jobs"
         gutter={[32, 32]}
       >
-        {recommendedJobs &&
-          recommendedJobs.map((job) => (
-            <Col
-              className="col-job-card"
-              key={'recommended' + job.id}
-              xxl={8}
-              xl={12}
-              lg={24}
-              md={24}
-              sm={24}
-              xs={24}
-            >
-              <JobCard
-                jobId={job.id}
-                referenceId={job.referenceId}
-                title={job.title}
-                description={job.description}
-                companyName={job.company}
-                location={job.location}
-              />
-            </Col>
-          ))}
+        {recommendedJobs?.map((job) => (
+          <Col
+            className="col-job-card"
+            key={'recommended' + job.id}
+            xxl={8}
+            xl={12}
+            lg={24}
+            md={24}
+            sm={24}
+            xs={24}
+          >
+            <JobCard
+              jobId={job.id}
+              referenceId={job.referenceId}
+              title={job.title}
+              description={job.description}
+              companyName={job.company}
+              location={job.location}
+            />
+          </Col>
+        ))}
       </Row>
       <h2 className="category">{t('allJobs')}</h2>
       <Row
         className="list-of-jobs"
         gutter={[32, 32]}
       >
-        {jobs &&
-          jobs.map((job) => (
-            <Col
-              key={job.id}
-              className="col-job-card"
-              xxl={8}
-              xl={12}
-              lg={24}
-              md={24}
-              sm={24}
-              xs={24}
-            >
-              <JobCard
-                jobId={job.id}
-                referenceId={job.referenceId}
-                title={job.title}
-                description={job.description}
-                companyName={job.company}
-                location={job.location}
-              />
-            </Col>
-          ))}
+        {jobs?.map((job) => (
+          <Col
+            key={job.id}
+            className="col-job-card"
+            xxl={8}
+            xl={12}
+            lg={24}
+            md={24}
+            sm={24}
+            xs={24}
+          >
+            <JobCard
+              jobId={job.id}
+              referenceId={job.referenceId}
+              title={job.title}
+              description={job.description}
+              companyName={job.company}
+              location={job.location}
+            />
+          </Col>
+        ))}
       </Row>
       <Button
         className="load-more-button"

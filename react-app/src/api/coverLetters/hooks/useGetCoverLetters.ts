@@ -7,7 +7,7 @@ const useGetCoverLetters = () => {
   return useQuery({
     queryKey: [Keys.GET_COVER_LETTERS],
     queryFn: getCoverLetters,
-    refetchOnMount: false,
+    refetchOnMount: true,
   });
 };
 

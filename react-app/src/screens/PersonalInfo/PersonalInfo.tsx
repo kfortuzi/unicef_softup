@@ -23,7 +23,7 @@ const PersonalInfo: React.FC = () => {
 
   const uploadProps: UploadProps = {
     name: 'file',
-    action: `${config.API_BASE_URL}/user/uploadFile`,
+    action: `${config.API_BASE_URL}/user/upload-photo`,
     headers: {
       authorization: `Bearer ${getItem<string>(LocalStorageKey.USER_SESSION_TOKEN) || ''}`,
     },

@@ -34,6 +34,34 @@ export type PostCoverLetterForJobRequest = {
   jobId: string;
 };
 
+export type DeleteCoverLetterRequest = {
+  id: string;
+};
+
+export type PostCoverLetterAskWizardRequest = {
+  message: string;
+  content?: string;
+};
+
+export type PostCoverLetterAskWizardResponse = {
+  message: string;
+};
+
+export type GetCoverLetterAskWizardResponse = {
+  message: string;
+};
+
+export type PostCoverLetterWizardRequest = {
+  title: string;
+  company: string;
+  companyAddress: string;
+  toPerson: string;
+  motive: string;
+  topic: string;
+};
+
+export type PostCoverLetterWizardResponse = BaseResponse;
+
 export type PostCoverLetterForJobResponse = BaseResponse;
 
 export type GetCoverLetterResponse = BaseResponse;

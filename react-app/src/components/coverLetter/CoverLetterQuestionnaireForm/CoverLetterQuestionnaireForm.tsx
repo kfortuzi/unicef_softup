@@ -1,24 +1,28 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
+import usePostCoverLetterWizard from 'src/api/coverLetters/hooks/usePostCoverLetterWizard';
 import Button from 'src/components/common/Button/Button';
 import InputTextArea from 'src/components/common/InputTextArea/InputTextArea';
 import i18n from 'src/locales';
 
 import { defaultValues } from './constants';
 import { FormField } from './enums';
+import validationSchema from './validation';
 
 const CoverLetterQuestionnaireForm: React.FC = () => {
-  const { id } = useParams();
-
-  const { handleSubmit, control, setValue } = useForm({
+  const { t } = useTranslation('translation', { keyPrefix: 'coverLetterDetails' });
+  const { mutate: postCoverLetterWizard } = usePostCoverLetterWizard();
+  const { handleSubmit, control } = useForm({
     defaultValues: defaultValues,
+    resolver: yupResolver(validationSchema),
     shouldFocusError: true,
   });
 
   const submitForm = handleSubmit((data) => {
-    //sumbit form logic
+    postCoverLetterWizard(data);
   });
 
   return (
@@ -26,91 +30,97 @@ const CoverLetterQuestionnaireForm: React.FC = () => {
       <form onSubmit={submitForm}>
         <Controller
           control={control}
-          name={FormField.POSITION}
-          render={({ field: { name, value, onChange, ref } }) => (
+          name={FormField.TITLE}
+          render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
             <InputTextArea
               inputRef={ref}
               name={name}
               value={value}
+              error={error?.message}
               onChange={onChange}
-              placeholder={'Experience'}
+              placeholder={t('title')}
               className="input-textarea"
-              label="Position"
+              label={t('title')}
             />
           )}
         />
         <Controller
           control={control}
           name={FormField.COMPANY}
-          render={({ field: { name, value, onChange, ref } }) => (
+          render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
             <InputTextArea
               inputRef={ref}
               name={name}
               value={value}
+              error={error?.message}
               onChange={onChange}
-              placeholder={'Company'}
+              placeholder={t('company')}
               className="input-textarea"
-              label="Company"
+              label={t('company')}
             />
           )}
         />
         <Controller
           control={control}
-          name={FormField.PERSON_NAME}
-          render={({ field: { name, value, onChange, ref } }) => (
+          name={FormField.TO_PERSON}
+          render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
             <InputTextArea
               inputRef={ref}
               name={name}
               value={value}
+              error={error?.message}
               onChange={onChange}
-              placeholder={'Person Name'}
+              placeholder={t('to')}
               className="input-textarea"
-              label="Person Name"
+              label={t('to')}
             />
           )}
         />
         <Controller
           control={control}
           name={FormField.COMPANY_ADDRESS}
-          render={({ field: { name, value, onChange, ref } }) => (
+          render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
             <InputTextArea
               inputRef={ref}
               name={name}
               value={value}
+              error={error?.message}
               onChange={onChange}
-              placeholder={'Company Address'}
+              placeholder={t('companyAddress')}
               className="input-textarea"
-              label="Company Address"
+              label={t('companyAddress')}
             />
           )}
         />
         <Controller
           control={control}
           name={FormField.MOTIVE}
-          render={({ field: { name, value, onChange, ref } }) => (
+          render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
             <InputTextArea
               inputRef={ref}
               name={name}
               value={value}
+              error={error?.message}
               onChange={onChange}
-              placeholder={'Motive'}
+              placeholder={t('motive')}
               className="input-textarea"
-              label="Motive"
+              label={t('motive')}
             />
           )}
         />
         <Controller
           control={control}
-          name={FormField.TOPICS}
-          render={({ field: { name, value, onChange, ref } }) => (
+          name={FormField.TOPIC}
+          render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
             <InputTextArea
               inputRef={ref}
               name={name}
               value={value}
+              error={error?.message}
               onChange={onChange}
-              placeholder={'Topics'}
+              placeholder={t('topic')}
               className="input-textarea"
-              label="Topics"
+              label={t('topic')}
             />
           )}
         />

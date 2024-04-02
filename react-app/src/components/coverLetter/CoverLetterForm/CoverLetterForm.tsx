@@ -1,23 +1,33 @@
-import TextArea from 'antd/es/input/TextArea';
+import { yupResolver } from '@hookform/resolvers/yup';
 import React, { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
 import useGetCoverLetter from 'src/api/coverLetters/hooks/useGetCoverLetter';
 import usePatchCoverLetter from 'src/api/coverLetters/hooks/usePatchCoverLetter';
-import { GetCoverLetterRequest, GetCoverLetterResponse } from 'src/api/coverLetters/types';
+import usePostCoverLetterAskWizard from 'src/api/coverLetters/hooks/usePostCoverLetterAskWizard';
+import { GetCoverLetterResponse } from 'src/api/coverLetters/types';
 import AskWizardModal from 'src/components/common/AskWizardModal/AskWizardModal';
 import Drawer from 'src/components/common/Drawer/Drawer';
 import InputText from 'src/components/common/InputText/InputText';
+import TextArea from 'src/components/common/InputTextArea/InputTextArea';
 
+import { defaultValues } from './constants';
 import { FormField } from './enums';
+import validationSchema from './validation';
 
 const CoverLetterForm: React.FC = () => {
   const { id } = useParams();
-  const { data: coverLetter, isFetched } = useGetCoverLetter({ id } as GetCoverLetterRequest);
+  const { t } = useTranslation('translation', { keyPrefix: 'coverLetterDetails' });
+  const { data: coverLetter, isFetched } = useGetCoverLetter({ id } as GetCoverLetterResponse);
   const { mutate: patchCoverLetter, isPending } = usePatchCoverLetter();
+  const { mutateAsync: postCoverLetterAskWizardAsync } = usePostCoverLetterAskWizard();
+  const [contentLoading, setContentLoading] = React.useState(false);
 
-  const { handleSubmit, control, setValue, reset } = useForm({
+  const { handleSubmit, control, setValue, reset, getValues } = useForm({
+    resolver: yupResolver(validationSchema),
+    defaultValues: defaultValues,
     shouldFocusError: true,
   });
 
@@ -31,37 +41,53 @@ const CoverLetterForm: React.FC = () => {
     patchCoverLetter({ id, ...data } as GetCoverLetterResponse);
   });
 
-  const handleAutoGenerate = () => {
-    //ask to the ai and take the response and set it to the content
+  const handleAutoGenerate = async () => {
+    setContentLoading(true);
+    const data = await postCoverLetterAskWizardAsync({ message: getValues(FormField.CONTENT) || '' });
 
-    setValue(FormField.CONTENT, 'asdasd');
+    if (data) {
+      setValue(FormField.CONTENT, data, { shouldDirty: true });
+    }
+    setContentLoading(false);
   };
 
-  const handleResponseOnClick = (text: string) => {
-    //ask to the ai and take the response and set it to the content
+  const handleUseResponseOnClick = async (text: string) => {
+    setValue(FormField.CONTENT, text, { shouldDirty: true });
+  };
 
-    setValue(FormField.CONTENT, text);
+  const handleSendMessageOnClick = async (text: string): Promise<string | undefined> => {
+    const data = await postCoverLetterAskWizardAsync({
+      message: getValues(FormField.CONTENT) || '',
+      content: text,
+    });
+
+    if (data) {
+      return data;
+    }
   };
 
   return (
     <Drawer
       submitForm={submitForm}
       isPending={isPending}
-      title="Cover Letter"
+      title={t('header')}
+      width={600}
+      key={`cover-letter-form-${id}`}
     >
       <form onSubmit={submitForm}>
         <div className="cover-letter-form">
           <Controller
             control={control}
             name={FormField.TO}
-            render={({ field: { name, value, onChange, ref } }) => (
+            render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
               <InputText
-                label="To"
+                label={t('to')}
                 inputRef={ref}
                 name={name}
                 value={value}
+                error={error?.message}
                 onChange={onChange}
-                placeholder={'To'}
+                placeholder={t('to')}
                 className="input-element"
               />
             )}
@@ -69,14 +95,15 @@ const CoverLetterForm: React.FC = () => {
           <Controller
             control={control}
             name={FormField.COMPANY}
-            render={({ field: { name, value, onChange, ref } }) => (
+            render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
               <InputText
-                label="Company"
+                label={t('company')}
                 inputRef={ref}
                 name={name}
                 value={value}
+                error={error?.message}
                 onChange={onChange}
-                placeholder={'Company'}
+                placeholder={t('company')}
                 className="input-element"
               />
             )}
@@ -84,38 +111,40 @@ const CoverLetterForm: React.FC = () => {
           <Controller
             control={control}
             name={FormField.COMPANY_ADDRESS}
-            render={({ field: { name, value, onChange, ref } }) => (
+            render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
               <InputText
-                label="Company Address"
+                label={t('companyAddress')}
                 inputRef={ref}
                 name={name}
-                value={value}
+                value={value || ''}
+                error={error?.message}
                 onChange={onChange}
-                placeholder={'Company Address'}
+                placeholder={t('companyAddress')}
               />
             )}
           />
           <Controller
             control={control}
             name={FormField.CONTENT}
-            render={({ field: { name, value, onChange, ref } }) => (
-              <div>
-                <p>Content</p>
-                <TextArea
-                  ref={ref}
-                  name={name}
-                  value={value}
-                  onChange={onChange}
-                  placeholder={'Content'}
-                  className="input-element"
-                />
-              </div>
+            render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
+              <TextArea
+                label={t('content')}
+                inputRef={ref}
+                name={name}
+                value={contentLoading ? t('loading') : value || ''}
+                error={error?.message}
+                onChange={onChange}
+                disabled={contentLoading}
+                placeholder={t('content')}
+                rows={30}
+                className="input-element"
+              />
             )}
           />
           <AskWizardModal
-            content={coverLetter?.content || ''}
             autoGenerateOnClick={handleAutoGenerate}
-            responseOnClick={handleResponseOnClick}
+            useOnClick={handleUseResponseOnClick}
+            sendMessageOnclick={handleSendMessageOnClick}
           />
         </div>
       </form>

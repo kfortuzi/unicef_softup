@@ -5,7 +5,7 @@ import { PatchCoverLetterRequest, PatchCoverLetterResponse } from '../types';
 export const patchCoverLetter = async (
   request: PatchCoverLetterRequest,
 ): Promise<PatchCoverLetterResponse | undefined> => {
-  const parsedData = makeRequest<PatchCoverLetterResponse>(`/cover-letter/${request.id}`, {
+  const parsedData = makeRequest<PatchCoverLetterResponse>(`/cover-letters/${request.id}`, {
     method: 'PATCH',
     body: JSON.stringify(request),
   });

@@ -2,10 +2,10 @@ import { BankOutlined, EnvironmentOutlined, FileSearchOutlined } from '@ant-desi
 import { Card, Dropdown, Image, MenuProps } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-import Button from 'src/components/common/Button/Button';
 import usePostCoverLetterForJob from 'src/api/coverLetters/hooks/usePostCoverLetterForJob';
+import Button from 'src/components/common/Button/Button';
 
 type JobCardProps = {
   jobId: string;
@@ -25,6 +25,7 @@ const JobCard: React.FC<JobCardProps> = ({
   referenceId,
 }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'jobs' });
+  const navigate = useNavigate();
   const openInAkpa = (referenceId: number) => {
     const win = window.open(`https://www.puna.gov.al/job/${referenceId}`, '_blank');
     if (win) {
@@ -32,10 +33,12 @@ const JobCard: React.FC<JobCardProps> = ({
     }
   };
 
-  const { mutate: postCoverLetterForJob } = usePostCoverLetterForJob();
+  const { mutate: postCoverLetterForJob, isPending, isSuccess, data } = usePostCoverLetterForJob();
+  if (isSuccess) {
+    navigate(`/cover-letters/${data?.id}`);
+  }
 
   const getPreparedItems: MenuProps['items'] = [
-    //will implement this later
     {
       key: 'tailorResumeButton',
       label: (
@@ -51,6 +54,7 @@ const JobCard: React.FC<JobCardProps> = ({
         <Button
           type="link"
           onClick={() => postCoverLetterForJob({ jobId })}
+          loading={isPending}
           text={t('generateCoverLetterButtonText')}
         />
       ),
@@ -99,6 +103,7 @@ const JobCard: React.FC<JobCardProps> = ({
                   type="primary"
                   text={t('getPreparedButtonText')}
                   size="middle"
+                  loading={isPending}
                 />
               </Dropdown>
             </div>

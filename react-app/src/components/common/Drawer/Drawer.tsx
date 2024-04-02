@@ -29,11 +29,16 @@ const Drawer: React.FC<Props> = ({ title, children, submitForm, isPending, ...re
     slideResumeLeft(true);
   };
 
+  const handleSubmit = () => {
+    submitForm();
+    onClose();
+  };
+
   return (
     <>
       <Button
         type="primary"
-        text="Edit"
+        text={i18n.t('globalStrings.edit')}
         onClick={showDrawer}
         className="edit-button"
         icon={<EditOutlined />}
@@ -56,7 +61,7 @@ const Drawer: React.FC<Props> = ({ title, children, submitForm, isPending, ...re
               type="primary"
               text={i18n.t('globalStrings.submit')}
               htmlType="submit"
-              onClick={submitForm}
+              onClick={handleSubmit}
               loading={isPending}
             />
             <Button

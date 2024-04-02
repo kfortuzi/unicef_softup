@@ -218,7 +218,8 @@
       "submit": "Dergo",
       "cancel": "Anullo",
       "edit": "Ndrysho",
-      "download": "Shkarko"
+      "download": "Shkarko",
+      "required":"{{field}} eshte i detyrueshem"
     },
     "notFound": {
       "title": "Faqja qe po kerkoni nuk u gjet!",
@@ -293,6 +294,32 @@
       "delete": "Fshi",
       "edit": "Edito",
       "lastUpdated": "Perditesimi i fundit"
+    },
+    "coverLetterDetails": {
+      "header": "Letra e motivimit",
+      "title": "Titulli",
+      "to": "Per",
+      "company": "Kompania",
+      "companyAddress": "Adresa e kompanise",
+      "motive": "Motivi",
+      "topic": "Tema",
+      "content": "Permbajtja",
+      "loading": "Te lutem prit...",
+      "createSuccessMessage": "Letra e motivimit u ruajt me sukses!",
+      "createErrorMessage": "Letra e motivimit nuk u ruajt me sukses!",
+      "updateSuccessMessage": "Letra e motivimit u perditesua me sukses!",
+      "updateErrorMessage": "Letra e motivimit nuk u perditesua me sukses!",
+      "deleteSuccessMessage": "Letra e motivimit u fshi me sukses!",
+      "deleteErrorMessage": "Letra e motivimit nuk u fshi me sukses!"
+    },
+    "askWizardModal":{
+      "header": "Pyet Magjistrin",
+      "enhanceWithAiButtonText": "Përmirëso me AI",
+      "autoGenerateButtonText": "Gjenero automatikisht",
+      "askWizardButtonText": "Pyet magjistrin",
+      "askWizardPlaceholder": "Pyet Magjistrin",
+      "useButtonText": "Përdor",
+      "aiFirstMessage": "Përshëndetje, unë jam një magjistar. Si mund t'ju ndihmoj?"
     },
     "jobs": {
       "header": "Punet",

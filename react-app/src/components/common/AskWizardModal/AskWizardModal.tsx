@@ -1,81 +1,108 @@
 import { RightOutlined, RobotOutlined, UserOutlined } from '@ant-design/icons';
-import { Dropdown, MenuProps, Modal, Typography } from 'antd';
-import React, { useState } from 'react';
+import { Dropdown, MenuProps, Modal, Typography, Button as AntButton } from 'antd';
+import Search from 'antd/es/input/Search';
+import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 import Button from '../Button/Button';
-import InputText from '../InputText/InputText';
 
 type Message = {
   text: string;
   type: string;
+  isUsable: boolean;
 };
 
 type AskWizardModalProps = {
   autoGenerateOnClick: VoidFunction;
-  responseOnClick: (text: string) => void;
-  //content can be used to set the initial value of the input
-  content: string;
+  sendMessageOnclick: (message: string) => Promise<string | undefined>;
+  useOnClick: (message: string, content?: string) => void;
 };
 
-const AskWizardModal: React.FC<AskWizardModalProps> = ({ responseOnClick, content, autoGenerateOnClick }) => {
+const AskWizardModal: React.FC<AskWizardModalProps> = ({
+  sendMessageOnclick,
+  useOnClick,
+  autoGenerateOnClick,
+}) => {
   const { control, setValue } = useForm();
+  const { t } = useTranslation('translation', { keyPrefix: 'askWizardModal' });
+
   const [messages, setMessages] = useState([] as Message[]);
-  const askWizard = (text: string) => {
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const askWizard = async (text: string) => {
+    setLoading(true);
+    const systemMessage = await sendMessageOnclick(text);
+    setLoading(false);
+
     const userMessage = { text: text, type: 'user' } as Message;
-    const aiMessage = { text: "I'm not that smart right now", type: 'ai' } as Message;
+    const aiMessage = { text: systemMessage, type: 'ai', isUsable: true } as Message;
 
     setMessages([...messages, userMessage, aiMessage]);
   };
 
+  useEffect(() => {
+    setMessages([{ text: t('aiFirstMessage'), type: 'ai', isUsable: false }]);
+  }, []);
+
   const items: MenuProps['items'] = [
     {
-      key: '1',
-      label: <a onClick={() => autoGenerateOnClick()}>Auto generate</a>,
+      key: 'dropdown-auto-generate-button',
+      label: <a onClick={() => autoGenerateOnClick()}>{t('autoGenerateButtonText')}</a>,
     },
     {
-      key: '2',
-      label: <a onClick={() => setOpen(true)}>Ask wizard</a>,
+      key: 'dropdown-ask-wizard-button',
+      label: <a onClick={() => setOpen(true)}>{t('askWizardButtonText')}</a>,
     },
   ];
 
-  const [open, setOpen] = useState(false);
-
   return (
-    <>
+    <div>
       <Dropdown
+        key={'ask-wizard-dropdown'}
         menu={{ items }}
-        placement="bottom"
+        placement="bottomLeft"
         trigger={['click']}
-        className="ai-button-group"
+        overlayStyle={{ width: 300 }}
       >
-        <Button
-          text="Enhance with AI"
+        <AntButton
           icon={<RobotOutlined />}
           type="primary"
-        />
+        >
+          {t('enhanceWithAiButtonText')}
+        </AntButton>
       </Dropdown>
       <Modal
-        title="Ask Wizard"
+        title={t('header')}
         centered
         open={open}
         onOk={() => setOpen(false)}
         onCancel={() => setOpen(false)}
         width={1000}
+        key={'ask-wizard-modal'}
         footer={[
           <Controller
             control={control}
-            name="content"
+            name="chat"
+            key={'ask-wizard-input'}
             render={({ field: { onChange, value, ref } }) => (
-              <InputText
-                placeholder="Ask Wizard"
-                inputRef={ref}
-                name="Ask Wizard"
+              <Search
+                placeholder={t('askWizardPlaceholder')}
+                enterButton={t('askWizardButtonText')}
+                loading={loading}
+                ref={ref}
+                name="chat"
+                disabled={loading}
                 value={value}
                 onChange={onChange}
-                onPressEnter={() => {
-                  askWizard(value);
-                  setValue('content', '');
+                onPressEnter={async () => {
+                  await askWizard(value);
+                  setValue('chat', '');
+                }}
+                onSearch={async () => {
+                  await askWizard(value);
+                  setValue('chat', '');
                 }}
                 suffix={<RightOutlined />}
               />
@@ -94,7 +121,7 @@ const AskWizardModal: React.FC<AskWizardModalProps> = ({ responseOnClick, conten
       >
         <div className="ask-wizard-messages">
           {messages.map((message, i) => (
-            <div>
+            <div key={`message-${i}`}>
               <div
                 className={`ask-wizard-message ${message.type === 'ai' ? 'ai' : 'user'}`}
                 style={{ flexDirection: message.type === 'ai' ? 'row' : 'row-reverse' }}
@@ -107,13 +134,15 @@ const AskWizardModal: React.FC<AskWizardModalProps> = ({ responseOnClick, conten
                   <div className="ask-wizard-message-text">
                     <Typography.Paragraph>{message.text}</Typography.Paragraph>
                   </div>
-                  {message.type === 'ai' && (
+                  {message.type === 'ai' && message.isUsable && (
                     <div className="ask-wizard-button-group">
                       <Button
-                        text="Use"
+                        text={t('useButtonText')}
                         type="primary"
                         onClick={() => {
-                          responseOnClick(message.text);
+                          // eslint-disable-next-line react-hooks/rules-of-hooks
+                          useOnClick(message.text);
+                          setOpen(false);
                         }}
                       />
                     </div>
@@ -124,7 +153,7 @@ const AskWizardModal: React.FC<AskWizardModalProps> = ({ responseOnClick, conten
           ))}
         </div>
       </Modal>
-    </>
+    </div>
   );
 };
 

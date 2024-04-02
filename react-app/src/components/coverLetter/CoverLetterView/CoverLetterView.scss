@@ -1,32 +1,38 @@
 .cover-letter-layout {
   display: flex;
-  width: 70%;
+  width: 60%;
   flex-flow: column nowrap;
   gap: $small;
   margin: $large;
   height: 100%;
 
   .slide-container {
-    border: 1px solid black;
-    transform: translateX(20%);
+    border: 1px solid $primary-color;
+    border-radius: 1px;
+    transform: translateX(30%);
     transition: transform 0.5s;
+    box-shadow: $suggested-box-shadow;
+    background-color: white;
   }
 
   .cover-letter-personal-info {
     display: flex;
     flex-direction: column;
     gap: $medium;
-    background-color: whitesmoke;
-    border-bottom: 1px solid black;
+    border-bottom: 2px solid $primary-color;
     padding: $medium;
 
     .cover-letter-personal-info-title {
       font-size: $large;
-      color: $link-color;
+      h2 {
+        margin: $small;
+        margin-block: $medium;
+      }
+      color: $primary-color;
     }
 
     .cover-letter-personal-info-icon {
-      color: $link-color;
+      color: $primary-color;
       margin: $small;
     }
 

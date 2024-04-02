@@ -5,23 +5,23 @@ import { useTranslation } from 'react-i18next';
 import queryClient from 'src/clients/reactQuery';
 
 import Keys from '../keys';
-import postCoverLetterForJob from '../requests/postCoverLetterForJob';
+import deleteCoverLetter from '../requests/deleteCoverLetter';
 
-const usePostCoverLetterForJob = () => {
+const useDeleteCoverLetter = () => {
   const { message } = App.useApp();
   const { t } = useTranslation('translation', { keyPrefix: 'coverLetterDetails' });
 
   return useMutation({
-    mutationKey: [Keys.POST_COVER_LETTER_FOR_JOB],
-    mutationFn: postCoverLetterForJob,
+    mutationKey: [Keys.DELETE_COVER_LETTER],
+    mutationFn: deleteCoverLetter,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [Keys.GET_COVER_LETTERS] });
-      message.success(t('createSuccessMessage'));
+      message.success(t('deleteSuccessMessage'));
     },
     onError: () => {
-      message.error(t('createErrorMessage'));
+      message.error(t('deleteErrorMessage'));
     },
   });
 };
 
-export default usePostCoverLetterForJob;
+export default useDeleteCoverLetter;

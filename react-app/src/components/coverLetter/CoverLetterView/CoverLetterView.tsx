@@ -2,16 +2,20 @@ import { PhoneOutlined, UserOutlined, MailOutlined } from '@ant-design/icons';
 import { useParams } from 'react-router-dom';
 
 import useGetCoverLetter from 'src/api/coverLetters/hooks/useGetCoverLetter';
-import { GetCoverLetterRequest, GetCoverLetterResponse } from 'src/api/coverLetters/types';
+import { GetCoverLetterRequest } from 'src/api/coverLetters/types';
 import useGetProfile from 'src/api/users/hooks/useGetProfile';
+import LoadingFullPage from 'src/components/common/LoadingFullPage/LoadingFullPage';
 
 import CoverLetterForm from '../CoverLetterForm/CoverLetterForm';
 
 const CoverLetterView: React.FC = () => {
   const { id } = useParams() as GetCoverLetterRequest;
-  const { data: getCoverLetter } = useGetCoverLetter({ id });
+  const { data: coverLetter, isFetching } = useGetCoverLetter({ id });
   const { data: user } = useGetProfile();
-  const coverLetter = getCoverLetter as GetCoverLetterResponse;
+
+  if (isFetching) {
+    return <LoadingFullPage />;
+  }
 
   return (
     <div className="cover-letter-layout">
@@ -31,7 +35,7 @@ const CoverLetterView: React.FC = () => {
             </p>
             <p>
               <PhoneOutlined className="cover-letter-personal-info-icon" />
-              {`${user?.phoneNumber}`}
+              {`${user?.phoneNumber || 'N/A'}`}
             </p>
           </div>
         </div>

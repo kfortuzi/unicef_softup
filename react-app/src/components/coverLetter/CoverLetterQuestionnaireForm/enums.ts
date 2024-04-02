@@ -1,8 +1,8 @@
 export enum FormField {
-  POSITION = 'position',
+  TITLE = 'title',
   COMPANY = 'company',
-  PERSON_NAME = 'personName',
+  TO_PERSON = 'toPerson',
   COMPANY_ADDRESS = 'companyAddress',
   MOTIVE = 'motive',
-  TOPICS = 'topics',
+  TOPIC = 'topic',
 }

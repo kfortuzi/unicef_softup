@@ -8,6 +8,7 @@ import {
   Param,
   Delete,
   Patch,
+  Res,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -22,6 +23,7 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { RequestWithUser } from 'src/types/request';
 import { CoverLetterDto } from './dto/cover-letter-dto';
 import { MessageDto } from 'src/chatbot/dto/message.dto';
+import { Response } from 'express';
 
 @Controller('cover-letters')
 export class CoverLetterController {
@@ -139,10 +141,10 @@ export class CoverLetterController {
   async askWizardCoverLetter(
     @Request() req: RequestWithUser,
     @Body() body: MessageDto,
-  ) {
-    return await this.coverLetter.askWizardCoverLetter(
-      req.user.id,
-      body.message,
+    @Res() res: Response,
+  ): Promise<Response<any>> {
+    return res.json(
+      await this.coverLetter.askWizardCoverLetter(req.user.id, body.message),
     );
   }
 }

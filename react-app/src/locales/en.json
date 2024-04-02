@@ -224,7 +224,8 @@
       "submit": "Submit",
       "cancel": "Cancel",
       "edit": "Edit",
-      "download": "Download"
+      "download": "Download",
+      "required":"{{field}} is required"
     },
     "notFound": {
       "title": "The page you are looking for was not found!",
@@ -299,6 +300,32 @@
       "delete": "Dele",
       "edit": "Edit",
       "lastUpdated": "Last updated"
+    },
+    "coverLetterDetails": {
+      "header": "Cover Letter",
+      "title": "Title",
+      "to": "To",
+      "company": "Company",
+      "companyAddress": "Company Address",
+      "motive": "Motive",
+      "topic": "Topic",
+      "content": "Content",
+      "loading": "Please wait...",
+      "createSuccessMessage": "Cover letter was saved successfully!",
+      "createErrorMessage": "Failed to save cover letter!",
+      "updateSuccessMessage": "Cover letter was updated successfully!",
+      "updateErrorMessage": "Failed to update cover letter!",
+      "deleteSuccessMessage": "Cover letter was deleted successfully!",
+      "deleteErrorMessage": "Failed to delete cover letter!"
+    },
+    "askWizardModal":{
+      "header": "Ask Wizard",
+      "enhanceWithAiButtonText": "Enhance with AI",
+      "autoGenerateButtonText": "Auto Generate",
+      "askWizardButtonText": "Ask Wizard",
+      "askWizardPlaceholder": "Ask Wizard",
+      "useButtonText": "Use",
+      "aiFirstMessage": "Hello, I am a wizard. How can I help you?"
     },
     "jobs": {
       "header": "Open Job Positions",
