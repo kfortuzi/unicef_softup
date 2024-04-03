@@ -89,14 +89,14 @@ export class CoverLetterService {
         jobData,
       );
       if (generatedCoverLetter !== null) {
-        return this.mapOutputData(generatedCoverLetter, userId);
+        return this.mapOutputData(generatedCoverLetter, userId, jobId);
       }
     } catch (error) {
       throw new Error(`${error}`);
     }
   }
 
-  mapOutputData(data: string, userId: string) {
+  mapOutputData(data: string, userId: string, jobId?: string) {
     const datas = JSON.parse(data);
     return this.coverLetterRepository.createCoverLetter({
       to: datas.to,
@@ -106,6 +106,11 @@ export class CoverLetterService {
       user: {
         connect: { id: userId },
       },
+      job: jobId
+        ? {
+            connect: { id: jobId },
+          }
+        : undefined,
     });
   }
 
