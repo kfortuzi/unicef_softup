@@ -18,6 +18,7 @@ import {
 } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { RequestWithUser } from 'src/types/request';
+import { JobTipsDto } from './dto/job-tips.dto';
 
 @Controller('jobs')
 export class JobController {
@@ -78,14 +79,15 @@ export class JobController {
   @ApiTags('jobs')
   @UseGuards(JwtAuthGuard)
   @ApiResponse({
+    type: JobTipsDto,
     description: 'Jobs details retrieved successfully',
   })
   @ApiForbiddenResponse({ status: 403, description: 'Forbidden.' })
-  @Post('tips-and-advices')
+  @Post(':id/tips-and-advices')
   async getTipsAndInterviewQuestions(
-    @Query('title') title: string,
+    @Param('id') id: string,
     @Request() req: RequestWithUser,
   ) {
-    return this.jobService.getTipsAndInterviewQuestions(title, req.user.id);
+    return this.jobService.getTipsAndInterviewQuestions(id, req.user.id);
   }
 }

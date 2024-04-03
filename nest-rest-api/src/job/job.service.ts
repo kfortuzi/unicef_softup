@@ -7,6 +7,7 @@ import { ChatCompletionMessageParam } from 'openai/resources';
 import { AkpaModels } from 'src/openai/models';
 import { AkpaPrompts } from 'src/openai/promptContent';
 import { OpenAIService } from 'src/openai/openai.service';
+import { JobTipsDto } from './dto/job-tips.dto';
 
 @Injectable()
 export class JobService {
@@ -79,11 +80,16 @@ export class JobService {
     return this.jobRepository.updateTagsJob(id, tags);
   }
 
-  async getTipsAndInterviewQuestions(jobTitle: string, userId: string) {
+  async getTipsAndInterviewQuestions(
+    jobId: string,
+    userId: string,
+  ): Promise<JobTipsDto> {
     try {
-      const tips = await this.getJobTips(jobTitle, userId);
+      const job = await this.jobRepository.findOneById(jobId);
+      if (!job) throw new NotFoundException({ message: 'Job not found!' });
+      const tips = await this.getJobTips(job.title, userId);
       const interviewQuestions = await this.getJobCommonInterviewQuestion(
-        jobTitle,
+        job.title,
         userId,
       );
       return {
@@ -96,22 +102,26 @@ export class JobService {
   }
 
   async getJobTips(jobTitle: string, userId: string) {
-    const messages: ChatCompletionMessageParam[] = [
-      {
-        role: 'system',
-        content: AkpaPrompts.consuelingCareerPrompt,
-      },
-      {
-        role: 'user',
-        content: jobTitle,
-      },
-    ];
-    return this.openAIService.generateCompletion(
-      messages,
-      AkpaModels.CHAT,
-      userId,
-      'TipsAndAdvices',
-    );
+    try {
+      const messages: ChatCompletionMessageParam[] = [
+        {
+          role: 'system',
+          content: AkpaPrompts.consuelingCareerPrompt,
+        },
+        {
+          role: 'user',
+          content: jobTitle,
+        },
+      ];
+      return this.openAIService.generateCompletion(
+        messages,
+        AkpaModels.CHAT,
+        userId,
+        'TipsAndAdvices',
+      );
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
   }
 
   async getJobCommonInterviewQuestion(jobTitle: string, userId: string) {
