@@ -86,7 +86,24 @@ export class ResumeService {
   }
 
   async findAllResumes(userId: string) {
-    return this.resumeRepository.findAll(userId);
+    const resumes = await this.resumeRepository.findAll(userId);
+    if (!resumes || resumes.length === 0) {
+      throw new NotFoundException(`Resumes for user not found`);
+    }
+
+    const updatedResumes = await Promise.all(
+      resumes.map(async (resume) => {
+        if (resume.profilePicture) {
+          const resumePicture = await this.resumePhotogeneratePresignedUrl(
+            resume.profilePicture,
+          );
+          return { ...resume, profilePicture: resumePicture };
+        }
+        return resume;
+      }),
+    );
+
+    return updatedResumes;
   }
 
   async findResumeById(id: string, userId: string) {
@@ -95,12 +112,15 @@ export class ResumeService {
       throw new NotFoundException(`Resume with ID "${id}" not found`);
     }
     if (resume.profilePicture) {
-      const resumePicture = await this.s3Service.generatePresignedUrl(
+      resume.profilePicture = await this.resumePhotogeneratePresignedUrl(
         resume.profilePicture,
       );
-      resume.profilePicture = resumePicture;
     }
     return resume;
+  }
+
+  resumePhotogeneratePresignedUrl(photoKey: string) {
+    return this.s3Service.generatePresignedUrl(photoKey);
   }
 
   async updateResume(id: string, userId: string, data: ResumeDto) {
