@@ -1,14 +1,14 @@
 import { Controller, Request, Post, UseGuards } from '@nestjs/common';
-import { LocalAuthGuard } from './auth/local-auth.guard';
-import { AuthService } from './auth/auth.service';
+import { LocalAuthGuard } from './modules/auth/local-auth.guard';
+import { AuthService } from './modules/auth/auth.service';
 import {
   ApiBody,
   ApiCreatedResponse,
   ApiForbiddenResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { LoginAuthDto } from './auth/dto/login-auth.dto';
-import { Auth } from './auth/entities/auth.entity';
+import { LoginAuthDto } from './modules/auth/dto/login-auth.dto';
+import { Auth } from './modules/auth/entities/auth.entity';
 
 @Controller()
 export class AppController {

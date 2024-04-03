@@ -82,4 +82,8 @@ asset-api/pnpm-debug.log*
 asset-api/yarn-debug.log*
 asset-api/yarn-error.log*
 asset-api/build
+asset-api/.env
+asset-api/.env.*
+asset-api/*/.env.*
+
 .env

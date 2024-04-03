@@ -48,6 +48,7 @@
     "dayjs": "^1.11.10",
     "dayjs-plugin-utc": "^0.1.2",
     "file-type": "^19.0.0",
+    "jsonrepair": "^3.6.1",
     "nestjs-pino": "^3.5.0",
     "openai": "^4.28.0",
     "passport": "^0.6.0",

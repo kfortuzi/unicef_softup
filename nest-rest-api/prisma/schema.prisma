@@ -1,10 +1,12 @@
 generator client {
   provider = "prisma-client-js"
+
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  
 }
 
 model users {
@@ -76,9 +78,9 @@ model resumes {
   educations     Json?
   experiences    Json?
   languages      Json?
-  digitalSkills  String?         @map("digital_skills")
-  softSkills     String?         @map("soft_skills")
-  hobbies        String?
+  digitalSkills  String[]         @map("digital_skills") @default([])
+  softSkills     String[]         @map("soft_skills") @default([])
+  hobbies        String[]         @default([])
   certificates   Json?
   volunteering   Json?
   publications   Json?

@@ -1,21 +1,21 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthModule } from './auth/auth.module';
-import { UserModule } from './user/user.module';
-import { PrismaModule } from './commons/prisma/prisma.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { UserModule } from './modules/user/user.module';
+import { PrismaModule } from './modules/commons/prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
-import { CaslModule } from './casl/casl.module';
+import { CaslModule } from './modules/casl/casl.module';
 import { LoggerModule } from 'nestjs-pino';
-import { LoggerMiddleware } from './logger/logger.middleware';
-import { JobModule } from './job/job.module';
-import { ChatbotModule } from './chatbot/chatbot.module';
-import { OpenAIModule } from './openai/openai.module';
-import { ResumeModule } from './resume/resume.module';
-import { CoverLetterModule } from './coverletter/coverletter.module';
-import { WizardModule } from './wizard/wizard.module';
-import { AssetModule } from './asset/asset.module';
-import { SesService } from './ses/ses.service';
+import { LoggerMiddleware } from './modules/logger/logger.middleware';
+import { JobModule } from './modules/job/job.module';
+import { ChatbotModule } from './modules/chatbot/chatbot.module';
+import { OpenAIModule } from './modules/openai/openai.module';
+import { ResumeModule } from './modules/resume/resume.module';
+import { CoverLetterModule } from './modules/coverletter/coverletter.module';
+import { WizardModule } from './modules/wizard/wizard.module';
+import { AssetModule } from './modules/asset/asset.module';
+import { SesService } from './modules/ses/ses.service';
 import { Config } from 'config';
 
 @Module({
