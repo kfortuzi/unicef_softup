@@ -8,6 +8,11 @@ export type Education = {
   endDate?: string;
 };
 
+export type AskWizardMessage = {
+  message: string;
+  content: string;
+};
+
 export type WorkExperience = {
   position: string;
   company: string;
@@ -57,14 +62,14 @@ type BaseResponse = {
   educations?: Education[];
   experiences?: WorkExperience[];
   languages?: Language[];
-  digitalSkills?: string[];
-  technicalSkills?: string[];
-  softSkills?: string[];
-  hobbies?: string[];
+  digitalSkills?: string;
+  technicalSkills?: string;
+  softSkills?: string;
+  hobbies?: string;
   certificates?: Certificate[];
   volunteering?: Volunteering[];
   publications?: Publication[];
-  drivingLicences?: string[];
+  drivingLicense?: string;
   referenceId?: boolean;
 };
 
@@ -81,14 +86,14 @@ export type PostResumeRequest = {
   educations?: Education[];
   experiences?: WorkExperience[];
   languages?: Language[];
-  digitalSkills?: string[];
-  technicalSkills?: string[];
-  softSkills?: string[];
-  hobbies?: string[];
+  digitalSkills?: string;
+  technicalSkills?: string;
+  softSkills?: string;
+  hobbies?: string;
   certificates?: Certificate[];
   volunteering?: Volunteering[];
   publications?: Publication[];
-  drivingLicences?: string[];
+  drivingLicense?: string;
 };
 
 export type PatchResumeRequest = {
@@ -105,19 +110,35 @@ export type PatchResumeRequest = {
   educations?: Education[];
   experiences?: WorkExperience[];
   languages?: Language[];
-  digitalSkills?: string[];
-  softSkills?: string[];
-  technicalSkills?: string[];
-  hobbies?: string[];
+  digitalSkills?: string;
+  softSkills?: string;
+  technicalSkills?: string;
+  hobbies?: string;
   certificates?: Certificate[];
   volunteering?: Volunteering[];
   publications?: Publication[];
-  drivingLicences?: string[];
+  drivingLicense?: string;
 };
 
 export type GetResumeRequest = {
   id: string;
 };
+
+export type PostResumSummaryRequest = WorkExperience;
+
+export type PostResumSummaryResponse = string;
+
+export type PostResumeResponsibilityRequest = WorkExperience | string;
+
+export type PostResumeResponsibilityResponse = string;
+
+export type PostResumeSummaryRequest = WorkExperience[];
+
+export type PostResumeSummaryResponse = string;
+
+export type PostResumeAskWizardRequest = AskWizardMessage;
+
+export type PostResumeAskWizardResponse = string;
 
 export type GetResumesRequest = null;
 

@@ -12,6 +12,7 @@ import Drawer from 'src/components/common/Drawer/Drawer';
 import InputDatePicker from 'src/components/common/InputDatePicker/InputDatePicker';
 import InputText from 'src/components/common/InputText/InputText';
 import dateTimeFormats from 'src/constants/dateTimeFormats';
+import { getBaseCvId } from 'src/helpers/baseCvStorage';
 
 import { defaultValues } from './constants';
 import { FormField } from './enums';
@@ -42,7 +43,7 @@ const VolunteeringForm: React.FC<VolunteeringProps> = (props) => {
 
   const { mutate: patchResume, isPending } = usePatchResume();
   const submitForm = handleSubmit((values) =>
-    patchResume({ id: '', volunteering: values.volunteering as Volunteering[] }),
+    patchResume({ id: getBaseCvId(), volunteering: values.volunteering as Volunteering[] }),
   );
 
   const items: CollapseProps['items'] = fields.map((field, index) => {
@@ -121,14 +122,12 @@ const VolunteeringForm: React.FC<VolunteeringProps> = (props) => {
               />
             )}
           />
-          {index > 0 && (
-            <Button
-              type="default"
-              text={t('removeButtonTitle')}
-              onClick={() => remove(index)}
-              className="add-remove-volunteering-button"
-            />
-          )}
+          <Button
+            type="default"
+            text={t('removeButtonTitle')}
+            onClick={() => remove(index)}
+            className="add-remove-volunteering-button"
+          />
         </div>
       ),
     };

@@ -142,7 +142,7 @@ export class CoverLetterController {
     @Request() req: RequestWithUser,
     @Body() body: MessageDto,
     @Res() res: Response,
-  ): Promise<Response<any>> {
+  ) {
     return res.json(
       await this.coverLetter.askWizardCoverLetter(req.user.id, body.message),
     );

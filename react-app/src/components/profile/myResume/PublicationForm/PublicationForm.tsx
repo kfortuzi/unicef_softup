@@ -12,6 +12,7 @@ import Drawer from 'src/components/common/Drawer/Drawer';
 import InputDatePicker from 'src/components/common/InputDatePicker/InputDatePicker';
 import InputText from 'src/components/common/InputText/InputText';
 import dateTimeFormats from 'src/constants/dateTimeFormats';
+import { getBaseCvId } from 'src/helpers/baseCvStorage';
 
 import { defaultValues } from './constants';
 import { FormField } from './enums';
@@ -42,7 +43,7 @@ const PublicationsForm: React.FC<PublicationsProps> = (props) => {
 
   const { mutate: patchResume, isPending } = usePatchResume();
   const submitForm = handleSubmit((values) =>
-    patchResume({ id: '', publications: values.publications as Publication[] }),
+    patchResume({ id: getBaseCvId(), publications: values.publications as Publication[] }),
   );
 
   const items: CollapseProps['items'] = fields.map((field, index) => {
@@ -102,14 +103,12 @@ const PublicationsForm: React.FC<PublicationsProps> = (props) => {
               />
             )}
           />
-          {index > 0 && (
-            <Button
-              type="default"
-              text={t('removeButtonTitle')}
-              onClick={() => remove(index)}
-              className="add-remove-publication-button"
-            />
-          )}
+          <Button
+            type="default"
+            text={t('removeButtonTitle')}
+            onClick={() => remove(index)}
+            className="add-remove-publication-button"
+          />
         </div>
       ),
     };

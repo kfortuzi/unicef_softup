@@ -25,10 +25,7 @@ const validationSchema = {
 };
 
 const fieldsValidationSchema = object().shape({
-  educations: array()
-    .of(object<Education>().shape(validationSchema))
-    .required('Must have fields')
-    .min(1, 'Minimum of 1 field'),
+  educations: array().of(object<Education>().shape(validationSchema)).required('Must have fields'),
 });
 
 export default fieldsValidationSchema;

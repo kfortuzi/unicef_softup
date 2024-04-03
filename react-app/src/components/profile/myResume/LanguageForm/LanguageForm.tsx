@@ -10,23 +10,24 @@ import Button from 'src/components/common/Button/Button';
 import Drawer from 'src/components/common/Drawer/Drawer';
 import InputSelect from 'src/components/common/InputSelect/InputSelect';
 import InputText from 'src/components/common/InputText/InputText';
+import { getBaseCvId } from 'src/helpers/baseCvStorage';
 
 import { defaultValues, languageLevels } from './constants';
 import { FormField } from './enums';
 import fieldsValidationSchema from './validation';
 
 interface LanguagesProps {
-  languages: Language[];
+  languages?: Language[];
 }
 
 const LanguagesForm: React.FC<LanguagesProps> = (props) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.languagesSection' });
   const { handleSubmit, control, watch } = useForm({
     defaultValues: {
-      languages: props.languages,
+      languages: props.languages || [],
     },
     resolver: yupResolver(fieldsValidationSchema),
-    shouldFocusError: true,
+    shouldFocusError: false,
   });
 
   const { fields, append, remove } = useFieldArray({
@@ -40,7 +41,7 @@ const LanguagesForm: React.FC<LanguagesProps> = (props) => {
 
   const { mutate: patchResume, isPending } = usePatchResume();
   const submitForm = handleSubmit((values) =>
-    patchResume({ id: '', languages: values.languages as Language[] }),
+    patchResume({ id: getBaseCvId(), languages: values.languages as Language[] }),
   );
 
   const items: CollapseProps['items'] = fields.map((field, index) => {
@@ -139,14 +140,12 @@ const LanguagesForm: React.FC<LanguagesProps> = (props) => {
               />
             </>
           )}
-          {index > 0 && (
-            <Button
-              type="default"
-              text={t('removeButtonTitle')}
-              onClick={() => remove(index)}
-              className="add-remove-language-button"
-            />
-          )}
+          <Button
+            type="default"
+            text={t('removeButtonTitle')}
+            onClick={() => remove(index)}
+            className="add-remove-language-button"
+          />
         </div>
       ),
     };

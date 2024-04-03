@@ -35,7 +35,7 @@
 
   .list-line {
     margin: -12px 0 -15px 2px;
-    width: 4px;
+    min-width: 4px;
     height: auto;
     border-radius: 4px;
     background-color: blue;

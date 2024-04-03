@@ -10,7 +10,12 @@ const PublicationItem: React.FC<PublicationItemProps> = (props) => {
       <p className="publication-text">{name}</p>
       <p className="publication-text">&#8226;</p>
       <p className="publication-text">{releaseDate}</p>
-      <p className="publication-text">{link}</p>
+      <a
+        href={link}
+        className="publication-text"
+      >
+        {link}
+      </a>
     </div>
   );
 };

@@ -35,6 +35,13 @@
     display: flex;
     width: 70%;
 
+    .contact-section {
+      display: flex;
+      flex-direction: column;
+      background-color: #c5c5c5;
+      align-items: center;
+    }
+
     .content-section {
       display: flex;
       flex: 1;

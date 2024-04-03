@@ -2,17 +2,25 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import type { CollapseProps } from 'antd';
 import { Collapse } from 'antd';
 import dayjs from 'dayjs';
+import { useEffect, useState } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import usePatchResume from 'src/api/resumes/hooks/usePatchResume';
+import usePostResumeAskWizard from 'src/api/resumes/hooks/usePostResumeAskWizard';
+import usePostResumeResponsibility from 'src/api/resumes/hooks/usePostResumeResponsibility';
 import { WorkExperience } from 'src/api/resumes/types';
+import AskWizardModal from 'src/components/common/AskWizardModal/AskWizardModal';
 import Button from 'src/components/common/Button/Button';
 import Drawer from 'src/components/common/Drawer/Drawer';
 import InputDatePicker from 'src/components/common/InputDatePicker/InputDatePicker';
 import InputText from 'src/components/common/InputText/InputText';
+import InputTextArea from 'src/components/common/InputTextArea/InputTextArea';
 import dateTimeFormats from 'src/constants/dateTimeFormats';
+import { getBaseCvId } from 'src/helpers/baseCvStorage';
+import i18n from 'src/locales';
 
+import { defaultValues } from './constants';
 import { FormField } from './enums';
 import fieldsValidationSchema from './validation';
 
@@ -22,9 +30,18 @@ interface WorkExperiencesProps {
 
 const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.workExperiencesSection' });
-  const { handleSubmit, control, setValue } = useForm({
+  const [contentLoading, setContentLoading] = useState(false);
+  const { mutateAsync: postResumeResponsibilityAsync } = usePostResumeResponsibility();
+  const { mutateAsync: postResumeAskWizardAsync } = usePostResumeAskWizard();
+  const {
+    handleSubmit,
+    control,
+    setValue,
+    getValues,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
-      experiences: props.workExperiences,
+      experiences: props.workExperiences || [],
     },
     resolver: yupResolver(fieldsValidationSchema),
     shouldFocusError: true,
@@ -36,19 +53,47 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
   });
 
   const addExperience = () => {
-    append({
-      [FormField.POSITION]: '',
-      [FormField.COMPANY]: '',
-      [FormField.START_DATE]: '',
-      [FormField.END_DATE]: '',
-      [FormField.RESPONSIBILITIES]: '',
-    });
+    append(defaultValues);
   };
 
   const { mutate: patchResume, isPending } = usePatchResume();
   const submitForm = handleSubmit((values) =>
-    patchResume({ id: '', experiences: values.experiences as WorkExperience[] }),
+    patchResume({ id: getBaseCvId(), experiences: values.experiences as WorkExperience[] }),
   );
+
+  const handleAutoGenerate = async (field: WorkExperience, index: number) => {
+    setContentLoading(true);
+    const responsibilitiesValue = getValues(`experiences.${index}.${FormField.RESPONSIBILITIES}`);
+    const data = await postResumeResponsibilityAsync({ ...field, responsibilities: responsibilitiesValue });
+
+    if (data) {
+      setValue(`experiences.${index}.${FormField.RESPONSIBILITIES}`, data, { shouldDirty: true });
+    }
+    setContentLoading(false);
+  };
+
+  const handleUseResponseOnClick = async (text: string, index: number) => {
+    setValue(`experiences.${index}.${FormField.RESPONSIBILITIES}`, text, { shouldDirty: true });
+  };
+
+  const handleSendMessageOnClick = async (text: string, index: number): Promise<string | undefined> => {
+    const data = await postResumeAskWizardAsync({
+      message: getValues(`experiences.${index}.${FormField.RESPONSIBILITIES}`) || '',
+      content: text,
+    });
+
+    if (data) {
+      return data;
+    }
+  };
+
+  const [activeKeys, setActiveKeys] = useState<string[]>();
+
+  useEffect(() => {
+    if (errors && errors.experiences) {
+      setActiveKeys(fields.map((field) => field.id));
+    }
+  }, [errors, fields]);
 
   const items: CollapseProps['items'] = fields.map((field, index) => {
     return {
@@ -90,21 +135,6 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
           />
           <Controller
             control={control}
-            name={`experiences.${index}.${FormField.RESPONSIBILITIES}`}
-            render={({ field: { name, value, onChange, ref } }) => (
-              <InputText
-                label={t('responsibilities')}
-                inputRef={ref}
-                name={name}
-                value={value || ''}
-                onChange={onChange}
-                placeholder={t('responsibilities')}
-                className="input-element"
-              />
-            )}
-          />
-          <Controller
-            control={control}
             name={`experiences.${index}.${FormField.START_DATE}`}
             render={({ field: { name, value, ref }, fieldState: { error } }) => (
               <InputDatePicker
@@ -115,7 +145,7 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
                 error={error?.message}
                 value={value ? dayjs(value) : undefined}
                 onChange={(dateObject) => {
-                  setValue(name, dateObject.format(dateTimeFormats.backendDate));
+                  setValue(name, dateObject?.format(dateTimeFormats.backendDate));
                 }}
                 format={dateTimeFormats.albanianDate}
                 className="input-element"
@@ -134,21 +164,41 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
                 error={error?.message}
                 value={value ? dayjs(value) : undefined}
                 onChange={(dateObject) => {
-                  setValue(name, dateObject.format(dateTimeFormats.backendDate));
+                  setValue(name, dateObject?.format(dateTimeFormats.backendDate));
                 }}
                 format={dateTimeFormats.albanianDate}
                 className="input-element"
               />
             )}
           />
-          {index > 0 && (
-            <Button
-              type="default"
-              text={t('removeButtonTitle')}
-              onClick={() => remove(index)}
-              className="add-remove-experience-button"
-            />
-          )}
+          <Controller
+            control={control}
+            name={`experiences.${index}.${FormField.RESPONSIBILITIES}`}
+            render={({ field: { name, value, onChange, ref } }) => (
+              <InputTextArea
+                label={t('responsibilities')}
+                inputRef={ref}
+                name={name}
+                value={contentLoading ? i18n.t('globalStrings.loading') : value || ''}
+                disabled={contentLoading}
+                rows={3}
+                onChange={onChange}
+                placeholder={t('responsibilities')}
+                className="input-element"
+              />
+            )}
+          />
+          <AskWizardModal
+            autoGenerateOnClick={() => handleAutoGenerate(field, index)}
+            useOnClick={(text: string) => handleUseResponseOnClick(text || '', index)}
+            sendMessageOnclick={(text: string) => handleSendMessageOnClick(text || '', index)}
+          />
+          <Button
+            type="default"
+            text={t('removeButtonTitle')}
+            onClick={() => remove(index)}
+            className="add-remove-experience-button"
+          />
         </div>
       ),
     };
@@ -162,9 +212,10 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
     >
       <form onSubmit={submitForm}>
         <Collapse
-          accordion
           items={items}
           defaultActiveKey={fields[0]?.id}
+          onChange={(keys) => setActiveKeys(keys as string[])}
+          activeKey={activeKeys}
         />
       </form>
       <Button

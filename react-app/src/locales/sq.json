@@ -74,11 +74,7 @@
         "lastName": "Mbiemri",
         "phoneNumber": "Telefoni",
         "profession": "Profesioni",
-        "birthdayDate": "Data e lindjes",
-        "changePhotoButtonText": "Ndrysho Foton e Profilit",
-        "uploading": "Duke ngarkuar foton...",
-        "uploadSuccess": "Fotografia u ngarkua me sukses!",
-        "uploadError": "Fotografia nuk u ngarkua me sukses!"
+        "birthdayDate": "Data e lindjes"
       },
       "skillsAndHobbies": {
         "header": "Aftesi & Hobi",
@@ -104,14 +100,18 @@
         "editResume": "Ndrysho CV-në",
         "deleteResume": "Fshi CV-në",
         "submit": "Ruaj",
-        "success": "CV u ruajt me sukses!",
-        "error": "CV nuk u ruajt me sukses!",
+        "createSuccessMessage": "CV u krijua me sukses!",
+        "createErrorMessage": "CV nuk u krijua me sukses!",
+        "deleteSuccessMessage": "CV u fshi me sukses!",
+        "deleteErrorMessage": "CV nuk u fshi me sukses!",
+        "updateSuccessMessage": "CV u perditesua me sukses!",
+        "updateErrorMessage": "CV nuk u perditesua me sukses!",
         "aboutMeSection": {
           "header": "Rreth meje",
           "aboutMe": "Rreth meje",
           "placeholder": "Pershkruani veten tuaj"
         },
-        "certificationsSection": {
+        "certificatesSection": {
           "headerPlural": "Certifikimet",
           "headerSingular": "Certifikimi",
           "addButtonTitle": "Shto",
@@ -127,7 +127,8 @@
           "email": "Email",
           "phoneNumber": "Telefoni",
           "address": "Adresa",
-          "linkedin": "LinkedIn"
+          "linkedin": "LinkedIn",
+          "profilePicture": "Fotoja e profilit"
         },
         "educationAndTrainingsSection": {
           "headerPlural": "Arsimimi & Trajnimet",
@@ -219,7 +220,11 @@
       "cancel": "Anullo",
       "edit": "Ndrysho",
       "download": "Shkarko",
-      "required":"{{field}} eshte i detyrueshem"
+      "required":"{{field}} eshte i detyrueshem",
+      "changePhotoButtonText": "Ndrysho Foton e Profilit",
+      "uploading": "Duke ngarkuar foton...",
+      "uploadSuccess": "Fotoja u ngarkua me sukses",
+      "uploadError": "Fotoja nuk u ngarkua me sukses"
     },
     "notFound": {
       "title": "Faqja qe po kerkoni nuk u gjet!",

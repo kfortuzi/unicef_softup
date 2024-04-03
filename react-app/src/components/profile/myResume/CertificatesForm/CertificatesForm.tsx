@@ -6,41 +6,42 @@ import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import usePatchResume from 'src/api/resumes/hooks/usePatchResume';
-import { Certification } from 'src/api/resumes/types';
+import { Certificate } from 'src/api/resumes/types';
 import Button from 'src/components/common/Button/Button';
 import Drawer from 'src/components/common/Drawer/Drawer';
 import InputDatePicker from 'src/components/common/InputDatePicker/InputDatePicker';
 import InputText from 'src/components/common/InputText/InputText';
 import dateTimeFormats from 'src/constants/dateTimeFormats';
+import { getBaseCvId } from 'src/helpers/baseCvStorage';
 
 import { defaultValues } from './constants';
 import { FormField } from './enums';
 import fieldsValidationSchema from './validation';
 
-type CertificationsFormProps = {
-  certifications?: Certification[];
+type CertificatesFormProps = {
+  certificates?: Certificate[];
 };
 
-const CertificationsForm: React.FC<CertificationsFormProps> = (props) => {
-  const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.certificationsSection' });
+const CertificatesForm: React.FC<CertificatesFormProps> = (props) => {
+  const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.certificatesSection' });
   const { handleSubmit, control, setValue } = useForm({
-    defaultValues: { certifications: props.certifications || [] },
+    defaultValues: { certificates: props.certificates || [] },
     resolver: yupResolver(fieldsValidationSchema),
     shouldFocusError: true,
   });
 
   const { fields, append, remove } = useFieldArray({
-    name: 'certifications',
+    name: 'certificates',
     control,
   });
 
-  const addCertification = () => {
+  const addCertificate = () => {
     append(defaultValues);
   };
 
   const { mutate: patchResume, isPending } = usePatchResume();
   const submitForm = handleSubmit((values) => {
-    patchResume({ id: '', certifications: values.certifications });
+    patchResume({ id: getBaseCvId(), certificates: values.certificates });
   });
 
   const items: CollapseProps['items'] = fields.map((field, index) => {
@@ -51,7 +52,7 @@ const CertificationsForm: React.FC<CertificationsFormProps> = (props) => {
         <div className="input-element-container">
           <Controller
             control={control}
-            name={`certifications.${index}.${FormField.NAME}`}
+            name={`certificates.${index}.${FormField.NAME}`}
             render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
               <InputText
                 label={t('name')}
@@ -66,7 +67,7 @@ const CertificationsForm: React.FC<CertificationsFormProps> = (props) => {
           />
           <Controller
             control={control}
-            name={`certifications.${index}.${FormField.RECEIVED_DATE}`}
+            name={`certificates.${index}.${FormField.RECEIVED_DATE}`}
             render={({ field: { name, value, ref }, fieldState: { error } }) => (
               <InputDatePicker
                 label={t('receivedDate')}
@@ -85,7 +86,7 @@ const CertificationsForm: React.FC<CertificationsFormProps> = (props) => {
           />
           <Controller
             control={control}
-            name={`certifications.${index}.${FormField.EXPIRATION_DATE}`}
+            name={`certificates.${index}.${FormField.EXPIRATION_DATE}`}
             render={({ field: { name, value, ref } }) => (
               <InputDatePicker
                 label={t('expirationDate')}
@@ -101,14 +102,12 @@ const CertificationsForm: React.FC<CertificationsFormProps> = (props) => {
               />
             )}
           />
-          {index > 0 && (
-            <Button
-              type="default"
-              text={t('removeButtonTitle')}
-              onClick={() => remove(index)}
-              className="add-remove-certification-button"
-            />
-          )}
+          <Button
+            type="default"
+            text={t('removeButtonTitle')}
+            onClick={() => remove(index)}
+            className="add-remove-certificate-button"
+          />
         </div>
       ),
     };
@@ -129,12 +128,12 @@ const CertificationsForm: React.FC<CertificationsFormProps> = (props) => {
         <Button
           type="default"
           text={t('addButtonTitle')}
-          onClick={addCertification}
-          className="add-remove-certification-button"
+          onClick={addCertificate}
+          className="add-remove-certificate-button"
         />
       </form>
     </Drawer>
   );
 };
 
-export default CertificationsForm;
+export default CertificatesForm;

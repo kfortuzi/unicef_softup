@@ -10,6 +10,7 @@ import {
   Patch,
   UploadedFile,
   UseInterceptors,
+  Res,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -26,6 +27,7 @@ import { ExperienceDto, ResumeDto } from './dto/resume.dto';
 import { ResumeWizardDto } from './dto/resume-wizard.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { MessageDto } from 'src/chatbot/dto/message.dto';
+import { Response } from 'express';
 
 @Controller('resumes')
 export class ResumeController {
@@ -119,15 +121,18 @@ export class ResumeController {
   async generateSummary(
     @Request() req: RequestWithUser,
     @Body() experiences: ExperienceDto[],
+    @Res() res: Response,
   ) {
-    return this.resumeService.generateSummary(req.user.id, experiences);
+    return res.json(
+      await this.resumeService.generateSummary(req.user.id, experiences),
+    );
   }
 
   @ApiBearerAuth()
   @ApiTags('resumes')
   @UseGuards(JwtAuthGuard)
   @Post('responsibility')
-  @ApiBody({ type: ExperienceDto })
+  @ApiBody({ type: [ExperienceDto] })
   @ApiCreatedResponse({
     description: 'The responsibilities have been successfully created.',
   })
@@ -135,8 +140,11 @@ export class ResumeController {
   async generateResponsibility(
     @Request() req: RequestWithUser,
     @Body() experiences: string,
+    @Res() res: Response,
   ) {
-    return this.resumeService.generateResponsibility(req.user.id, experiences);
+    return res.json(
+      await this.resumeService.generateResponsibility(req.user.id, experiences),
+    );
   }
 
   @ApiBearerAuth()
@@ -180,8 +188,11 @@ export class ResumeController {
     @UploadedFile() file: Express.Multer.File,
     @Param('id') id: string,
     @Request() req: RequestWithUser,
+    @Res() res: Response,
   ) {
-    return this.resumeService.uploadResumePicture(file, id, req.user.id);
+    return res.json(
+      this.resumeService.uploadResumePicture(file, id, req.user.id),
+    );
   }
 
   @ApiBearerAuth()
@@ -195,7 +206,10 @@ export class ResumeController {
   async askWizardResume(
     @Request() req: RequestWithUser,
     @Body() body: MessageDto,
+    @Res() res: Response,
   ) {
-    return await this.resumeService.askWizardResume(req.user.id, body.message);
+    return res.json(
+      await this.resumeService.askWizardResume(req.user.id, body.message),
+    );
   }
 }

@@ -73,11 +73,7 @@
         "lastName": "Last Name",
         "phoneNumber": "Phone",
         "profession": "Profession",
-        "birthdayDate": "Birthday Date",
-        "changePhotoButtonText": "Change Photo",
-        "uploading": "Uploading...",
-        "uploadSuccess": "Photo was uploaded successfully!",
-        "uploadError": "Failed to upload photo!"
+        "birthdayDate": "Birthday Date"
       },
       "skillsAndHobbies": {
         "header": "Skills & Hobbies",
@@ -108,18 +104,22 @@
         "editResume": "Edit Resume",
         "deleteResume": "Delete Resume",
         "submit": "Save",
-        "success": "Resume was saved successfully!",
-        "error": "Failed to save resume!",
         "educationAndTraining": "Education & Training",
         "workExperience": "Work Experience",
+        "createSuccessMessage": "Your resume was created successfully!",
+        "createErrorMessage": "Failed to create resume!",
+        "deleteSuccessMessage": "Your resume was deleted successfully!",
+        "deleteErrorMessage": "Failed to delete resume!",
+        "updateSuccessMessage": "Your resume was updated successfully!",
+        "updateErrorMessage": "Failed to update resume!",
         "aboutMeSection": {
           "header": "About Me",
           "aboutMe": "About Me",
           "placeholder": "Write a few words about yourself..."
         },
-        "certificationsSection": {
-          "headerSingular": "Certification",
-          "headerPlural": "Certifications",
+        "certificatesSection": {
+          "headerSingular": "Certificate",
+          "headerPlural": "Certificates",
           "addButtonTitle": "Add",
           "removeButtonTitle": "Remove",
           "name": "Name",
@@ -133,7 +133,8 @@
           "email": "Email",
           "phoneNumber": "Phone Number",
           "address": "Address",
-          "linkedin": "LinkedIn"
+          "linkedin": "LinkedIn",
+          "profilePicture": "Profile Picture"
         },
         "educationAndTrainingsSection": {
           "headerSingular": "Education & Training",
@@ -225,7 +226,11 @@
       "cancel": "Cancel",
       "edit": "Edit",
       "download": "Download",
-      "required":"{{field}} is required"
+      "required":"{{field}} is required",
+      "changePhotoButtonText": "Change Photo",
+      "uploading": "Uploading...",
+      "uploadSuccess": "Photo was uploaded successfully!",
+      "uploadError": "Failed to upload photo!"
     },
     "notFound": {
       "title": "The page you are looking for was not found!",

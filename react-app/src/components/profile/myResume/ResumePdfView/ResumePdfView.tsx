@@ -7,7 +7,7 @@ import i18n from 'src/locales';
 
 import resume from '../../../../api/resumes/getResumeResponse.json';
 import PdfAboutMe from '../PdfAboutMe/PdfAboutMe';
-import PdfCertifications from '../PdfCertifications/PdfCertifications';
+import PdfCertificates from '../PdfCertificates/PdfCertificates';
 import PdfContactInfo from '../PdfContactInfo/PdfContactInfo';
 import PdfDrivingLicenceItem from '../PdfDrivingLicenceItem/PdfDrivingLicenceItem';
 import PdfEducationAndTrainings from '../PdfEducationAndTraining/PdfEducationAndTraining';
@@ -97,17 +97,13 @@ const ResumePdfView: React.FC = () => {
                   <PdfSection title={t('softSkillsSection.headerPlural')}>
                     <Text style={styles.sectionText}>{resume.softSkills.join(', ')}</Text>
                   </PdfSection>
-                  {/* Technical Skills*/}
-                  <PdfSection title={t('technicalSkillsSection.headerPlural')}>
-                    <Text style={styles.sectionText}>{resume.technicalSkills.join(', ')}</Text>
-                  </PdfSection>
                   {/* Hobbies and Interests*/}
                   <PdfSection title={t('hobbiesSection.headerPlural')}>
                     <Text style={styles.sectionText}>{resume.hobbies.join(', ')}</Text>
                   </PdfSection>
-                  {/* Certification(s)*/}
-                  <PdfSection title={t('certificationsSection.headerPlural')}>
-                    <PdfCertifications certifications={resume.certifications || []} />
+                  {/* Certificate(s)*/}
+                  <PdfSection title={t('certificatesSection.headerPlural')}>
+                    <PdfCertificates certificates={resume.certificates || []} />
                   </PdfSection>
                   {/* Volunteering*/}
                   <PdfSection title={t('volunteeringsSection.headerPlural')}>

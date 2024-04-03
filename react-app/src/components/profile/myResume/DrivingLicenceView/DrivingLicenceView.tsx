@@ -1,8 +1,8 @@
-interface DrivingLicenceItemProps {
+interface DrivingLicenceViewProps {
   drivingLicences: string[];
 }
 
-const DrivingLicenceItem: React.FC<DrivingLicenceItemProps> = ({ drivingLicences }) => {
+const DrivingLicenceView: React.FC<DrivingLicenceViewProps> = ({ drivingLicences }) => {
   const drivingLicenceItems = drivingLicences.map((drivingLicence, index) => {
     return (
       <div
@@ -22,4 +22,4 @@ const DrivingLicenceItem: React.FC<DrivingLicenceItemProps> = ({ drivingLicences
   return drivingLicenceItems;
 };
 
-export default DrivingLicenceItem;
+export default DrivingLicenceView;

@@ -8,6 +8,7 @@ import Button from 'src/components/common/Button/Button';
 import PersonalInfoDescription from 'src/components/profile/personalInfo/PersonalInfoDescription/PersonalInfoDescription';
 import PersonalInfoEditForm from 'src/components/profile/personalInfo/PersonalInfoEditForm/PersonalInfoEditForm';
 import config from 'src/config';
+import i18n from 'src/locales';
 import { Route } from 'src/router/enums';
 import { LocalStorageKey, getItem } from 'src/utils/storage';
 
@@ -30,13 +31,13 @@ const PersonalInfo: React.FC = () => {
     accept: 'image/*',
     onChange(info) {
       if (info.file.status !== 'uploading') {
-        message.info(t('uploading'));
+        message.info(i18n.t('globalStrings.uploading'));
       }
       if (info.file.status === 'done') {
-        message.success(t('uploadSuccess'));
+        message.success(i18n.t('globalStrings.uploadSuccess'));
         refetch();
       } else if (info.file.status === 'error') {
-        message.error(t('uploadError'));
+        message.error(i18n.t('globalStrings.uploadError'));
       }
     },
   };
@@ -68,7 +69,7 @@ const PersonalInfo: React.FC = () => {
           <Upload {...uploadProps}>
             <Button
               type="primary"
-              text={t('changePhotoButtonText')}
+              text={i18n.t('globalStrings.changePhotoButtonText')}
               onClick={() => navigate(Route.PERSONAL_INFO)}
               style={{ marginTop: '20px' }}
             />

@@ -4,11 +4,12 @@ import { useTranslation } from 'react-i18next';
 import usePatchResume from 'src/api/resumes/hooks/usePatchResume';
 import Drawer from 'src/components/common/Drawer/Drawer';
 import InputSelect from 'src/components/common/InputSelect/InputSelect';
+import { getBaseCvId } from 'src/helpers/baseCvStorage';
 
 import { FormField } from './enums';
 
 interface DigitalSkillsProps {
-  digitalSkills: string[];
+  digitalSkills?: string[];
 }
 
 const DigitalSkillsForm: React.FC<DigitalSkillsProps> = ({ digitalSkills }) => {
@@ -20,7 +21,9 @@ const DigitalSkillsForm: React.FC<DigitalSkillsProps> = ({ digitalSkills }) => {
     shouldFocusError: true,
   });
   const { mutate: patchResume, isPending } = usePatchResume();
-  const submitForm = handleSubmit((values) => patchResume({ id: '', digitalSkills: values.digitalSkills }));
+  const submitForm = handleSubmit((values) => {
+    patchResume({ id: getBaseCvId(), digitalSkills: values.digitalSkills?.toString() });
+  });
 
   return (
     <Drawer

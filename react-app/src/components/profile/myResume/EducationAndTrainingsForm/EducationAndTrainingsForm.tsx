@@ -12,19 +12,21 @@ import Drawer from 'src/components/common/Drawer/Drawer';
 import InputDatePicker from 'src/components/common/InputDatePicker/InputDatePicker';
 import InputText from 'src/components/common/InputText/InputText';
 import dateTimeFormats from 'src/constants/dateTimeFormats';
+import { getBaseCvId } from 'src/helpers/baseCvStorage';
 
+import { defaultValues } from './constants';
 import { FormField } from './enums';
-import validationSchema from './validation';
+import fieldsValidationSchema from './validation';
 
 type EducationAndTrainingsFormProps = {
-  educationAndTrainings: Education[];
+  educationAndTrainings?: Education[];
 };
 
 const EducationAndTrainingsForm: React.FC<EducationAndTrainingsFormProps> = (props) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.educationAndTrainingsSection' });
   const { handleSubmit, control, setValue } = useForm({
-    defaultValues: { educations: props.educationAndTrainings },
-    resolver: yupResolver(validationSchema),
+    defaultValues: { educations: props.educationAndTrainings || [] },
+    resolver: yupResolver(fieldsValidationSchema),
     shouldFocusError: true,
   });
 
@@ -34,18 +36,12 @@ const EducationAndTrainingsForm: React.FC<EducationAndTrainingsFormProps> = (pro
   });
 
   const addEducation = () => {
-    append({
-      [FormField.TITLE]: '',
-      [FormField.TYPE]: '',
-      [FormField.LOCATION]: '',
-      [FormField.START_DATE]: '',
-      [FormField.END_DATE]: '',
-    });
+    append(defaultValues);
   };
 
   const { mutate: patchResume, isPending } = usePatchResume();
   const submitForm = handleSubmit((values) =>
-    patchResume({ id: '', educations: values.educations as Education[] }),
+    patchResume({ id: getBaseCvId(), educations: values.educations as Education[] }),
   );
 
   const items: CollapseProps['items'] = fields.map((field, index) => {
@@ -136,14 +132,12 @@ const EducationAndTrainingsForm: React.FC<EducationAndTrainingsFormProps> = (pro
               />
             )}
           />
-          {index > 0 && (
-            <Button
-              type="default"
-              text={t('removeButtonTitle')}
-              onClick={() => remove(index)}
-              className="add-another-education-button"
-            />
-          )}
+          <Button
+            type="default"
+            text={t('removeButtonTitle')}
+            onClick={() => remove(index)}
+            className="add-another-education-button"
+          />
         </div>
       ),
     };

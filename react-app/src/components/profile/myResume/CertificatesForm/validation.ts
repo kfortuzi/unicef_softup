@@ -1,12 +1,12 @@
 import { object, string, array } from 'yup';
 
-import { Certification } from 'src/api/resumes/types';
+import { Certificate } from 'src/api/resumes/types';
 import i18n from 'src/locales';
 
 import { FormField } from './enums';
 
 const basePrefix = 'profile.myResume';
-const sectionPrefix = `${basePrefix}.certificationsSection`;
+const sectionPrefix = `${basePrefix}.certificatesSection`;
 
 const validationSchema = {
   [FormField.NAME]: string().required(
@@ -19,8 +19,8 @@ const validationSchema = {
 };
 
 const fieldsValidationSchema = object().shape({
-  certifications: array()
-    .of(object<Certification>().shape(validationSchema))
+  certificates: array()
+    .of(object<Certificate>().shape(validationSchema))
     .required('Must have fields')
     .min(1, 'Minimum of 1 field'),
 });

@@ -12,21 +12,21 @@ interface PdfWorkExperiencesProps {
 const PdfWorkExperiences: React.FC<PdfWorkExperiencesProps> = (props) => {
   const { workExperiences } = props;
 
-  const experiences = workExperiences.map((workExperience, index) => {
-    return (
-      <ListItem
-        title={`${workExperience.startDate} - ${workExperience.endDate || ''}`}
-        key={index}
-        titleStyle={styles.listTitle}
-      >
-        <Text style={styles.subTitle}>{workExperience.position}</Text>
-        <Text>{workExperience.company}</Text>
-        <Text>{workExperience.responsibilities}</Text>
-      </ListItem>
-    );
-  });
-
-  return experiences;
+  return (
+    <>
+      {workExperiences.map((workExperience, index) => {
+        <ListItem
+          title={`${workExperience.startDate} - ${workExperience.endDate || ''}`}
+          key={index}
+          titleStyle={styles.listTitle}
+        >
+          <Text style={styles.subTitle}>{workExperience.position}</Text>
+          <Text>{workExperience.company}</Text>
+          <Text>{workExperience.responsibilities}</Text>
+        </ListItem>;
+      })}
+    </>
+  );
 };
 
 export default PdfWorkExperiences;

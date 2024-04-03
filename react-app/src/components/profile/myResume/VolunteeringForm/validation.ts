@@ -22,10 +22,7 @@ const validationSchema = {
 };
 
 const fieldsValidationSchema = object().shape({
-  volunteering: array()
-    .of(object<Volunteering>().shape(validationSchema))
-    .required('Must have fields')
-    .min(1, 'Minimum of 1 field'),
+  volunteering: array().of(object<Volunteering>().shape(validationSchema)).required('Must have fields'),
 });
 
 export default fieldsValidationSchema;

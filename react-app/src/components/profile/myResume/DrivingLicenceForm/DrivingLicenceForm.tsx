@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import usePatchResume from 'src/api/resumes/hooks/usePatchResume';
 import Drawer from 'src/components/common/Drawer/Drawer';
 import InputSelect from 'src/components/common/InputSelect/InputSelect';
+import { getBaseCvId } from 'src/helpers/baseCvStorage';
 
 import { drivingLicenceOptions } from './constants';
 import { FormField } from './enums';
@@ -22,7 +23,7 @@ const DrivingLicenceForm: React.FC<DrivingLicenceProps> = ({ drivingLicences }) 
   });
   const { mutate: patchResume, isPending } = usePatchResume();
   const submitForm = handleSubmit((values) =>
-    patchResume({ id: '', drivingLicences: values.drivingLicences }),
+    patchResume({ id: getBaseCvId(), drivingLicense: values.drivingLicences.join(',') }),
   );
 
   return (

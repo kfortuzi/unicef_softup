@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 import { WorkExperience } from 'src/api/resumes/types';
 
 import ListItem from '../ListItem/ListItem';
@@ -9,21 +11,24 @@ interface WorkExperiencesProps {
 const WorkExperiencesView: React.FC<WorkExperiencesProps> = (props) => {
   const { workExperiences } = props;
 
-  const experiences = workExperiences.map((workExperience, index) => {
-    return (
-      <ListItem
-        title={`${workExperience.startDate} - ${workExperience.endDate}`}
-        key={index}
-        titleStyle={{ color: 'blue' }}
-      >
-        <p className="work-experience-title">{workExperience.position}</p>
-        <p>{workExperience.company}</p>
-        <p>{workExperience.responsibilities}</p>
-      </ListItem>
-    );
-  });
-
-  return experiences;
+  return (
+    <>
+      {workExperiences.map((workExperience, index) => {
+        return (
+          <ListItem
+            title={`${dayjs(workExperience.startDate).format('MMM YYYY')} 
+            - ${dayjs(workExperience.endDate).format('MMM YYYY')}`}
+            key={index}
+            titleStyle={{ color: 'blue' }}
+          >
+            <p className="work-experience-title">{workExperience.position}</p>
+            <p>{workExperience.company}</p>
+            <p>{workExperience.responsibilities}</p>
+          </ListItem>
+        );
+      })}
+    </>
+  );
 };
 
 export default WorkExperiencesView;
