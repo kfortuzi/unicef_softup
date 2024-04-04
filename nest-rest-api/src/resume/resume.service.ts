@@ -257,24 +257,22 @@ export class ResumeService {
   }
 
   async enhanceResponsibility(
-    userExperience: any,
+    userExperiences: any,
     userId: string,
   ): Promise<ExperienceDto[]> {
     return await Promise.all(
-      Object.entries(userExperience).map(
-        async (experience: [string, string]) => {
-          const data: ExperienceDto = JSON.parse(experience[1]);
-          if (data.responsibilities) {
-            const enhancedResponsibility = await this.generateResponsibility(
-              userId,
-              data,
-            );
-            if (enhancedResponsibility)
-              data.responsibilities = enhancedResponsibility;
-          }
-          return data;
-        },
-      ),
+      userExperiences.map(async (experience: any) => {
+        const data: ExperienceDto = experience;
+        if (data.responsibilities) {
+          const enhancedResponsibility = await this.generateResponsibility(
+            userId,
+            data,
+          );
+          if (enhancedResponsibility)
+            data.responsibilities = enhancedResponsibility;
+        }
+        return data;
+      }),
     );
   }
 

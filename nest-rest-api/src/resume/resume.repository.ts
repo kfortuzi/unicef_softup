@@ -36,20 +36,13 @@ export class ResumeRepository {
 
   async getUserResumeExperiences(
     userId: string,
-  ): Promise<Prisma.JsonArray | undefined> {
+  ): Promise<Prisma.JsonValue | undefined> {
     const resume = await this.prisma.resumes.findFirst({
       where: { userId: userId, referenceId: null, deletedAt: null },
       select: { experiences: true },
     });
 
-    if (
-      resume?.experiences &&
-      typeof resume?.experiences === 'object' &&
-      Array.isArray(resume?.experiences)
-    ) {
-      const experience = resume?.experiences as Prisma.JsonArray;
-      return experience;
-    }
+    return resume?.experiences;
   }
 
   async findOne(id: string, userId: string): Promise<resumes | null> {
@@ -70,7 +63,12 @@ export class ResumeRepository {
 
   async softDelete(id: string) {
     return this.prisma.resumes.update({
-      where: { id, referenceId: null },
+      where: {
+        id,
+        referenceId: {
+          not: null,
+        },
+      },
       data: { deletedAt: new Date().toISOString() },
     });
   }
