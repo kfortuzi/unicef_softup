@@ -40,9 +40,9 @@ const EducationAndTrainingsForm: React.FC<EducationAndTrainingsFormProps> = (pro
   };
 
   const { mutate: patchResume, isPending } = usePatchResume();
-  const submitForm = handleSubmit((values) =>
-    patchResume({ id: getBaseCvId(), educations: values.educations as Education[] }),
-  );
+  const submitForm = handleSubmit((values) => {
+    patchResume({ id: getBaseCvId(), educations: values.educations as Education[] });
+  });
 
   const items: CollapseProps['items'] = fields.map((field, index) => {
     return {

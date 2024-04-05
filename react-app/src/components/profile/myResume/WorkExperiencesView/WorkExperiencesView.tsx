@@ -17,7 +17,7 @@ const WorkExperiencesView: React.FC<WorkExperiencesProps> = (props) => {
         return (
           <ListItem
             title={`${dayjs(workExperience.startDate).format('MMM YYYY')} 
-            - ${dayjs(workExperience.endDate).format('MMM YYYY')}`}
+            - ${workExperience.endDate ? dayjs(workExperience.endDate).format('MMM YYYY') : 'Present'}`}
             key={index}
             titleStyle={{ color: 'blue' }}
           >

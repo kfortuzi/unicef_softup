@@ -44,6 +44,8 @@
         "header": "Fjalekalimi i Ri",
         "subHeader": "Vendosni fjalekalimin e ri.",
         "passwordLabel": "Fjalekalimi",
+        "currentPasswordLabel": "Fjalekalimi i vjeter",
+        "newPasswordLabel": "Fjalekalimi i ri",
         "confirmPasswordLabel": "Konfirmoni Fjalekalimin",
         "passwordRequired": "Fjalekalimi eshte i detyrueshem",
         "passwordsMustMatch": "Fjalekalimet nuk perputhen",
@@ -100,6 +102,7 @@
         "editResume": "Ndrysho CV-në",
         "deleteResume": "Fshi CV-në",
         "submit": "Ruaj",
+        "downloadPdfButtonText": "Shkarko PDF",
         "createSuccessMessage": "CV u krijua me sukses!",
         "createErrorMessage": "CV nuk u krijua me sukses!",
         "deleteSuccessMessage": "CV u fshi me sukses!",
@@ -123,6 +126,7 @@
         "contactInfoSection": {
           "header": "Informacioni i kontaktit",
           "name": "Emri",
+          "lastName": "Mbiemri",
           "nationality": "Shtetesia",
           "email": "Email",
           "phoneNumber": "Telefoni",
@@ -283,7 +287,10 @@
       "lastUpdated": "Perditesimi i fundit",
       "edit": "Edito",
       "delete": "Fshi",
-      "interviewTips": "Keshilla per interviste"
+      "interviewTips": "Keshilla per interviste",
+      "fetchTipsAndAdvicesErrorMessage": "Keshilla per interviste nuk u ngarkuan me sukses!",
+      "deleteSuccessMessage": "CV u fshi me sukses!",
+      "deleteErrorMessage": "CV nuk u fshi me sukses!"
     },
     "chatbot": {
       "header": "Chatbot",
@@ -349,6 +356,24 @@
       "description": "Pershkrimi",
       "skillLines": "Aftesite",
       "experience": "Eksperienca"
+    },
+    "interviewTips": {
+      "header": "Keshilla per interviste",
+      "tips": "Keshilla",
+      "interviewQuestions": "Pyetje interviste"
+    },
+    "resumeQuestionnaire": {
+      "header": "Pyetësor për CV",
+      "experiences": "Eksperiencat",
+      "educations": "Edukimi",
+      "nativeLanguage": "Gjuha Amtare",
+      "otherLanguage": "Gjuha e Dyte",
+      "technicalSkills": "Aftësitë Teknike",
+      "softSkills": "Aftësitë Personale",
+      "hobbies": "Hobite",
+      "summary": "Përmbledhje",
+      "createSuccessMessage": "CV u krijua me sukses!",
+      "createErrorMessage": "CV nuk u krijua me sukses!"
     }
   }
 }

@@ -19,6 +19,7 @@ type ContactInfoFormProps = {
   linkedinUrl?: string;
   address?: string;
   phoneNumber?: string;
+  lastName?: string;
 };
 
 const ContactInfoForm: React.FC<ContactInfoFormProps> = ({
@@ -28,6 +29,7 @@ const ContactInfoForm: React.FC<ContactInfoFormProps> = ({
   linkedinUrl,
   address,
   phoneNumber,
+  lastName,
 }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.contactInfoSection' });
   const { handleSubmit, control } = useForm({
@@ -38,6 +40,7 @@ const ContactInfoForm: React.FC<ContactInfoFormProps> = ({
       email,
       name,
       profilePicture,
+      lastName,
     },
     resolver: yupResolver(validationSchema),
     shouldFocusError: true,
@@ -68,6 +71,21 @@ const ContactInfoForm: React.FC<ContactInfoFormProps> = ({
                 error={error?.message}
                 onChange={onChange}
                 placeholder={t('name')}
+              />
+            )}
+          />
+          <Controller
+            control={control}
+            name={FormField.LAST_NAME}
+            render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
+              <InputText
+                label={t('lastName')}
+                inputRef={ref}
+                name={name}
+                value={value || ''}
+                error={error?.message}
+                onChange={onChange}
+                placeholder={t('lastName')}
               />
             )}
           />

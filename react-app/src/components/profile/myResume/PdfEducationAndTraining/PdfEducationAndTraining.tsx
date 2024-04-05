@@ -14,20 +14,20 @@ interface PdfEducationAndTrainingsProps {
 const PdfEducationAndTrainings: React.FC<PdfEducationAndTrainingsProps> = (props) => {
   const { educationAndTrainings } = props;
 
-  const educations = educationAndTrainings.map((education, index) => {
-    return (
-      <PdfListItem
-        title={`${education.startDate} - ${education.endDate} - ${education.title}`}
-        key={index}
-        titleStyle={styles.listTitle}
-      >
-        <Text style={styles.subTitle}>{`${education.type}`}</Text>
-        <Text>{education.location}</Text>
-      </PdfListItem>
-    );
-  });
-
-  return educations;
+  return (
+    <>
+      {educationAndTrainings.map((education, index) => (
+        <PdfListItem
+          title={`${education.startDate} - ${education.endDate} - ${education.title}`}
+          key={index}
+          titleStyle={styles.listTitle}
+        >
+          <Text style={styles.subTitle}>{`${education.type}`}</Text>
+          <Text>{education.location}</Text>
+        </PdfListItem>
+      ))}
+    </>
+  );
 };
 
 export default PdfEducationAndTrainings;

@@ -28,7 +28,8 @@ const PdfContactInfo: React.FC<PdfContactInfoProps> = (props) => {
             width: '100%',
             borderRadius: '50%',
           }}
-          src={imgUrl}
+          // src={imgUrl}
+          source={{ uri: imgUrl || '', method: 'GET', headers: { 'Cache-Control': 'no-cache' }, body: '' }}
         />
         <Text style={styles.name}>{name}</Text>
       </View>

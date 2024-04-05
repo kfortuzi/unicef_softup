@@ -16,18 +16,20 @@ const EducationAndTrainings: React.FC<EducationAndTrainingsProps> = (props) => {
   return (
     <>
       {educationAndTrainings?.map((education, index) => {
-        <ListItem
-          title={`
-        ${dayjs(education.startDate).format('MMM YYYY')} 
-        - ${dayjs(education.endDate).format('MMM YYYY')} 
+        return (
+          <ListItem
+            title={`
+        ${education.startDate ? dayjs(education.startDate).format('MMM YYYY') : ''} 
+        - ${education.endDate ? dayjs(education.endDate).format('MMM YYYY') : ''} 
         - ${education.title}
         `}
-          key={index}
-          titleStyle={{ color: 'blue' }}
-        >
-          <p className="education-subtitle">{education.type}</p>
-          <p>{education.location}</p>
-        </ListItem>;
+            key={index}
+            titleStyle={{ color: 'blue' }}
+          >
+            <p className="education-subtitle">{education.type}</p>
+            <p>{education.location}</p>
+          </ListItem>
+        );
       })}
     </>
   );

@@ -2,11 +2,12 @@ import { useQuery } from '@tanstack/react-query';
 
 import Keys from '../keys';
 import getResume from '../requests/getResume';
+import { GetResumeRequest } from '../types';
 
-const useGetResume = () => {
+const useGetResume = (req: GetResumeRequest) => {
   return useQuery({
     queryKey: [Keys.GET_RESUME],
-    queryFn: getResume,
+    queryFn: () => getResume(req),
     refetchOnMount: false,
   });
 };

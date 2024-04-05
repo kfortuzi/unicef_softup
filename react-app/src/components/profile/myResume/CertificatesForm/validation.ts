@@ -19,10 +19,7 @@ const validationSchema = {
 };
 
 const fieldsValidationSchema = object().shape({
-  certificates: array()
-    .of(object<Certificate>().shape(validationSchema))
-    .required('Must have fields')
-    .min(1, 'Minimum of 1 field'),
+  certificates: array().of(object<Certificate>().shape(validationSchema)).required('Must have fields'),
 });
 
 export default fieldsValidationSchema;

@@ -33,6 +33,7 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
   const [contentLoading, setContentLoading] = useState(false);
   const { mutateAsync: postResumeResponsibilityAsync } = usePostResumeResponsibility();
   const { mutateAsync: postResumeAskWizardAsync } = usePostResumeAskWizard();
+
   const {
     handleSubmit,
     control,

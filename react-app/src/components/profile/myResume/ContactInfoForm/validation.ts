@@ -11,6 +11,7 @@ const prefix = `${basePrefix}.contactInfoSection`;
 const validationSchema: ObjectSchema<FormValues> = object({
   [FormField.PROFILE_PICTURE]: string(),
   [FormField.NAME]: string(),
+  [FormField.LAST_NAME]: string(),
   [FormField.EMAIL]: string()
     .email(i18n.t(`${prefix}.email`))
     .required(i18n.t(`${prefix}.email`)),

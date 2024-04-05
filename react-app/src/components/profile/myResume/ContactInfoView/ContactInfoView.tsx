@@ -1,13 +1,13 @@
 import { EditOutlined } from '@ant-design/icons';
 import { Upload, UploadProps, message, Image } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import useGetResume from 'src/api/resumes/hooks/useGetResume';
 
+import useGetResumes from 'src/api/resumes/hooks/useGetResumes';
 import Button from 'src/components/common/Button/Button';
 import config from 'src/config';
 import { getBaseCvId } from 'src/helpers/baseCvStorage';
 import i18n from 'src/locales';
-import { Route } from 'src/router/enums';
 import { LocalStorageKey, getItem } from 'src/utils/storage';
 
 interface ContactInfoViewProps {
@@ -20,16 +20,19 @@ interface ContactInfoViewProps {
   email?: string;
   linkedinUrl?: string;
   linkedinText?: string;
+  surname?: string;
 }
 
 const ContactInfoView: React.FC<ContactInfoViewProps> = (props) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.contactInfoSection' });
-  const { name, nationality, phoneNumber, email, linkedinUrl, address, linkedinText } = props;
-  const navigate = useNavigate();
+  const { name, nationality, phoneNumber, email, linkedinUrl, address, linkedinText, surname } = props;
+  const { refetch: refetchResumes } = useGetResumes();
+  const { refetch: refetchResume } = useGetResume({ id: getBaseCvId() });
 
   const uploadProps: UploadProps = {
     name: 'file',
     action: `${config.API_BASE_URL}/resumes/${getBaseCvId()}/upload-photo`,
+    showUploadList: false,
     headers: {
       authorization: `Bearer ${getItem<string>(LocalStorageKey.USER_SESSION_TOKEN) || ''}`,
     },
@@ -40,7 +43,8 @@ const ContactInfoView: React.FC<ContactInfoViewProps> = (props) => {
       }
       if (info.file.status === 'done') {
         message.success(i18n.t('globalStrings.uploadSuccess'));
-        navigate(Route.MY_RESUME);
+        refetchResumes();
+        refetchResume();
       } else if (info.file.status === 'error') {
         message.error(i18n.t('globalStrings.uploadError'));
       }
@@ -64,9 +68,12 @@ const ContactInfoView: React.FC<ContactInfoViewProps> = (props) => {
             type="primary"
             icon={<EditOutlined />}
             size="middle"
+            style={{ marginTop: '10px' }}
           />
         </Upload>
-        <p className="name">{name}</p>
+        <p className="name">
+          {name} {surname}
+        </p>
       </div>
       <div className="info-section">
         <div className="info-group">

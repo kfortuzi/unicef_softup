@@ -70,7 +70,9 @@ type BaseResponse = {
   volunteering?: Volunteering[];
   publications?: Publication[];
   drivingLicense?: string;
-  referenceId?: boolean;
+  referenceId?: string;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 export type PostResumeRequest = {
@@ -124,10 +126,6 @@ export type GetResumeRequest = {
   id: string;
 };
 
-export type PostResumSummaryRequest = WorkExperience;
-
-export type PostResumSummaryResponse = string;
-
 export type PostResumeResponsibilityRequest = WorkExperience | string;
 
 export type PostResumeResponsibilityResponse = string;
@@ -140,6 +138,19 @@ export type PostResumeAskWizardRequest = AskWizardMessage;
 
 export type PostResumeAskWizardResponse = string;
 
+export type PostResumesWizardRequest = {
+  experiences: string;
+  educations: string;
+  nativeLanguage: string;
+  otherLanguage: string;
+  technicalSkills: string;
+  softSkills: string;
+  hobbies: string;
+  summary: string;
+};
+
+export type PostResumesWizardResponse = BaseResponse;
+
 export type GetResumesRequest = null;
 
 export type GetResumesResponse = BaseResponse[];
@@ -150,4 +161,13 @@ export type PostResumeResponse = PostResumeRequest;
 
 export type GetResumeResponse = BaseResponse;
 
+export type PostResumeForJobRequest = {
+  jobId: string;
+};
+
+export type PostResumeForJobResponse = BaseResponse;
+
+export type DeleteResumeRequest = {
+  id: string;
+};
 //#endregion

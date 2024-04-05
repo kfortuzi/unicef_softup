@@ -4,17 +4,12 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import useGetCoverLetters from 'src/api/coverLetters/hooks/useGetCoverLetters';
-import LoadingFullPage from 'src/components/common/LoadingFullPage/LoadingFullPage';
 import CoverLetterCard from 'src/components/coverLetter/CoverLetterCard/CoverLetterCard';
 import dateTimeFormats from 'src/constants/dateTimeFormats';
 
 const MyCoverLetters: React.FC = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'myCoverLetters' });
-  const { data: coverLetters, isFetching } = useGetCoverLetters();
-
-  if (isFetching) {
-    return <LoadingFullPage />;
-  }
+  const { data: coverLetters } = useGetCoverLetters();
 
   return (
     <div className="my-cover-letters-container">

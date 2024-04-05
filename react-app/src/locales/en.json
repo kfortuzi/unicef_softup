@@ -44,6 +44,8 @@
         "header": "Reset Password",
         "subHeader": "Please enter your new password.",
         "passwordLabel": "Password",
+        "currentPasswordLabel": "Current Password",
+        "newPasswordLabel": "New Password",
         "confirmPasswordLabel": "Confirm Password",
         "passwordRequired": "Password is required",
         "passwordsMustMatch": "Passwords do not match",
@@ -105,6 +107,7 @@
         "deleteResume": "Delete Resume",
         "submit": "Save",
         "educationAndTraining": "Education & Training",
+        "downloadPdfButtonText": "Download PDF",
         "workExperience": "Work Experience",
         "createSuccessMessage": "Your resume was created successfully!",
         "createErrorMessage": "Failed to create resume!",
@@ -129,6 +132,7 @@
         "contactInfoSection": {
           "header": "Contact Info",
           "name": "Name",
+          "lastName": "Last Name",
           "nationality": "Nationality",
           "email": "Email",
           "phoneNumber": "Phone Number",
@@ -289,7 +293,10 @@
       "lastUpdated": "Last updated",
       "edit": "Edit",
       "delete": "Dele",
-      "interviewTips": "Interview tips"
+      "interviewTips": "Interview tips",
+      "fetchTipsAndAdvicesErrorMessage": "Failed to fetch interview tips and advices!",
+      "deleteSuccessMessage": "Resume was deleted successfully!",
+      "deleteErrorMessage": "Failed to delete resume!"
     },
     "chatbot": {
       "header": "Chatbot",
@@ -355,6 +362,25 @@
       "description": "Description",
       "skillLines": "Skills",
       "experience": "Experience"
+    },
+    "interviewTips": {
+      "header": "Interview Tips",
+      "tips": "Tips",
+      "interviewQuestions": "Interview Questions"
+    },
+    "resumeQuestionnaire": {
+      "header": "Resume Questionnaire",
+      "submit": "Submit",
+      "experiences": "Experiences",
+      "educations": "Educations",
+      "nativeLanguage": "Native Language",
+      "otherLanguage": "Other Language",
+      "technicalSkills": "Technical Skills",
+      "softSkills": "Soft Skills",
+      "hobbies": "Hobbies",
+      "summary": "Summary",
+      "createSuccessMessage": "Questionnaire was saved successfully!",
+      "createErrorMessage": "Failed to save questionnaire!"
     }
   }
 }

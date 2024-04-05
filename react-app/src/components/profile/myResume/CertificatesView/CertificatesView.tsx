@@ -14,7 +14,7 @@ const CertificatesView: React.FC<CertificatesProps> = (props) => {
 
   return (
     <>
-      {certificates.map((certificate, index) => {
+      {certificates?.map((certificate, index) => (
         <ListItem
           title={certificate.name}
           key={index}
@@ -24,8 +24,8 @@ const CertificatesView: React.FC<CertificatesProps> = (props) => {
             {t('receivedDate')} {certificate.receivedDate}
           </p>
           {certificate.expirationDate && <p>{`${t('expirationDate')} ${certificate.expirationDate}`}</p>}
-        </ListItem>;
-      })}
+        </ListItem>
+      ))}
     </>
   );
 };

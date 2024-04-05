@@ -1,11 +1,9 @@
-import { Document, Page, PDFViewer, View, Text } from '@react-pdf/renderer';
+import { Document, Page, View, Text, PDFViewer } from '@react-pdf/renderer';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Button from 'src/components/common/Button/Button';
-import i18n from 'src/locales';
+import { GetResumeResponse } from 'src/api/resumes/types';
 
-import resume from '../../../../api/resumes/getResumeResponse.json';
 import PdfAboutMe from '../PdfAboutMe/PdfAboutMe';
 import PdfCertificates from '../PdfCertificates/PdfCertificates';
 import PdfContactInfo from '../PdfContactInfo/PdfContactInfo';
@@ -18,10 +16,14 @@ import PdfVolunteeringItem from '../PdfVolunteeringItem/PdfVolunteeringItem';
 import PdfWorkExperiences from '../PdfWorkExperience/PdfWorkExperience';
 import styles from './ResumePdfViewStyle';
 
-const ResumePdfView: React.FC = () => {
+type ResumePdfViewProps = {
+  resume: GetResumeResponse;
+};
+
+const ResumePdfView: React.FC<ResumePdfViewProps> = ({ resume }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume' });
   const imgUrl =
-    'https://static.vecteezy.com/system/resources/previews/034/601/899/large_2x/portrait-of-a-cat-wearing-sunglasses-on-the-sunset-background-ai-generated-free-photo.jpg';
+    'https:static.vecteezy.com/system/resources/previews/034/601/899/large_2x/portrait-of-a-cat-wearing-sunglasses-on-the-sunset-background-ai-generated-free-photo.jpg';
 
   return (
     <div className="container">
@@ -30,7 +32,7 @@ const ResumePdfView: React.FC = () => {
       </div>
       <div className="content">
         <PDFViewer
-          width={'100%'}
+          width={'800px'}
           height={'1200px'}
         >
           <Document>
@@ -40,19 +42,18 @@ const ResumePdfView: React.FC = () => {
             >
               <View style={styles.container}>
                 <PdfContactInfo
-                  imgUrl={imgUrl}
-                  name="Emre KAS"
-                  address="Baglarbasi Mah. 123. Sok. No: 5"
-                  email="yunuskas55@gmail.com"
-                  linkedIn="https://www.linkedin.com/in/emrekas/"
-                  linkedInText="Emre Kas"
+                  name={`${resume?.firstName} ${resume?.lastName}`}
+                  email={resume?.email}
+                  phone={resume.phoneNumber}
+                  address={resume.location}
+                  linkedIn={resume.linkedinUrl}
+                  linkedInText="linkedin"
+                  imgUrl={resume.profilePicture}
                 />
                 <View style={styles.contentSection}>
                   {/* About Me*/}
                   <PdfSection title={t('aboutMeSection.header')}>
-                    <PdfAboutMe
-                      description={`I am a software developer with 3 years of experience in web development.`}
-                    />
+                    <PdfAboutMe description={resume.summary} />
                   </PdfSection>
                   {/* Education And Training*/}
                   <PdfSection title={t('educationAndTrainingsSection.headerPlural')}>
@@ -67,15 +68,13 @@ const ResumePdfView: React.FC = () => {
                     <Text style={styles.sectionText}>
                       <Text style={styles.sectionSubTitle}>{t('languagesSection.motherTongue')}: </Text>
                       {resume.languages
-                        .filter((language) => language.isNative)
-                        .map((language) => (
-                          <Text key={language.name}>{language.name}</Text>
-                        ))}
+                        ?.filter((language) => language.isNative)
+                        .map((language) => <Text key={language.name}>{language.name}</Text>)}
                     </Text>
                     <View style={{ gap: 10 }}>
                       <Text style={styles.sectionSubTitle}>{t('languagesSection.otherLanguages')}: </Text>
                       {resume.languages
-                        .filter((language) => !language.isNative)
+                        ?.filter((language) => !language.isNative)
                         .map((language) => (
                           <PdfLanguageItem
                             key={language.name}
@@ -91,57 +90,51 @@ const ResumePdfView: React.FC = () => {
 
                   {/* Digital Skills*/}
                   <PdfSection title={t('digitalSkillsSection.headerPlural')}>
-                    <Text style={styles.sectionText}>{resume.digitalSkills.join(', ')}</Text>
+                    <Text style={styles.sectionText}>{resume.digitalSkills?.replace(',', ', ')}</Text>
                   </PdfSection>
                   {/* Soft Skills*/}
                   <PdfSection title={t('softSkillsSection.headerPlural')}>
-                    <Text style={styles.sectionText}>{resume.softSkills.join(', ')}</Text>
+                    <Text style={styles.sectionText}>{resume.softSkills?.replace(',', ', ')}</Text>
                   </PdfSection>
                   {/* Hobbies and Interests*/}
                   <PdfSection title={t('hobbiesSection.headerPlural')}>
-                    <Text style={styles.sectionText}>{resume.hobbies.join(', ')}</Text>
+                    <Text style={styles.sectionText}>{resume.hobbies?.replace(',', ', ')}</Text>
                   </PdfSection>
                   {/* Certificate(s)*/}
                   <PdfSection title={t('certificatesSection.headerPlural')}>
-                    <PdfCertificates certificates={resume.certificates || []} />
+                    <PdfCertificates certificates={resume?.certificates || []} />
                   </PdfSection>
                   {/* Volunteering*/}
                   <PdfSection title={t('volunteeringsSection.headerPlural')}>
-                    <PdfVolunteeringItem
-                      role="Volunteer"
-                      organization="Kocaeli University"
-                      startDate="2015"
-                      endDate="2016"
-                    />
+                    {resume.volunteering?.map((volunteering) => (
+                      <PdfVolunteeringItem
+                        key={volunteering.role}
+                        role={volunteering.role}
+                        organization={volunteering.organization}
+                        startDate={volunteering.startDate}
+                        endDate={volunteering.endDate}
+                      />
+                    ))}
                   </PdfSection>
                   {/* Publication(s)*/}
                   <PdfSection title={t('publicationsSection.headerPlural')}>
-                    <PdfPublicationItem
-                      name="React js Technical Article"
-                      releaseDate="2021"
-                    />
+                    {resume.publications?.map((publication) => (
+                      <PdfPublicationItem
+                        key={publication.name}
+                        name={publication.name}
+                        releaseDate={publication.releaseDate}
+                        link={publication.link}
+                      />
+                    ))}
                   </PdfSection>
                   <PdfSection title={t('drivingLicencesSection.headerPlural')}>
-                    <PdfDrivingLicenceItem drivingLicences={resume.drivingLicences || []} />
+                    <PdfDrivingLicenceItem drivingLicences={([resume.drivingLicense] as string[]) || []} />
                   </PdfSection>
                 </View>
               </View>
             </Page>
           </Document>
         </PDFViewer>
-      </div>
-
-      <div className="button-group">
-        <Button
-          type="default"
-          htmlType="button"
-          text={i18n.t('globalStrings.edit')}
-        />
-        <Button
-          type="default"
-          htmlType="button"
-          text={i18n.t('globalStrings.download')}
-        />
       </div>
     </div>
   );

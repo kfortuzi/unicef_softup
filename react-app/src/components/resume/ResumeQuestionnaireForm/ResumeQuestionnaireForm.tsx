@@ -8,17 +8,24 @@ import i18n from 'src/locales';
 
 import { defaultValues } from './constants';
 import { FormField } from './enums';
+import { yupResolver } from '@hookform/resolvers/yup';
+import validationSchema from './validations';
+import { useTranslation } from 'react-i18next';
+import usePostResumesWizard from 'src/api/resumes/hooks/usePostResumesWizard';
 
 const ResumeQuestionnaireForm: React.FC = () => {
-  const { id } = useParams();
+  const { mutate: postResumesWizard } = usePostResumesWizard();
 
   const { handleSubmit, control, setValue } = useForm({
     defaultValues: defaultValues,
     shouldFocusError: true,
+    resolver: yupResolver(validationSchema),
   });
 
+  const { t } = useTranslation('translation', { keyPrefix: 'resumeQuestionnaire' });
+
   const submitForm = handleSubmit((data) => {
-    //sumbit form logic
+    postResumesWizard(data);
   });
 
   return (
@@ -26,121 +33,129 @@ const ResumeQuestionnaireForm: React.FC = () => {
       <form onSubmit={submitForm}>
         <Controller
           control={control}
-          name={FormField.EXPERIENCE}
-          render={({ field: { name, value, onChange, ref } }) => (
+          name={FormField.EXPERIENCES}
+          render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
             <InputTextArea
               inputRef={ref}
               name={name}
               value={value}
               onChange={onChange}
-              placeholder={'Experience'}
+              error={error?.message}
+              placeholder={t('experiences')}
               className="input-textarea"
-              label="Experience"
+              label={t('experiences')}
             />
           )}
         />
         <Controller
           control={control}
-          name={FormField.EDUCATION}
-          render={({ field: { name, value, onChange, ref } }) => (
+          name={FormField.EDUCATIONS}
+          render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
             <InputTextArea
               inputRef={ref}
               name={name}
               value={value}
               onChange={onChange}
-              placeholder={'Education'}
+              error={error?.message}
+              placeholder={t('educations')}
+              label={t('educations')}
               className="input-textarea"
-              label="Education"
             />
           )}
         />
         <Controller
           control={control}
-          name={FormField.MOTHER_LANGUAGE}
-          render={({ field: { name, value, onChange, ref } }) => (
+          name={FormField.NATIVE_LANGUAGE}
+          render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
             <InputTextArea
               inputRef={ref}
               name={name}
               value={value}
               onChange={onChange}
-              placeholder={'Mother Language'}
+              error={error?.message}
+              placeholder={t('nativeLanguage')}
               className="input-textarea"
-              label="Mother Language"
+              label={t('nativeLanguage')}
             />
           )}
         />
         <Controller
           control={control}
-          name={FormField.LANGUAGES}
-          render={({ field: { name, value, onChange, ref } }) => (
+          name={FormField.OTHER_LANGUAGE}
+          render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
             <InputTextArea
               inputRef={ref}
               name={name}
               value={value}
               onChange={onChange}
-              placeholder={'Languages'}
+              error={error?.message}
+              placeholder={t('otherLanguage')}
               className="input-textarea"
-              label="Languages"
+              label={t('otherLanguage')}
             />
           )}
         />
         <Controller
           control={control}
           name={FormField.TECHNICAL_SKILLS}
-          render={({ field: { name, value, onChange, ref } }) => (
+          render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
             <InputTextArea
               inputRef={ref}
               name={name}
               value={value}
               onChange={onChange}
-              placeholder={'Technical Skills'}
+              error={error?.message}
+              placeholder={t('technicalSkills')}
               className="input-textarea"
-              label="Technical Skills"
+              label={t('technicalSkills')}
             />
           )}
         />
         <Controller
           control={control}
           name={FormField.SOFT_SKILLS}
-          render={({ field: { name, value, onChange, ref } }) => (
+          render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
             <InputTextArea
               inputRef={ref}
               name={name}
               value={value}
               onChange={onChange}
-              placeholder={'Soft Skills'}
+              error={error?.message}
+              placeholder={t('softSkills')}
               className="input-textarea"
-              label="Soft Skills"
+              label={t('softSkills')}
             />
           )}
         />
         <Controller
           control={control}
           name={FormField.HOBBIES}
-          render={({ field: { name, value, onChange, ref } }) => (
+          render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
             <InputTextArea
               inputRef={ref}
               name={name}
               value={value}
               onChange={onChange}
-              placeholder={'Hobbies'}
+              error={error?.message}
+              placeholder={t('hobbies')}
               className="input-textarea"
-              label="Hobbies"
+              label={t('hobbies')}
             />
           )}
         />
         <Controller
           control={control}
-          name={FormField.SOMETHING_ELSE}
-          render={({ field: { name, value, onChange, ref } }) => (
+          name={FormField.SUMMARY}
+          render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
             <InputTextArea
               inputRef={ref}
               name={name}
               value={value}
               onChange={onChange}
-              placeholder={'Something Else'}
+              error={error?.message}
+              placeholder={t('summary')}
               className="input-textarea"
-              label="Something Else"
+              label={t('summary')}
             />
           )}
         />

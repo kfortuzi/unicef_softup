@@ -1,11 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
 
-import useGetResumes from 'src/api/resumes/hooks/useGetResumes';
 import { GetResumeResponse } from 'src/api/resumes/types';
-import LoadingFullPage from 'src/components/common/LoadingFullPage/LoadingFullPage';
-import { setBaseCvId } from 'src/helpers/baseCvStorage';
 
 import AboutMeForm from '../AboutMeForm/AboutMeForm';
 import AboutMeView from '../AboutMeView/AboutMeView';
@@ -30,23 +26,14 @@ import VolunteeringItem from '../VolunteeringItem/VolunteeringItem';
 import WorkExperiencesForm from '../WorkExperiencesForm/WorkExperiencesForm';
 import WorkExperiencesView from '../WorkExperiencesView/WorkExperiencesView';
 
-const MyResumeView: React.FC = () => {
+type MyResumeViewProps = {
+  resume: GetResumeResponse;
+};
+
+const MyResumeView: React.FC<MyResumeViewProps> = ({ resume }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume' });
-  const { data: resumes, isFetched } = useGetResumes();
-  const navigate = useNavigate();
 
-  if (!isFetched) {
-    return <LoadingFullPage />;
-  }
-
-  const resume = resumes?.find((resume) => resume.referenceId === null) as GetResumeResponse;
-  if (resume) {
-    setBaseCvId(resume.id);
-  } else {
-    navigate('/resume-questionnaire');
-  }
-
-  const { firstName, email, linkedinUrl, location, profilePicture, summary, phoneNumber } = resume;
+  const { firstName, email, linkedinUrl, location, profilePicture, summary, phoneNumber, lastName } = resume;
 
   return (
     <div className="my-resume-layout">
@@ -57,6 +44,7 @@ const MyResumeView: React.FC = () => {
             <ContactInfoView
               profilePicture={profilePicture || 'https://i.imgur.com/6b6b2b0.png'}
               name={firstName}
+              surname={lastName}
               email={email}
               linkedinUrl={linkedinUrl}
               linkedinText="linkedin"
@@ -66,6 +54,7 @@ const MyResumeView: React.FC = () => {
             <ContactInfoForm
               profilePicture={profilePicture || 'https://i.imgur.com/6b6b2b0.png'}
               name={firstName}
+              lastName={lastName}
               email={email}
               linkedinUrl={linkedinUrl}
               address={location}

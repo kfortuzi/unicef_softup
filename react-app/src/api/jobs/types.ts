@@ -56,6 +56,15 @@ export type GetJobRequests = {
   cursor?: string;
 };
 
+export type PostJobTipsAndAdvicesRequest = {
+  id?: string;
+};
+
+export type PostJobTipsAndAdvicesResponse = {
+  tips: string;
+  interviewQuestions: string;
+};
+
 export type GetRecommendedJobsResponse = BaseResponse[];
 
 export type GetJobResponse = BaseResponse;

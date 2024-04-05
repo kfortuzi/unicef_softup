@@ -1,10 +1,10 @@
 export enum FormField {
-  EXPERIENCE = 'experience',
-  EDUCATION = 'education',
-  MOTHER_LANGUAGE = 'motherLanguage',
-  LANGUAGES = 'languages',
+  EXPERIENCES = 'experiences',
+  EDUCATIONS = 'educations',
+  NATIVE_LANGUAGE = 'nativeLanguage',
+  OTHER_LANGUAGE = 'otherLanguage',
   TECHNICAL_SKILLS = 'technicalSkills',
   SOFT_SKILLS = 'softSkills',
   HOBBIES = 'hobbies',
-  SOMETHING_ELSE = 'somethingElse',
+  SUMMARY = 'summary',
 }

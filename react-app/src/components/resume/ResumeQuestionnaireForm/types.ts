@@ -1,12 +1,12 @@
 import { FormField } from './enums';
 
 export type FormValues = {
-  [FormField.EXPERIENCE]: string;
-  [FormField.EDUCATION]: string;
-  [FormField.MOTHER_LANGUAGE]: string;
-  [FormField.LANGUAGES]: string;
+  [FormField.EXPERIENCES]: string;
+  [FormField.EDUCATIONS]: string;
+  [FormField.NATIVE_LANGUAGE]: string;
+  [FormField.OTHER_LANGUAGE]: string;
   [FormField.TECHNICAL_SKILLS]: string;
   [FormField.SOFT_SKILLS]: string;
   [FormField.HOBBIES]: string;
-  [FormField.SOMETHING_ELSE]: string;
+  [FormField.SUMMARY]: string;
 };

@@ -4,6 +4,7 @@ import { FormValues } from './types';
 export const defaultValues: FormValues = {
   [FormField.PROFILE_PICTURE]: '',
   [FormField.NAME]: '',
+  [FormField.LAST_NAME]: '',
   [FormField.EMAIL]: '',
   [FormField.LINKEDIN_URL]: '',
   [FormField.LOCATION]: '',

@@ -14,7 +14,7 @@ const PdfWorkExperiences: React.FC<PdfWorkExperiencesProps> = (props) => {
 
   return (
     <>
-      {workExperiences.map((workExperience, index) => {
+      {workExperiences.map((workExperience, index) => (
         <ListItem
           title={`${workExperience.startDate} - ${workExperience.endDate || ''}`}
           key={index}
@@ -23,8 +23,8 @@ const PdfWorkExperiences: React.FC<PdfWorkExperiencesProps> = (props) => {
           <Text style={styles.subTitle}>{workExperience.position}</Text>
           <Text>{workExperience.company}</Text>
           <Text>{workExperience.responsibilities}</Text>
-        </ListItem>;
-      })}
+        </ListItem>
+      ))}
     </>
   );
 };

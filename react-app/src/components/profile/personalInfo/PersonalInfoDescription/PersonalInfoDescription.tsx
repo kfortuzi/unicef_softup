@@ -37,7 +37,7 @@ const PersonalInfoDescription: React.FC<Props> = ({ toggleEditMode }) => {
       </div>
       <div className="info-group">
         <span>{t('birthdayDate')}: </span>
-        <span>{dayjs(birthdayDate).format(dateTimeFormats.albanianDate)}</span>
+        <span>{birthdayDate ? dayjs(birthdayDate)?.format(dateTimeFormats.albanianDate) : ''}</span>
       </div>
       <div className="info-group">
         <Button

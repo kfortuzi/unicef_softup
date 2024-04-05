@@ -47,7 +47,7 @@ const ChangeResetPasswordForm: React.FC = () => {
             value={value}
             error={error?.message}
             onChange={onChange}
-            placeholder={t('passwordLabel')}
+            placeholder={t('currentPasswordLabel')}
             type="password"
             textVisible={showPassword}
           />
@@ -63,7 +63,7 @@ const ChangeResetPasswordForm: React.FC = () => {
             value={value}
             error={error?.message}
             onChange={onChange}
-            placeholder={t('passwordLabel')}
+            placeholder={t('newPasswordLabel')}
             type="password"
             textVisible={showPassword}
           />

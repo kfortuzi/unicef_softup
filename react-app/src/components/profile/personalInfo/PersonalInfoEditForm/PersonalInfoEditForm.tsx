@@ -113,10 +113,10 @@ const PersonalInfoEditForm: React.FC<Props> = ({ toggleEditMode }) => {
               value={value ? dayjs(value) : undefined}
               name={name}
               onChange={(dateObject) => {
-                setValue(name, dateObject.format(dateTimeFormats.backendDate));
+                setValue(name, dateObject?.format(dateTimeFormats.backendDate));
               }}
-              placeholder={t('birthdayDate')}
               format={dateTimeFormats.albanianDate}
+              placeholder={t('birthdayDate')}
               maxDate={dayjs()}
             />
           )}

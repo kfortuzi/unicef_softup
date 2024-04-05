@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 
 import usePostCoverLetterForJob from 'src/api/coverLetters/hooks/usePostCoverLetterForJob';
+import usePostResumeForJob from 'src/api/resumes/hooks/usePostResumeForJob';
 import Button from 'src/components/common/Button/Button';
 
 type JobCardProps = {
@@ -33,9 +34,24 @@ const JobCard: React.FC<JobCardProps> = ({
     }
   };
 
-  const { mutate: postCoverLetterForJob, isPending, isSuccess, data } = usePostCoverLetterForJob();
-  if (isSuccess) {
-    navigate(`/cover-letters/${data?.id}`);
+  const {
+    mutate: postCoverLetterForJob,
+    isPending: isCoverLetterPending,
+    isSuccess: isCoverLetterSuccess,
+    data: coverLetter,
+  } = usePostCoverLetterForJob();
+  const {
+    mutate: postResumeForJob,
+    isPending: isResumePending,
+    isSuccess: isResumeSuccess,
+    data: resume,
+  } = usePostResumeForJob();
+  if (isCoverLetterSuccess) {
+    navigate(`/cover-letters/${coverLetter?.id}`);
+  }
+
+  if (isResumeSuccess) {
+    navigate(`/resumes/${resume?.id}`);
   }
 
   const getPreparedItems: MenuProps['items'] = [
@@ -45,6 +61,8 @@ const JobCard: React.FC<JobCardProps> = ({
         <Button
           type="link"
           text={t('tailorResumeButtonText')}
+          onClick={() => postResumeForJob({ jobId })}
+          loading={isResumePending}
         />
       ),
     },
@@ -54,7 +72,7 @@ const JobCard: React.FC<JobCardProps> = ({
         <Button
           type="link"
           onClick={() => postCoverLetterForJob({ jobId })}
-          loading={isPending}
+          loading={isCoverLetterPending}
           text={t('generateCoverLetterButtonText')}
         />
       ),
@@ -103,7 +121,7 @@ const JobCard: React.FC<JobCardProps> = ({
                   type="primary"
                   text={t('getPreparedButtonText')}
                   size="middle"
-                  loading={isPending}
+                  loading={isCoverLetterPending || isResumePending}
                 />
               </Dropdown>
             </div>

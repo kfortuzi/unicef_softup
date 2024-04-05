@@ -3,7 +3,5 @@ export const getBaseCvId = (): string => {
 };
 
 export const setBaseCvId = (id: string) => {
-  if (!getBaseCvId()) {
-    localStorage.setItem('baseCv', id);
-  }
+  localStorage.setItem('baseCv', id);
 };

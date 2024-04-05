@@ -19,10 +19,7 @@ const validationSchema = {
 };
 
 const fieldsValidationSchema = object().shape({
-  publications: array()
-    .of(object<Publication>().shape(validationSchema))
-    .required('Must have fields')
-    .min(1, 'Minimum of 1 field'),
+  publications: array().of(object<Publication>().shape(validationSchema)).required('Must have fields'),
 });
 
 export default fieldsValidationSchema;

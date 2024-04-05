@@ -9,11 +9,12 @@ import {
 } from '@ant-design/icons';
 import { Layout, Menu, MenuProps } from 'antd';
 import { Content, Header } from 'antd/es/layout/layout';
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import useLogOut from 'src/api/auth/hooks/useLogOut';
+import useGetResumes from 'src/api/resumes/hooks/useGetResumes';
 import useGetProfile from 'src/api/users/hooks/useGetProfile';
 import logo from 'src/assets/images/logo.png';
 import { Route } from 'src/router/enums';
@@ -24,15 +25,23 @@ const PageWithNavigation: React.FC = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'pageWithNavigation' });
   const navigate = useNavigate();
   const location = useLocation();
+  const [hasBaseCv, setHasBaseCv] = useState(false);
 
   const { data: user } = useGetProfile();
+  const { data: resumes, isFetched } = useGetResumes();
   const { logOut } = useLogOut();
 
   useEffect(() => {
+    if (isFetched && !resumes) {
+      navigate(Route.RESUME_QUESTIONNAIRE, { replace: true });
+      setHasBaseCv(false);
+    } else {
+      setHasBaseCv(true);
+    }
     if (location.pathname === Route.ROOT) {
       navigate(`${Route.ROOT}${Route.YOUTH_CAREER_ORIENTATION}`, { replace: true });
     }
-  }, [location.pathname, navigate]);
+  }, [isFetched, location.pathname, navigate, resumes]);
 
   const navigationItems: MenuProps['items'] = useMemo(
     () => [
@@ -87,9 +96,9 @@ const PageWithNavigation: React.FC = () => {
     <Layout className="page-with-navigation-container">
       <Header className="navigation-bar">
         <img
-          onClick={() => navigate(Route.YOUTH_CAREER_ORIENTATION)}
+          onClick={() => hasBaseCv ?? navigate(Route.YOUTH_CAREER_ORIENTATION)}
           className="logo"
-          src="src/assets/images/logo.png"
+          src={logo}
         />
         <Menu
           className="navigation-menu"
@@ -97,6 +106,7 @@ const PageWithNavigation: React.FC = () => {
           theme="dark"
           mode="horizontal"
           selectable={false}
+          disabled={!hasBaseCv}
         />
       </Header>
       <Layout className="page-content-and-footer">
