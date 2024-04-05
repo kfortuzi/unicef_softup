@@ -22,5 +22,5 @@ export enum Route {
   CREATE_RESUME = '/profile-settings/create-resume',
   RESUME_QUESTIONNAIRE = 'resume-questionnaire',
   COVER_LETTER_QUESTIONNAIRE = 'cover-letter-questionnaire',
-  RESUME_DETAILS = 'resumes/:id',
+  RESUME_DETAILS = '/resumes/:id',
 }

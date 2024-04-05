@@ -3,6 +3,7 @@ import dayjs from 'dayjs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
+import useGetJob from 'src/api/jobs/hooks/useGetJob';
 
 import useDeleteResume from 'src/api/resumes/hooks/useDeleteCoverLetter';
 import { GetResumeResponse } from 'src/api/resumes/types';
@@ -20,6 +21,7 @@ const ResumeCard: React.FC<ResumeCardProps> = ({ resume }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'myResumes' });
   const navigate = useNavigate();
   const { mutate: deleteResume } = useDeleteResume();
+  const { data: job } = useGetJob({ id: referenceId });
 
   return (
     <div className="resume-card-container">
@@ -38,7 +40,7 @@ const ResumeCard: React.FC<ResumeCardProps> = ({ resume }) => {
       >
         <div className="metadata">
           <h3 className="name">
-            {firstName} {lastName}
+            {firstName} {lastName} - {job?.company}
           </h3>
           <p className="last-updated">
             {t('lastUpdated')}: {dayjs(resume.updatedAt).format(dateTimeFormats.albanianDate)}

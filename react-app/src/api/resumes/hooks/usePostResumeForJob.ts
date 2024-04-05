@@ -15,7 +15,7 @@ const usePostResumeForJob = () => {
     mutationKey: [Keys.POST_RESUME_FOR_JOB],
     mutationFn: postResumeForJob,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [Keys.GET_RESUMES] });
+      queryClient.invalidateQueries({ queryKey: [Keys.GET_RESUMES, Keys.GET_RESUME] });
       message.success(t('createSuccessMessage'));
     },
     onError: () => {

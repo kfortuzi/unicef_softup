@@ -2,6 +2,7 @@ import { EditOutlined } from '@ant-design/icons';
 import { Upload, UploadProps, message, Image } from 'antd';
 import { useTranslation } from 'react-i18next';
 import useGetResume from 'src/api/resumes/hooks/useGetResume';
+import queryClient from 'src/clients/reactQuery';
 
 import useGetResumes from 'src/api/resumes/hooks/useGetResumes';
 import Button from 'src/components/common/Button/Button';
@@ -9,6 +10,7 @@ import config from 'src/config';
 import { getBaseCvId } from 'src/helpers/baseCvStorage';
 import i18n from 'src/locales';
 import { LocalStorageKey, getItem } from 'src/utils/storage';
+import Keys from 'src/api/resumes/keys';
 
 interface ContactInfoViewProps {
   profilePicture?: string;
@@ -26,8 +28,6 @@ interface ContactInfoViewProps {
 const ContactInfoView: React.FC<ContactInfoViewProps> = (props) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.contactInfoSection' });
   const { name, nationality, phoneNumber, email, linkedinUrl, address, linkedinText, surname } = props;
-  const { refetch: refetchResumes } = useGetResumes();
-  const { refetch: refetchResume } = useGetResume({ id: getBaseCvId() });
 
   const uploadProps: UploadProps = {
     name: 'file',
@@ -43,8 +43,7 @@ const ContactInfoView: React.FC<ContactInfoViewProps> = (props) => {
       }
       if (info.file.status === 'done') {
         message.success(i18n.t('globalStrings.uploadSuccess'));
-        refetchResumes();
-        refetchResume();
+        window.location.reload();
       } else if (info.file.status === 'error') {
         message.error(i18n.t('globalStrings.uploadError'));
       }

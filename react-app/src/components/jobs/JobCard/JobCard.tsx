@@ -1,20 +1,25 @@
 import { BankOutlined, EnvironmentOutlined, FileSearchOutlined } from '@ant-design/icons';
-import { Card, Dropdown, Image, MenuProps } from 'antd';
-import React from 'react';
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import { Card, Dropdown, Image, MenuProps, Modal } from 'antd';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 
 import usePostCoverLetterForJob from 'src/api/coverLetters/hooks/usePostCoverLetterForJob';
+import useGetResumes from 'src/api/resumes/hooks/useGetResumes';
 import usePostResumeForJob from 'src/api/resumes/hooks/usePostResumeForJob';
+import { GetResumeResponse } from 'src/api/resumes/types';
 import Button from 'src/components/common/Button/Button';
+import ResumePdfView from 'src/components/profile/myResume/ResumePdfView/ResumePdfView';
 
 type JobCardProps = {
   jobId: string;
-  referenceId: number;
+  referenceId: string;
   title: string;
   description?: string;
   companyName: string;
   location: string;
+  resume?: GetResumeResponse;
 };
 
 const JobCard: React.FC<JobCardProps> = ({
@@ -24,14 +29,31 @@ const JobCard: React.FC<JobCardProps> = ({
   companyName,
   location,
   referenceId,
+  resume,
 }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'jobs' });
   const navigate = useNavigate();
-  const openInAkpa = (referenceId: number) => {
+
+  const openInAkpa = (referenceId: string) => {
     const win = window.open(`https://www.puna.gov.al/job/${referenceId}`, '_blank');
     if (win) {
       win.focus();
     }
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleApply = () => {
+    openInAkpa(referenceId);
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
   };
 
   const {
@@ -44,14 +66,17 @@ const JobCard: React.FC<JobCardProps> = ({
     mutate: postResumeForJob,
     isPending: isResumePending,
     isSuccess: isResumeSuccess,
-    data: resume,
+    data: generatedResume,
   } = usePostResumeForJob();
+
+  const { refetch: refetchResumes } = useGetResumes();
   if (isCoverLetterSuccess) {
     navigate(`/cover-letters/${coverLetter?.id}`);
   }
 
   if (isResumeSuccess) {
-    navigate(`/resumes/${resume?.id}`);
+    refetchResumes();
+    navigate(`/resumes/${generatedResume?.id}`);
   }
 
   const getPreparedItems: MenuProps['items'] = [
@@ -108,10 +133,33 @@ const JobCard: React.FC<JobCardProps> = ({
               {t('viewDetails')}
             </Link>
             <div className="buttons-container">
+              <Modal
+                title={t('applyModalTitle')}
+                open={isModalOpen}
+                onOk={handleApply}
+                onCancel={handleCancel}
+                okText={t('applyButtonText')}
+                cancelText={t('cancelButtonText')}
+              >
+                {resume ? (
+                  <PDFDownloadLink
+                    document={<ResumePdfView resume={resume} />}
+                    fileName="somename.pdf"
+                  >
+                    <Button
+                      type="primary"
+                      text={t('downloadPdfButtonText')}
+                      size="middle"
+                    />
+                  </PDFDownloadLink>
+                ) : (
+                  <p>{t('pleaseGenerateACv')}</p>
+                )}
+              </Modal>
               <Button
                 type="link"
                 className="apply"
-                onClick={() => openInAkpa(referenceId)}
+                onClick={showModal}
                 text={t('applyButtonText')}
                 size="middle"
               />

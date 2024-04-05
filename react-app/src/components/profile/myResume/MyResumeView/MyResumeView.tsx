@@ -25,6 +25,7 @@ import VolunteeringForm from '../VolunteeringForm/VolunteeringForm';
 import VolunteeringItem from '../VolunteeringItem/VolunteeringItem';
 import WorkExperiencesForm from '../WorkExperiencesForm/WorkExperiencesForm';
 import WorkExperiencesView from '../WorkExperiencesView/WorkExperiencesView';
+import useGetJob from 'src/api/jobs/hooks/useGetJob';
 
 type MyResumeViewProps = {
   resume: GetResumeResponse;
@@ -33,16 +34,20 @@ type MyResumeViewProps = {
 const MyResumeView: React.FC<MyResumeViewProps> = ({ resume }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume' });
 
+  const { data: job } = useGetJob({ id: resume?.referenceId });
+
   const { firstName, email, linkedinUrl, location, profilePicture, summary, phoneNumber, lastName } = resume;
 
   return (
     <div className="my-resume-layout">
       <div className="slide-container">
-        <h1>{t('header')}</h1>
+        <h1>
+          {job?.company} {t('header')}
+        </h1>
         <div className="my-resume-body">
           <div className="contact-section">
             <ContactInfoView
-              profilePicture={profilePicture || 'https://i.imgur.com/6b6b2b0.png'}
+              profilePicture={profilePicture}
               name={firstName}
               surname={lastName}
               email={email}
@@ -52,7 +57,7 @@ const MyResumeView: React.FC<MyResumeViewProps> = ({ resume }) => {
               phoneNumber={phoneNumber}
             />
             <ContactInfoForm
-              profilePicture={profilePicture || 'https://i.imgur.com/6b6b2b0.png'}
+              profilePicture={profilePicture}
               name={firstName}
               lastName={lastName}
               email={email}

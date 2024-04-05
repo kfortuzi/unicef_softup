@@ -123,7 +123,7 @@ export type PatchResumeRequest = {
 };
 
 export type GetResumeRequest = {
-  id: string;
+  id?: string;
 };
 
 export type PostResumeResponsibilityRequest = WorkExperience | string;

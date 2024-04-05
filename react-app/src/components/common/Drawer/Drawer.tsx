@@ -17,7 +17,7 @@ interface Props extends DrawerProps {
 }
 
 const Drawer: React.FC<Props> = ({ title, children, submitForm, isPending, ...rest }) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(rest.open || false);
 
   const showDrawer = () => {
     setOpen(true);
@@ -31,7 +31,6 @@ const Drawer: React.FC<Props> = ({ title, children, submitForm, isPending, ...re
 
   const handleSubmit = () => {
     submitForm();
-    onClose();
   };
 
   return (

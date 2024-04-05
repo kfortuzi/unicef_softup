@@ -1,8 +1,10 @@
+import dayjs from 'dayjs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
 import useGetJob from 'src/api/jobs/hooks/useGetJob';
+import dateTimeFormats from 'src/constants/dateTimeFormats';
 
 const JobDetails: React.FC = () => {
   const { id } = useParams();
@@ -35,11 +37,11 @@ const JobDetails: React.FC = () => {
           </p>
           <p>
             <span className="data-name">{t('dateStart')}: </span>
-            {job?.dateStart.toString() || ''}
+            {job?.dateStart && dayjs(job?.dateStart).format(dateTimeFormats.albanianDate)}
           </p>
           <p>
             <span className="data-name">{t('dateEnd')}: </span>
-            {job?.dateEnd.toString() || ''}
+            {job?.dateEnd && dayjs(job?.dateEnd).format(dateTimeFormats.albanianDate)}
           </p>
         </div>
         <div className="job-details">

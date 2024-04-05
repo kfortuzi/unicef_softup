@@ -336,6 +336,7 @@
     "jobs": {
       "header": "Punet",
       "recommendedJobs": "Punet e rekomanduara",
+      "appliedJobs": "Punet e aplikuar",
       "allJobs": "Te gjitha punet",
       "viewDetails": "Shiko Detajet",
       "applyButtonText": "Apliko",
@@ -343,7 +344,11 @@
       "getPreparedButtonText": "Pergatitu per intervisten",
       "viewDetailsButtonText": "Shiko detajet",
       "tailorResumeButtonText": "Përshtatni CV-në",
-      "generateCoverLetterButtonText": "Gjeneroni Letër Motivimi"
+      "generateCoverLetterButtonText": "Gjeneroni Letër Motivimi",
+      "downloadPdfButtonText":"Shkarko PDF",
+      "applyModalTitle": "Apliko per kete pune",
+      "cancelButtonText": "Anullo",
+      "pleaseGenerateACv": "Ju lutem krijoni nje CV para se te aplikoni per kete pune."
     },
     "jobDetails": {
       "title": "Titulli",

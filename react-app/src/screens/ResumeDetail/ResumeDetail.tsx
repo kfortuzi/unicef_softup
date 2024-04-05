@@ -11,10 +11,10 @@ import { setBaseCvId } from 'src/helpers/baseCvStorage';
 
 const ResumeDetail: React.FC = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume' });
-  const { data: resumes, isFetched } = useGetResumes();
   const { id } = useParams();
+  const { data: resumes, isFetching } = useGetResumes();
 
-  if (!isFetched) {
+  if (isFetching) {
     return <LoadingFullPage />;
   }
 

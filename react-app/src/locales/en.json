@@ -342,6 +342,7 @@
     "jobs": {
       "header": "Open Job Positions",
       "recommendedJobs": "Recommended Jobs",
+      "appliedJobs": "Applied Jobs",
       "allJobs": "All Jobs",
       "viewDetails": "View Details",
       "applyButtonText": "Apply",
@@ -349,7 +350,11 @@
       "getPreparedButtonText": "Get Prepared",
       "viewDetailsButtonText": "View Details",
       "tailorResumeButtonText": "Tailor Resume",
-      "generateCoverLetterButtonText": "Generate Cover Letter"
+      "generateCoverLetterButtonText": "Generate Cover Letter",
+      "downloadPdfButtonText":"Download PDF",
+      "applyModalTitle": "Apply for Job",
+      "cancelButtonText": "Cancel",
+      "pleaseGenerateACv": "Please generate a CV first!"
     },
     "jobDetails": {
       "title": "Title",

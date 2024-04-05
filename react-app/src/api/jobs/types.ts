@@ -28,7 +28,7 @@ export type BaseResponse = {
   skills: string;
   specializations: string;
   updatedAt: Date;
-  referenceId: number;
+  referenceId: string;
 };
 
 export type PostJobRequest = {

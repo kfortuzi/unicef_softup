@@ -9,6 +9,7 @@ const useGetJob = (req: GetJobRequest) => {
     queryKey: [Keys.GET_JOB, req.id],
     queryFn: () => getJob(req),
     refetchOnMount: true,
+    enabled: !!req.id,
   });
 };
 

@@ -8,7 +8,7 @@ const useGetResume = (req: GetResumeRequest) => {
   return useQuery({
     queryKey: [Keys.GET_RESUME],
     queryFn: () => getResume(req),
-    refetchOnMount: false,
+    refetchOnMount: true,
   });
 };
 
