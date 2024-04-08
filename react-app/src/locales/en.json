@@ -354,7 +354,9 @@
       "downloadPdfButtonText":"Download PDF",
       "applyModalTitle": "Apply for Job",
       "cancelButtonText": "Cancel",
-      "pleaseGenerateACv": "Please generate a CV first!"
+      "pleaseGenerateACv": "Please generate a CV first!",
+      "noRecommendedJobs": "No recommended jobs found!",
+      "noAppliedJobs": "No applied jobs found!"
     },
     "jobDetails": {
       "title": "Title",

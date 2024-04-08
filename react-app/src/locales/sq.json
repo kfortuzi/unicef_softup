@@ -348,7 +348,9 @@
       "downloadPdfButtonText":"Shkarko PDF",
       "applyModalTitle": "Apliko per kete pune",
       "cancelButtonText": "Anullo",
-      "pleaseGenerateACv": "Ju lutem krijoni nje CV para se te aplikoni per kete pune."
+      "pleaseGenerateACv": "Ju lutem krijoni nje CV para se te aplikoni per kete pune.",
+      "noRecommendedJobs": "Nuk ka punë të rekomanduara për ju.",
+      "noAppliedJobs": "Nuk keni aplikuar për asnjë punë."
     },
     "jobDetails": {
       "title": "Titulli",

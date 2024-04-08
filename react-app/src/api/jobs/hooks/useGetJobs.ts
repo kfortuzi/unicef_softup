@@ -1,14 +1,15 @@
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
 import Keys from '../keys';
 import getJobs from '../requests/getJobs';
-import { GetJobRequests } from '../types';
+import { GetJobsRequest } from '../types';
 
-const useGetJobs = (request: GetJobRequests) => {
-  return useQuery({
-    queryKey: [Keys.GET_JOBS, request],
-    queryFn: () => getJobs(request),
-    refetchOnMount: false,
+const useGetJobs = (request: GetJobsRequest) => {
+  return useInfiniteQuery({
+    queryKey: [Keys.GET_JOBS],
+    queryFn: ({ pageParam }) => getJobs({ take: request.take, cursor: pageParam }),
+    initialPageParam: '',
+    getNextPageParam: (lastPage) => lastPage?.slice(-1)[0].id ?? undefined,
   });
 };
 

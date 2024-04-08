@@ -7,7 +7,6 @@ const useGetResumes = () => {
   return useQuery({
     queryKey: [Keys.GET_RESUMES],
     queryFn: getResumes,
-    refetchOnMount: true,
     retry: false,
   });
 };

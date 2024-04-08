@@ -51,7 +51,7 @@ export type GetJobRequest = {
   id?: string;
 };
 
-export type GetJobRequests = {
+export type GetJobsRequest = {
   take: number;
   cursor?: string;
 };
