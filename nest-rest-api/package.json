@@ -44,6 +44,7 @@
     "class-validator": "^0.14.0",
     "cookie-parser": "^1.4.6",
     "dayjs": "^1.11.10",
+    "dayjs-plugin-utc": "^0.1.2",
     "file-type": "^19.0.0",
     "nestjs-pino": "^3.5.0",
     "openai": "^4.28.0",

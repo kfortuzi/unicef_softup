@@ -11,12 +11,14 @@ import { MailService } from '../mail/mail.service';
 import { SendResetPasswordUserDto } from './dto/send-reset-password-user.dto';
 import { user_skills, users } from '@prisma/client';
 import exclude from '../commons/utils/exclude';
-import dayjs from 'dayjs';
 import { ResetPasswordUserDto } from './dto/reset-password-user.dto';
 import { UserRepository } from './user.repository';
 import { compareHash, hashString } from '../commons/utils/hash';
 import { UserSkillDto } from './dto/user-skill.dto';
 import { S3Service } from 'src/s3/s3.service';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+dayjs.extend(utc);
 
 const userExcludedData = [
   'password',
@@ -62,7 +64,7 @@ export class UserService {
     if (updateUserDto.lastName) user.lastName = updateUserDto.lastName;
     if (updateUserDto.phoneNumber) user.phoneNumber = updateUserDto.phoneNumber;
     if (updateUserDto.birthdayDate)
-      user.birthdayDate = dayjs(updateUserDto.birthdayDate).toDate();
+      user.birthdayDate = dayjs.utc(updateUserDto.birthdayDate).toDate();
     if (updateUserDto.profession) user.profession = updateUserDto.profession;
     if (updateUserDto.hobbies) user.hobbies = updateUserDto.hobbies;
     if (updateUserDto.oldPassword && updateUserDto.newPassword) {
