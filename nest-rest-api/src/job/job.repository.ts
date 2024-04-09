@@ -31,7 +31,7 @@ export class JobRepository {
     if (isPaginationWithCursor) {
       return {
         take: take,
-        skip: 0,
+        skip: 1,
         cursor: {
           id: cursor,
         },
