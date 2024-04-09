@@ -7,7 +7,7 @@ export class MailService {
     const mail = {
       to: email,
       subject: subject,
-      from: 'stavri.thomollari@softup.co',
+      from: 'stivi.ndoni@softup.co',
       text: 'Hello',
       html: template,
     };

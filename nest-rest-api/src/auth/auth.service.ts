@@ -12,9 +12,8 @@ export class AuthService {
 
   async validateUser(email: string, pass: string): Promise<any> {
     if (!email || !pass) return null;
-    const user = await this.userRepository.findOneByEmail(email);
-    if (!user || !user.confirmedAt)
-      throw new BadRequestException('User not confirmed!');
+    const user = await this.userRepository.findVerifiedUser(email);
+    if (!user) throw new BadRequestException('User not confirmed!');
 
     const isMatch = await compareHash(pass, user.password);
 

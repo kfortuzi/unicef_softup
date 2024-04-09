@@ -1,5 +1,4 @@
 import { PrismaClient } from '@prisma/client';
-import { v4 as uuidv4 } from 'uuid';
 const prisma = new PrismaClient();
 
 async function main() {
@@ -10,16 +9,12 @@ async function main() {
         firstName: 'softup',
         lastName: 'softup',
         email: 'admin@softup.co',
-        verificationCode: uuidv4(),
-        confirmedAt: new Date(),
         password: 'softup1234',
       },
       {
         firstName: 'john',
         lastName: 'doe',
         email: 'john.doe@example.co',
-        verificationCode: uuidv4(),
-        confirmedAt: new Date(),
         password: '123456789',
       },
     ],

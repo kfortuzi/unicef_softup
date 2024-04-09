@@ -84,7 +84,7 @@ export class UserController {
 
   @ApiBearerAuth()
   @ApiTags('users')
-  @Patch('send_reset_password')
+  @Post('send-reset-password')
   @ApiBody({ type: SendResetPasswordUserDto })
   @ApiCreatedResponse({ description: 'An reset password email has been send.' })
   @ApiForbiddenResponse({ status: 403, description: 'Forbidden.' })
@@ -96,12 +96,26 @@ export class UserController {
 
   @ApiBearerAuth()
   @ApiTags('users')
-  @Patch('reset_password')
+  @Patch('reset-password')
   @ApiBody({ type: ResetPasswordUserDto })
   @ApiCreatedResponse({ description: 'Success' })
   @ApiForbiddenResponse({ status: 403, description: 'Forbidden.' })
   resetPassword(@Body() resetPasswordUserDto: ResetPasswordUserDto) {
     return this.userService.resetPassword(resetPasswordUserDto);
+  }
+
+  @ApiBearerAuth()
+  @ApiTags('users')
+  @ApiBody({ type: SendResetPasswordUserDto })
+  @ApiCreatedResponse({ description: 'An new email has been send.' })
+  @ApiForbiddenResponse({ status: 403, description: 'Forbidden.' })
+  @Post('request-verification')
+  async requestVerification(@Body('email') email: string) {
+    await this.userService.requestNewVerificationCode(email);
+    return {
+      message:
+        'If a user with that email exists, a verification email has been sent.',
+    };
   }
 
   @ApiBearerAuth()

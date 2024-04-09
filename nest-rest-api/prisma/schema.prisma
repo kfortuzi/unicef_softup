@@ -8,21 +8,19 @@ datasource db {
 }
 
 model users {
-  id               String    @id @default(cuid())
-  email            String    @unique
-  firstName        String?   @map("first_name")
-  lastName         String?   @map("last_name")
-  password         String
-  verificationCode String?   @map("verification_code")
-  confirmedAt      DateTime? @db.Timestamp(6)
-  phoneNumber      String?   @map("phone_number")
-  profession       String?
-  profilePicture   String?   @map("profile_picture")
-  birthdayDate     DateTime? @db.Date
-  hobbies          String?
-  createdAt        DateTime  @default(now()) @map("created_at") @db.Timestamp(6)
-  updatedAt        DateTime? @updatedAt @map("updated_at") @db.Timestamp(6)
-  deletedAt        DateTime? @map("deleted_at") @db.Timestamp(6)
+  id             String    @id @default(cuid())
+  email          String    @unique
+  firstName      String?   @map("first_name")
+  lastName       String?   @map("last_name")
+  password       String
+  phoneNumber    String?   @map("phone_number")
+  profession     String?
+  profilePicture String?   @map("profile_picture")
+  birthdayDate   DateTime? @db.Date
+  hobbies        String?
+  createdAt      DateTime  @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt      DateTime? @updatedAt @map("updated_at") @db.Timestamp(6)
+  deletedAt      DateTime? @map("deleted_at") @db.Timestamp(6)
 
   resumes               resumes[]
   cover_letters         cover_letters[]
@@ -30,6 +28,7 @@ model users {
   user_recommended_jobs user_recommended_jobs[]
   prompts               prompts[]
   wizard_answer         wizard_answer[]
+  userCode              user_code[]
 }
 
 model user_skills {
@@ -189,4 +188,20 @@ model wizard_answer {
   createdAt DateTime   @default(now()) @map("created_at") @db.Timestamp(6)
   updatedAt DateTime?  @updatedAt @map("updated_at") @db.Timestamp(6)
   user      users      @relation(fields: [userId], references: [id])
+}
+
+enum CodeType {
+  VERIFICATION
+  PASSWORD_RESET
+}
+
+model user_code {
+  id          String    @id @default(cuid())
+  userId      String    @map("user_id")
+  code        String
+  type        CodeType
+  expiresAt   DateTime  @map("expires_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  confirmedAt DateTime? @map("confirmed_at") @db.Timestamp(6)
+  user        users     @relation(fields: [userId], references: [id])
 }
