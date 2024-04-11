@@ -16,7 +16,7 @@
       "type": "string",
       "required": true
     },
-    "VidoContent": {
+    "VideoContent": {
       "type": "media",
       "multiple": false,
       "required": true,

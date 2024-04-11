@@ -834,7 +834,7 @@ export interface ApiVideoVideo extends Schema.CollectionType {
   };
   attributes: {
     Title: Attribute.String & Attribute.Required;
-    VidoContent: Attribute.Media & Attribute.Required;
+    VideoContent: Attribute.Media & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
