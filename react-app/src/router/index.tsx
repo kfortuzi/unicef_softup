@@ -28,6 +28,8 @@ import ResumeDetail from 'src/screens/ResumeDetail/ResumeDetail';
 import ResumeQuestionnaire from 'src/screens/ResumeQuestionnaire/ResumeQuestionnaire';
 import Signup from 'src/screens/Signup/Signup';
 import SkillsAndHobbies from 'src/screens/SkillsAndHobbies/SkillsAndHobbies';
+import TrainingVideos from 'src/screens/TrainingVideos/TrainingVideos';
+import TrainingArticles from 'src/screens/TrainingArticles/TrainingArticles';
 
 import { Route } from './enums';
 
@@ -71,8 +73,12 @@ const Router: React.FC = () => {
               element: <JobDetails />,
             },
             {
-              path: Route.TRAINING,
-              element: <Home />,
+              path: Route.TRAINING_VIDEOS,
+              element: <TrainingVideos />,
+            },
+            {
+              path: Route.TRAINING_ARTICLES,
+              element: <TrainingArticles />,
             },
             {
               path: Route.PROFILE_SETTINGS,

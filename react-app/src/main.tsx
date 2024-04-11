@@ -11,6 +11,7 @@ import i18n from './locales';
 import Router from './router';
 import theme from './theme.json';
 import './styles/main.scss';
+import 'video-react/dist/video-react.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

@@ -67,7 +67,18 @@ const PageWithNavigation: React.FC = () => {
         label: t('training'),
         key: 'training',
         icon: <ReadOutlined />,
-        onClick: () => navigate(Route.TRAINING),
+        children: [
+          {
+            label: t('trainingVideos'),
+            key: 'trainingVideos',
+            onClick: () => navigate(Route.TRAINING_VIDEOS),
+          },
+          {
+            label: t('trainingArticles'),
+            key: 'trainingArticles',
+            onClick: () => navigate(Route.TRAINING_ARTICLES),
+          },
+        ],
       },
       {
         label: `${user?.firstName || 'John'} ${user?.lastName || 'Doe'}`,

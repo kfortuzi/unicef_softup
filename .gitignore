@@ -67,3 +67,15 @@ react-app/*.sw?
 react-app/.vite
 .DS_Store
 .gitignore
+
+# Asset Api
+asset-api/node_modules
+asset-api/dist
+asset-api/logs
+asset-api/*.log
+asset-api/npm-debug.log*
+asset-api/pnpm-debug.log*
+asset-api/yarn-debug.log*
+asset-api/yarn-error.log*
+asset-api/build
+.env

@@ -39,7 +39,7 @@ const MyResume: React.FC = () => {
           style={{ alignSelf: 'center' }}
         />
       </PDFDownloadLink> */}
-      <ResumePdfView resume={resume} />
+      {/* <ResumePdfView resume={resume} /> */}
     </div>
   );
 };

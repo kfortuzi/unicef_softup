@@ -1,0 +1,50 @@
+.training-card-container {
+  display: flex;
+  flex-flow: column nowrap;
+  border-radius: $base-border-radius;
+  box-shadow: $suggested-box-shadow;
+
+  .training-card-body {
+    background-color: $card-background-color;
+    .ant-card-body {
+      display: flex;
+      flex-flow: column nowrap;
+      padding: $medium;
+      gap: $small;
+    }
+  }
+
+  .metadata {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    gap: $small;
+    color: white;
+
+    .name {
+      font-family: $karla-bold;
+      font-size: 100%;
+      margin: 0;
+    }
+
+    .last-updated {
+      font-family: $karla-regular;
+      font-size: 80%;
+      margin: 0;
+    }
+  }
+
+  .actions {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: $small;
+
+    .watch {
+      color: $info-color;
+      background-color: white;
+      border-radius: $base-border-radius;
+      cursor: pointer;
+    }
+  }
+}

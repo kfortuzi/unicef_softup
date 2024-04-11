@@ -8,6 +8,8 @@ export enum Route {
   JOB_DETAILS = 'jobs/:id',
   JOB_INTERVIEW_TIPS = 'jobs/:id/interview-tips',
   TRAINING = 'training',
+  TRAINING_VIDEOS = '/training/videos',
+  TRAINING_ARTICLES = '/training/articles',
   ACCESS = '/access',
   LOGIN = 'login',
   SIGNUP = 'signup',

@@ -1,0 +1,16 @@
+.trainings-container {
+  .title {
+    font-family: $karla-bold;
+    font-size: 150%;
+    margin: $large 0;
+  }
+  .list-of-trainings {
+    margin-bottom: $large;
+
+    .category {
+      font-family: $karla-bold;
+      font-size: 125%;
+      margin: 0;
+    }
+  }
+}

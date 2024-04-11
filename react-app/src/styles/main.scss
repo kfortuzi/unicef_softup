@@ -1,7 +1,7 @@
 // Imports
 
-@import "./fonts.scss";
-@import "./variables.scss";
+@import './fonts.scss';
+@import './variables.scss';
 
 // Global styles
 
@@ -28,7 +28,7 @@ body {
     overflow-y: hidden;
   }
 
-  @import "./layouts.scss";
-  @import "./screens.scss";
-  @import "./components.scss";
+  @import './layouts.scss';
+  @import './screens.scss';
+  @import './components.scss';
 }

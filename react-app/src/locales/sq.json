@@ -201,7 +201,7 @@
           "releaseDate": "Data e publikimit",
           "link": "Linku"
         },
-        "volunteeringsSection" : {
+        "volunteeringsSection": {
           "headerPlural": "Vullnetarizimet",
           "headerSingular": "Vullnetarizimi",
           "role": "Roli",
@@ -224,7 +224,7 @@
       "cancel": "Anullo",
       "edit": "Ndrysho",
       "download": "Shkarko",
-      "required":"{{field}} eshte i detyrueshem",
+      "required": "{{field}} eshte i detyrueshem",
       "changePhotoButtonText": "Ndrysho Foton e Profilit",
       "uploading": "Duke ngarkuar foton...",
       "uploadSuccess": "Fotoja u ngarkua me sukses",
@@ -255,6 +255,8 @@
       "coverLetter": "Leter motivimi",
       "jobs": "Punet",
       "training": "Trajnim",
+      "trainingVideos": "Video trajnime",
+      "trainingArticles": "Artikuj trajnimi",
       "settings": "Settings"
     },
     "profileWithNavigation": {
@@ -324,7 +326,7 @@
       "deleteSuccessMessage": "Letra e motivimit u fshi me sukses!",
       "deleteErrorMessage": "Letra e motivimit nuk u fshi me sukses!"
     },
-    "askWizardModal":{
+    "askWizardModal": {
       "header": "Pyet Magjistrin",
       "enhanceWithAiButtonText": "Përmirëso me AI",
       "autoGenerateButtonText": "Gjenero automatikisht",
@@ -345,7 +347,7 @@
       "viewDetailsButtonText": "Shiko detajet",
       "tailorResumeButtonText": "Përshtatni CV-në",
       "generateCoverLetterButtonText": "Gjeneroni Letër Motivimi",
-      "downloadPdfButtonText":"Shkarko PDF",
+      "downloadPdfButtonText": "Shkarko PDF",
       "applyModalTitle": "Apliko per kete pune",
       "cancelButtonText": "Anullo",
       "pleaseGenerateACv": "Ju lutem krijoni nje CV para se te aplikoni per kete pune.",
@@ -381,6 +383,17 @@
       "summary": "Përmbledhje",
       "createSuccessMessage": "CV u krijua me sukses!",
       "createErrorMessage": "CV nuk u krijua me sukses!"
+    },
+    "trainingVideos": {
+      "header": "Video trajnime",
+      "noVideos": "Nuk ka video trajnimesh."
+    },
+    "trainingArticles": {
+      "header": "Artikuj trajnimi",
+      "noArticles": "Nuk ka artikuj trajnimi."
+    },
+    "trainingCard": {
+      "openArticle": "Hape artikullin"
     }
   }
 }

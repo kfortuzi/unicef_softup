@@ -207,7 +207,7 @@
           "addButtonTitle": "Add",
           "removeButtonTitle": "Remove"
         },
-        "volunteeringsSection" : {
+        "volunteeringsSection": {
           "headerPlural": "Volunteerings",
           "headerSingular": "Volunteering",
           "role": "Role",
@@ -230,7 +230,7 @@
       "cancel": "Cancel",
       "edit": "Edit",
       "download": "Download",
-      "required":"{{field}} is required",
+      "required": "{{field}} is required",
       "changePhotoButtonText": "Change Photo",
       "uploading": "Uploading...",
       "uploadSuccess": "Photo was uploaded successfully!",
@@ -261,6 +261,8 @@
       "coverLetter": "Cover letter",
       "jobs": "Jobs",
       "training": "Training",
+      "trainingVideos": "Training videos",
+      "trainingArticles": "Training articles",
       "settings": "Settings"
     },
     "profileWithNavigation": {
@@ -330,7 +332,7 @@
       "deleteSuccessMessage": "Cover letter was deleted successfully!",
       "deleteErrorMessage": "Failed to delete cover letter!"
     },
-    "askWizardModal":{
+    "askWizardModal": {
       "header": "Ask Wizard",
       "enhanceWithAiButtonText": "Enhance with AI",
       "autoGenerateButtonText": "Auto Generate",
@@ -351,7 +353,7 @@
       "viewDetailsButtonText": "View Details",
       "tailorResumeButtonText": "Tailor Resume",
       "generateCoverLetterButtonText": "Generate Cover Letter",
-      "downloadPdfButtonText":"Download PDF",
+      "downloadPdfButtonText": "Download PDF",
       "applyModalTitle": "Apply for Job",
       "cancelButtonText": "Cancel",
       "pleaseGenerateACv": "Please generate a CV first!",
@@ -388,6 +390,17 @@
       "summary": "Summary",
       "createSuccessMessage": "Questionnaire was saved successfully!",
       "createErrorMessage": "Failed to save questionnaire!"
+    },
+    "trainingVideos": {
+      "header": "Training Videos",
+      "noVideos": "No videos found!"
+    },
+    "trainingArticles": {
+      "header": "Training Articles",
+      "noArticles": "No articles found!"
+    },
+    "trainingCard": {
+      "openArticle": "Open Article"
     }
   }
 }
