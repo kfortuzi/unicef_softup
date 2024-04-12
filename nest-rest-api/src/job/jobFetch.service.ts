@@ -4,7 +4,7 @@ import { Job } from './dto/job.dto';
 import dayjs from 'dayjs';
 import { JobListDTO } from './dto/job-list.dto';
 import { AkpaJobDTO } from './dto/akpa-job.dto';
-import { jobs, EducationType, JobType } from '@prisma/client';
+import { jobs, EducationType, JobType, Prisma } from '@prisma/client';
 import { Cron } from '@nestjs/schedule';
 
 @Injectable()
@@ -43,7 +43,7 @@ export class JobsFetchService {
         'Content-Type': 'application/json;charset=UTF-8',
         Referer: 'https://www.puna.gov.al/',
         cookie:
-          '_ga=GA1.1.2060805193.1707859283;visitid_incap_ses_1083_2810608=iipSdafv5SfUb+bMeJgHD8CiAmYAAAAA7ERApt9a2i29AANkyFWMbg==; visid_incap_2810608=N02tJvG/TFq9GzpRKpMkJo2VAmYAAAAAQUIPAAAAAAB/xOXhPoRC8kxsajJEwq/x',
+          '_ga=GA1.1.2060805193.1707859283; visid_incap_2810608=aGfqP6l3Sfejd/U+Vio1Sbfy5mUAAAAAQkIPAAAAAACAWzuzAU9qf7Eq3RxbdhKVVCT4ZKm1xsD7; incap_ses_1091_2810608=mnocfaDH8gDyzZrs5gMkD33xGGYAAAAAnczCyon6uhq42KECaWjGpQ==; _ga_BQB8F7PK08=GS1.1.1712910726.14.0.1712910726.0.0.0',
       },
       body: JSON.stringify({
         token: null,
@@ -73,8 +73,8 @@ export class JobsFetchService {
     return detail.response[0];
   }
 
-  async saveJob(job: Job) {
-    await this.jobRepository.create({ data: job });
+  async saveJob(job: Prisma.jobsCreateInput) {
+    await this.jobRepository.create(job);
   }
 
   async deactivateJob(referenceId: number) {

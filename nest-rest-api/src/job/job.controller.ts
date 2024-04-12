@@ -51,6 +51,15 @@ export class JobController {
     return this.jobService.getJobs(take, cursor);
   }
 
+  @ApiTags('jobs')
+  @ApiResponse({
+    description: 'Jobs retrieved successfully',
+  })
+  @Get(':filter')
+  findJobsByFilter(@Param('filter') filter: string) {
+    return this.jobService.getJobsByFilter(filter);
+  }
+
   @ApiBearerAuth()
   @ApiTags('jobs')
   @UseGuards(JwtAuthGuard)

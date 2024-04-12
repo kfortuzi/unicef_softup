@@ -21,6 +21,17 @@ export class JobService {
     return this.jobRepository.findMany(cursor, parseInt(take));
   }
 
+  async getJobsByFilter(filter: string) {
+    try {
+      const filteredJobs = await this.jobRepository.getJobsByFilter(filter);
+      if (!filteredJobs)
+        throw new NotFoundException({ message: 'Job not found!' });
+      return filteredJobs;
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
+  }
+
   async findJob(jobId: string): Promise<JobSummaryDTO> {
     const jobData = await this.jobRepository.findOneById(jobId);
     if (!jobData) throw new NotFoundException({ message: 'Job not found!' });

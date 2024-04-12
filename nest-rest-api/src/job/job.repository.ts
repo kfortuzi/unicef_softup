@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { jobs } from '@prisma/client';
+import { Prisma, jobs } from '@prisma/client';
 import { PrismaService } from 'src/commons/prisma/prisma.service';
 
 type PaginationOptions =
@@ -66,7 +66,14 @@ export class JobRepository {
     });
   }
 
-  async create(data: any) {
+  async getJobsByFilter(filter: string): Promise<jobs[]> {
+    return this.prismaService.$queryRaw<jobs[]>`
+        SELECT  title, description, address, location, type, company,contract_duration, suitable_for_disabilities, vacant_positions, basic_skills, communication_skill, computer_skills, education_type, experience, foreign_language,need_driving_license, payment_level, skill_lines, skills, specializations 
+        FROM jobs
+        WHERE textsearchable_index_col @@ plainto_tsquery('simple', ${filter})`;
+  }
+
+  async create(data: Prisma.jobsCreateInput) {
     return this.prismaService.jobs.create({ data });
   }
 
