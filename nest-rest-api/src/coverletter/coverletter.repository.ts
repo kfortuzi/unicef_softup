@@ -54,4 +54,14 @@ export class CoverLetterRepository {
       data: { deletedAt: new Date().toISOString() },
     });
   }
+
+  async getJobCoverLetter(userId: string, jobId: string) {
+    return this.prisma.cover_letters.findFirst({
+      where: {
+        userId,
+        deletedAt: null,
+        referenceId: jobId,
+      },
+    });
+  }
 }

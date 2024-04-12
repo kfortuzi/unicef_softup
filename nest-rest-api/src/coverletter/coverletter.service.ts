@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { OpenAIService } from '../openai/openai.service';
 import { ChatCompletionMessageParam } from 'openai/resources/chat';
 import { AkpaModels } from '../openai/models';
@@ -84,6 +88,13 @@ export class CoverLetterService {
   async generateCoverLetterFromJobPost(userId: string, jobId: string) {
     try {
       const jobData = await this.jobService.findJob(jobId);
+      const existingCoverLetter =
+        await this.coverLetterRepository.getJobCoverLetter(userId, jobId);
+      if (existingCoverLetter)
+        throw new UnprocessableEntityException({
+          errorCode: 422,
+          message: 'Cover letter already exists!',
+        });
       const generatedCoverLetter = await this.generateCoverLetter(
         userId,
         jobData,

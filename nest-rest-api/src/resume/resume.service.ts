@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { OpenAIService } from '../openai/openai.service';
 import { ChatCompletionMessageParam } from 'openai/resources/chat';
 import { AkpaModels } from '../openai/models';
@@ -210,6 +214,15 @@ export class ResumeService {
       if (!resumeData)
         throw new NotFoundException({ message: 'Resume not found!' });
       const jobData = await this.jobService.findJob(jobId);
+      const existingResume = await this.resumeRepository.findUserResume(
+        userId,
+        jobId,
+      );
+      if (existingResume)
+        throw new UnprocessableEntityException({
+          errorCode: 422,
+          message: 'Resume already exists!',
+        });
       const userExperience = await this.getUserExperiences(userId);
       const updatedUserExperiences = await this.enhanceResponsibility(
         userExperience,
