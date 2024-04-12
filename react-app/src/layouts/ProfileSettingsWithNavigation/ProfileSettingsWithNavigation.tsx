@@ -15,7 +15,7 @@ const ProfileSettingsWithNavigation: React.FC = () => {
 
   useEffect(() => {
     if (location.pathname === Route.ROOT) {
-      navigate(`${Route.ROOT}${Route.YOUTH_CAREER_ORIENTATION}`, { replace: true });
+      navigate(`${Route.ROOT}${Route.HOME}`, { replace: true });
     }
   }, [location.pathname, navigate]);
 

@@ -39,7 +39,7 @@ const PageWithNavigation: React.FC = () => {
       setHasBaseCv(true);
     }
     if (location.pathname === Route.ROOT) {
-      navigate(`${Route.ROOT}${Route.YOUTH_CAREER_ORIENTATION}`, { replace: true });
+      navigate(`${Route.ROOT}${Route.HOME}`, { replace: true });
     }
   }, [isFetched, location.pathname, navigate, resumes]);
 
@@ -107,7 +107,7 @@ const PageWithNavigation: React.FC = () => {
     <Layout className="page-with-navigation-container">
       <Header className="navigation-bar">
         <img
-          onClick={() => hasBaseCv ?? navigate(Route.YOUTH_CAREER_ORIENTATION)}
+          onClick={() => hasBaseCv && navigate(Route.HOME)}
           className="logo"
           src={logo}
         />

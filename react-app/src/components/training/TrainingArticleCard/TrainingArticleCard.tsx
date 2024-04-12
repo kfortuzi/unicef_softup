@@ -11,8 +11,8 @@ type TrainingArticleCardProps = {
 
 const TrainingArticleCard: React.FC<TrainingArticleCardProps> = ({ id, attributes }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'trainingCard' });
-  const fallBackImage =
-    'https://t4.ftcdn.net/jpg/04/65/41/29/360_F_465412924_Ir2XnMp0TYJYtpl1IdNSPYt0UNDVMJv3.jpg';
+  const fallBackImage
+    = 'https://t4.ftcdn.net/jpg/04/65/41/29/360_F_465412924_Ir2XnMp0TYJYtpl1IdNSPYt0UNDVMJv3.jpg';
 
   return (
     <div className="training-card-container">

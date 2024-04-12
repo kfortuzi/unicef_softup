@@ -3,12 +3,13 @@
   flex-direction: column;
   overflow-x: hidden;
 
-  // align-items: center;
 
   padding: $large;
+
   p {
     margin: 0;
   }
+
   .other-languages-container {
     display: flex;
     flex-direction: column;
@@ -30,34 +31,47 @@
     flex-direction: column;
     transform: translateX(20%);
     transition: transform 0.5s;
-  }
-  .my-resume-body {
-    display: flex;
-    width: 70%;
 
-    .contact-section {
+    .cv-header {
       display: flex;
-      flex-direction: column;
-      background-color: #c5c5c5;
+      flex-direction: row;
       align-items: center;
+      gap: $large;
+
+      button {
+        margin-left: 225%;
+      }
     }
 
-    .content-section {
+    .my-resume-body {
       display: flex;
-      flex: 1;
-      flex-direction: column;
-      background-color: #ffffff;
-      padding: $large;
-    }
-  }
+      width: 70%;
 
-  .button-group {
-    display: flex;
-    justify-content: center;
-    column-gap: $large;
-    height: max-content;
+      .contact-section {
+        display: flex;
+        flex-direction: column;
+        background-color: #c5c5c5;
+        align-items: center;
+      }
+
+      .content-section {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        background-color: #ffffff;
+        padding: $large;
+      }
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: center;
+      column-gap: $large;
+      height: max-content;
+    }
   }
 }
+
 .slide-left {
   transform: translateX(0%) !important;
 }

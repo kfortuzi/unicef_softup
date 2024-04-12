@@ -1,4 +1,6 @@
+import { RobotOutlined } from '@ant-design/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Dropdown, MenuProps } from 'antd';
 import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -8,9 +10,11 @@ import postResumeAskWizard from 'src/api/resumes/requests/postResumeAskWizard';
 import postResumeSummary from 'src/api/resumes/requests/postResumeSummary';
 import { WorkExperience } from 'src/api/resumes/types';
 import AskWizardModal from 'src/components/common/AskWizardModal/AskWizardModal';
+import Button from 'src/components/common/Button/Button';
 import Drawer from 'src/components/common/Drawer/Drawer';
 import InputTextArea from 'src/components/common/InputTextArea/InputTextArea';
 import { getBaseCvId } from 'src/helpers/baseCvStorage';
+import i18n from 'src/locales';
 
 import { defaultValues } from './constants';
 import { FormField } from './enums';
@@ -37,7 +41,22 @@ const AboutMeForm: React.FC<AboutMeProps> = ({ aboutMe, workExperiences }) => {
   const { mutate: patchResume, isPending } = usePatchResume();
   const submitForm = handleSubmit((values) => patchResume({ id: cvId, summary: values.aboutMe }));
 
-  const handleAutoGenerate = async () => {
+  const [isOpen, setOpen] = useState(false);
+
+  const wizardModalItems: MenuProps['items'] = [
+    {
+      key: 'dropdown-auto-generate-button',
+      label: <a onClick={async () => await autoGenerateFromAiAndSetContent()}>
+        {i18n.t('askWizardModal.autoGenerateButtonText')}
+      </a>,
+    },
+    {
+      key: 'dropdown-ask-wizard-button',
+      label: <a onClick={() => setOpen(true)}>{i18n.t('askWizardModal.askWizardButtonText')}</a>,
+    },
+  ];
+
+  const autoGenerateFromAiAndSetContent = async () => {
     setContentLoading(true);
     const data = await postResumeSummary(workExperiences || []);
 
@@ -47,11 +66,11 @@ const AboutMeForm: React.FC<AboutMeProps> = ({ aboutMe, workExperiences }) => {
     setContentLoading(false);
   };
 
-  const handleUseResponseOnClick = async (text: string) => {
+  const updateMessageText = async (text: string) => {
     setValue(FormField.ABOUT_ME, text, { shouldDirty: true });
   };
 
-  const handleSendMessageOnClick = async (text: string): Promise<string | undefined> => {
+  const sendMessageAndGetAiPrompt = async (text: string): Promise<string | undefined> => {
     const data = await postResumeAskWizard({
       message: getValues(FormField.ABOUT_ME) || '',
       content: text,
@@ -87,11 +106,25 @@ const AboutMeForm: React.FC<AboutMeProps> = ({ aboutMe, workExperiences }) => {
               />
             )}
           />
+          <Dropdown
+            key={'ask-wizard-dropdown'}
+            menu={{ items: wizardModalItems }}
+            placement="bottomLeft"
+            trigger={['click']}
+            overlayStyle={{ width: 300 }}
+          >
+            <Button
+              icon={<RobotOutlined />}
+              type="primary"
+              text={i18n.t('askWizardModal.enhanceWithAiButtonText')}
+            />
+          </Dropdown>
 
           <AskWizardModal
-            autoGenerateOnClick={handleAutoGenerate}
-            useOnClick={handleUseResponseOnClick}
-            sendMessageOnclick={handleSendMessageOnClick}
+            setOpen={setOpen}
+            open={isOpen}
+            updateMessageText={updateMessageText}
+            sendMessageAndGetAiPrompt={sendMessageAndGetAiPrompt}
           />
         </div>
       </form>

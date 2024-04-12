@@ -236,21 +236,22 @@
       "goBack": "Kthehu Ne Kryefaqe"
     },
     "home": {
-      "header": "Forca e punësimit kombëtar",
-      "subHeader": "Paragrafi i sub header.",
+      "header": "The Power of national employment",
+      "subHeader": "I'm a paragraph. Click here to add your own text and edit me",
       "learnMore": "Meso me shume",
+      "servicesStepsText": "Tre hapa. Tre minuta.",
+      "servicesTitle": "Gjithçka duhet të jetë kaq e lehtë",
       "service1": "Përshtatni CV-në",
       "service2": "Gjeneroni letër motivimi",
       "service3": "Këshillim",
       "service1Description": "Pershkrimi i sherbimit 1",
       "service2Description": "Pershkrimi i sherbimit 2",
       "service3Description": "Pershkrimi i sherbimit 3",
-      "servicesTitle": "Sherbimet",
       "tipOfTheDay": "Keshilla e dites"
     },
     "pageWithNavigation": {
       "logOut": "Dil",
-      "youthCareerOrientation": "Orientim kariere per te rinjte",
+      "home": "Orientim kariere per te rinjte",
       "resume": "Resume",
       "coverLetter": "Leter motivimi",
       "jobs": "Punet",
@@ -333,7 +334,8 @@
       "askWizardButtonText": "Pyet magjistrin",
       "askWizardPlaceholder": "Pyet Magjistrin",
       "useButtonText": "Përdor",
-      "aiFirstMessage": "Përshëndetje, unë jam një magjistar. Si mund t'ju ndihmoj?"
+      "aiFirstMessage": "Përshëndetje, unë jam një magjistar. Si mund t'ju ndihmoj?",
+      "aiErrorMessage": "Na vjen keq, nuk mund të përpunohet kërkesa juaj. Ju lutem provoni përsëri më vonë."
     },
     "jobs": {
       "header": "Punet",

@@ -23,6 +23,6 @@ export class ChatbotController {
   })
   @Post()
   async sendMessage(@Request() req: RequestWithUser, @Body() body: MessageDto) {
-    return await this.chatbotService.chatbot(req.user.id, body.message);
+    await this.chatbotService.chatbot(req.user.id, body.message);
   }
 }

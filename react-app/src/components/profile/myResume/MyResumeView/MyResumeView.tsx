@@ -1,7 +1,11 @@
+import { DownloadOutlined } from '@ant-design/icons';
+import { PDFDownloadLink } from '@react-pdf/renderer';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import useGetJob from 'src/api/jobs/hooks/useGetJob';
 import { GetResumeResponse } from 'src/api/resumes/types';
+import Button from 'src/components/common/Button/Button';
 
 import AboutMeForm from '../AboutMeForm/AboutMeForm';
 import AboutMeView from '../AboutMeView/AboutMeView';
@@ -19,13 +23,13 @@ import LanguagesForm from '../LanguageForm/LanguageForm';
 import LanguageItem from '../LanguageItem/LanguageItem';
 import PublicationsForm from '../PublicationForm/PublicationForm';
 import PublicationItem from '../PublicationItem/PublicationItem';
+import ResumePdfView from '../ResumePdfView/ResumePdfView';
 import Section from '../Section/Section';
 import SoftSkillsForm from '../SoftSkillsForm/SoftSkillsForm';
 import VolunteeringForm from '../VolunteeringForm/VolunteeringForm';
 import VolunteeringItem from '../VolunteeringItem/VolunteeringItem';
 import WorkExperiencesForm from '../WorkExperiencesForm/WorkExperiencesForm';
 import WorkExperiencesView from '../WorkExperiencesView/WorkExperiencesView';
-import useGetJob from 'src/api/jobs/hooks/useGetJob';
 
 type MyResumeViewProps = {
   resume: GetResumeResponse;
@@ -41,9 +45,18 @@ const MyResumeView: React.FC<MyResumeViewProps> = ({ resume }) => {
   return (
     <div className="my-resume-layout">
       <div className="slide-container">
-        <h1>
-          {job?.company} {t('header')}
-        </h1>
+        <div className='cv-header'>
+          <h1>
+            {job?.company} {t('header')}
+          </h1>
+          <PDFDownloadLink document={<ResumePdfView resume={resume} />}>
+            <Button
+              text={t('downloadPdfButtonText')}
+              type="primary"
+              icon={<DownloadOutlined />}
+            />
+          </PDFDownloadLink>
+        </div>
         <div className="my-resume-body">
           <div className="contact-section">
             <ContactInfoView

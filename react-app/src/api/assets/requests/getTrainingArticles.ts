@@ -1,8 +1,8 @@
 import makeRequest from 'src/utils/makeRequest';
 
-import { GetTrainingArticlesRequest, GetTrainingArticlesResponse } from '../types';
+import { GetTrainingArticlesResponse } from '../types';
 
-const getTrainingArticles = async () // request: GetTrainingArticlesRequest,
+const getTrainingArticles = async ()
 : Promise<GetTrainingArticlesResponse | undefined> => {
   //TODO: To be implemented after the backend is ready
   // const response = await makeRequest<GetTrainingArticlesResponse>(

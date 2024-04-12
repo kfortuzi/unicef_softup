@@ -5,6 +5,7 @@ const prefix = 'akpa-ai';
 export enum LocalStorageKey {
   SELECTED_LANGUAGE = `${prefix}-selected-language`,
   USER_SESSION_TOKEN = `${prefix}-user-session-token`,
+  DAY_OF_TIP = `${prefix}-day-of-tip`,
 }
 
 export const saveItem = <ValueType>(

@@ -1,9 +1,8 @@
 import makeRequest from 'src/utils/makeRequest';
 
-import { GetTrainingVideosRequest, GetTrainingVideosResponse, GetTrainingVideosRequest } from '../types';
+import { GetTrainingVideosResponse } from '../types';
 
 const getTrainingVideos = async (
-  request: GetTrainingVideosRequest,
 ): Promise<GetTrainingVideosResponse | undefined> => {
   const response = await makeRequest<GetTrainingVideosResponse>('/assets/videos');
   //TODO: To be implemented after the backend is ready

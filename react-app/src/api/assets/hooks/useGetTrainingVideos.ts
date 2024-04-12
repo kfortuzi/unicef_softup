@@ -1,4 +1,4 @@
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import Keys from '../keys';
 import getTrainingVideos from '../requests/getTrainingVideos';
@@ -7,7 +7,7 @@ import { GetTrainingVideosRequest } from '../types';
 const useGetTrainingVideos = (request: GetTrainingVideosRequest) => {
   return useQuery({
     queryKey: [Keys.GET_TRAININGS_VIDEOS, request],
-    queryFn: () => getTrainingVideos(request),
+    queryFn: () => getTrainingVideos(),
   });
 
   //TODO: To be implemented after the backend is ready

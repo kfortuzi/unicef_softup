@@ -3,8 +3,8 @@ import dayjs from 'dayjs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
-import useGetJob from 'src/api/jobs/hooks/useGetJob';
 
+import useGetJob from 'src/api/jobs/hooks/useGetJob';
 import useDeleteResume from 'src/api/resumes/hooks/useDeleteCoverLetter';
 import { GetResumeResponse } from 'src/api/resumes/types';
 import Resume from 'src/assets/images/resume.webp';

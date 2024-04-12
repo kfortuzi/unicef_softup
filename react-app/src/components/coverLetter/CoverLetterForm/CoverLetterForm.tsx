@@ -1,5 +1,7 @@
+import { RobotOutlined } from '@ant-design/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { useEffect } from 'react';
+import { Dropdown, MenuProps } from 'antd';
+import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
@@ -9,9 +11,11 @@ import usePatchCoverLetter from 'src/api/coverLetters/hooks/usePatchCoverLetter'
 import usePostCoverLetterAskWizard from 'src/api/coverLetters/hooks/usePostCoverLetterAskWizard';
 import { GetCoverLetterResponse } from 'src/api/coverLetters/types';
 import AskWizardModal from 'src/components/common/AskWizardModal/AskWizardModal';
+import Button from 'src/components/common/Button/Button';
 import Drawer from 'src/components/common/Drawer/Drawer';
 import InputText from 'src/components/common/InputText/InputText';
 import TextArea from 'src/components/common/InputTextArea/InputTextArea';
+import i18n from 'src/locales';
 
 import { defaultValues } from './constants';
 import { FormField } from './enums';
@@ -23,7 +27,7 @@ const CoverLetterForm: React.FC = () => {
   const { data: coverLetter, isFetched } = useGetCoverLetter({ id } as GetCoverLetterResponse);
   const { mutate: patchCoverLetter, isPending } = usePatchCoverLetter();
   const { mutateAsync: postCoverLetterAskWizardAsync } = usePostCoverLetterAskWizard();
-  const [contentLoading, setContentLoading] = React.useState(false);
+  const [contentLoading, setContentLoading] = useState(false);
 
   const { handleSubmit, control, setValue, reset, getValues } = useForm({
     resolver: yupResolver(validationSchema),
@@ -41,7 +45,22 @@ const CoverLetterForm: React.FC = () => {
     patchCoverLetter({ id, ...data } as GetCoverLetterResponse);
   });
 
-  const handleAutoGenerate = async () => {
+  const [isOpen, setOpen] = useState(false);
+
+  const wizardModalItems: MenuProps['items'] = [
+    {
+      key: 'dropdown-auto-generate-button',
+      label: <a onClick={async () => await autoGenerateFromAiAndSetContent()}>
+        {i18n.t('askWizardModal.autoGenerateButtonText')}
+      </a>,
+    },
+    {
+      key: 'dropdown-ask-wizard-button',
+      label: <a onClick={() => setOpen(true)}>{i18n.t('askWizardModal.askWizardButtonText')}</a>,
+    },
+  ];
+
+  const autoGenerateFromAiAndSetContent = async () => {
     setContentLoading(true);
     const data = await postCoverLetterAskWizardAsync({ message: getValues(FormField.CONTENT) || '' });
 
@@ -51,11 +70,11 @@ const CoverLetterForm: React.FC = () => {
     setContentLoading(false);
   };
 
-  const handleUseResponseOnClick = async (text: string) => {
+  const updateMessageText = async (text: string) => {
     setValue(FormField.CONTENT, text, { shouldDirty: true });
   };
 
-  const handleSendMessageOnClick = async (text: string): Promise<string | undefined> => {
+  const sendMessageAndGetAiPrompt = async (text: string): Promise<string | undefined> => {
     const data = await postCoverLetterAskWizardAsync({
       message: getValues(FormField.CONTENT) || '',
       content: text,
@@ -141,10 +160,26 @@ const CoverLetterForm: React.FC = () => {
               />
             )}
           />
+          <Dropdown
+            key={'ask-wizard-dropdown'}
+            menu={{ items: wizardModalItems }}
+            placement="bottomLeft"
+            trigger={['click']}
+            overlayStyle={{ width: 300 }}
+          >
+            <Button
+              icon={<RobotOutlined />}
+              type="primary"
+              text={i18n.t('askWizardModal.enhanceWithAiButtonText')}
+            />
+
+          </Dropdown>
+
           <AskWizardModal
-            autoGenerateOnClick={handleAutoGenerate}
-            useOnClick={handleUseResponseOnClick}
-            sendMessageOnclick={handleSendMessageOnClick}
+            setOpen={setOpen}
+            open={isOpen}
+            updateMessageText={updateMessageText}
+            sendMessageAndGetAiPrompt={sendMessageAndGetAiPrompt}
           />
         </div>
       </form>

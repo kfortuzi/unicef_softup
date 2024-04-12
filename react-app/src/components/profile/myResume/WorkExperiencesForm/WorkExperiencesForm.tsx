@@ -1,6 +1,7 @@
+import { RobotOutlined } from '@ant-design/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
-import type { CollapseProps } from 'antd';
-import { Collapse } from 'antd';
+import type { CollapseProps, MenuProps } from 'antd';
+import { Collapse, Dropdown } from 'antd';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
@@ -62,6 +63,8 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
     patchResume({ id: getBaseCvId(), experiences: values.experiences as WorkExperience[] }),
   );
 
+  const [isOpen, setOpen] = useState(false);
+
   const handleAutoGenerate = async (field: WorkExperience, index: number) => {
     setContentLoading(true);
     const responsibilitiesValue = getValues(`experiences.${index}.${FormField.RESPONSIBILITIES}`);
@@ -73,11 +76,11 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
     setContentLoading(false);
   };
 
-  const handleUseResponseOnClick = async (text: string, index: number) => {
+  const updateMessageText = async (text: string, index: number) => {
     setValue(`experiences.${index}.${FormField.RESPONSIBILITIES}`, text, { shouldDirty: true });
   };
 
-  const handleSendMessageOnClick = async (text: string, index: number): Promise<string | undefined> => {
+  const sendMessageAndGetAiPrompt = async (text: string, index: number): Promise<string | undefined> => {
     const data = await postResumeAskWizardAsync({
       message: getValues(`experiences.${index}.${FormField.RESPONSIBILITIES}`) || '',
       content: text,
@@ -87,6 +90,19 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
       return data;
     }
   };
+
+  const wizardModalItems = (field: WorkExperience, index: number): MenuProps['items'] => [
+    {
+      key: 'dropdown-auto-generate-button',
+      label: <a onClick={() => handleAutoGenerate(field, index)}>
+        {i18n.t('askWizardModal.autoGenerateButtonText')}
+      </a>,
+    },
+    {
+      key: 'dropdown-ask-wizard-button',
+      label: <a onClick={() => setOpen(true)}>{i18n.t('askWizardModal.askWizardButtonText')}</a>,
+    },
+  ];
 
   const [activeKeys, setActiveKeys] = useState<string[]>();
 
@@ -189,10 +205,27 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
               />
             )}
           />
+
+          <Dropdown
+            key={'ask-wizard-dropdown'}
+            menu={{ items: wizardModalItems(field, index) }}
+            placement="bottomLeft"
+            trigger={['click']}
+            overlayStyle={{ width: 300 }}
+          >
+            <Button
+              icon={<RobotOutlined />}
+              type="primary"
+              text={i18n.t('askWizardModal.enhanceWithAiButtonText')}
+            />
+
+          </Dropdown>
+
           <AskWizardModal
-            autoGenerateOnClick={() => handleAutoGenerate(field, index)}
-            useOnClick={(text: string) => handleUseResponseOnClick(text || '', index)}
-            sendMessageOnclick={(text: string) => handleSendMessageOnClick(text || '', index)}
+            setOpen={setOpen}
+            open={isOpen}
+            updateMessageText={(text: string) => updateMessageText(text || '', index)}
+            sendMessageAndGetAiPrompt={(text: string) => sendMessageAndGetAiPrompt(text || '', index)}
           />
           <Button
             type="default"

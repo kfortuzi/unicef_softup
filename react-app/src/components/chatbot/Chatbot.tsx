@@ -1,47 +1,46 @@
-import { CloseOutlined, MessageOutlined, RobotOutlined } from '@ant-design/icons';
-import React, { MouseEventHandler, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { RobotOutlined } from '@ant-design/icons';
+import { FloatButton } from 'antd';
+import React, { useState } from 'react';
 
-import ChatBody from './ChatBody';
+import usePostChatbot from 'src/api/chatbot/hooks/usePostChatbot';
+
+import AskWizardModal from '../common/AskWizardModal/AskWizardModal';
 
 const Chatbot: React.FC = () => {
-  const [chatVisible, setChatVisible] = useState(false);
-  const { t } = useTranslation('translation', { keyPrefix: 'chatbot' });
+  const [isOpen, setOpen] = useState(false);
+  const { mutateAsync: postChatbotAsync } = usePostChatbot();
 
-  const openChat: MouseEventHandler<HTMLSpanElement> = (event) => {
-    event?.stopPropagation();
-    setChatVisible(true);
+  const sendMessageAndGetAiPrompt = async (text: string): Promise<string | undefined> => {
+    const data = await postChatbotAsync({
+      message: text,
+    });
+
+    if (data) {
+      return data;
+    }
   };
 
-  const closeChat: MouseEventHandler<HTMLSpanElement> = (event) => {
-    event?.stopPropagation();
-    setChatVisible(false);
-  };
-
-  const content = chatVisible ? (
-    <div className="chat-interface">
-      <div className="chat-header">
-        <RobotOutlined className="bot-icon" />
-        <h3 className="title">{t('header')}</h3>
-        <CloseOutlined
-          className="close-icon"
-          onClick={closeChat}
-        />
-      </div>
-      <ChatBody />
-    </div>
-  ) : (
-    <MessageOutlined className="chatbot-icon" />
-  );
+  const openChatbot = () => {
+    setOpen(true);
+  }
 
   return (
-    <div
-      className="chatbot"
-      onClick={openChat}
-    >
-      {content}
-    </div>
+    <>
+      <FloatButton
+        icon={<RobotOutlined />}
+        type="primary"
+        style={{ right: 50, top: 450, width: 50, height: 50 }}
+        onClick={openChatbot}
+      />
+      <AskWizardModal
+        open={isOpen}
+        setOpen={setOpen}
+        sendMessageAndGetAiPrompt={sendMessageAndGetAiPrompt}
+        isMainChatbot={true}
+      />
+    </>
   );
+
 };
 
 export default Chatbot;

@@ -1,4 +1,4 @@
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import Keys from '../keys';
 import getTrainingArticles from '../requests/getTrainingArticles';
@@ -6,7 +6,7 @@ import { GetTrainingArticlesRequest } from '../types';
 
 const useGetTrainingArticles = (request: GetTrainingArticlesRequest) => {
   return useQuery({
-    queryKey: [Keys.TRAINING_ARTICLES, request],
+    queryKey: [Keys.GET_TRAININGS_ARTICLES, request],
     queryFn: () => getTrainingArticles(),
   });
   // return useInfiniteQuery({

@@ -243,20 +243,21 @@
     },
     "home": {
       "header": "The Power of national employment",
-      "subHeader": "Sub header paragraph.",
+      "subHeader": "I'm a paragraph. Click here to add your \nown text and edit me",
       "learnMore": "Learn more",
+      "servicesStepsText": "Three steps. Three minutes.",
+      "servicesTitle": "Everything should be this easy",
       "service1": "Tailor resume",
       "service2": "Generate cover letter",
       "service3": "Counseling",
       "service1Description": "Service 1 description",
       "service2Description": "Serviec 2 description",
       "service3Description": "Serviec 3 description",
-      "servicesTitle": "Services",
       "tipOfTheDay": "Tip of the day"
     },
     "pageWithNavigation": {
       "logOut": "Log Out",
-      "youthCareerOrientation": "Youth career orientation",
+      "home": "Youth career orientation",
       "resume": "Resume",
       "coverLetter": "Cover letter",
       "jobs": "Jobs",
@@ -339,7 +340,8 @@
       "askWizardButtonText": "Ask Wizard",
       "askWizardPlaceholder": "Ask Wizard",
       "useButtonText": "Use",
-      "aiFirstMessage": "Hello, I am a wizard. How can I help you?"
+      "aiFirstMessage": "Hello, I am a wizard. How can I help you?",
+      "aiErrorMessage": "Failed to get response from wizard!"
     },
     "jobs": {
       "header": "Open Job Positions",

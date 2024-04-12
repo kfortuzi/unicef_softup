@@ -28,8 +28,8 @@ import ResumeDetail from 'src/screens/ResumeDetail/ResumeDetail';
 import ResumeQuestionnaire from 'src/screens/ResumeQuestionnaire/ResumeQuestionnaire';
 import Signup from 'src/screens/Signup/Signup';
 import SkillsAndHobbies from 'src/screens/SkillsAndHobbies/SkillsAndHobbies';
-import TrainingVideos from 'src/screens/TrainingVideos/TrainingVideos';
 import TrainingArticles from 'src/screens/TrainingArticles/TrainingArticles';
+import TrainingVideos from 'src/screens/TrainingVideos/TrainingVideos';
 
 import { Route } from './enums';
 
@@ -49,7 +49,7 @@ const Router: React.FC = () => {
           element: <PageWithNavigation />,
           children: [
             {
-              path: Route.YOUTH_CAREER_ORIENTATION,
+              path: Route.HOME,
               element: <Home />,
             },
             {

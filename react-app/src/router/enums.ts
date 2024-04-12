@@ -1,6 +1,6 @@
 export enum Route {
   ROOT = '/',
-  YOUTH_CAREER_ORIENTATION = 'youth-career-orientation',
+  HOME = 'home',
   RESUME = 'resume',
   COVER_LETTERS = 'cover-letters',
   COVER_LETTERS_DETAILS = 'cover-letters/:id',

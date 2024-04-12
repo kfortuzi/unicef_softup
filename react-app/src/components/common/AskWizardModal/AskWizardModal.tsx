@@ -1,11 +1,12 @@
 import { RightOutlined, RobotOutlined, UserOutlined } from '@ant-design/icons';
-import { Dropdown, MenuProps, Modal, Typography, Button as AntButton } from 'antd';
+import { Modal, Typography, ModalProps } from 'antd';
 import Search from 'antd/es/input/Search';
 import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import Button from '../Button/Button';
+import MainChatbotMessages from './MainChatBotMessages';
 
 type Message = {
   text: string;
@@ -13,66 +14,56 @@ type Message = {
   isUsable: boolean;
 };
 
-type AskWizardModalProps = {
-  autoGenerateOnClick: VoidFunction;
-  sendMessageOnclick: (message: string) => Promise<string | undefined>;
-  useOnClick: (message: string, content?: string) => void;
+type AskWizardModalProps = ModalProps & {
+  sendMessageAndGetAiPrompt: (message: string) => Promise<string | undefined>;
+  updateMessageText?: (message: string, content?: string) => void;
+  setOpen: (open: boolean) => void;
+  open: boolean;
+  isMainChatbot?: boolean;
 };
 
 const AskWizardModal: React.FC<AskWizardModalProps> = ({
-  sendMessageOnclick,
-  useOnClick,
-  autoGenerateOnClick,
+  sendMessageAndGetAiPrompt,
+  updateMessageText,
+  setOpen,
+  open,
+  isMainChatbot = false,
+  ...rest
 }) => {
   const { control, setValue } = useForm();
   const { t } = useTranslation('translation', { keyPrefix: 'askWizardModal' });
 
   const [messages, setMessages] = useState([] as Message[]);
-  const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const askWizard = async (text: string) => {
     setLoading(true);
-    const systemMessage = await sendMessageOnclick(text);
-    setLoading(false);
-
     const userMessage = { text: text, type: 'user' } as Message;
-    const aiMessage = { text: systemMessage, type: 'ai', isUsable: true } as Message;
-
+    let aiMessage: Message;
+    try {
+      const systemMessage = await sendMessageAndGetAiPrompt(text);
+      aiMessage = { text: systemMessage, type: 'ai', isUsable: true } as Message;
+    } catch (error) {
+      aiMessage = { text: t('aiErrorMessage'), type: 'ai', isUsable: false } as Message;
+    } finally {
+      setLoading(false);
+    }
     setMessages([...messages, userMessage, aiMessage]);
   };
 
+  const updateMessageTextAndCloseTheModal = (message: string) => {
+    if (updateMessageText) {
+      updateMessageText(message);
+    }
+    setOpen(false);
+  }
+
   useEffect(() => {
     setMessages([{ text: t('aiFirstMessage'), type: 'ai', isUsable: false }]);
-  }, []);
-
-  const items: MenuProps['items'] = [
-    {
-      key: 'dropdown-auto-generate-button',
-      label: <a onClick={() => autoGenerateOnClick()}>{t('autoGenerateButtonText')}</a>,
-    },
-    {
-      key: 'dropdown-ask-wizard-button',
-      label: <a onClick={() => setOpen(true)}>{t('askWizardButtonText')}</a>,
-    },
-  ];
+  }, [t]);
 
   return (
     <div>
-      <Dropdown
-        key={'ask-wizard-dropdown'}
-        menu={{ items }}
-        placement="bottomLeft"
-        trigger={['click']}
-        overlayStyle={{ width: 300 }}
-      >
-        <AntButton
-          icon={<RobotOutlined />}
-          type="primary"
-        >
-          {t('enhanceWithAiButtonText')}
-        </AntButton>
-      </Dropdown>
       <Modal
         title={t('header')}
         centered
@@ -118,8 +109,16 @@ const AskWizardModal: React.FC<AskWizardModalProps> = ({
             padding: 20,
           },
         }}
+        {...rest}
       >
         <div className="ask-wizard-messages">
+          {
+            isMainChatbot ? (
+              <MainChatbotMessages
+                askWizard={askWizard}
+              />
+            ) : null
+          }
           {messages.map((message, i) => (
             <div key={`message-${i}`}>
               <div
@@ -134,16 +133,12 @@ const AskWizardModal: React.FC<AskWizardModalProps> = ({
                   <div className="ask-wizard-message-text">
                     <Typography.Paragraph>{message.text}</Typography.Paragraph>
                   </div>
-                  {message.type === 'ai' && message.isUsable && (
+                  {message.type === 'ai' && message.isUsable && !isMainChatbot && (
                     <div className="ask-wizard-button-group">
                       <Button
                         text={t('useButtonText')}
                         type="primary"
-                        onClick={() => {
-                          // eslint-disable-next-line react-hooks/rules-of-hooks
-                          useOnClick(message.text);
-                          setOpen(false);
-                        }}
+                        onClick={() => updateMessageTextAndCloseTheModal(message.text)}
                       />
                     </div>
                   )}
