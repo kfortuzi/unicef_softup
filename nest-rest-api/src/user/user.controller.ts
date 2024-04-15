@@ -33,6 +33,7 @@ import { UserSkillDto } from './dto/user-skill.dto';
 import { UserDto } from './dto/user.dto';
 import { UserSkillResponseDto } from './dto/user-skill-response.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { SendRequestVerificationCodeDto } from './dto/request-verification-code-dto';
 
 @Controller('user')
 export class UserController {
@@ -106,15 +107,17 @@ export class UserController {
 
   @ApiBearerAuth()
   @ApiTags('users')
-  @ApiBody({ type: SendResetPasswordUserDto })
+  @ApiBody({ type: SendRequestVerificationCodeDto })
   @ApiCreatedResponse({ description: 'An new email has been send.' })
   @ApiForbiddenResponse({ status: 403, description: 'Forbidden.' })
   @Post('request-verification')
-  async requestVerification(@Body('email') email: string) {
-    await this.userService.requestNewVerificationCode(email);
+  async requestVerification(@Body() request: SendRequestVerificationCodeDto) {
+    await this.userService.requestNewVerificationCode({
+      userId: request.userId,
+    });
     return {
       message:
-        'If a user with that email exists, a verification email has been sent.',
+        'An new email has been send. Please check your email to verify your account.',
     };
   }
 

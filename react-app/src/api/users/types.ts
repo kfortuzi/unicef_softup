@@ -63,6 +63,10 @@ export type ConfirmUserRequest = {
 
 export type ConfirmUserResponse = User;
 
+export type RequestVerificationRequest = {
+  userId?: string | null;
+};
+
 //#region User
 export type PatchUserRequest = {
   firstName?: string;

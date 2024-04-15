@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import useConfirmUser from 'src/api/users/hooks/useConfirmUser';
+import useUserRequestVerification from 'src/api/users/hooks/useUserRequestVerification';
 import Button from 'src/components/common/Button/Button';
 import ResultComponent from 'src/components/common/ResultComponent/ResultComponent';
 import { Route } from 'src/router/enums';
@@ -26,6 +27,10 @@ const ConfirmUser: React.FC = () => {
     verificationCode,
   });
 
+  const {
+    mutate: requestVerification,
+  } = useUserRequestVerification();
+
   const pageContent = error ? (
     <ResultComponent
       title={t('errorTitle')}
@@ -33,11 +38,18 @@ const ConfirmUser: React.FC = () => {
       status="error"
       className="confirm-user-result-component"
       extra={
-        <Button
-          type="default"
-          text={t('backToLogin')}
-          onClick={() => navigate(`${Route.ACCESS}/${Route.LOGIN}`, { replace: true })}
-        />
+        <div className='confirm-user-button-group'>
+          <Button
+            type="default"
+            text={t('backToLogin')}
+            onClick={() => navigate(`${Route.ACCESS}/${Route.LOGIN}`, { replace: true })}
+          />
+          <Button
+            type="primary"
+            text={t('resendEmail')}
+            onClick={() => requestVerification({ userId: id })}
+          />
+        </div>
       }
     />
   ) : (

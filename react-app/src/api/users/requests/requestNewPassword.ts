@@ -6,7 +6,7 @@ const requestNewPassword = async (
   request: RequestNewPasswordRequest,
 ): Promise<RequestNewPasswordResponse | undefined> => {
   const parsedData = await makeRequest<RequestNewPasswordResponse>(
-    '/user/send_reset_password',
+    '/user/send-reset-password',
     {
       method: 'PATCH',
       body: JSON.stringify(request),

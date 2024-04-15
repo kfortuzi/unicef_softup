@@ -20,6 +20,7 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import { S3Service } from 'src/s3/s3.service';
 import { SesService } from 'src/ses/ses.service';
+import { SendRequestVerificationCodeDto } from './dto/request-verification-code-dto';
 dayjs.extend(utc);
 
 const userExcludedData = [
@@ -172,8 +173,8 @@ export class UserService {
     }
   }
 
-  async requestNewVerificationCode(email: string) {
-    const user = await this.userRepository.findOneByEmail(email);
+  async requestNewVerificationCode({ userId }: SendRequestVerificationCodeDto) {
+    const user = await this.userRepository.findOneById(userId);
 
     if (!user) {
       throw new Error('User not found.');

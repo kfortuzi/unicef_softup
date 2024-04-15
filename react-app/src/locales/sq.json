@@ -62,6 +62,7 @@
         "errorTitle": "Konfirmimi deshtoi!",
         "errorSubTitle": "Na vjen keq, ne nuk mundem ta konfirmojme llogarine tuaj. Ju lutem sigurohuni qe po perdorni URL te derguar me email-in e konfirmimit dhe provoni perseri me vone.",
         "backToLogin": "Kthehu Mbrapa",
+        "resendEmail": "Dergo emailin perseri",
         "sendMeToLogin": "Me Dergo Ne Login"
       }
     },

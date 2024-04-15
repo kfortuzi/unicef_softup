@@ -12,6 +12,12 @@
 
     .confirm-user-result-component {
       max-width: $suggested-result-component-width;
+
+      .confirm-user-button-group {
+        display: flex;
+        flex-direction: column;
+        gap: $small;
+      }
     }
   }
 }
