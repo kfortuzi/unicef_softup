@@ -28,6 +28,6 @@ export class Config {
     this.awsRegion = config.get('AWS_REGION') || 'eu-central-1';
     this.baseJobUrl = config.get('BASE_JOB_URL') || 'base job url';
     this.imagesBucketName = config.get('AWS_S3_BUCKET_NAME') || 'images bucket';
-    this.sesFromEmail = 'stivi.ndoni@softup.co';
+    this.sesFromEmail = 'client-akpa@softup.co';
   }
 }

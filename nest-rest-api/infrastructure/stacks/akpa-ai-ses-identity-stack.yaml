@@ -12,7 +12,7 @@ Resources:
   AkpaSESIdentity:
     Type: AWS::SES::EmailIdentity
     Properties:
-      EmailIdentity: stivi.ndoni@softup.co # TODO: Change it to a the right value for akpa in prod
+      EmailIdentity: client-akpa@softup.co # TODO: Change it to a the right value for akpa in prod
       ConfigurationSetAttributes:
         ConfigurationSetName: !Ref AkpaConfigSet
       FeedbackAttributes:
