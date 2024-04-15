@@ -6,10 +6,14 @@ import { JobListDTO } from './dto/job-list.dto';
 import { AkpaJobDTO } from './dto/akpa-job.dto';
 import { jobs, EducationType, JobType, Prisma } from '@prisma/client';
 import { Cron } from '@nestjs/schedule';
+import { Config } from 'config';
 
 @Injectable()
 export class JobsFetchService {
-  constructor(private jobRepository: JobRepository) {}
+  constructor(
+    private jobRepository: JobRepository,
+    private config: Config,
+  ) {}
 
   @Cron('0 23 * * *')
   async fetchAndSaveJob() {
@@ -35,7 +39,7 @@ export class JobsFetchService {
   }
 
   async fetchFeaturedJobs() {
-    const url = process.env.FEATURED_JOBS_URL as string;
+    const url = this.config.featuredJobsUrl;
     const response = await fetch(url, {
       method: 'POST',
       headers: {
@@ -57,7 +61,7 @@ export class JobsFetchService {
   }
 
   async fetchJobDetails(jobId: number) {
-    const url = `${process.env.BASE_JOB_URL}${jobId}` as string;
+    const url = `${this.config.baseJobUrl}${jobId}` as string;
     const response = await fetch(url, {
       method: 'POST',
       headers: {

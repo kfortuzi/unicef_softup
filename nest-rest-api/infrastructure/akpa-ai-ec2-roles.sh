@@ -12,8 +12,6 @@ AWS_REGION=eu-central-1
 
 ecr_stack_output=$(stack_output akpa-ai-ecr)
 
-ecr_arn=$(param_from_stack_output "$ecr_stack_output" AkpaECRRepositoryArn)
-
 images_s3_stack_output=$(stack_output akpa-ai-images-s3-$ENVIRONMENT)
 images_bucket_name=$(param_from_stack_output "$images_s3_stack_output" BucketName)
 
@@ -24,5 +22,4 @@ aws cloudformation deploy \
   --template-file ./stacks/akpa-ai-ec2-roles-stack.yaml \
   --no-fail-on-empty-changeset \
   --parameter-overrides EnvironmentName=$ENVIRONMENT \
-                        ECRArn=$ecr_arn \
                         ImagesBucketName=$images_bucket_name

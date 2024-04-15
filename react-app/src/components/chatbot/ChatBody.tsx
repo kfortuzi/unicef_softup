@@ -3,7 +3,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import TypingIndicator from '../common/TypingIndicator/TypingIndicator.tsx';
-import TopicSelectionOptions from './TopicSelectionOptions.tsx';
+// import TopicSelectionOptions from './TopicSelectionOptions.tsx';
 
 const ChatBody: React.FC = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'chatbot' });
@@ -15,7 +15,7 @@ const ChatBody: React.FC = () => {
           <RobotOutlined className="icon bot-icon" />
           <p className="message-content welcome-message">{t('welcomeMessage')}</p>
         </div>
-        <TopicSelectionOptions />
+        {/* <TopicSelectionOptions /> */}
       </div>
       <div className="message prompt">
         <UserOutlined className="icon user-icon" />

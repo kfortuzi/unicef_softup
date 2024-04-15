@@ -7,7 +7,6 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { MailService } from '../mail/mail.service';
 import { SendResetPasswordUserDto } from './dto/send-reset-password-user.dto';
 import { user_skills, users } from '@prisma/client';
 import exclude from '../commons/utils/exclude';
@@ -15,9 +14,12 @@ import { ResetPasswordUserDto } from './dto/reset-password-user.dto';
 import { UserRepository } from './user.repository';
 import { compareHash, hashString } from '../commons/utils/hash';
 import { UserSkillDto } from './dto/user-skill.dto';
-import { S3Service } from 'src/s3/s3.service';
+
+import { Config } from 'config';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
+import { S3Service } from 'src/s3/s3.service';
+import { SesService } from 'src/ses/ses.service';
 dayjs.extend(utc);
 
 const userExcludedData = [
@@ -37,6 +39,8 @@ export class UserService {
   constructor(
     private userRepository: UserRepository,
     private s3service: S3Service,
+    private config: Config,
+    private sesService: SesService,
   ) {}
 
   async getProfile(id: string) {
@@ -129,11 +133,11 @@ export class UserService {
         expiresAt,
       );
       const result = exclude(createdUser, ['password']);
-      const link = `<a href="${process.env.FE_HOST}/#/access/confirm-user?id=${createdUser.id}&code=${verificationCode}">Link to confirm</a>`;
-      await MailService.prototype.sendEmail(
-        createdUser.email,
+      const link = `<a href="${this.config.feHost}/#/access/confirm-user?id=${createdUser.id}&code=${verificationCode}">Link to confirm</a>`;
+      await this.sesService.sendEmail(
         'Confirmation Email',
         link,
+        createdUser.email,
       );
 
       return result;
@@ -185,10 +189,10 @@ export class UserService {
       expiresAt,
     );
     const link = `<a href="${process.env.FE_HOST}/#/access/confirm-user?id=${user.id}&code=${verificationCode}">Link to confirm</a>`;
-    await MailService.prototype.sendEmail(
-      user.email,
+    await this.sesService.sendEmail(
       'Verify Your Email',
       `Please click on the following link to verify your email: ${link}`,
+      user.email,
     );
     return { message: 'Verification email sent.' };
   }
@@ -211,12 +215,12 @@ export class UserService {
       'PASSWORD_RESET',
       expiresAt,
     );
-    const link = `<a href=${process.env.RESET_PASSWORD_URL}?id=${user.id}&verificationCode=${resetCode}> Link to reset password</a>`;
+    const link = `<a href=${this.config.feHost}/#/acccess/reset-password?id=${user.id}&verificationCode=${resetCode}> Link to reset password</a>`;
 
-    MailService.prototype.sendEmail(
-      user.email,
+    this.sesService.sendEmail(
       'Reset Your Password',
       `Please click on the following link to reset your password: ${link}`,
+      user.email,
     );
     return { description: 'An reset password email has been send.' };
   }

@@ -1,0 +1,69 @@
+version: '2.2'
+
+services:
+  akpa-api:
+    image: '618228892382.dkr.ecr.eu-central-1.amazonaws.com/akpa-ai-repository-${ENVIRONMENT}'
+    container_name: akpa-api
+    restart: 'always'
+    ports:
+      - '3000:3000'
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '10k'
+        max-file: '3'
+    env_file:
+      - '.env.${ENVIRONMENT}'
+    environment:
+      - VIRTUAL_HOST=akpa-dev.softup.co #TODO: Inject the host from variables, after creating the akpa hosted zone
+      - VIRTUAL_PORT=3000
+      - LETSENCRYPT_HOST=akpa-dev.softup.co
+    networks:
+      - akpa
+
+  nginx-proxy:
+    image: nginxproxy/nginx-proxy
+    container_name: nginx-proxy
+    restart: always
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - conf:/etc/nginx/conf.d
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - certs:/etc/nginx/certs:ro
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    depends_on:
+      - akpa-api
+    networks:
+      - akpa
+
+  acme-companion:
+    image: nginxproxy/acme-companion
+    container_name: nginx-proxy-acme
+    restart: always
+    environment:
+      - NGINX_PROXY_CONTAINER=nginx-proxy
+    volumes:
+      - certs:/etc/nginx/certs:rw
+      - acme:/etc/acme.sh
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    volumes_from:
+      - nginx-proxy
+    depends_on:
+      - nginx-proxy
+    networks:
+      - akpa
+
+volumes:
+  conf:
+  vhost:
+  html:
+  certs:
+  acme:
+
+networks:
+  akpa:
+    name: akpa
+    external: false

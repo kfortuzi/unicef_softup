@@ -1,10 +1,12 @@
 import { Injectable } from '@nestjs/common';
+import { Config } from 'config';
 
 @Injectable()
 export class AssetService {
-  private strapiBaseUrl = process.env.STRAPI_BASE_URL;
-  private strapiToken = process.env.STRAPI_TOKEN;
-  constructor() {}
+  private strapiBaseUrl = this.config.strapiBaseUrl;
+  private strapiToken = this.config.strapiToken;
+
+  constructor(private config: Config) {}
 
   async getArticles(userFilter?: string, start?: number, limit?: number) {
     try {

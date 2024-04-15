@@ -2,7 +2,7 @@ FROM node:18-alpine as development
 
 ENV NODE_ENV=development
 
-WORKDIR /app 
+WORKDIR /app
 
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 COPY package*.json ./
@@ -18,11 +18,11 @@ COPY ./ ./
 
 RUN npm run build
 
-RUN npm run seed
-
 FROM node:18-alpine as production
 
 ENV NODE_ENV=production
+
+EXPOSE 3000
 
 WORKDIR /app
 
@@ -35,4 +35,4 @@ COPY --from=development /app/node_modules ./node_modules
 COPY --from=development /app/package*.json ./
 COPY --from=development /app/prisma ./prisma
 
-CMD ["node", "dist/src/main"]
+CMD ["npm", "run", "start:prod"]

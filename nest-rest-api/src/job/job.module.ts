@@ -10,6 +10,7 @@ import { UserModule } from 'src/user/user.module';
 import { UserRepository } from 'src/user/user.repository';
 import { OpenAIModule } from 'src/openai/openai.module';
 import { OpenAIService } from 'src/openai/openai.service';
+import { Config } from 'config';
 
 @Module({
   imports: [ScheduleModule.forRoot(), UserModule, OpenAIModule],
@@ -22,6 +23,7 @@ import { OpenAIService } from 'src/openai/openai.service';
     UserJobsRepository,
     UserRepository,
     OpenAIService,
+    Config,
   ],
 })
 export class JobModule {}

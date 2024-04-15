@@ -56,7 +56,7 @@ const AskWizardModal: React.FC<AskWizardModalProps> = ({
       updateMessageText(message);
     }
     setOpen(false);
-  }
+  };
 
   useEffect(() => {
     setMessages([{ text: t('aiFirstMessage'), type: 'ai', isUsable: false }]);
@@ -112,13 +112,7 @@ const AskWizardModal: React.FC<AskWizardModalProps> = ({
         {...rest}
       >
         <div className="ask-wizard-messages">
-          {
-            isMainChatbot ? (
-              <MainChatbotMessages
-                askWizard={askWizard}
-              />
-            ) : null
-          }
+          {isMainChatbot ? <MainChatbotMessages askWizard={askWizard} /> : null}
           {messages.map((message, i) => (
             <div key={`message-${i}`}>
               <div

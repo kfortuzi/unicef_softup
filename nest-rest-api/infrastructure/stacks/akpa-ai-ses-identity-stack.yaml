@@ -1,0 +1,19 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Akpa Ai SES identity
+
+Resources:
+  AkpaConfigSet:
+    Type: AWS::SES::ConfigurationSet
+    Properties:
+      Name: AkpaEmailsConfigSet
+      SendingOptions:
+        SendingEnabled: true
+
+  AkpaSESIdentity:
+    Type: AWS::SES::EmailIdentity
+    Properties:
+      EmailIdentity: stivi.ndoni@softup.co # TODO: Change it to a the right value for akpa in prod
+      ConfigurationSetAttributes:
+        ConfigurationSetName: !Ref AkpaConfigSet
+      FeedbackAttributes:
+        EmailForwardingEnabled: false

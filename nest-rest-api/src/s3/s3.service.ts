@@ -5,17 +5,18 @@ import {
   PutObjectCommand,
 } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+import { Config } from 'config';
 
 @Injectable()
 export class S3Service {
   private s3;
   private readonly bucketName: string;
 
-  constructor() {
+  constructor(private config: Config) {
     this.s3 = new S3Client({
-      region: process.env.AWS_REGION,
+      region: this.config.awsRegion,
     });
-    this.bucketName = process.env.AWS_S3_BUCKET_NAME || '';
+    this.bucketName = this.config.imagesBucketName;
   }
 
   async uploadPhoto(

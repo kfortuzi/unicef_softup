@@ -5,9 +5,6 @@ Parameters:
   EnvironmentName:
     Description: Environment name
     Type: String
-  ECRArn:
-    Description: Arn of ECR
-    Type: String
   ImagesBucketName:
     Description: Name of the images S3 where we store user / resume images
     Type: String
@@ -41,8 +38,8 @@ Resources:
                   - 'ecr:ListImages'
                   - 'ecr:DescribeImages'
                   - 'ecr:BatchGetImage'
-                Resource:
-                  - !Ref ECRArn
+                  - 'ecr:GetAuthorizationToken'
+                Resource: '*'
         - PolicyName: !Sub ${AWS::StackName}-images-s3-read-write
           PolicyDocument:
             Version: '2012-10-17'
@@ -59,6 +56,22 @@ Resources:
                   - s3:DeleteObject
                 Resource:
                   - !Sub 'arn:aws:s3:::${ImagesBucketName}/*'
+        - PolicyName: !Sub ${AWS::StackName}-sm-read
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - secretsmanager:GetSecretValue
+                Resource: '*'
+        - PolicyName: !Sub ${AWS::StackName}-ses-access
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - ses:SendEmail
+                Resource: '*'
 
 Outputs:
   AkpaEc2InstanceRoleArn:

@@ -10,6 +10,7 @@ import { JobService } from 'src/job/job.service';
 import { JobRepository } from 'src/job/job.repository';
 import { WizardService } from 'src/wizard/wizard.service';
 import { WizardRepository } from 'src/wizard/wizard.repository';
+import { Config } from 'config';
 @Module({
   imports: [UserModule, OpenAIModule, JobModule],
   controllers: [CoverLetterController],
@@ -21,6 +22,7 @@ import { WizardRepository } from 'src/wizard/wizard.repository';
     JobRepository,
     WizardService,
     WizardRepository,
+    Config,
   ],
 })
 export class CoverLetterModule {}

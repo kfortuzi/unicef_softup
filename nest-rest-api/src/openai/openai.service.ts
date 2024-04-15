@@ -4,13 +4,17 @@ import { ChatCompletionMessageParam } from 'openai/resources/chat';
 import { AkpaModels } from './models';
 import { PromptRepository } from './prompt.repository';
 import { PromptType } from './dto/promptTypes';
+import { Config } from 'config';
 
 @Injectable()
 export class OpenAIService {
   private openAI;
-  constructor(private promptRepository: PromptRepository) {
+  constructor(
+    private promptRepository: PromptRepository,
+    private config: Config,
+  ) {
     const configuration: ClientOptions = {
-      apiKey: process.env.OPENAI_API_KEY,
+      apiKey: this.config.openAiApiKey,
     };
     this.openAI = new OpenAI(configuration);
   }

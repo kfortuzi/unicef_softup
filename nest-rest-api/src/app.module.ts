@@ -5,9 +5,6 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { PrismaModule } from './commons/prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
-import { SendgridService } from './sendgrid/sendgrid.service';
-import { MailController } from './mail/mail.controller';
-import { MailService } from './mail/mail.service';
 import { CaslModule } from './casl/casl.module';
 import { LoggerModule } from 'nestjs-pino';
 import { LoggerMiddleware } from './logger/logger.middleware';
@@ -18,6 +15,8 @@ import { ResumeModule } from './resume/resume.module';
 import { CoverLetterModule } from './coverletter/coverletter.module';
 import { WizardModule } from './wizard/wizard.module';
 import { AssetModule } from './asset/asset.module';
+import { SesService } from './ses/ses.service';
+import { Config } from 'config';
 
 @Module({
   imports: [
@@ -31,7 +30,7 @@ import { AssetModule } from './asset/asset.module';
         transport: {
           targets: [
             {
-              level: process.env.NODE_ENV !== 'production' ? 'trace' : 'info',
+              level: process.env.NODE_ENV !== 'prod' ? 'trace' : 'info',
               target: 'pino-pretty',
               options: { singleLine: true },
             },
@@ -47,8 +46,8 @@ import { AssetModule } from './asset/asset.module';
     WizardModule,
     AssetModule,
   ],
-  controllers: [AppController, MailController],
-  providers: [AppService, SendgridService, MailService],
+  controllers: [AppController],
+  providers: [AppService, SesService, Config],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

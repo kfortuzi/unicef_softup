@@ -9,13 +9,121 @@ definitions:
       path: nest-rest-api/node_modules
     ui-node:
       path: react-app/node_modules
+  services:
+    docker:
+      memory: 4096
+
+install-dep-api: &install-dep-api
+  step:
+    name: Install api dependencies
+    script:
+      - cd nest-rest-api
+      - npm i
+    caches:
+      - api-node
+
+install-dep-ui: &install-dep-ui
+  step:
+    name: Install ui dependencies
+    script:
+      - cd react-app
+      - npm i
+    caches:
+      - ui-node
+
+build-api: &build-api
+  step:
+    name: Build api
+    script:
+      - cd nest-rest-api
+      - npm run prisma:generate
+      - npm run build
+    caches:
+      - api-node
+
+deploy-api-infrastructure-dev: &deploy-api-infrastructure-dev
+  step:
+    name: Deploy api infrastructure Dev
+    image: atlassian/pipelines-awscli:1.29.35
+    script:
+      - cd nest-rest-api/infrastructure
+      - ENVIRONMENT=dev ./deploy.sh
+
+deploy-api-infrastructure-prod: &deploy-api-infrastructure-prod
+  step:
+    name: Deploy api infrastructure
+    trigger: manual
+    image: atlassian/pipelines-awscli:1.29.35
+    script:
+      - cd nest-rest-api/infrastructure
+      - ENVIRONMENT=prod ./deploy.sh
+
+build-and-push-to-ecr-dev: &build-and-push-to-ecr-dev
+  step:
+    name: Build docker image and deploy to AWS ECR
+    caches:
+      - docker
+    services:
+      - docker
+    size: 2x
+    script:
+      - cd nest-rest-api
+      - docker build --target production -t $IMAGE_NAME_DEV:latest .
+      - docker build -f Dockerfile.prisma.migrate -t $DB_MIGRATION_IMAGE_NAME_DEV:latest .
+      - pipe: atlassian/aws-ecr-push-image:2.2.0
+        variables:
+          AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+          AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+          AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+          IMAGE_NAME: $IMAGE_NAME_DEV
+      - pipe: atlassian/aws-ecr-push-image:2.2.0
+        variables:
+          AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+          AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+          AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+          IMAGE_NAME: $DB_MIGRATION_IMAGE_NAME_DEV
+
+deploy-to-ec2-dev: &deploy-to-ec2-dev
+  step:
+    name: Deploy to AWS EC2 dev
+    size: 2x
+    image: atlassian/pipelines-awscli:1.29.35
+    script:
+      - cd nest-rest-api/deployment
+      - ENVIRONMENT=dev ./env.sh
+      - echo "{\"BITBUCKET_COMMIT\":\"$BITBUCKET_COMMIT\",\"BITBUCKET_BUILD_NUMBER\":\"$BITBUCKET_BUILD_NUMBER\"}" > ./deployment.json
+      - pipe: atlassian/scp-deploy:1.4.1
+        variables:
+          USER: ubuntu
+          SERVER: $SERVER_IP_DEV
+          REMOTE_PATH: "/home/ubuntu/"
+          LOCAL_PATH: "${BITBUCKET_CLONE_DIR}/nest-rest-api/deployment"
+          SSH_KEY: $SSH_KEY_DEV
+          EXTRA_ARGS: ["-o", "StrictHostKeyChecking=no"]
+      - pipe: atlassian/ssh-run:0.7.1
+        variables:
+          SSH_USER: ubuntu
+          SERVER: $SERVER_IP_DEV
+          SSH_KEY: $SSH_KEY_DEV
+          MODE: script
+          COMMAND: "${BITBUCKET_CLONE_DIR}/nest-rest-api/deployment/migrate.sh"
+          ENV_VARS: >-
+            ENVIRONMENT=dev
+      - pipe: atlassian/ssh-run:0.7.1
+        variables:
+          SSH_USER: ubuntu
+          SERVER: $SERVER_IP_DEV
+          SSH_KEY: $SSH_KEY_DEV
+          MODE: script
+          COMMAND: "${BITBUCKET_CLONE_DIR}/nest-rest-api/deployment/spinup-docker-compose.sh"
+          ENV_VARS: >-
+            ENVIRONMENT=dev
 
 test-api: &test-api
   step:
     name: Test api
     script:
       - cd nest-rest-api
-      - npm i
       - npm test
     caches:
       - api-node
@@ -25,20 +133,55 @@ test-ui: &test-ui
     name: Test ui
     script:
       - cd react-app
-      - npm i
       - npm test
     caches:
       - ui-node
 
+deploy-frontend-infrastructure-dev: &deploy-frontend-infrastructure-dev
+  step:
+    name: Deploy Frontend infrastructure Dev
+    image: atlassian/pipelines-awscli:1.29.35
+    script:
+      - cd react-app/infrastructure
+      - ENVIRONMENT=dev ./deploy.sh
+
+frontend-build-dev: &frontend-build-dev
+  step:
+    name: Run Frontend Build Dev
+    caches:
+      - ui-node
+    script:
+      - cd react-app
+      - npm run build:dev
+    artifacts:
+      - react-app/dist/**
+
+publish-frontend-dev: &publish-frontend-dev
+  step:
+    name: Publish Frontend In S3
+    image: atlassian/pipelines-awscli:1.29.35
+    script:
+      - cd react-app/infrastructure
+      - ENVIRONMENT=dev ./publish.sh
+
 pipelines:
   pull-requests:
     "feature/api/*":
-      - <<: *test-api
+      - <<: *install-dep-api
+      - <<: *build-api
     "feature/ui/*":
+      - <<: *install-dep-ui
       - <<: *test-ui
 
   branches:
     master:
-      parallel:
-        - <<: *test-api
-        - <<: *test-ui
+      - parallel:
+          - <<: *install-dep-api
+          - <<: *install-dep-ui
+      - parallel:
+          - <<: *deploy-api-infrastructure-dev
+          - <<: *deploy-frontend-infrastructure-dev
+      - <<: *build-and-push-to-ecr-dev
+      - <<: *deploy-to-ec2-dev
+      - <<: *frontend-build-dev
+      - <<: *publish-frontend-dev

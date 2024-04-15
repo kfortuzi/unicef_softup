@@ -13,6 +13,7 @@ import { WizardService } from 'src/wizard/wizard.service';
 import { WizardRepository } from 'src/wizard/wizard.repository';
 import { S3Module } from 'src/s3/s3.module';
 import { S3Service } from 'src/s3/s3.service';
+import { Config } from 'config';
 @Module({
   imports: [OpenAIModule, UserModule, JobModule, WizardModule, S3Module],
   controllers: [ResumeController],
@@ -25,6 +26,7 @@ import { S3Service } from 'src/s3/s3.service';
     WizardService,
     WizardRepository,
     S3Service,
+    Config,
   ],
 })
 export class ResumeModule {}

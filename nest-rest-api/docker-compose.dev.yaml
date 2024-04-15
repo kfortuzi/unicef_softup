@@ -9,7 +9,7 @@ services:
     ports:
       - 3000:3000
     environment:
-      DATABASE_URL: 'postgresql://user:@host.docker.internal:5432/softup_x_boilerplate?schema=public'
+      DATABASE_URL: 'postgresql://user:postgres@postgres:5432/akpa_boilerplate?schema=public'
     logging:
       driver: 'json-file'
       options:

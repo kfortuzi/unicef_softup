@@ -1,6 +1,11 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: Akpa Ai ECR
 
+Parameters:
+  EnvironmentName:
+    Description: Environment name
+    Type: String
+
 Resources:
   AkpaECRRepository:
     Type: AWS::ECR::Repository
@@ -8,8 +13,17 @@ Resources:
       EmptyOnDelete: false
       ImageScanningConfiguration:
         ScanOnPush: true
-      ImageTagMutability: IMMUTABLE
-      RepositoryName: akpa-ai-repository
+      ImageTagMutability: MUTABLE
+      RepositoryName: !Sub akpa-ai-repository-${EnvironmentName}
+
+  AkpaDbMigrationRepository:
+    Type: AWS::ECR::Repository
+    Properties:
+      EmptyOnDelete: false
+      ImageScanningConfiguration:
+        ScanOnPush: true
+      ImageTagMutability: MUTABLE
+      RepositoryName: !Sub akpa-ai-db-migration-repository-${EnvironmentName}
 
 Outputs:
   AkpaECRRepositoryName:
@@ -18,3 +32,16 @@ Outputs:
   AkpaECRRepositoryArn:
     Description: Akpa ecr arn
     Value: !GetAtt AkpaECRRepository.Arn
+  AkpaECRRepositoryUri:
+    Description: Akpa ecr URI
+    Value: !GetAtt AkpaECRRepository.RepositoryUri
+
+  AkpaDbMigrationRepositoryName:
+    Description: DB migration Repository name
+    Value: !Ref AkpaDbMigrationRepository
+  AkpaDbMigrationRepositoryArn:
+    Description: Akpa DB migration ecr arn
+    Value: !GetAtt AkpaDbMigrationRepository.Arn
+  AkpaDbMigrationRepositoryUri:
+    Description: Akpa DB migration ecr URI
+    Value: !GetAtt AkpaDbMigrationRepository.RepositoryUri

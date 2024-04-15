@@ -32,6 +32,8 @@ nest-rest-api/.settings/
 nest-rest-api/*.sublime-workspace
 nest-rest-api/.vscode/*
 nest-rest-api/.env
+nest-rest-api/.env.*
+nest-rest-api/*/.env.*
 nest-rest-api/log/*
 !nest-rest-api/.vscode/settings.json
 !nest-rest-api/.vscode/tasks.json
@@ -47,6 +49,8 @@ react-app/yarn-error.log*
 react-app/pnpm-debug.log*
 react-app/lerna-debug.log*
 react-app/coverage
+react-app/.env
+react-app/.env.*
 
 # React app compiled output
 react-app/node_modules
