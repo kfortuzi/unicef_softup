@@ -27,15 +27,15 @@ export type PatchCoverLetterRequest = {
 };
 
 export type GetCoverLetterRequest = {
-  id: string;
+  id?: string;
 };
 
 export type PostCoverLetterForJobRequest = {
-  jobId: string;
+  jobId?: string;
 };
 
 export type DeleteCoverLetterRequest = {
-  id: string;
+  id?: string;
 };
 
 export type PostCoverLetterAskWizardRequest = {

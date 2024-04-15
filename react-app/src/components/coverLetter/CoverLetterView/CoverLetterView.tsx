@@ -1,21 +1,16 @@
 import { PhoneOutlined, UserOutlined, MailOutlined } from '@ant-design/icons';
-import { useParams } from 'react-router-dom';
 
-import useGetCoverLetter from 'src/api/coverLetters/hooks/useGetCoverLetter';
-import { GetCoverLetterRequest } from 'src/api/coverLetters/types';
-import useGetProfile from 'src/api/users/hooks/useGetProfile';
-import LoadingFullPage from 'src/components/common/LoadingFullPage/LoadingFullPage';
+import { GetCoverLetterResponse } from 'src/api/coverLetters/types';
+import { User } from 'src/api/users/types';
 
 import CoverLetterForm from '../CoverLetterForm/CoverLetterForm';
 
-const CoverLetterView: React.FC = () => {
-  const { id } = useParams() as GetCoverLetterRequest;
-  const { data: coverLetter, isFetching } = useGetCoverLetter({ id });
-  const { data: user } = useGetProfile();
+type CoverLetterViewProps = {
+  coverLetter: GetCoverLetterResponse;
+  user: User;
+};
 
-  if (isFetching) {
-    return <LoadingFullPage />;
-  }
+const CoverLetterView: React.FC<CoverLetterViewProps> = ({ coverLetter, user }) => {
 
   return (
     <div className="cover-letter-layout">

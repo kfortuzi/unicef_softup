@@ -9,6 +9,7 @@ const useGetCoverLetter = (req: GetCoverLetterRequest) => {
     queryKey: [Keys.GET_COVER_LETTER, req.id],
     queryFn: () => getCoverLetter(req),
     refetchOnMount: false,
+    enabled: !!req.id,
   });
 };
 

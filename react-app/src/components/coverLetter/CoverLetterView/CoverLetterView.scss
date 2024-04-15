@@ -4,7 +4,6 @@
   flex-flow: column nowrap;
   gap: $small;
   margin: $large;
-  height: 100%;
 
   .slide-container {
     border: 1px solid $primary-color;
@@ -24,10 +23,12 @@
 
     .cover-letter-personal-info-title {
       font-size: $large;
+
       h2 {
         margin: $small;
         margin-block: $medium;
       }
+
       color: $primary-color;
     }
 
@@ -38,11 +39,10 @@
 
     .cover-letter-personal-info-content {
       display: flex;
-      flex-flow: row nowrap;
+      flex-flow: row wrap;
       gap: $medium;
 
-      .cover-letter-body-to-information {
-      }
+      .cover-letter-body-to-information {}
     }
   }
 
@@ -53,6 +53,7 @@
     gap: $medium;
   }
 }
+
 .slide-left {
   transform: translateX(0%) !important;
 }

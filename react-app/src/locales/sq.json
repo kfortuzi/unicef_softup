@@ -325,7 +325,8 @@
       "updateSuccessMessage": "Letra e motivimit u perditesua me sukses!",
       "updateErrorMessage": "Letra e motivimit nuk u perditesua me sukses!",
       "deleteSuccessMessage": "Letra e motivimit u fshi me sukses!",
-      "deleteErrorMessage": "Letra e motivimit nuk u fshi me sukses!"
+      "deleteErrorMessage": "Letra e motivimit nuk u fshi me sukses!",
+      "downloadPdfButtonText": "Shkarko PDF"
     },
     "askWizardModal": {
       "header": "Pyet Magjistrin",

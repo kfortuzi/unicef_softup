@@ -331,7 +331,8 @@
       "updateSuccessMessage": "Cover letter was updated successfully!",
       "updateErrorMessage": "Failed to update cover letter!",
       "deleteSuccessMessage": "Cover letter was deleted successfully!",
-      "deleteErrorMessage": "Failed to delete cover letter!"
+      "deleteErrorMessage": "Failed to delete cover letter!",
+      "downloadPdfButtonText": "Download PDF"
     },
     "askWizardModal": {
       "header": "Ask Wizard",
