@@ -1,7 +1,8 @@
 export enum Route {
   ROOT = '/',
   HOME = 'home',
-  RESUME = 'resume',
+  RESUMES = 'resumes',
+  RESUME_DETAILS = '/resumes/:id',
   COVER_LETTERS = 'cover-letters',
   COVER_LETTERS_DETAILS = 'cover-letters/:id',
   JOBS = 'jobs',
@@ -24,5 +25,4 @@ export enum Route {
   CREATE_RESUME = '/profile-settings/create-resume',
   RESUME_QUESTIONNAIRE = 'resume-questionnaire',
   COVER_LETTER_QUESTIONNAIRE = 'cover-letter-questionnaire',
-  RESUME_DETAILS = '/resumes/:id',
 }

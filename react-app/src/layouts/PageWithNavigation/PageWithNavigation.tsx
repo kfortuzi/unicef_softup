@@ -1,17 +1,19 @@
 import {
   BarsOutlined,
   ContainerOutlined,
+  HomeOutlined,
   LogoutOutlined,
   ReadOutlined,
   SettingOutlined,
   SolutionOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import { Layout, Menu, MenuProps } from 'antd';
+import { Breadcrumb, Layout, Menu, MenuProps } from 'antd';
+import { BreadcrumbItemType } from 'antd/es/breadcrumb/Breadcrumb';
 import { Content, Header } from 'antd/es/layout/layout';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import useLogOut from 'src/api/auth/hooks/useLogOut';
 import useGetResumes from 'src/api/resumes/hooks/useGetResumes';
@@ -49,7 +51,7 @@ const PageWithNavigation: React.FC = () => {
         label: t('resume'),
         key: 'resume',
         icon: <SolutionOutlined />,
-        onClick: () => navigate(Route.RESUME),
+        onClick: () => navigate(Route.RESUMES),
       },
       {
         label: t('coverLetter'),
@@ -103,6 +105,13 @@ const PageWithNavigation: React.FC = () => {
     [logOut, navigate, t, user?.firstName, user?.lastName],
   );
 
+  const breadCrumbItems: BreadcrumbItemType[] = location.pathname
+    .split('/')
+    .filter((path) => path !== '' && path !== 'home')
+    .map((path, index, array) => ({
+      title: (index === array.length - 1) ? path : <Link to={path}>{path}</Link>,
+    }));
+
   return (
     <Layout className="page-with-navigation-container">
       <Header className="navigation-bar">
@@ -122,6 +131,14 @@ const PageWithNavigation: React.FC = () => {
       </Header>
       <Layout className="page-content-and-footer">
         <Content className="page-content">
+          <Breadcrumb
+            className={'breadcrumb-container'}
+            items={[
+              {
+                title: <Link to={Route.HOME}><HomeOutlined /> {t('home')}</Link>,
+              }, ...breadCrumbItems
+            ]}
+          />
           <Outlet />
         </Content>
         <Footer />

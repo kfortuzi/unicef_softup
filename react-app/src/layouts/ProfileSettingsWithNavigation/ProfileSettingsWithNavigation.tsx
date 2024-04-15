@@ -17,6 +17,10 @@ const ProfileSettingsWithNavigation: React.FC = () => {
     if (location.pathname === Route.ROOT) {
       navigate(`${Route.ROOT}${Route.HOME}`, { replace: true });
     }
+
+    if (location.pathname === `${Route.ROOT}${Route.PROFILE_SETTINGS}`) {
+      navigate(Route.PERSONAL_INFO, { replace: true });
+    }
   }, [location.pathname, navigate]);
 
   const navigationItems: MenuProps['items'] = useMemo(

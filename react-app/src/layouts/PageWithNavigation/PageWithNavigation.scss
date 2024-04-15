@@ -6,6 +6,10 @@
   height: 100%;
   background-color: $layout-background;
 
+  .breadcrumb-container {
+    margin: $medium 0;
+  }
+
   .navigation-bar {
     display: flex;
     flex-flow: row nowrap;
@@ -21,6 +25,7 @@
       min-width: 0px;
       justify-content: flex-end;
     }
+
     .logo {
       border: 0;
       list-style: none;

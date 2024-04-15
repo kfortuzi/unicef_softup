@@ -53,7 +53,7 @@ const Router: React.FC = () => {
               element: <Home />,
             },
             {
-              path: Route.RESUME,
+              path: Route.RESUMES,
               element: <MyResumes />,
             },
             {
