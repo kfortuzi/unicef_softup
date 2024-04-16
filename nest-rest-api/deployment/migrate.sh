@@ -18,3 +18,11 @@ docker run -e DATABASE_URL=$DATABASE_URL $AWS_ECR_URI
 
 echo -e '\e[1m\e[34mSuccessfully run migrations...\e[0m\n'
 
+echo -e '\e[1m\e[34mPruning VOLUMES...\e[0m\n'
+
+docker system prune --volumes -f
+
+echo -e '\e[1m\e[34mPruning Images...\e[0m\n'
+
+docker image prune -f
+

@@ -8,6 +8,9 @@ Parameters:
   ImagesBucketName:
     Description: Name of the images S3 where we store user / resume images
     Type: String
+  StrapiBucketName:
+    Description: Name of the strapi S3 where we store articles / videos
+    Type: String
 
 Resources:
   AkpaEc2InstanceRole:
@@ -49,6 +52,7 @@ Resources:
                   - s3:ListBucket
                 Resource:
                   - !Sub 'arn:aws:s3:::${ImagesBucketName}'
+                  - !Sub 'arn:aws:s3:::${StrapiBucketName}'
               - Effect: Allow
                 Action:
                   - s3:GetObject
@@ -56,6 +60,7 @@ Resources:
                   - s3:DeleteObject
                 Resource:
                   - !Sub 'arn:aws:s3:::${ImagesBucketName}/*'
+                  - !Sub 'arn:aws:s3:::${StrapiBucketName}/*'
         - PolicyName: !Sub ${AWS::StackName}-sm-read
           PolicyDocument:
             Version: '2012-10-17'

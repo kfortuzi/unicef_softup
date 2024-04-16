@@ -34,6 +34,7 @@ Resources:
       Parameters:
         application_name: !Sub 'akpa-ai-${EnvironmentName}'
 
+  # TODO: Enable automated backups
   RDS:
     Type: AWS::RDS::DBInstance
     DeletionPolicy: Retain
@@ -56,7 +57,7 @@ Resources:
       DeletionProtection: true
       EnablePerformanceInsights: true
       Engine: 'postgres'
-      EngineVersion: '14.7'
+      EngineVersion: '14.10'
       MasterUsername: !Sub '{{resolve:secretsmanager:${RDSMasterUserSecret}::username}}'
       MasterUserPassword: !Sub '{{resolve:secretsmanager:${RDSMasterUserSecret}::password}}'
       PreferredMaintenanceWindow: 'thu:04:22-thu:04:52'
@@ -104,6 +105,33 @@ Resources:
         Version: '2012-10-17'
         Statement:
           - Resource: !Ref RDSMasterUserSecret
+            Action: secretsmanager:GetSecretValue
+            Effect: Deny
+            Principal: '*'
+            Condition:
+              StringNotLike:
+                aws:PrincipalArn:
+                  - arn:aws:iam::618228892382:user/Cloudformation
+
+  RDSStrapiUserSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: 'Secret for RDS strapi user and password'
+      Name: !Sub 'rds-db-instance-credentials/strapi-${EnvironmentName}'
+      GenerateSecretString:
+        SecretStringTemplate: !Sub '{"username": "strapi_user", "dbname": "strapi_db_${EnvironmentName}"}'
+        GenerateStringKey: 'password'
+        PasswordLength: 32
+        ExcludePunctuation: true
+
+  RDSStrapiUserSecretPolicy:
+    Type: AWS::SecretsManager::ResourcePolicy
+    Properties:
+      SecretId: !Ref RDSStrapiUserSecret
+      ResourcePolicy:
+        Version: '2012-10-17'
+        Statement:
+          - Resource: !Ref RDSStrapiUserSecret
             Action: secretsmanager:GetSecretValue
             Effect: Deny
             Principal: '*'

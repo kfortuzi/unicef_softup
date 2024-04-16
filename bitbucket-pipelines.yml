@@ -58,9 +58,9 @@ deploy-api-infrastructure-prod: &deploy-api-infrastructure-prod
       - cd nest-rest-api/infrastructure
       - ENVIRONMENT=prod ./deploy.sh
 
-build-and-push-to-ecr-dev: &build-and-push-to-ecr-dev
+build-api-and-push-to-ecr-dev: &build-api-and-push-to-ecr-dev
   step:
-    name: Build docker image and deploy to AWS ECR
+    name: Build docker image for api and deploy to AWS ECR
     caches:
       - docker
     services:
@@ -68,20 +68,50 @@ build-and-push-to-ecr-dev: &build-and-push-to-ecr-dev
     size: 2x
     script:
       - cd nest-rest-api
-      - docker build --target production -t $IMAGE_NAME_DEV:latest .
-      - docker build -f Dockerfile.prisma.migrate -t $DB_MIGRATION_IMAGE_NAME_DEV:latest .
+      - docker build --target production -t akpa-ai-repository-dev:latest .
       - pipe: atlassian/aws-ecr-push-image:2.2.0
         variables:
           AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
           AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
           AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
-          IMAGE_NAME: $IMAGE_NAME_DEV
+          IMAGE_NAME: akpa-ai-repository-dev
+
+build-migrations-and-push-to-ecr-dev: &build-migrations-and-push-to-ecr-dev
+  step:
+    name: Build docker image for migrations and deploy to AWS ECR
+    caches:
+      - docker
+    services:
+      - docker
+    size: 2x
+    script:
+      - cd nest-rest-api
+      - docker build -f Dockerfile.prisma.migrate -t akpa-ai-db-migration-repository-dev:latest .
       - pipe: atlassian/aws-ecr-push-image:2.2.0
         variables:
           AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
           AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
           AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
-          IMAGE_NAME: $DB_MIGRATION_IMAGE_NAME_DEV
+          IMAGE_NAME: akpa-ai-db-migration-repository-dev
+
+build-strapi-and-push-to-ecr-dev: &build-strapi-and-push-to-ecr-dev
+  step:
+    name: Build docker image for Strapi and deploy to AWS ECR
+    caches:
+      - docker
+    services:
+      - docker
+    size: 2x
+    script:
+      - cd asset-api
+      # The name should match exactly to the ECR repository value // check the stack file // the accepted suffix is dev and prod
+      - docker build -t akpa-ai-strapi-repository-dev:latest .
+      - pipe: atlassian/aws-ecr-push-image:2.2.0
+        variables:
+          AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+          AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+          AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+          IMAGE_NAME: akpa-ai-strapi-repository-dev
 
 deploy-to-ec2-dev: &deploy-to-ec2-dev
   step:
@@ -181,7 +211,10 @@ pipelines:
       - parallel:
           - <<: *deploy-api-infrastructure-dev
           - <<: *deploy-frontend-infrastructure-dev
-      - <<: *build-and-push-to-ecr-dev
+      - parallel:
+          - <<: *build-api-and-push-to-ecr-dev
+          - <<: *build-migrations-and-push-to-ecr-dev
+          - <<: *build-strapi-and-push-to-ecr-dev
       - <<: *deploy-to-ec2-dev
       - <<: *frontend-build-dev
       - <<: *publish-frontend-dev

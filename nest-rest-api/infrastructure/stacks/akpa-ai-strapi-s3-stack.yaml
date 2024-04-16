@@ -1,0 +1,25 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Bucket to store strapi assets (articles and training videos)
+
+Parameters:
+  EnvironmentName:
+    Description: Environment name
+    Type: String
+
+Resources:
+  Bucket:
+    Type: 'AWS::S3::Bucket'
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: !Sub akpa-ai-strapi-${EnvironmentName}
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: TRUE
+        BlockPublicPolicy: TRUE
+        IgnorePublicAcls: TRUE
+        RestrictPublicBuckets: TRUE
+
+Outputs:
+  BucketName:
+    Value: !Ref Bucket
+  BucketArn:
+    Value: !GetAtt Bucket.Arn

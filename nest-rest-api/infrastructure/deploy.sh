@@ -4,6 +4,7 @@ set -Eeuox pipefail
 
 ./akpa-ai-vpc.sh
 ./akpa-ai-images-s3.sh
+./akpa-ai-strapi-s3.sh
 ./akpa-ai-ecr.sh
 ./akpa-ai-ses-identity.sh
 ./akpa-ai-ec2-roles.sh

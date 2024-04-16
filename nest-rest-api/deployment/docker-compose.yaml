@@ -18,6 +18,22 @@ services:
       - VIRTUAL_HOST=akpa-dev.softup.co #TODO: Inject the host from variables, after creating the akpa hosted zone
       - VIRTUAL_PORT=3000
       - LETSENCRYPT_HOST=akpa-dev.softup.co
+      - VIRTUAL_PATH=/
+    networks:
+      - akpa
+
+  strapi:
+    image: '618228892382.dkr.ecr.eu-central-1.amazonaws.com/akpa-ai-strapi-repository-${ENVIRONMENT}'
+    container_name: strapi
+    env_file:
+      - '.env.strapi.${ENVIRONMENT}'
+    environment:
+      - VIRTUAL_HOST=akpa-dev.softup.co
+      - VIRTUAL_PORT=1337
+      - VIRTUAL_PATH=/strapi
+    ports:
+      - '1337:1337'
+    restart: unless-stopped
     networks:
       - akpa
 
@@ -36,6 +52,7 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
     depends_on:
       - akpa-api
+      - strapi
     networks:
       - akpa
 

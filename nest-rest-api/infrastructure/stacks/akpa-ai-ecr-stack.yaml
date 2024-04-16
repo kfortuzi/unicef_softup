@@ -25,6 +25,15 @@ Resources:
       ImageTagMutability: MUTABLE
       RepositoryName: !Sub akpa-ai-db-migration-repository-${EnvironmentName}
 
+  AkpaStrapiRepository:
+    Type: AWS::ECR::Repository
+    Properties:
+      EmptyOnDelete: false
+      ImageScanningConfiguration:
+        ScanOnPush: true
+      ImageTagMutability: MUTABLE
+      RepositoryName: !Sub akpa-ai-strapi-repository-${EnvironmentName}
+
 Outputs:
   AkpaECRRepositoryName:
     Description: Repository name
@@ -45,3 +54,13 @@ Outputs:
   AkpaDbMigrationRepositoryUri:
     Description: Akpa DB migration ecr URI
     Value: !GetAtt AkpaDbMigrationRepository.RepositoryUri
+
+  AkpaStrapiRepositoryName:
+    Description: Strapi Repository name
+    Value: !Ref AkpaStrapiRepository
+  AkpaStrapiRepositoryArn:
+    Description: Akpa Strapi ecr arn
+    Value: !GetAtt AkpaStrapiRepository.Arn
+  AkpaStrapiRepositoryUri:
+    Description: Akpa Strapi ecr URI
+    Value: !GetAtt AkpaStrapiRepository.RepositoryUri
