@@ -106,6 +106,7 @@
         "noResume": "You have not created a resume yet",
         "editResume": "Edit Resume",
         "deleteResume": "Delete Resume",
+        "resumeNotFound": "Resume not found",
         "submit": "Save",
         "educationAndTraining": "Education & Training",
         "downloadPdfButtonText": "Download PDF",

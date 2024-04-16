@@ -4,11 +4,11 @@ import { useTranslation } from 'react-i18next';
 
 import Button from 'src/components/common/Button/Button';
 import config from 'src/config';
-import { getBaseCvId } from 'src/helpers/baseCvStorage';
 import i18n from 'src/locales';
 import { LocalStorageKey, getItem } from 'src/utils/storage';
 
 interface ContactInfoViewProps {
+  cvId: string;
   profilePicture?: string;
   imgUrl?: string;
   name?: string;
@@ -23,11 +23,11 @@ interface ContactInfoViewProps {
 
 const ContactInfoView: React.FC<ContactInfoViewProps> = (props) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.contactInfoSection' });
-  const { name, nationality, phoneNumber, email, linkedinUrl, address, linkedinText, surname } = props;
+  const { cvId, name, nationality, phoneNumber, email, linkedinUrl, address, linkedinText, surname } = props;
 
   const uploadProps: UploadProps = {
     name: 'file',
-    action: `${config.API_BASE_URL}/resumes/${getBaseCvId()}/upload-photo`,
+    action: `${config.API_BASE_URL}/resumes/${cvId}/upload-photo`,
     showUploadList: false,
     headers: {
       authorization: `Bearer ${getItem<string>(LocalStorageKey.USER_SESSION_TOKEN) || ''}`,

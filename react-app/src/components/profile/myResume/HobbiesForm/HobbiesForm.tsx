@@ -4,15 +4,15 @@ import { useTranslation } from 'react-i18next';
 import usePatchResume from 'src/api/resumes/hooks/usePatchResume';
 import Drawer from 'src/components/common/Drawer/Drawer';
 import InputSelect from 'src/components/common/InputSelect/InputSelect';
-import { getBaseCvId } from 'src/helpers/baseCvStorage';
 
 import { FormField } from './enums';
 
 interface HobbiesProps {
+  cvId: string;
   hobbies?: string[];
 }
 
-const HobbiesForm: React.FC<HobbiesProps> = ({ hobbies }) => {
+const HobbiesForm: React.FC<HobbiesProps> = ({ cvId, hobbies }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.hobbiesSection' });
   const { handleSubmit, control } = useForm({
     defaultValues: {
@@ -22,7 +22,7 @@ const HobbiesForm: React.FC<HobbiesProps> = ({ hobbies }) => {
   });
   const { mutate: patchResume, isPending } = usePatchResume();
   const submitForm = handleSubmit((values) =>
-    patchResume({ id: getBaseCvId(), hobbies: values.hobbies?.toString() }),
+    patchResume({ id: cvId, hobbies: values.hobbies?.toString() }),
   );
 
   return (

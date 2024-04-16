@@ -102,6 +102,7 @@
         "noResume": "Ju nuk keni CV te krijuara.",
         "editResume": "Ndrysho CV-në",
         "deleteResume": "Fshi CV-në",
+        "resumeNotFound": "CV nuk u gjet!",
         "submit": "Ruaj",
         "downloadPdfButtonText": "Shkarko PDF",
         "createSuccessMessage": "CV u krijua me sukses!",

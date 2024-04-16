@@ -60,6 +60,7 @@ const MyResumeView: React.FC<MyResumeViewProps> = ({ resume }) => {
         <div className="my-resume-body">
           <div className="contact-section">
             <ContactInfoView
+              cvId={resume.id}
               profilePicture={profilePicture}
               name={firstName}
               surname={lastName}
@@ -70,6 +71,7 @@ const MyResumeView: React.FC<MyResumeViewProps> = ({ resume }) => {
               phoneNumber={phoneNumber}
             />
             <ContactInfoForm
+              cvId={resume.id}
               profilePicture={profilePicture}
               name={firstName}
               lastName={lastName}
@@ -83,6 +85,7 @@ const MyResumeView: React.FC<MyResumeViewProps> = ({ resume }) => {
             <Section title={t('aboutMeSection.header')}>
               <AboutMeView description={summary} />
               <AboutMeForm
+                cvId={resume.id}
                 aboutMe={summary}
                 workExperiences={resume?.experiences}
               />
@@ -90,12 +93,18 @@ const MyResumeView: React.FC<MyResumeViewProps> = ({ resume }) => {
             {/* Education And Training*/}
             <Section title={t('educationAndTrainingsSection.headerPlural')}>
               <EducationAndTrainings educationAndTrainings={resume.educations} />
-              <EducationAndTrainingsForm educationAndTrainings={resume.educations} />
+              <EducationAndTrainingsForm
+                cvId={resume.id}
+                educationAndTrainings={resume.educations}
+              />
             </Section>
             {/* Work Experience*/}
             <Section title={t('workExperiencesSection.headerPlural')}>
               <WorkExperiencesView workExperiences={resume.experiences || []} />
-              <WorkExperiencesForm workExperiences={resume.experiences || []} />
+              <WorkExperiencesForm
+                cvId={resume.id}
+                workExperiences={resume.experiences || []}
+              />
             </Section>
             {/* Languages*/}
             <Section title={t('languagesSection.headerPlural')}>
@@ -120,27 +129,42 @@ const MyResumeView: React.FC<MyResumeViewProps> = ({ resume }) => {
                     />
                   ))}
               </div>
-              <LanguagesForm languages={resume?.languages} />
+              <LanguagesForm
+                cvId={resume.id}
+                languages={resume?.languages}
+              />
             </Section>
             {/* Digital Skills*/}
             <Section title={t('digitalSkillsSection.headerPlural')}>
               <p className="section-text">{resume?.digitalSkills?.replace(',', ', ')}</p>
-              <DigitalSkillsForm digitalSkills={resume?.digitalSkills?.split(',') || []} />
+              <DigitalSkillsForm
+                cvId={resume.id}
+                digitalSkills={resume?.digitalSkills?.split(',') || []}
+              />
             </Section>
             {/* Soft Skills*/}
             <Section title={t('softSkillsSection.headerPlural')}>
               <p className="section-text">{resume?.softSkills?.replace(',', ', ')}</p>
-              <SoftSkillsForm softSkills={resume?.softSkills?.split(',') || []} />
+              <SoftSkillsForm
+                cvId={resume.id}
+                softSkills={resume?.softSkills?.split(',') || []}
+              />
             </Section>
             {/* Hobbies and Interests*/}
             <Section title={t('hobbiesSection.headerPlural')}>
               <p className="section-text">{resume?.hobbies?.replace(',', ', ')}</p>
-              <HobbiesForm hobbies={resume?.hobbies?.split(',')} />
+              <HobbiesForm
+                cvId={resume.id}
+                hobbies={resume?.hobbies?.split(',')}
+              />
             </Section>
             {/* Certificates*/}
             <Section title={t('certificatesSection.headerPlural')}>
               <CertificatesView certificates={resume?.certificates || []} />
-              <CertificatesForm certificates={resume?.certificates || []} />
+              <CertificatesForm
+                cvId={resume.id}
+                certificates={resume?.certificates || []}
+              />
             </Section>
             {/* Volunteering*/}
             <Section title={t('volunteeringsSection.headerPlural')}>
@@ -153,7 +177,10 @@ const MyResumeView: React.FC<MyResumeViewProps> = ({ resume }) => {
                   endDate={volunteering.endDate}
                 />
               ))}
-              <VolunteeringForm volunteering={resume?.volunteering || []} />
+              <VolunteeringForm
+                cvId={resume.id}
+                volunteering={resume?.volunteering || []}
+              />
             </Section>
             {/* Publications*/}
             <Section title={t('publicationsSection.headerPlural')}>
@@ -165,11 +192,17 @@ const MyResumeView: React.FC<MyResumeViewProps> = ({ resume }) => {
                   link={publication.link}
                 />
               ))}
-              <PublicationsForm publications={resume?.publications || []} />
+              <PublicationsForm
+                cvId={resume.id}
+                publications={resume?.publications || []}
+              />
             </Section>
             <Section title={t('drivingLicencesSection.headerPlural')}>
               <DrivingLicenceView drivingLicences={resume?.drivingLicense?.split(',') || []} />
-              <DrivingLicenceForm drivingLicences={resume?.drivingLicense?.split(',') || []} />
+              <DrivingLicenceForm
+                cvId={resume.id}
+                drivingLicences={resume?.drivingLicense?.split(',') || []}
+              />
             </Section>
           </div>
         </div>

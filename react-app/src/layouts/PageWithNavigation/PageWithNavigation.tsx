@@ -52,23 +52,27 @@ const PageWithNavigation: React.FC = () => {
         key: 'resume',
         icon: <SolutionOutlined />,
         onClick: () => navigate(Route.RESUMES),
+        disabled: !hasBaseCv,
       },
       {
         label: t('coverLetter'),
         key: 'coverLetter',
         icon: <ContainerOutlined />,
         onClick: () => navigate(Route.COVER_LETTERS),
+        disabled: !hasBaseCv,
       },
       {
         label: t('jobs'),
         key: 'jobs',
         icon: <BarsOutlined />,
         onClick: () => navigate(Route.JOBS),
+        disabled: !hasBaseCv,
       },
       {
         label: t('training'),
         key: 'training',
         icon: <ReadOutlined />,
+        disabled: !hasBaseCv,
         children: [
           {
             label: t('trainingVideos'),
@@ -86,23 +90,26 @@ const PageWithNavigation: React.FC = () => {
         label: `${user?.firstName || 'John'} ${user?.lastName || 'Doe'}`,
         key: 'profile-menu',
         icon: <UserOutlined />,
+        disabled: false,
         children: [
           {
             label: t('settings'),
             key: 'settings',
             icon: <SettingOutlined />,
             onClick: () => navigate(Route.PERSONAL_INFO),
+            disabled: !hasBaseCv
           },
           {
             label: t('logOut'),
             key: 'logOut',
             icon: <LogoutOutlined />,
             onClick: logOut,
+            disabled: false
           },
         ],
       },
     ],
-    [logOut, navigate, t, user?.firstName, user?.lastName],
+    [hasBaseCv, logOut, navigate, t, user?.firstName, user?.lastName],
   );
 
   const breadCrumbItems: BreadcrumbItemType[] = location.pathname
@@ -126,7 +133,7 @@ const PageWithNavigation: React.FC = () => {
           theme="dark"
           mode="horizontal"
           selectable={false}
-          disabled={!hasBaseCv}
+        // disabled={!hasBaseCv}
         />
       </Header>
       <Layout className="page-content-and-footer">

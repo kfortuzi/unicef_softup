@@ -18,7 +18,6 @@ import InputDatePicker from 'src/components/common/InputDatePicker/InputDatePick
 import InputText from 'src/components/common/InputText/InputText';
 import InputTextArea from 'src/components/common/InputTextArea/InputTextArea';
 import dateTimeFormats from 'src/constants/dateTimeFormats';
-import { getBaseCvId } from 'src/helpers/baseCvStorage';
 import i18n from 'src/locales';
 
 import { defaultValues } from './constants';
@@ -26,6 +25,7 @@ import { FormField } from './enums';
 import fieldsValidationSchema from './validation';
 
 interface WorkExperiencesProps {
+  cvId: string;
   workExperiences: WorkExperience[];
 }
 
@@ -60,7 +60,7 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
 
   const { mutate: patchResume, isPending } = usePatchResume();
   const submitForm = handleSubmit((values) =>
-    patchResume({ id: getBaseCvId(), experiences: values.experiences as WorkExperience[] }),
+    patchResume({ id: props.cvId, experiences: values.experiences as WorkExperience[] }),
   );
 
   const [isOpen, setOpen] = useState(false);

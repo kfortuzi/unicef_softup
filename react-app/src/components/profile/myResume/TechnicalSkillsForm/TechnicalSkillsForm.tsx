@@ -4,15 +4,15 @@ import { useTranslation } from 'react-i18next';
 import usePatchResume from 'src/api/resumes/hooks/usePatchResume';
 import Drawer from 'src/components/common/Drawer/Drawer';
 import InputSelect from 'src/components/common/InputSelect/InputSelect';
-import { getBaseCvId } from 'src/helpers/baseCvStorage';
 
 import { FormField } from './enums';
 
 interface TechnicalSkillsProps {
+  cvId: string;
   technicalSkills?: string;
 }
 
-const TechnicalSkillsForm: React.FC<TechnicalSkillsProps> = ({ technicalSkills }) => {
+const TechnicalSkillsForm: React.FC<TechnicalSkillsProps> = ({ cvId, technicalSkills }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.technicalSkillsSection' });
   const { handleSubmit, control } = useForm({
     defaultValues: {
@@ -22,7 +22,7 @@ const TechnicalSkillsForm: React.FC<TechnicalSkillsProps> = ({ technicalSkills }
   });
   const { mutate: patchResume, isPending } = usePatchResume();
   const submitForm = handleSubmit((values) =>
-    patchResume({ id: getBaseCvId(), technicalSkills: values.technicalSkills?.toString() }),
+    patchResume({ id: cvId, technicalSkills: values.technicalSkills?.toString() }),
   );
 
   return (

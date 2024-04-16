@@ -7,12 +7,12 @@ import usePatchResume from 'src/api/resumes/hooks/usePatchResume';
 import Drawer from 'src/components/common/Drawer/Drawer';
 import InputText from 'src/components/common/InputText/InputText';
 import InputTextArea from 'src/components/common/InputTextArea/InputTextArea';
-import { getBaseCvId } from 'src/helpers/baseCvStorage';
 
 import { FormField } from './enums';
 import validationSchema from './validation';
 
 type ContactInfoFormProps = {
+  cvId: string;
   profilePicture?: string;
   name?: string;
   email?: string;
@@ -23,6 +23,7 @@ type ContactInfoFormProps = {
 };
 
 const ContactInfoForm: React.FC<ContactInfoFormProps> = ({
+  cvId,
   profilePicture,
   name,
   email,
@@ -45,8 +46,6 @@ const ContactInfoForm: React.FC<ContactInfoFormProps> = ({
     resolver: yupResolver(validationSchema),
     shouldFocusError: true,
   });
-
-  const cvId = getBaseCvId();
 
   const { mutate: patchResume, isPending } = usePatchResume();
   const submitForm = handleSubmit((values) => patchResume({ id: cvId, ...values }));

@@ -7,7 +7,7 @@ import ResumeCard from 'src/components/resume/ResumeCard/ResumeCard';
 
 const MyResumes: React.FC = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'myResumes' });
-  const { data: resumes } = useGetResumes();
+  const { data: resumesData } = useGetResumes();
 
   return (
     <div className="resumes-container">
@@ -16,7 +16,7 @@ const MyResumes: React.FC = () => {
         className="list-of-resumes"
         gutter={[32, 32]}
       >
-        {resumes
+        {resumesData
           ?.filter((resume) => resume.referenceId !== null)
           .map((resume) => (
             <Col

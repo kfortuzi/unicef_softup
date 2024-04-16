@@ -12,13 +12,13 @@ import Drawer from 'src/components/common/Drawer/Drawer';
 import InputDatePicker from 'src/components/common/InputDatePicker/InputDatePicker';
 import InputText from 'src/components/common/InputText/InputText';
 import dateTimeFormats from 'src/constants/dateTimeFormats';
-import { getBaseCvId } from 'src/helpers/baseCvStorage';
 
 import { defaultValues } from './constants';
 import { FormField } from './enums';
 import fieldsValidationSchema from './validation';
 
 interface PublicationsProps {
+  cvId: string;
   publications: Publication[];
 }
 
@@ -43,7 +43,7 @@ const PublicationsForm: React.FC<PublicationsProps> = (props) => {
 
   const { mutate: patchResume, isPending } = usePatchResume();
   const submitForm = handleSubmit((values) =>
-    patchResume({ id: getBaseCvId(), publications: values.publications as Publication[] }),
+    patchResume({ id: props.cvId, publications: values.publications as Publication[] }),
   );
 
   const items: CollapseProps['items'] = fields.map((field, index) => {

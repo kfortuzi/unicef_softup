@@ -4,15 +4,15 @@ import { useTranslation } from 'react-i18next';
 import usePatchResume from 'src/api/resumes/hooks/usePatchResume';
 import Drawer from 'src/components/common/Drawer/Drawer';
 import InputSelect from 'src/components/common/InputSelect/InputSelect';
-import { getBaseCvId } from 'src/helpers/baseCvStorage';
 
 import { FormField } from './enums';
 
 interface SoftSkillsProps {
+  cvId: string;
   softSkills?: string[];
 }
 
-const SoftSkillsForm: React.FC<SoftSkillsProps> = ({ softSkills }) => {
+const SoftSkillsForm: React.FC<SoftSkillsProps> = ({ cvId, softSkills }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.softSkillsSection' });
   const { handleSubmit, control } = useForm({
     defaultValues: {
@@ -22,7 +22,7 @@ const SoftSkillsForm: React.FC<SoftSkillsProps> = ({ softSkills }) => {
   });
   const { mutate: patchResume, isPending } = usePatchResume();
   const submitForm = handleSubmit((values) =>
-    patchResume({ id: getBaseCvId(), softSkills: values.softSkills?.toString() }),
+    patchResume({ id: cvId, softSkills: values.softSkills?.toString() }),
   );
 
   return (

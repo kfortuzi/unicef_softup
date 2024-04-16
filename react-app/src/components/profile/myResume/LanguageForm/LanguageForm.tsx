@@ -10,13 +10,13 @@ import Button from 'src/components/common/Button/Button';
 import Drawer from 'src/components/common/Drawer/Drawer';
 import InputSelect from 'src/components/common/InputSelect/InputSelect';
 import InputText from 'src/components/common/InputText/InputText';
-import { getBaseCvId } from 'src/helpers/baseCvStorage';
 
 import { defaultValues, languageLevels } from './constants';
 import { FormField } from './enums';
 import fieldsValidationSchema from './validation';
 
 interface LanguagesProps {
+  cvId: string;
   languages?: Language[];
 }
 
@@ -41,7 +41,7 @@ const LanguagesForm: React.FC<LanguagesProps> = (props) => {
 
   const { mutate: patchResume, isPending } = usePatchResume();
   const submitForm = handleSubmit((values) =>
-    patchResume({ id: getBaseCvId(), languages: values.languages as Language[] }),
+    patchResume({ id: props.cvId, languages: values.languages as Language[] }),
   );
 
   const items: CollapseProps['items'] = fields.map((field, index) => {

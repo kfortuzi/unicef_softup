@@ -17,6 +17,7 @@ const usePatchResume = () => {
     onSuccess: () => {
       message.success(t('updateSuccessMessage'));
       queryClient.invalidateQueries({ queryKey: [Keys.GET_RESUMES] });
+      queryClient.invalidateQueries({ queryKey: [Keys.GET_RESUME] });
     },
     onError: () => {
       message.error(t('updateErrorMessage'));

@@ -12,13 +12,13 @@ import Drawer from 'src/components/common/Drawer/Drawer';
 import InputDatePicker from 'src/components/common/InputDatePicker/InputDatePicker';
 import InputText from 'src/components/common/InputText/InputText';
 import dateTimeFormats from 'src/constants/dateTimeFormats';
-import { getBaseCvId } from 'src/helpers/baseCvStorage';
 
 import { defaultValues } from './constants';
 import { FormField } from './enums';
 import fieldsValidationSchema from './validation';
 
 type CertificatesFormProps = {
+  cvId: string;
   certificates?: Certificate[];
 };
 
@@ -41,7 +41,7 @@ const CertificatesForm: React.FC<CertificatesFormProps> = (props) => {
 
   const { mutate: patchResume, isPending } = usePatchResume();
   const submitForm = handleSubmit((values) => {
-    patchResume({ id: getBaseCvId(), certificates: values.certificates });
+    patchResume({ id: props.cvId, certificates: values.certificates });
   });
 
   const items: CollapseProps['items'] = fields.map((field, index) => {

@@ -13,7 +13,6 @@ import AskWizardModal from 'src/components/common/AskWizardModal/AskWizardModal'
 import Button from 'src/components/common/Button/Button';
 import Drawer from 'src/components/common/Drawer/Drawer';
 import InputTextArea from 'src/components/common/InputTextArea/InputTextArea';
-import { getBaseCvId } from 'src/helpers/baseCvStorage';
 import i18n from 'src/locales';
 
 import { defaultValues } from './constants';
@@ -21,11 +20,12 @@ import { FormField } from './enums';
 import validationSchema from './validation';
 
 type AboutMeProps = {
+  cvId: string;
   aboutMe?: string;
   workExperiences?: WorkExperience[];
 };
 
-const AboutMeForm: React.FC<AboutMeProps> = ({ aboutMe, workExperiences }) => {
+const AboutMeForm: React.FC<AboutMeProps> = ({ aboutMe, workExperiences, cvId }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume' });
   const [contentLoading, setContentLoading] = useState(false);
   const { handleSubmit, control, setValue, getValues } = useForm({
@@ -36,10 +36,10 @@ const AboutMeForm: React.FC<AboutMeProps> = ({ aboutMe, workExperiences }) => {
     shouldFocusError: true,
   });
 
-  const cvId = getBaseCvId();
-
   const { mutate: patchResume, isPending } = usePatchResume();
-  const submitForm = handleSubmit((values) => patchResume({ id: cvId, summary: values.aboutMe }));
+  const submitForm = handleSubmit((values) => patchResume({
+    id: cvId, summary: values.aboutMe
+  }));
 
   const [isOpen, setOpen] = useState(false);
 
