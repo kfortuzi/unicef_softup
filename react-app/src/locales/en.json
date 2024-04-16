@@ -350,6 +350,7 @@
       "recommendedJobs": "Recommended Jobs",
       "appliedJobs": "Applied Jobs",
       "allJobs": "All Jobs",
+      "searchPlaceholder": "Search",
       "viewDetails": "View Details",
       "applyButtonText": "Apply",
       "loadMoreButtonText": "Load More",

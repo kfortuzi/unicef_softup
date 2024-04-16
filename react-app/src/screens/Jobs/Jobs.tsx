@@ -1,5 +1,6 @@
-import { Col, Row, Typography } from 'antd';
-import React from 'react';
+import { Col, Row, Spin, Typography } from 'antd';
+import Search from 'antd/es/input/Search';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import useGetJobs from 'src/api/jobs/hooks/useGetJobs';
@@ -11,12 +12,19 @@ import JobCard from 'src/components/jobs/JobCard/JobCard';
 
 const Jobs: React.FC = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'jobs' });
-  const { data: allJobs, fetchNextPage, hasNextPage, isFetchingNextPage } = useGetJobs({ take: 20 });
+  const [filterValue, setFilterValue] = useState<string>('');
+  const {
+    data: allJobs,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isFetchingNextPage,
+  } = useGetJobs({ take: 20, cursor: '', filter: filterValue });
 
   const { data: recommendedJobs } = useGetRecommendedJobs();
   const { data: resumes } = useGetResumes();
   const appliedJobs = allJobs?.pages?.flatMap((page) =>
-    page?.filter((job) => resumes?.some((resume) => resume.referenceId === job.id)),
+    page?.filter((job) => resumes?.some((resume) => resume.referenceId === job?.id)),
   ) as GetJobsResponse;
 
   return (
@@ -92,44 +100,63 @@ const Jobs: React.FC = () => {
           <p>{t('noRecommendedJobs')}</p>
         )}
       </Row>
-      <h2 className="category">{t('allJobs')}</h2>
+      <h2 className="category">{t('allJobs')}
+        <Search
+          placeholder={t('searchPlaceholder')}
+          type='search'
+          name='filter'
+          onSearch={(value) => {
+            setFilterValue(value);
+          }}
+          loading={isFetching}
+          disabled={isFetching}
+          className='jobs-search-input'
+          size='large'
+        />
+      </h2>
       <Row
         className="list-of-jobs"
         gutter={[32, 32]}
         key={'all-jobs'}
       >
-        {allJobs?.pages.map((page) =>
-          page?.map((job) => (
-            <Col
-              className="col-job-card"
-              xxl={8}
-              xl={12}
-              lg={24}
-              md={24}
-              sm={24}
-              xs={24}
-              key={'all-jobs-' + job.id}
-            >
-              <JobCard
-                jobId={job.id}
-                referenceId={job.referenceId}
-                title={job.title}
-                description={job.description}
-                companyName={job.company}
-                location={job.location}
-              />
-            </Col>
-          )),
-        )}
+        <Spin spinning={isFetching} size='large' />
+        {
+          allJobs && allJobs.pages.flat().length > 0 ? (
+            allJobs?.pages.map((page) =>
+              page?.map((job) => (
+                <Col
+                  className="col-job-card"
+                  xxl={8}
+                  xl={12}
+                  lg={24}
+                  md={24}
+                  sm={24}
+                  xs={24}
+                  key={'all-jobs-' + Math.random()}
+                >
+                  <JobCard
+                    jobId={job.id}
+                    referenceId={job.referenceId}
+                    title={job.title}
+                    description={job.description}
+                    companyName={job.company}
+                    location={job.location}
+                  />
+                </Col>
+              )))) : (
+            <p>{t('noRecommendedJobs')}</p>
+          )}
       </Row>
-      <Button
-        className="load-more-button"
-        onClick={() => hasNextPage && !isFetchingNextPage && fetchNextPage()}
-        size="large"
-        text={t('loadMoreButtonText')}
-        type="primary"
-        loading={isFetchingNextPage}
-      />
+      {!filterValue ? (
+        <Button
+          className="load-more-button"
+          onClick={() => hasNextPage && !isFetchingNextPage && fetchNextPage()}
+          size="large"
+          text={t('loadMoreButtonText')}
+          type="primary"
+          loading={isFetchingNextPage}
+        />
+      ) : null}
     </div>
   );
 };

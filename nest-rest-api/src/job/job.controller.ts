@@ -45,19 +45,23 @@ export class JobController {
     type: String,
     description: 'Cursor for pagination',
   })
+  @ApiQuery({
+    name: 'filter',
+    required: false,
+    type: String,
+    description: 'Filter for jobs',
+  })
   @ApiForbiddenResponse({ status: 403, description: 'Forbidden.' })
   @Get()
-  findJobs(@Query('take') take: string, @Query('cursor') cursor?: string) {
+  findJobs(
+    @Query('take') take: string,
+    @Query('cursor') cursor?: string,
+    @Query('filter') filter?: string,
+  ) {
+    if (filter) {
+      return this.jobService.getJobsByFilter(filter);
+    }
     return this.jobService.getJobs(take, cursor);
-  }
-
-  @ApiTags('jobs')
-  @ApiResponse({
-    description: 'Jobs retrieved successfully',
-  })
-  @Get(':filter')
-  findJobsByFilter(@Param('filter') filter: string) {
-    return this.jobService.getJobsByFilter(filter);
   }
 
   @ApiBearerAuth()

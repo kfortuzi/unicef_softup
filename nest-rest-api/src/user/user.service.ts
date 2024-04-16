@@ -134,10 +134,10 @@ export class UserService {
         expiresAt,
       );
       const result = exclude(createdUser, ['password']);
-      const link = `<a href="${this.config.feHost}/#/access/confirm-user?id=${createdUser.id}&code=${verificationCode}">Link to confirm</a>`;
+      const link = `<a href="${this.config.feHost}/#/access/confirm-user?id=${createdUser.id}&verificationCode=${verificationCode}">Link to confirm</a>`;
       await this.sesService.sendEmail(
-        'Confirmation Email',
-        link,
+        'Verify Your Email',
+        `Please click on the following link to verify your email: ${link}`,
         createdUser.email,
       );
 
@@ -189,7 +189,7 @@ export class UserService {
       'VERIFICATION',
       expiresAt,
     );
-    const link = `<a href="${process.env.FE_HOST}/#/access/confirm-user?id=${user.id}&code=${verificationCode}">Link to confirm</a>`;
+    const link = `<a href="${this.config.feHost}/#/access/confirm-user?id=${user.id}&verificationCode=${verificationCode}">Link to confirm</a>`;
     await this.sesService.sendEmail(
       'Verify Your Email',
       `Please click on the following link to verify your email: ${link}`,

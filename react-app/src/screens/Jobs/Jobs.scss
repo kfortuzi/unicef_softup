@@ -3,13 +3,19 @@
   flex-direction: column;
   padding: $large;
 
+  .jobs-search-input {
+    margin: $medium 0;
+  }
+
   .load-more-button {
     align-self: center;
   }
+
   .col-job-card {
     padding-left: 0 !important;
     height: auto;
   }
+
   .recommended-jobs {
     border: 3px solid $primary-color;
     border-radius: 35px;
@@ -20,8 +26,10 @@
     font-size: 150%;
     margin: $large 0;
   }
+
   .list-of-jobs {
     display: flex;
+    justify-content: center;
     padding: $medium;
     margin-bottom: $large;
 

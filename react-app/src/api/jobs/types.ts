@@ -54,6 +54,7 @@ export type GetJobRequest = {
 export type GetJobsRequest = {
   take: number;
   cursor?: string;
+  filter?: string;
 };
 
 export type PostJobTipsAndAdvicesRequest = {
