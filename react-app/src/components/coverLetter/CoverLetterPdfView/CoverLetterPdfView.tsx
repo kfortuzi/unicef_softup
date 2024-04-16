@@ -11,7 +11,7 @@ import styles from './CoverLetterPdfViewStyle';
 
 type CoverLetterPdfViewProps = {
   coverLetter: GetCoverLetterResponse;
-  user: User;
+  user?: User;
 };
 
 const CoverLetterPdfView: React.FC<CoverLetterPdfViewProps> = ({ coverLetter, user }) => {

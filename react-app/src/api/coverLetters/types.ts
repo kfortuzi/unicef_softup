@@ -8,6 +8,7 @@ export type BaseResponse = {
   createdAt: string;
   updatedAt?: string;
   deletedAt?: string;
+  referenceId?: string;
 };
 
 export type PostCoverLetterRequest = {

@@ -1,15 +1,17 @@
-import { BankOutlined, EnvironmentOutlined, FileSearchOutlined } from '@ant-design/icons';
+import { BankOutlined, DownloadOutlined, EnvironmentOutlined, FileSearchOutlined } from '@ant-design/icons';
 import { PDFDownloadLink } from '@react-pdf/renderer';
-import { Card, Dropdown, Image, MenuProps, Modal } from 'antd';
+import { Card, Image, Modal, Tooltip } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 
 import usePostCoverLetterForJob from 'src/api/coverLetters/hooks/usePostCoverLetterForJob';
-import useGetResumes from 'src/api/resumes/hooks/useGetResumes';
+import { GetCoverLetterResponse } from 'src/api/coverLetters/types';
 import usePostResumeForJob from 'src/api/resumes/hooks/usePostResumeForJob';
 import { GetResumeResponse } from 'src/api/resumes/types';
+import useGetProfile from 'src/api/users/hooks/useGetProfile';
 import Button from 'src/components/common/Button/Button';
+import CoverLetterPdfView from 'src/components/coverLetter/CoverLetterPdfView/CoverLetterPdfView';
 import ResumePdfView from 'src/components/profile/myResume/ResumePdfView/ResumePdfView';
 
 type JobCardProps = {
@@ -20,6 +22,7 @@ type JobCardProps = {
   companyName: string;
   location: string;
   resume?: GetResumeResponse;
+  coverLetter?: GetCoverLetterResponse;
 };
 
 const JobCard: React.FC<JobCardProps> = ({
@@ -30,6 +33,7 @@ const JobCard: React.FC<JobCardProps> = ({
   location,
   referenceId,
   resume,
+  coverLetter,
 }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'jobs' });
   const navigate = useNavigate();
@@ -40,6 +44,8 @@ const JobCard: React.FC<JobCardProps> = ({
       win.focus();
     }
   };
+
+  const { data: user } = useGetProfile();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -60,7 +66,7 @@ const JobCard: React.FC<JobCardProps> = ({
     mutate: postCoverLetterForJob,
     isPending: isCoverLetterPending,
     isSuccess: isCoverLetterSuccess,
-    data: coverLetter,
+    data: generatedCoverLetter,
   } = usePostCoverLetterForJob();
   const {
     mutate: postResumeForJob,
@@ -69,40 +75,13 @@ const JobCard: React.FC<JobCardProps> = ({
     data: generatedResume,
   } = usePostResumeForJob();
 
-  const { refetch: refetchResumes } = useGetResumes();
   if (isCoverLetterSuccess) {
-    navigate(`/cover-letters/${coverLetter?.id}`);
+    navigate(`/cover-letters/${generatedCoverLetter?.id}`);
   }
 
   if (isResumeSuccess) {
-    refetchResumes();
     navigate(`/resumes/${generatedResume?.id}`);
   }
-
-  const getPreparedItems: MenuProps['items'] = [
-    {
-      key: 'tailorResumeButton',
-      label: (
-        <Button
-          type="link"
-          text={t('tailorResumeButtonText')}
-          onClick={() => postResumeForJob({ jobId })}
-          loading={isResumePending}
-        />
-      ),
-    },
-    {
-      key: 'generateCoverLetterButton',
-      label: (
-        <Button
-          type="link"
-          onClick={() => postCoverLetterForJob({ jobId })}
-          loading={isCoverLetterPending}
-          text={t('generateCoverLetterButtonText')}
-        />
-      ),
-    },
-  ];
 
   return (
     <div className="job-card-container">
@@ -138,22 +117,85 @@ const JobCard: React.FC<JobCardProps> = ({
                 open={isModalOpen}
                 onOk={handleApply}
                 onCancel={handleCancel}
-                okText={t('applyButtonText')}
-                cancelText={t('cancelButtonText')}
+                footer={[
+                  <Button
+                    key="back"
+                    type="link"
+                    text={t('cancelButtonText')}
+                    onClick={handleCancel}
+                  />,
+                  <Tooltip
+                    title={
+                      !resume || !coverLetter ? t('applyButtonDisabledTooltip') : ''}
+                    showArrow={true}
+                    placement={'top'
+                    }
+                  >
+                    <Button
+                      key="submit"
+                      type="primary"
+                      text={t('applyButtonText')}
+                      onClick={handleApply}
+                      disabled={!resume || !coverLetter}
+                    />
+                  </Tooltip>
+                ]}
               >
                 {resume ? (
                   <PDFDownloadLink
                     document={<ResumePdfView resume={resume} />}
-                    fileName="somename.pdf"
+                    fileName={`${resume?.firstName}-${companyName}.pdf`}
                   >
-                    <Button
-                      type="primary"
-                      text={t('downloadPdfButtonText')}
-                      size="middle"
-                    />
+                    <div className='generated-info-group'>
+                      <Button
+                        text={t('viewResumeButtonText')}
+                        type='link'
+                        onClick={() => navigate(`/resumes/${resume?.id}`)}
+                      />
+                      <Button
+                        type="primary"
+                        text=''
+                        icon={<DownloadOutlined />}
+                        size="middle"
+                      />
+                    </div>
                   </PDFDownloadLink>
                 ) : (
-                  <p>{t('pleaseGenerateACv')}</p>
+                  <Button
+                    type="link"
+                    text={t('tailorResumeButtonText')}
+                    onClick={() => postResumeForJob({ jobId })}
+                    loading={isResumePending}
+                    className='generate-button'
+                  />
+                )}
+                {coverLetter ? (
+                  <PDFDownloadLink
+                    document={<CoverLetterPdfView coverLetter={coverLetter} user={user} />}
+                    fileName={`${coverLetter?.to} - ${coverLetter?.company}.pdf`}
+                  >
+                    <div className='generated-info-group'>
+                      <Button
+                        text={t('viewCoverLetterButtonText')}
+                        type='link'
+                        onClick={() => navigate(`/cover-letters/${coverLetter?.id}`)}
+                      />
+                      <Button
+                        type="primary"
+                        text=''
+                        icon={<DownloadOutlined />}
+                        size="middle"
+                      />
+                    </div>
+                  </PDFDownloadLink>
+                ) : (
+                  <Button
+                    type="link"
+                    text={t('generateCoverLetterButtonText')}
+                    onClick={() => postCoverLetterForJob({ jobId })}
+                    loading={isCoverLetterPending}
+                    className='generate-button'
+                  />
                 )}
               </Modal>
               <Button
@@ -163,15 +205,6 @@ const JobCard: React.FC<JobCardProps> = ({
                 text={t('applyButtonText')}
                 size="middle"
               />
-
-              <Dropdown menu={{ items: getPreparedItems }}>
-                <Button
-                  type="primary"
-                  text={t('getPreparedButtonText')}
-                  size="middle"
-                  loading={isCoverLetterPending || isResumePending}
-                />
-              </Dropdown>
             </div>
           </div>
         </div>
@@ -183,8 +216,8 @@ const JobCard: React.FC<JobCardProps> = ({
             src="/akpa.ico"
           />
         </div>
-      </Card>
-    </div>
+      </Card >
+    </div >
   );
 };
 

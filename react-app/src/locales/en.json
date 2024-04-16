@@ -364,7 +364,10 @@
       "cancelButtonText": "Cancel",
       "pleaseGenerateACv": "Please generate a CV first!",
       "noRecommendedJobs": "No recommended jobs found!",
-      "noAppliedJobs": "No applied jobs found!"
+      "noAppliedJobs": "No applied jobs found!",
+      "viewResumeButtonText": "View Resume",
+      "viewCoverLetterButtonText": "View Cover Letter",
+      "applyButtonDisabledTooltip": "Please generate a CV and a Cover Letter first!"
     },
     "jobDetails": {
       "title": "Title",

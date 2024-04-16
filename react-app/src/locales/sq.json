@@ -358,7 +358,10 @@
       "cancelButtonText": "Anullo",
       "pleaseGenerateACv": "Ju lutem krijoni nje CV para se te aplikoni per kete pune.",
       "noRecommendedJobs": "Nuk ka punë të rekomanduara për ju.",
-      "noAppliedJobs": "Nuk keni aplikuar për asnjë punë."
+      "noAppliedJobs": "Nuk keni aplikuar për asnjë punë.",
+      "viewResumeButtonText": "Shiko CV-në",
+      "viewCoverLetterButtonText": "Shiko Letrën e Motivimit",
+      "applyButtonDisabledTooltip": "Ju lutemi krijoni një CV dhe një Letër shoqëruese përpara se të aplikoni për këtë vend pune"
     },
     "jobDetails": {
       "title": "Titulli",

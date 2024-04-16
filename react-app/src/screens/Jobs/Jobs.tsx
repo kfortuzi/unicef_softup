@@ -3,6 +3,7 @@ import Search from 'antd/es/input/Search';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import useGetCoverLetters from 'src/api/coverLetters/hooks/useGetCoverLetters';
 import useGetJobs from 'src/api/jobs/hooks/useGetJobs';
 import useGetRecommendedJobs from 'src/api/jobs/hooks/useGetRecommendedJobs';
 import { GetJobsResponse } from 'src/api/jobs/types';
@@ -23,6 +24,7 @@ const Jobs: React.FC = () => {
 
   const { data: recommendedJobs } = useGetRecommendedJobs();
   const { data: resumes } = useGetResumes();
+  const { data: coverLetters } = useGetCoverLetters();
   const appliedJobs = allJobs?.pages?.flatMap((page) =>
     page?.filter((job) => resumes?.some((resume) => resume.referenceId === job?.id)),
   ) as GetJobsResponse;
@@ -60,6 +62,7 @@ const Jobs: React.FC = () => {
                     companyName={job.company}
                     location={job.location}
                     resume={resumes?.find((resume) => resume.referenceId === job.id)}
+                    coverLetter={coverLetters?.find((coverLetter) => coverLetter.referenceId === job.id)}
                   />
                 </Col>
               ),
@@ -68,6 +71,7 @@ const Jobs: React.FC = () => {
           <p>{t('noAppliedJobs')}</p>
         )}
       </Row>
+      <hr className='header-divider' />
       <h2 className="category">{t('recommendedJobs')}</h2>
       <Row
         className="list-of-jobs recommended-jobs"
@@ -100,6 +104,7 @@ const Jobs: React.FC = () => {
           <p>{t('noRecommendedJobs')}</p>
         )}
       </Row>
+      <hr className='header-divider' />
       <h2 className="category">{t('allJobs')}
         <Search
           placeholder={t('searchPlaceholder')}

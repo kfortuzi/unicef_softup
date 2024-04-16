@@ -1,5 +1,16 @@
 $job-card-border-radius: 20px;
 
+.generated-info-group {
+  display: flex;
+  justify-content: space-between;
+  margin: $small 0;
+  align-items: center;
+}
+
+.generate-button {
+  display: block;
+}
+
 .job-card-container {
   border-radius: $job-card-border-radius;
   box-shadow: $suggested-box-shadow;
@@ -12,15 +23,18 @@ $job-card-border-radius: 20px;
     border-radius: $job-card-border-radius;
     width: 100%;
     height: 100%;
+
     .ant-card-body {
       display: flex;
       width: 100%;
       height: 100%;
       justify-content: space-between;
     }
+
     .ant-card-body::before {
       content: none;
     }
+
     .ant-card-body::after {
       content: none;
     }
@@ -38,8 +52,7 @@ $job-card-border-radius: 20px;
         column-gap: $small;
         margin: 0;
 
-        .job-description {
-        }
+        .job-description {}
       }
 
       .view-details-link {
@@ -57,6 +70,7 @@ $job-card-border-radius: 20px;
         margin: 0;
       }
     }
+
     .logo-container {
       display: flex;
       justify-content: center;
@@ -79,6 +93,8 @@ $job-card-border-radius: 20px;
       display: flex;
       flex-flow: row nowrap;
       gap: $small;
+
+
 
       .apply {
         color: $info-color;
