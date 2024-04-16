@@ -19,6 +19,8 @@ import { CoverLetterRepository } from './coverletter.repository';
 import { JobService } from 'src/modules/job/job.service';
 import { WizardService } from 'src/modules/wizard/wizard.service';
 import { PromptType } from 'src/modules/openai/promptTypes';
+import { SourceType } from '@prisma/client';
+import { extractJSON } from 'src/helpers/parser';
 
 @Injectable()
 export class CoverLetterService {
@@ -34,6 +36,7 @@ export class CoverLetterService {
     try {
       const user = this.userService.getProfile(userId);
       if (!user) throw new NotFoundException({ message: 'User not found!' });
+
       return this.coverLetterRepository.createCoverLetter({
         to: data.to,
         company: data.company,
@@ -74,21 +77,26 @@ export class CoverLetterService {
     userId: string,
     wizardData: CoverLetterWizardDto,
   ) {
-    try {
-      const data = await this.validateAndParseUserInput(userId, wizardData);
-      this.assertValidResponse(data);
-      this.wizardService.saveWizardAnswers(wizardData, userId, 'CoverLetter');
-      const generatedCoverLetter = await this.generateCoverLetter(
-        userId,
-        wizardData,
-        'json_object',
+    const user = await this.userService.findOne(userId);
+    if (!user) throw new NotFoundException('User was not found');
+
+    const generatedCoverLetter = await this.generateCoverLetter(
+      userId,
+      wizardData,
+      'json_object',
+    );
+
+    if (!generatedCoverLetter)
+      throw new InternalServerErrorException(
+        'The cover letter could not be generated!',
       );
-      if (generatedCoverLetter !== null) {
-        return this.mapOutputData(generatedCoverLetter, userId);
-      }
-    } catch (error) {
-      throw new InternalServerErrorException(`${error}`);
-    }
+
+    this.wizardService.saveWizardAnswers(
+      wizardData,
+      userId,
+      SourceType.CoverLetter,
+    );
+    return this.mapOutputData(generatedCoverLetter, userId);
   }
 
   async generateCoverLetterFromJobPost(userId: string, jobId: string) {
@@ -115,12 +123,13 @@ export class CoverLetterService {
   }
 
   mapOutputData(data: string, userId: string, jobId?: string) {
-    const datas = JSON.parse(data);
+    const coverLetter: CoverLetterDto = extractJSON(data);
+
     return this.coverLetterRepository.createCoverLetter({
-      to: datas.to,
-      company: datas.company,
-      companyAddress: datas.companyAddress || null,
-      content: datas.content || null,
+      to: coverLetter.to,
+      company: coverLetter.company,
+      companyAddress: coverLetter.companyAddress || null,
+      content: coverLetter.content || null,
       user: {
         connect: { id: userId },
       },
@@ -161,33 +170,6 @@ export class CoverLetterService {
     );
   }
 
-  private async validateAndParseUserInput(
-    userId: string,
-    wizardData: CoverLetterWizardDto,
-  ): Promise<string> {
-    try {
-      const filteredWizard = Object.entries(wizardData).reduce(
-        (acc, [key, value]) => {
-          if (value !== null && value !== undefined && value !== '') {
-            (acc as any)[key] = value;
-          }
-          return acc;
-        },
-        {} as Partial<CoverLetterWizardDto>,
-      );
-      const validatedResponse = await this.validateQuestionWizard(
-        userId,
-        filteredWizard,
-      );
-      if (!validatedResponse) {
-        throw new InternalServerErrorException('No data to process');
-      }
-      return JSON.parse(validatedResponse);
-    } catch (error) {
-      throw new InternalServerErrorException(`${error}`);
-    }
-  }
-
   async generateCoverLetter(
     userId: string,
     input: JobSummaryDTO | CoverLetterWizardDto,
@@ -212,7 +194,7 @@ export class CoverLetterService {
     const body: ChatCompletionCreateParamsNonStreaming = {
       messages,
       model: AkpaModels.COVER_LETTER,
-      response_format: responseType,
+      response_format: { type: responseType },
     };
 
     return this.openAIService.generateCompletion(
@@ -220,18 +202,6 @@ export class CoverLetterService {
       userId,
       PromptType.CoverLetterWizard,
     );
-  }
-
-  private assertValidResponse(
-    response: { [key: string]: boolean } | string,
-  ): void {
-    const errorMessage = Object.entries(response)
-      .filter(([isValid]) => !isValid)
-      .map(([key]) => `${key} does not meet the required criteria`)
-      .join('; ');
-    if (errorMessage) {
-      throw new InternalServerErrorException(errorMessage);
-    }
   }
 
   async askWizardCoverLetter(

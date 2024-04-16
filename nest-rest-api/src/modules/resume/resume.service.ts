@@ -192,7 +192,7 @@ export class ResumeService {
 
   async resumeGenerationFromWizard(userId: string, userInput: ResumeWizardDto) {
     const user = await this.userService.findOne(userId);
-    if (!user) throw new BadRequestException('User not found!');
+    if (!user) throw new NotFoundException('User not found!');
 
     const baseResume = await this.resumeRepository.findUserResume(userId, null);
     if (baseResume)
