@@ -1,0 +1,17 @@
+.buttons-container {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: $small;
+
+}
+
+.generated-info-group {
+  display: flex;
+  justify-content: space-between;
+  margin: $small 0;
+  align-items: center;
+}
+
+.generate-button {
+  display: block;
+}

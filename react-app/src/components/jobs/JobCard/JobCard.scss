@@ -1,16 +1,5 @@
 $job-card-border-radius: 20px;
 
-.generated-info-group {
-  display: flex;
-  justify-content: space-between;
-  margin: $small 0;
-  align-items: center;
-}
-
-.generate-button {
-  display: block;
-}
-
 .job-card-container {
   border-radius: $job-card-border-radius;
   box-shadow: $suggested-box-shadow;
@@ -51,8 +40,6 @@ $job-card-border-radius: 20px;
         flex-direction: row;
         column-gap: $small;
         margin: 0;
-
-        .job-description {}
       }
 
       .view-details-link {
@@ -87,21 +74,6 @@ $job-card-border-radius: 20px;
 
     .view-details-link {
       color: $primary-color;
-    }
-
-    .buttons-container {
-      display: flex;
-      flex-flow: row nowrap;
-      gap: $small;
-
-
-
-      .apply {
-        color: $info-color;
-        background-color: white;
-        border-radius: $base-border-radius;
-        cursor: pointer;
-      }
     }
   }
 }

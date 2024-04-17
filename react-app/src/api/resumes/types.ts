@@ -162,7 +162,7 @@ export type PostResumeResponse = PostResumeRequest;
 export type GetResumeResponse = BaseResponse;
 
 export type PostResumeForJobRequest = {
-  jobId: string;
+  jobId?: string;
 };
 
 export type PostResumeForJobResponse = BaseResponse;

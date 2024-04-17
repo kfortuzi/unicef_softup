@@ -1,64 +1,68 @@
+import { Typography } from 'antd';
 import dayjs from 'dayjs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
+import useGetCoverLetters from 'src/api/coverLetters/hooks/useGetCoverLetters';
 import useGetJob from 'src/api/jobs/hooks/useGetJob';
+import useGetResumes from 'src/api/resumes/hooks/useGetResumes';
+import JobApplyModal from 'src/components/jobs/JobApplyModal/JobApplyModal';
 import dateTimeFormats from 'src/constants/dateTimeFormats';
 
 const JobDetails: React.FC = () => {
   const { id } = useParams();
   const { t } = useTranslation('translation', { keyPrefix: 'jobDetails' });
   const { data: job, isFetched } = useGetJob({ id });
+  const { data: resumes } = useGetResumes();
+  const { data: coverLetters } = useGetCoverLetters();
+  const resume = resumes?.find((resume) => resume.referenceId === job?.id);
+  const coverLetter = coverLetters?.find((coverLetter) => coverLetter.referenceId === job?.id);
+  const { Text, Title } = Typography;
 
   if (isFetched) {
     return (
       <div className="job-details-container">
-        <h2>
-          <strong>{t('title')}: </strong>
-          {`${job?.title}`}
-        </h2>
+        <Title level={3}>{`${t('title')}:${job?.title}`}</Title>
         <div className="job-main-details">
-          <p>
-            <span className="data-name">{t('company')}: </span>
-            {`${job?.company}`}
-          </p>
-          <p>
-            <span className="data-name">{t('location')}: </span>
-            {job?.location}
-          </p>
-          <p>
-            <span className="data-name">{t('address')}: </span>
-            {job?.address}
-          </p>
-          <p>
-            <span className="data-name">{t('vacantPositions')}: </span>
-            {job?.vacantPositions}
-          </p>
-          <p>
+          <Text><span className='data-name'>{t('company')}: </span> {job?.company}</Text>
+          <Text><span className='data-name'>{t('location')}: </span> {job?.location}</Text>
+          <Text><span className='data-name'>{t('address')}: </span> {job?.address}</Text>
+          <Text><span className="data-name">{t('vacantPositions')}: </span>{job?.vacantPositions}</Text>
+          <Text>
             <span className="data-name">{t('dateStart')}: </span>
             {job?.dateStart && dayjs(job?.dateStart).format(dateTimeFormats.albanianDate)}
-          </p>
-          <p>
+          </Text>
+          <Text>
             <span className="data-name">{t('dateEnd')}: </span>
             {job?.dateEnd && dayjs(job?.dateEnd).format(dateTimeFormats.albanianDate)}
-          </p>
+          </Text>
         </div>
+        <hr className='divider' />
         <div className="job-details">
           <div className="job-description">
-            <h3>{t('description')}</h3>
-            <p>{job?.description}</p>
+            <Title level={4}>{t('description')}</Title>
+            <Text>{job?.description}</Text>
           </div>
           <div className="job-skillLines">
-            <h3>{t('skillLines')}</h3>
-            <p>{job?.skillLines}</p>
+            <Title level={4}>{t('skillLines')}</Title>
+            <Text>{job?.skillLines}</Text>
           </div>
           <div className="job-experience">
-            <h3>{t('experience')}</h3>
-            <p>{job?.experience}</p>
+            <Title level={4}>{t('experience')}</Title>
+            <Text>{job?.experience}</Text>
           </div>
         </div>
-      </div>
+        <div className='job-detail-buttons'>
+          <JobApplyModal
+            jobId={job?.id}
+            companyName={job?.company}
+            referenceId={job?.referenceId}
+            resume={resume}
+            coverLetter={coverLetter}
+          />
+        </div>
+      </div >
     );
   }
 };
