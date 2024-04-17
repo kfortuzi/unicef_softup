@@ -77,7 +77,8 @@
         "lastName": "Mbiemri",
         "phoneNumber": "Telefoni",
         "profession": "Profesioni",
-        "birthdayDate": "Data e lindjes"
+        "birthdayDate": "Data e lindjes",
+        "phoneNumberValidation": "Numri i telefonit duhet te permbaje vetem numra"
       },
       "skillsAndHobbies": {
         "header": "Aftesi & Hobi",

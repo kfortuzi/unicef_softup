@@ -6,8 +6,8 @@ export type Role = {
 export type User = {
   id: string;
   email: string;
-  firstName: string;
-  lastName: string;
+  firstName?: string;
+  lastName?: string;
   phoneNumber?: string;
   profession?: string;
   profilePicture?: string;
@@ -22,8 +22,8 @@ export type User = {
 export type GetProfileResponse = {
   id: string;
   email: string;
-  firstName: string;
-  lastName: string;
+  firstName?: string;
+  lastName?: string;
   confirmedAt: string | null;
   hobbies?: string;
   role: Role;

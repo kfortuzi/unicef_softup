@@ -3,6 +3,7 @@ import {
   IsOptional,
   IsPhoneNumber,
   IsString,
+  ValidateIf,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger/dist/decorators/api-property.decorator';
 
@@ -19,6 +20,7 @@ export class UpdateUserDto {
 
   @IsString()
   @IsOptional()
+  @ValidateIf((object, value) => value !== '')
   @IsPhoneNumber('AL')
   @ApiProperty({ type: String })
   phoneNumber?: string;

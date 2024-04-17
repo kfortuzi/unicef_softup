@@ -76,7 +76,8 @@
         "lastName": "Last Name",
         "phoneNumber": "Phone",
         "profession": "Profession",
-        "birthdayDate": "Birthday Date"
+        "birthdayDate": "Birthday Date",
+        "phoneNumberValidation": "Phone number is not valid"
       },
       "skillsAndHobbies": {
         "header": "Skills & Hobbies",

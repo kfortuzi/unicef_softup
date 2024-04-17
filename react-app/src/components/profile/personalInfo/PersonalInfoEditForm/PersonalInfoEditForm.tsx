@@ -1,3 +1,4 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import dayjs from 'dayjs';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -13,6 +14,7 @@ import i18n from 'src/locales';
 
 import { FormField } from './enums';
 import { generateDefaultValues } from './helpers/generateDefaultValues';
+import validationSchema from './validations';
 
 interface Props {
   toggleEditMode: VoidFunction;
@@ -24,6 +26,7 @@ const PersonalInfoEditForm: React.FC<Props> = ({ toggleEditMode }) => {
   const { handleSubmit, control, setValue } = useForm({
     defaultValues: generateDefaultValues(user),
     shouldFocusError: true,
+    resolver: yupResolver(validationSchema),
   });
 
   const { mutate: patchUser, isPending } = usePatchUser();
@@ -43,7 +46,7 @@ const PersonalInfoEditForm: React.FC<Props> = ({ toggleEditMode }) => {
               label={t('firstName')}
               inputRef={ref}
               name={name}
-              value={value}
+              value={value || ''}
               error={error?.message}
               onChange={onChange}
               placeholder={t('firstName')}
@@ -60,7 +63,7 @@ const PersonalInfoEditForm: React.FC<Props> = ({ toggleEditMode }) => {
               label={t('lastName')}
               inputRef={ref}
               name={name}
-              value={value}
+              value={value || ''}
               error={error?.message}
               onChange={onChange}
               placeholder={t('lastName')}
@@ -106,12 +109,13 @@ const PersonalInfoEditForm: React.FC<Props> = ({ toggleEditMode }) => {
         <Controller
           control={control}
           name={FormField.BIRTHDAY_DATE}
-          render={({ field: { name, value, ref } }) => (
+          render={({ field: { name, value, ref }, fieldState: { error } }) => (
             <InputDatePicker
               label={t('birthdayDate')}
               inputRef={ref}
-              value={value ? dayjs(value) : undefined}
               name={name}
+              error={error?.message}
+              value={value ? dayjs(value) : undefined}
               onChange={(dateObject) => {
                 setValue(name, dateObject?.format(dateTimeFormats.backendDate));
               }}
