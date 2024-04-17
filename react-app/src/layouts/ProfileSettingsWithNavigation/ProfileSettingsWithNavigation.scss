@@ -15,13 +15,13 @@
     z-index: 1;
     border-bottom: 1px solid $base-font-color;
 
-    > .ant-menu {
+    >.ant-menu {
       min-width: 100%;
       justify-content: flex-end;
     }
   }
 
-  .page-content-and-footer {
+  .layout-content {
     min-height: max-content;
     background-color: transparent;
 
@@ -31,6 +31,4 @@
       padding: 0 50px;
     }
   }
-
-  @import "../Footer/Footer.scss";
 }

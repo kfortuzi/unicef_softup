@@ -275,25 +275,6 @@
       "resetPassword": "Reset Password",
       "myResume": "My Resume"
     },
-    "footer": {
-      "nationalEmploymentService": "NATIONAL EMPLOYMENT SERVICE",
-      "whatDoesTheNationalEmploymentServiceDo": "What does the national employment service do for you?",
-      "rulesToBeAppliedDuringApplication": "Rules to be applied during application",
-      "privacyPolicy": "Privacy policy",
-      "help": "Help",
-      "contact": "CONTACT",
-      "officesInAlbania": "Offices in Albania",
-      "tel": "Tel",
-      "email": "Email",
-      "mondayToThursday": "Monday - Thursday",
-      "friday": "Friday",
-      "partnerInstitutions": "PARTNER INSTITUTIONS",
-      "mostValuedServices": "MOST VALUED SERVICES",
-      "searchForJob": "Search for job",
-      "announceAJob": "Announce a job",
-      "unemploymentBenefit": "Unemployment benefit",
-      "employmentIncentivePrograms": "Employment incentive programs"
-    },
     "myResumes": {
       "header": "My Resumes",
       "lastUpdated": "Last updated",

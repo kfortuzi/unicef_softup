@@ -66,7 +66,7 @@ const ProfileSettingsWithNavigation: React.FC = () => {
           items={navigationItems}
         />
       </Sider>
-      <Layout className="page-content-and-footer">
+      <Layout className="layout-content">
         <Content className="page-content">
           <Outlet />
         </Content>

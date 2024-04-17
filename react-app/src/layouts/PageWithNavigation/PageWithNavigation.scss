@@ -35,7 +35,7 @@
     }
   }
 
-  .page-content-and-footer {
+  .layout-content {
     min-height: max-content;
     background-color: transparent;
 
@@ -45,6 +45,4 @@
       padding: 0 50px;
     }
   }
-
-  @import '../Footer/Footer.scss';
 }

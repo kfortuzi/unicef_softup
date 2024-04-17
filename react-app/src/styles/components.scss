@@ -8,6 +8,9 @@
 @import '../components/common/TypingIndicator/TypingIndicator.scss';
 @import '../components/common/InputSelect/InputSelect.scss';
 @import '../components/common/Drawer/Drawer.scss';
+@import '../components/common/AskWizardModal/AskWizardModal.scss';
+
+
 // login
 @import '../components/auth/login/LoginForm/LoginForm.scss';
 // signup
@@ -18,10 +21,6 @@
 @import '../components/auth/resetPassword/ResetPasswordForm/ResetPasswordForm.scss';
 // status report
 @import '../components/common/ResultComponent/ResultComponent.scss';
-// resume card
-@import '../components/resume/ResumeCard/ResumeCard.scss';
-// cover letter card
-@import '../components/coverLetter/CoverLetterCard/CoverLetterCard.scss';
 // chatbot
 @import '../components/chatbot/Chatbot.scss';
 // profile
@@ -33,7 +32,7 @@
 // profile reset password
 @import '../components/profile/changePassword/ChangePasswordForm.scss';
 
-// my resume view
+// resume
 @import '../components/profile/myResume/MyResumeView/MyResumeView.scss';
 @import '../components/profile/myResume/ContactInfoView/ContactInfoView.scss';
 @import '../components/profile/myResume/EducationAndTrainingsView/EducationAndTrainingsView.scss';
@@ -54,9 +53,13 @@
 @import '../components/profile/myResume/VolunteeringForm/VolunteeringForm.scss';
 @import '../components/profile/myResume/PublicationForm/PublicationForm.scss';
 @import '../components/profile/myResume/DrivingLicenceForm/DrivingLicenceForm.scss';
+@import '../components/resume/ResumeCard/ResumeCard.scss';
+
+//cover letter
 @import '../components/coverLetter/CoverLetterForm/CoverLetterForm.scss';
 @import '../components/coverLetter/CoverLetterView/CoverLetterView.scss';
-@import '../components/common/AskWizardModal/AskWizardModal.scss';
+@import '../components/coverLetter/CoverLetterCard/CoverLetterCard.scss';
+
 
 // jobs
 @import '../components/jobs/JobCard/JobCard.scss';

@@ -1,3 +1,4 @@
+import { Typography } from 'antd';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
@@ -8,6 +9,7 @@ import LoadingFullPage from 'src/components/common/LoadingFullPage/LoadingFullPa
 const InterviewTips: React.FC = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'interviewTips' });
   const { id } = useParams();
+  const { Title, Text } = Typography;
 
   const { mutate: postJobTipsAndAdvices, data, isPending } = usePostJobTipsAndAdvices(id);
 
@@ -20,18 +22,13 @@ const InterviewTips: React.FC = () => {
   }
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '20px',
-      }}
-    >
-      <h1 style={{ alignSelf: 'center' }}>{t('header')}</h1>
-      <h3>{t('tips')}</h3>
-      <p>{data?.tips}</p>
-      <h3>{t('interviewQuestions')}</h3>
-      <p>{data?.interviewQuestions}</p>
+    <div className="interview-tips-container">
+      <Title level={3} className='interview-tips-title'>{t('header')}</Title>
+      <Title level={4}>{t('tips')}</Title>
+      <Text>{data?.tips}</Text>
+      <hr className='divider' />
+      <Title level={4}>{t('interviewQuestions')}</Title>
+      <Text>{data?.interviewQuestions}</Text>
     </div>
   );
 };

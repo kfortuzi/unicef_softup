@@ -269,25 +269,6 @@
       "resetPassword": "Reset Password",
       "myResume": "My Resume"
     },
-    "footer": {
-      "nationalEmploymentService": "RRJETI KOMBËTAR I PUNËSIMIT",
-      "whatDoesTheNationalEmploymentServiceDo": "Çfarë bën për ju Sistemi Kombëtar i Punësimit?",
-      "rulesToBeAppliedDuringApplication": "Rregullat që duhen zbatuar gjatë aplikimit",
-      "privacyPolicy": "Politikat e privatësisë",
-      "help": "Ndihmë",
-      "contact": "KONTAKT",
-      "officesInAlbania": "Zyrat e Punës në të gjithë Shqipërinë",
-      "tel": "Tel",
-      "email": "Email",
-      "mondayToThursday": "Hënë - Enjte",
-      "friday": "Premte",
-      "partnerInstitutions": "INSTITUCIONET PARTNERE",
-      "mostValuedServices": "SHËRBIMET MË TË VLERESUARA",
-      "searchForJob": "Kërko për punë",
-      "announceAJob": "Shpall një vend të lire pune",
-      "unemploymentBenefit": "Pagesa e Papunësisë",
-      "employmentIncentivePrograms": "Programet e Nxitjes së Punësimit"
-    },
     "myResumes": {
       "header": "CV-të e mia",
       "lastUpdated": "Perditesimi i fundit",

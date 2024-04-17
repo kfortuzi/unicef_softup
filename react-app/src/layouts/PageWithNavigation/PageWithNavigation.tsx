@@ -21,8 +21,6 @@ import useGetProfile from 'src/api/users/hooks/useGetProfile';
 import logo from 'src/assets/images/logo.png';
 import { Route } from 'src/router/enums';
 
-import Footer from '../Footer/Footer';
-
 const PageWithNavigation: React.FC = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'pageWithNavigation' });
   const navigate = useNavigate();
@@ -136,7 +134,7 @@ const PageWithNavigation: React.FC = () => {
         // disabled={!hasBaseCv}
         />
       </Header>
-      <Layout className="page-content-and-footer">
+      <Layout className="layout-content">
         <Content className="page-content">
           <Breadcrumb
             className={'breadcrumb-container'}
@@ -148,7 +146,6 @@ const PageWithNavigation: React.FC = () => {
           />
           <Outlet />
         </Content>
-        <Footer />
       </Layout>
     </Layout>
   );
