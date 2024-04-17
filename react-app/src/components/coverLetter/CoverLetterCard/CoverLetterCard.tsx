@@ -1,4 +1,5 @@
-import { Card, Image } from 'antd';
+import { QuestionCircleOutlined } from '@ant-design/icons';
+import { Card, Image, Popconfirm } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -17,6 +18,10 @@ const CoverLetterCard: React.FC<CoverLetterCardProps> = ({ id, to, createdAt }) 
   const { t } = useTranslation('translation', { keyPrefix: 'myCoverLetters' });
   const navigate = useNavigate();
   const { mutate: deleteCoverLetter } = useDeleteCoverLetter();
+
+  const confirm = () => {
+    deleteCoverLetter({ id: id })
+  };
 
   return (
     <div className="cover-letter-card-container">
@@ -48,12 +53,18 @@ const CoverLetterCard: React.FC<CoverLetterCardProps> = ({ id, to, createdAt }) 
             size="small"
           />
 
-          <Button
-            type="primary"
-            text={t('delete')}
-            onClick={() => deleteCoverLetter({ id })}
-            size="small"
-          />
+          <Popconfirm
+            title={t('coverLetterDeletePopconfirmTitle')}
+            description={t('coverLetterDeletePopconfirmDescription')}
+            onConfirm={confirm}
+            icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+          >
+            <Button
+              type="primary"
+              text={t('delete')}
+              size='small'
+            />
+          </Popconfirm>
         </div>
       </Card>
     </div>

@@ -295,7 +295,9 @@
       "interviewTips": "Keshilla per interviste",
       "fetchTipsAndAdvicesErrorMessage": "Keshilla per interviste nuk u ngarkuan me sukses!",
       "deleteSuccessMessage": "CV u fshi me sukses!",
-      "deleteErrorMessage": "CV nuk u fshi me sukses!"
+      "deleteErrorMessage": "CV nuk u fshi me sukses!",
+      "resumeDeletePopconfirmTitle": "Fshirja e CV-se",
+      "resumeDeletePopconfirmDescription": "Jeni i sigurt qe doni te fshini kete CV?"
     },
     "chatbot": {
       "header": "Chatbot",
@@ -310,7 +312,9 @@
       "userGenerated": "Letrat e motivimit te krijuara nga une",
       "delete": "Fshi",
       "edit": "Edito",
-      "lastUpdated": "Perditesimi i fundit"
+      "lastUpdated": "Perditesimi i fundit",
+      "coverLetterDeletePopconfirmTitle": "Fshirja e Letres se Motivimit",
+      "coverLetterDeletePopconfirmDescription": "Jeni i sigurt qe doni te fshini kete Letre te Motivimit?"
     },
     "coverLetterDetails": {
       "header": "Letra e motivimit",

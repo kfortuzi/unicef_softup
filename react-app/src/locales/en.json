@@ -301,7 +301,9 @@
       "interviewTips": "Interview tips",
       "fetchTipsAndAdvicesErrorMessage": "Failed to fetch interview tips and advices!",
       "deleteSuccessMessage": "Resume was deleted successfully!",
-      "deleteErrorMessage": "Failed to delete resume!"
+      "deleteErrorMessage": "Failed to delete resume!",
+      "resumeDeletePopconfirmTitle": "Delete Resume",
+      "resumeDeletePopconfirmDescription": "Are you sure you want to delete this resume?"
     },
     "chatbot": {
       "header": "Chatbot",
@@ -316,7 +318,9 @@
       "userGenerated": "My composed cover letters",
       "delete": "Dele",
       "edit": "Edit",
-      "lastUpdated": "Last updated"
+      "lastUpdated": "Last updated",
+      "coverLetterDeletePopconfirmTitle": "Delete Cover Letter",
+      "coverLetterDeletePopconfirmDescription": "Are you sure you want to delete this cover letter?"
     },
     "coverLetterDetails": {
       "header": "Cover Letter",

@@ -1,4 +1,5 @@
-import { Card, Image } from 'antd';
+import { QuestionCircleOutlined } from '@ant-design/icons';
+import { Card, Image, Popconfirm } from 'antd';
 import dayjs from 'dayjs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -22,6 +23,10 @@ const ResumeCard: React.FC<ResumeCardProps> = ({ resume }) => {
   const navigate = useNavigate();
   const { mutate: deleteResume } = useDeleteResume();
   const { data: job } = useGetJob({ id: referenceId });
+
+  const confirm = () => {
+    deleteResume({ id: resume.id })
+  };
 
   return (
     <div className="resume-card-container">
@@ -63,12 +68,18 @@ const ResumeCard: React.FC<ResumeCardProps> = ({ resume }) => {
             onClick={() => navigate(`/resumes/${resume.id}`)}
           />
 
-          <Button
-            type="primary"
-            text={t('delete')}
-            size="small"
-            onClick={() => deleteResume({ id: resume.id })}
-          />
+          <Popconfirm
+            title={t('resumeDeletePopconfirmTitle')}
+            description={t('resumeDeletePopconfirmDescription')}
+            onConfirm={confirm}
+            icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+          >
+            <Button
+              type="primary"
+              text={t('delete')}
+              size='small'
+            />
+          </Popconfirm>
         </div>
       </Card>
     </div>
