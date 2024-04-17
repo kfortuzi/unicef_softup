@@ -45,7 +45,7 @@ const MyResumeView: React.FC<MyResumeViewProps> = ({ resume }) => {
   return (
     <div className="my-resume-layout">
       <div className="slide-container">
-        <div className='cv-header'>
+        <div className="cv-header">
           <h1>
             {job?.company} {t('header')}
           </h1>
@@ -136,26 +136,28 @@ const MyResumeView: React.FC<MyResumeViewProps> = ({ resume }) => {
             </Section>
             {/* Digital Skills*/}
             <Section title={t('digitalSkillsSection.headerPlural')}>
-              <p className="section-text">{resume?.digitalSkills?.replace(',', ', ')}</p>
+              <ul style={{ paddingLeft: '1rem' }}>
+                {resume?.digitalSkills?.map((skill) => <li>{skill}</li>)}
+              </ul>
               <DigitalSkillsForm
                 cvId={resume.id}
-                digitalSkills={resume?.digitalSkills?.split(',') || []}
+                digitalSkills={resume?.digitalSkills || []}
               />
             </Section>
             {/* Soft Skills*/}
             <Section title={t('softSkillsSection.headerPlural')}>
-              <p className="section-text">{resume?.softSkills?.replace(',', ', ')}</p>
+              <ul style={{ paddingLeft: '1rem' }}>{resume?.softSkills?.map((skill) => <li>{skill}</li>)}</ul>
               <SoftSkillsForm
                 cvId={resume.id}
-                softSkills={resume?.softSkills?.split(',') || []}
+                softSkills={resume?.softSkills || []}
               />
             </Section>
             {/* Hobbies and Interests*/}
             <Section title={t('hobbiesSection.headerPlural')}>
-              <p className="section-text">{resume?.hobbies?.replace(',', ', ')}</p>
+              <ul style={{ paddingLeft: '1rem' }}>{resume?.hobbies?.map((hobby) => <li>{hobby}</li>)}</ul>
               <HobbiesForm
                 cvId={resume.id}
-                hobbies={resume?.hobbies?.split(',')}
+                hobbies={resume?.hobbies}
               />
             </Section>
             {/* Certificates*/}

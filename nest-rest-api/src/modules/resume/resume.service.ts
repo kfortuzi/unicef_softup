@@ -42,6 +42,7 @@ export class ResumeService {
     try {
       const user = await this.userService.findOne(userId);
       if (!user) throw new NotFoundException({ message: 'User not found!' });
+
       const resumeInput = this.mapInputData(userId, data, user.email, jobId);
       return this.resumeRepository.createResume(resumeInput);
     } catch (error) {
@@ -193,6 +194,10 @@ export class ResumeService {
     const user = await this.userService.findOne(userId);
     if (!user) throw new BadRequestException('User not found!');
 
+    const baseResume = await this.resumeRepository.findUserResume(userId, null);
+    if (baseResume)
+      throw new BadRequestException('A base resume already exists!');
+
     const generatedResume = await this.generateResumeJson(userId, userInput);
     if (!generatedResume)
       throw new InternalServerErrorException(
@@ -214,68 +219,61 @@ export class ResumeService {
   }
 
   async resumeGenerationFromJob(userId: string, jobId: string) {
-    try {
-      const resumeData = await this.resumeRepository.findUserResume(
-        userId,
-        null,
-      );
+    const user = await this.userService.findOne(userId);
+    if (!user) throw new NotFoundException({ message: 'User not found!' });
 
-      if (!resumeData)
-        throw new NotFoundException({ message: 'Resume not found!' });
-      const jobData = await this.jobService.findJob(jobId);
-      const existingResume = await this.resumeRepository.findUserResume(
-        userId,
-        jobId,
-      );
-      if (existingResume)
-        throw new UnprocessableEntityException({
-          errorCode: 422,
-          message: 'Resume already exists!',
-        });
-      const userExperience = await this.getUserExperiences(userId);
-      const updatedUserExperiences = await this.enhanceResponsibility(
-        userExperience,
-        userId,
-      );
+    const resumeData = await this.resumeRepository.findUserResume(userId, null);
 
-      const summary = await this.generateSummary(
-        userId,
-        userExperience as any,
-        jobData,
-      );
+    if (!resumeData)
+      throw new NotFoundException({ message: 'Resume not found!' });
+    const jobData = await this.jobService.findJob(jobId);
+    const existingResume = await this.resumeRepository.findUserResume(
+      userId,
+      jobId,
+    );
+    if (existingResume)
+      throw new UnprocessableEntityException('Resume already exists!');
+    const userExperience = await this.getUserExperiences(userId);
+    const updatedUserExperiences = await this.enhanceResponsibility(
+      userExperience,
+      userId,
+    );
 
-      resumeData.referenceId = jobId;
-      resumeData.experiences = updatedUserExperiences as unknown as JsonValue;
-      return this.resumeRepository.createResume({
-        email: resumeData.email,
-        firstName: resumeData.firstName,
-        lastName: resumeData.lastName,
-        profilePicture: resumeData.profilePicture,
-        nationality: resumeData.nationality,
-        linkedinUrl: resumeData.linkedinUrl,
-        location: resumeData.location,
-        phoneNumber: resumeData.phoneNumber,
-        educations: resumeData.educations || undefined,
-        summary: summary,
-        experiences: resumeData.experiences || undefined,
-        languages: resumeData.languages || undefined,
-        digitalSkills: resumeData.digitalSkills,
-        softSkills: resumeData.softSkills,
-        hobbies: resumeData.hobbies,
-        certificates: resumeData.certificates || undefined,
-        volunteering: resumeData.volunteering || undefined,
-        publications: resumeData.publications || undefined,
-        drivingLicense: resumeData.drivingLicense,
-        job: {
-          connect: { id: jobId },
-        },
-        user: {
-          connect: { id: userId },
-        },
-      });
-    } catch (error) {
-      throw new InternalServerErrorException(`${error}`);
-    }
+    const summary = await this.generateSummary(
+      userId,
+      userExperience as any,
+      jobData,
+    );
+
+    resumeData.referenceId = jobId;
+    resumeData.experiences = updatedUserExperiences as unknown as JsonValue;
+    return this.resumeRepository.createResume({
+      email: resumeData.email,
+      firstName: resumeData.firstName,
+      lastName: resumeData.lastName,
+      profilePicture: resumeData.profilePicture,
+      nationality: resumeData.nationality,
+      linkedinUrl: resumeData.linkedinUrl,
+      location: resumeData.location,
+      phoneNumber: resumeData.phoneNumber,
+      educations: resumeData.educations || undefined,
+      summary: summary,
+      experiences: resumeData.experiences || undefined,
+      languages: resumeData.languages || undefined,
+      digitalSkills: resumeData.digitalSkills,
+      softSkills: resumeData.softSkills,
+      hobbies: resumeData.hobbies,
+      certificates: resumeData.certificates || undefined,
+      volunteering: resumeData.volunteering || undefined,
+      publications: resumeData.publications || undefined,
+      drivingLicense: resumeData.drivingLicense,
+      job: {
+        connect: { id: jobId },
+      },
+      user: {
+        connect: { id: userId },
+      },
+    });
   }
 
   async enhanceResponsibility(

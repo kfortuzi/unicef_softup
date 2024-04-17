@@ -59,7 +59,7 @@ const ContactInfoView: React.FC<ContactInfoViewProps> = (props) => {
         )}
         <Upload {...uploadProps}>
           <Button
-            text={''}
+            text={t('uploadProfilePicture')}
             type="primary"
             icon={<EditOutlined />}
             size="middle"

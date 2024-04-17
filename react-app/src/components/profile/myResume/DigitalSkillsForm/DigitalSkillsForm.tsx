@@ -22,7 +22,7 @@ const DigitalSkillsForm: React.FC<DigitalSkillsProps> = ({ cvId, digitalSkills }
   });
   const { mutate: patchResume, isPending } = usePatchResume();
   const submitForm = handleSubmit((values) => {
-    patchResume({ id: cvId, digitalSkills: values.digitalSkills?.toString() });
+    patchResume({ id: cvId, digitalSkills: values.digitalSkills });
   });
 
   return (

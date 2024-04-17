@@ -21,9 +21,7 @@ const HobbiesForm: React.FC<HobbiesProps> = ({ cvId, hobbies }) => {
     shouldFocusError: true,
   });
   const { mutate: patchResume, isPending } = usePatchResume();
-  const submitForm = handleSubmit((values) =>
-    patchResume({ id: cvId, hobbies: values.hobbies?.toString() }),
-  );
+  const submitForm = handleSubmit((values) => patchResume({ id: cvId, hobbies: values.hobbies }));
 
   return (
     <Drawer

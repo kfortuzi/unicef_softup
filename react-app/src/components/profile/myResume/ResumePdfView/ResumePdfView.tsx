@@ -79,15 +79,15 @@ const ResumePdfView: React.FC<ResumePdfViewProps> = ({ resume }) => {
 
             {/* Digital Skills*/}
             <PdfSection title={t('digitalSkillsSection.headerPlural')}>
-              <Text style={styles.sectionText}>{resume.digitalSkills?.replace(',', ', ')}</Text>
+              <Text style={styles.sectionText}>{resume.digitalSkills}</Text>
             </PdfSection>
             {/* Soft Skills*/}
             <PdfSection title={t('softSkillsSection.headerPlural')}>
-              <Text style={styles.sectionText}>{resume.softSkills?.replace(',', ', ')}</Text>
+              <Text style={styles.sectionText}>{resume.softSkills}</Text>
             </PdfSection>
             {/* Hobbies and Interests*/}
             <PdfSection title={t('hobbiesSection.headerPlural')}>
-              <Text style={styles.sectionText}>{resume.hobbies?.replace(',', ', ')}</Text>
+              <Text style={styles.sectionText}>{resume.hobbies}</Text>
             </PdfSection>
             {/* Certificate(s)*/}
             <PdfSection title={t('certificatesSection.headerPlural')}>

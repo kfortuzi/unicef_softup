@@ -12,8 +12,6 @@ export const extractJSON = (text: string) => {
     const repaired = jsonrepair(match[0]);
     return JSON.parse(repaired);
   } catch (error) {
-    console.log('PARSING PROBLEM', error);
-
     throw new InternalServerErrorException('Parsing failed');
   }
 };

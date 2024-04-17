@@ -83,7 +83,6 @@ export class ChatbotService {
         model: AkpaModels.MAIN_CHAT,
         functions: [getJobTitle],
         function_call: 'auto',
-        // tools,
       };
 
       const response = await this.openAIService.generateCompletion(
@@ -92,20 +91,15 @@ export class ChatbotService {
         PromptType.MainChat,
       );
 
-      console.log('small response', response);
-
       if (response?.charAt(0) === '{') {
         const job: { jobTitle: string } = JSON.parse(response);
         const { jobTitle } = job;
 
-        console.log('jobTitle', jobTitle);
-
         const jobAnswer = await this.jobService.getLatestJobsByTitle(jobTitle);
-        console.log('JOB ANSWER', jobAnswer);
-        return jobAnswer;
+        return { message: jobAnswer };
       }
 
-      return response;
+      return { message: response };
 
       // check response if it returns fuc callling
       // if not jus return the assistant msg

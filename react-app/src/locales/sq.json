@@ -70,7 +70,7 @@
       "personalInfoButtonText": "Informacione Personale",
       "skillsAndHobbiesButtonText": "Aftesi & Hobi",
       "changePasswordButtonText": "Ndrysho Fjalekalimin",
-      "myResumeButtonText": "CV Im",
+      "myResumeButtonText": "Jeteshkrimi im",
       "personalInfo": {
         "header": "Informacione Personale",
         "firstName": "Emri",
@@ -98,7 +98,7 @@
         "confirmNewPassword": "Konfirmo Fjalekalimin e ri"
       },
       "myResume": {
-        "header": "CV Im",
+        "header": "Jeteshkrimi im",
         "loading": "Duke ngarkuar CV-në...",
         "noResume": "Ju nuk keni CV te krijuara.",
         "editResume": "Ndrysho CV-në",
@@ -133,6 +133,7 @@
           "nationality": "Shtetesia",
           "email": "Email",
           "phoneNumber": "Telefoni",
+          "uploadProfilePicture": "Ngarko foto",
           "address": "Adresa",
           "linkedin": "LinkedIn",
           "profilePicture": "Fotoja e profilit"
@@ -168,13 +169,9 @@
           "headerPlural": "Aftësitë personale",
           "headerSingular": "Aftësi personale"
         },
-        "technicalSkillsSection": {
-          "headerPlural": "Aftësitë teknike",
-          "headerSingular": "Aftësi teknike"
-        },
         "drivingLicencesSection": {
-          "headerPlural": "Patentat e drejtimit",
-          "headerSingular": "Patenta e drejtimit"
+          "headerPlural": "Leja e drejtimit",
+          "headerSingular": "Leja e drejtimit"
         },
         "hobbiesSection": {
           "headerPlural": "Hobite",
@@ -205,8 +202,8 @@
           "link": "Linku"
         },
         "volunteeringsSection": {
-          "headerPlural": "Vullnetarizimet",
-          "headerSingular": "Vullnetarizimi",
+          "headerPlural": "Vullnetarizmat",
+          "headerSingular": "Vullnetarizmat",
           "role": "Roli",
           "organization": "Organizata",
           "startDate": "Data e fillimit",
@@ -317,11 +314,11 @@
       "downloadPdfButtonText": "Shkarko PDF"
     },
     "askWizardModal": {
-      "header": "Pyet Magjistrin",
+      "header": "Pyet asistentin",
       "enhanceWithAiButtonText": "Përmirëso me AI",
       "autoGenerateButtonText": "Gjenero automatikisht",
-      "askWizardButtonText": "Pyet magjistrin",
-      "askWizardPlaceholder": "Pyet Magjistrin",
+      "askWizardButtonText": "Pyet asistentin",
+      "askWizardPlaceholder": "Pyet asistentin",
       "useButtonText": "Përdor",
       "aiFirstMessage": "Përshëndetje, unë jam një magjistar. Si mund t'ju ndihmoj?",
       "aiErrorMessage": "Na vjen keq, nuk mund të përpunohet kërkesa juaj. Ju lutem provoni përsëri më vonë."
@@ -372,7 +369,7 @@
       "educations": "Edukimi",
       "nativeLanguage": "Gjuha Amtare",
       "otherLanguage": "Gjuha e Dyte",
-      "technicalSkills": "Aftësitë Teknike",
+      "digitalSkills": "Aftësitë Teknike",
       "softSkills": "Aftësitë Personale",
       "hobbies": "Hobite",
       "summary": "Përmbledhje",

@@ -21,9 +21,7 @@ const SoftSkillsForm: React.FC<SoftSkillsProps> = ({ cvId, softSkills }) => {
     shouldFocusError: true,
   });
   const { mutate: patchResume, isPending } = usePatchResume();
-  const submitForm = handleSubmit((values) =>
-    patchResume({ id: cvId, softSkills: values.softSkills?.toString() }),
-  );
+  const submitForm = handleSubmit((values) => patchResume({ id: cvId, softSkills: values.softSkills }));
 
   return (
     <Drawer

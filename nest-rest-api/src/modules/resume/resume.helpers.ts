@@ -8,7 +8,7 @@ export const prepareResumeBody = (
   return {
     email: resume?.email || '',
     certificates: resume?.certificates?.length
-      ? JSON.stringify(resume?.certificates)
+      ? (resume?.certificates as unknown as Prisma.JsonObject)
       : [],
     digitalSkills: resume?.digitalSkills || [],
     softSkills: resume?.softSkills || [],
@@ -21,25 +21,25 @@ export const prepareResumeBody = (
     location: resume?.location || '',
     firstName: resume?.firstName || '',
     lastName: resume?.lastName || '',
-    profilePicture: resume?.profilePicture || undefined,
+    profilePicture: resume?.profilePicture || '',
     linkedinUrl: resume?.linkedinUrl || '',
     phoneNumber: resume?.phoneNumber || '',
     summary: resume?.summary || '',
     nationality: resume?.nationality || '',
     experiences: resume?.experiences?.length
-      ? JSON.stringify(resume.experiences)
+      ? (resume.experiences as unknown as Prisma.JsonObject)
       : [],
     educations: resume?.educations?.length
-      ? JSON.stringify(resume.educations)
+      ? (resume.educations as unknown as Prisma.JsonObject)
       : [],
     volunteering: resume?.volunteering?.length
-      ? JSON.stringify(resume.volunteering)
+      ? (resume.volunteering as unknown as Prisma.JsonObject)
       : [],
     publications: resume?.publications?.length
-      ? JSON.stringify(resume.publications)
+      ? (resume.publications as unknown as Prisma.JsonObject)
       : [],
     languages: resume?.languages?.length
-      ? JSON.stringify(resume.languages)
+      ? (resume.languages as unknown as Prisma.JsonObject)
       : [],
     userId,
   };

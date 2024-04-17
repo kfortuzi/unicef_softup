@@ -106,7 +106,6 @@ export class CoverLetterService {
         jobData,
         'json_object',
       );
-      console.log(generatedCoverLetter);
       if (generatedCoverLetter !== null) {
         return this.mapOutputData(generatedCoverLetter, userId, jobId);
       }

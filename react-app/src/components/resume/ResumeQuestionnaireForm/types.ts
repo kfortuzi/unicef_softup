@@ -5,7 +5,7 @@ export type FormValues = {
   [FormField.EDUCATIONS]: string;
   [FormField.NATIVE_LANGUAGE]: string;
   [FormField.OTHER_LANGUAGE]: string;
-  [FormField.TECHNICAL_SKILLS]: string;
+  [FormField.DIGITAL_SKILLS]: string;
   [FormField.SOFT_SKILLS]: string;
   [FormField.HOBBIES]: string;
   [FormField.SUMMARY]: string;

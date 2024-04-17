@@ -2,15 +2,13 @@ import makeRequest from 'src/utils/makeRequest';
 
 import { PostChatbotRequest } from '../types';
 
-export const postChatbot = async (
-  request: PostChatbotRequest,
-): Promise<string | undefined> => {
-  const parsedData = await makeRequest<string>(`/chatbot`, {
+export const postChatbot = async (request: PostChatbotRequest): Promise<string | undefined> => {
+  const parsedData = await makeRequest<{ message: string }>(`/chatbot/assistant`, {
     method: 'POST',
     body: JSON.stringify(request),
   });
 
-  return parsedData;
+  return parsedData?.message;
 };
 
 export default postChatbot;

@@ -139,6 +139,7 @@
           "nationality": "Nationality",
           "email": "Email",
           "phoneNumber": "Phone Number",
+          "uploadProfilePicture": "Upload photo",
           "address": "Address",
           "linkedin": "LinkedIn",
           "profilePicture": "Profile Picture"
@@ -173,10 +174,6 @@
         "softSkillsSection": {
           "headerPlural": "Soft Skills",
           "headerSingular": "Soft Skill"
-        },
-        "technicalSkillsSection": {
-          "headerPlural": "Technical Skills",
-          "headerSingular": "Technical Skill"
         },
         "driverLicenseSection": {
           "headerPlural": "Driver Licenses",
@@ -379,7 +376,7 @@
       "educations": "Educations",
       "nativeLanguage": "Native Language",
       "otherLanguage": "Other Language",
-      "technicalSkills": "Technical Skills",
+      "digitalSkills": "Technical Skills",
       "softSkills": "Soft Skills",
       "hobbies": "Hobbies",
       "summary": "Summary",
