@@ -8,10 +8,10 @@
 
 */
 -- DropIndex
-DROP INDEX "textsearch_idx";
+DROP INDEX IF EXISTS "textsearch_idx";
 
 -- AlterTable
-ALTER TABLE "jobs" DROP COLUMN "textsearchable_index_col";
+ALTER TABLE "jobs" DROP COLUMN IF EXISTS "textsearchable_index_col";
 
 -- AlterTable
 ALTER TABLE "resumes" DROP COLUMN "digital_skills",

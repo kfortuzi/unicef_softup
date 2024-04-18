@@ -60,15 +60,8 @@ export class JobService {
     return jobData;
   }
 
-  async getLatestJobsByTitle(title: string): Promise<string> {
-    const jobs = await this.jobRepository.getLatestJobsByTitle(title);
-    if (jobs.length === 0) {
-      return 'No jobs found.';
-    }
-    const referenceIds = jobs.map((job) => job.referenceId);
-    // TODO check nr of recording to be discussed
-
-    return `Latest job related to "${title}": https://www.puna.gov.al/job/${referenceIds[0]}`;
+  async getLatestJobsByTitle(title: string) {
+    return await this.jobRepository.getLatestJobsByTitle(title);
   }
 
   generateTagsForJob(job: Job): string {
@@ -113,6 +106,7 @@ export class JobService {
         job.title,
         userId,
       );
+
       return {
         tips,
         interviewQuestions,
