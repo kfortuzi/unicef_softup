@@ -138,7 +138,7 @@ const MyResumeView: React.FC<MyResumeViewProps> = (props) => {
             {/* Digital Skills*/}
             <Section title={t('digitalSkillsSection.headerPlural')}>
               <ul style={{ paddingLeft: '1rem' }}>
-                {resume?.digitalSkills?.map((skill) => <li>{skill}</li>)}
+                {resume?.digitalSkills?.map((skill) => <li key={skill}>{skill}</li>)}
               </ul>
               <DigitalSkillsForm
                 cvId={resume.id}
@@ -147,7 +147,9 @@ const MyResumeView: React.FC<MyResumeViewProps> = (props) => {
             </Section>
             {/* Soft Skills*/}
             <Section title={t('softSkillsSection.headerPlural')}>
-              <ul style={{ paddingLeft: '1rem' }}>{resume?.softSkills?.map((skill) => <li>{skill}</li>)}</ul>
+              <ul style={{ paddingLeft: '1rem' }}>
+                {resume?.softSkills?.map((skill) => <li key={skill}>{skill}</li>)}
+              </ul>
               <SoftSkillsForm
                 cvId={resume.id}
                 softSkills={resume?.softSkills || []}
@@ -155,7 +157,9 @@ const MyResumeView: React.FC<MyResumeViewProps> = (props) => {
             </Section>
             {/* Hobbies and Interests*/}
             <Section title={t('hobbiesSection.headerPlural')}>
-              <ul style={{ paddingLeft: '1rem' }}>{resume?.hobbies?.map((hobby) => <li>{hobby}</li>)}</ul>
+              <ul style={{ paddingLeft: '1rem' }}>
+                {resume?.hobbies?.map((hobby) => <li key={hobby}>{hobby}</li>)}
+              </ul>
               <HobbiesForm
                 cvId={resume.id}
                 hobbies={resume?.hobbies}

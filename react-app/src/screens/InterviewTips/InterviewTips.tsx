@@ -23,12 +23,17 @@ const InterviewTips: React.FC = () => {
 
   return (
     <div className="interview-tips-container">
-      <Title level={3} className='interview-tips-title'>{t('header')}</Title>
+      <Title
+        level={3}
+        className="interview-tips-title"
+      >
+        {t('header')}
+      </Title>
       <Title level={4}>{t('tips')}</Title>
       <Text>{data?.tips}</Text>
-      <hr className='divider' />
+      <hr className="divider" />
       <Title level={4}>{t('interviewQuestions')}</Title>
-      <Text>{data?.interviewQuestions}</Text>
+      <Text style={{ whiteSpace: 'pre-wrap' }}>{data?.interviewQuestions}</Text>
     </div>
   );
 };

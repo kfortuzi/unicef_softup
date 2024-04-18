@@ -66,13 +66,6 @@ export class JobRepository {
     });
   }
 
-  // async getJobsByFilter(filter: string): Promise<jobs[]> {
-  //   return this.prismaService.$queryRaw<jobs[]>`
-  //       SELECT  title, description, address, location, type, company,contract_duration, suitable_for_disabilities, vacant_positions, basic_skills, communication_skill, computer_skills, education_type, experience, foreign_language,need_driving_license, payment_level, skill_lines, skills, specializations
-  //       FROM jobs
-  //       WHERE searchableContent @@ plainto_tsquery('simple', ${filter})`;
-  // }
-
   async getJobsByFilter(filter: string): Promise<jobs[]> {
     return this.prismaService.jobs.findMany({
       where: {
@@ -95,6 +88,16 @@ export class JobRepository {
 
   async findOneById(id: string) {
     return this.prismaService.jobs.findFirst({ where: { id: id } });
+  }
+
+  async updateJob(
+    id: string,
+    data: Prisma.jobsUpdateInput | Prisma.jobsUncheckedUpdateInput,
+  ) {
+    return this.prismaService.jobs.update({
+      where: { id: id },
+      data,
+    });
   }
 
   async updateJobStatus(id: string) {

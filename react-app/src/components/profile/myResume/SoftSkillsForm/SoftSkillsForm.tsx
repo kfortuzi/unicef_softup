@@ -5,6 +5,7 @@ import usePatchResume from 'src/api/resumes/hooks/usePatchResume';
 import Drawer from 'src/components/common/Drawer/Drawer';
 import InputSelect from 'src/components/common/InputSelect/InputSelect';
 
+import customSoftSkills from '../../../../assets/jsons/soft-skills.json';
 import { FormField } from './enums';
 
 interface SoftSkillsProps {
@@ -22,6 +23,10 @@ const SoftSkillsForm: React.FC<SoftSkillsProps> = ({ cvId, softSkills }) => {
   });
   const { mutate: patchResume, isPending } = usePatchResume();
   const submitForm = handleSubmit((values) => patchResume({ id: cvId, softSkills: values.softSkills }));
+
+  const options = customSoftSkills.map((skill) => {
+    return { value: skill, label: skill };
+  });
 
   return (
     <Drawer
@@ -44,6 +49,7 @@ const SoftSkillsForm: React.FC<SoftSkillsProps> = ({ cvId, softSkills }) => {
                 onChange={onChange}
                 tokenSeparators={[',']}
                 mode="tags"
+                options={options}
               />
             )}
           />

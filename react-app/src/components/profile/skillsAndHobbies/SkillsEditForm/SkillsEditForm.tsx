@@ -24,6 +24,7 @@ const SkillsEditForm: React.FC<Props> = ({ toggleEditMode }) => {
   const { control, reset } = useForm({
     shouldFocusError: true,
   });
+
   const changeLog: Map<string, string> = new Map();
 
   const { mutate: postSkill, isPending } = usePostSkill();

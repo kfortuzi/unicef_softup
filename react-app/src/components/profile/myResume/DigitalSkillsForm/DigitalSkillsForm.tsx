@@ -5,6 +5,7 @@ import usePatchResume from 'src/api/resumes/hooks/usePatchResume';
 import Drawer from 'src/components/common/Drawer/Drawer';
 import InputSelect from 'src/components/common/InputSelect/InputSelect';
 
+import customTechnicalSkills from '../../../../assets/jsons/technical-skills.json';
 import { FormField } from './enums';
 
 interface DigitalSkillsProps {
@@ -23,6 +24,10 @@ const DigitalSkillsForm: React.FC<DigitalSkillsProps> = ({ cvId, digitalSkills }
   const { mutate: patchResume, isPending } = usePatchResume();
   const submitForm = handleSubmit((values) => {
     patchResume({ id: cvId, digitalSkills: values.digitalSkills });
+  });
+
+  const options = customTechnicalSkills.map((skill) => {
+    return { value: skill, label: skill };
   });
 
   return (
@@ -47,6 +52,7 @@ const DigitalSkillsForm: React.FC<DigitalSkillsProps> = ({ cvId, digitalSkills }
                 onChange={onChange}
                 tokenSeparators={[',']}
                 mode="tags"
+                options={options}
               />
             )}
           />
