@@ -17,7 +17,12 @@ Resources:
         BlockPublicPolicy: TRUE
         IgnorePublicAcls: TRUE
         RestrictPublicBuckets: TRUE
-
+      CorsConfiguration:
+        CorsRules:
+          - AllowedMethods:
+              - 'GET'
+            AllowedOrigins:
+              - '*'
 Outputs:
   BucketName:
     Value: !Ref Bucket
