@@ -105,6 +105,7 @@
         "deleteResume": "Fshi CV-në",
         "resumeNotFound": "CV nuk u gjet!",
         "submit": "Ruaj",
+        "present": "Tani",
         "downloadPdfButtonText": "Shkarko PDF",
         "createSuccessMessage": "CV u krijua me sukses!",
         "createErrorMessage": "CV nuk u krijua me sukses!",
@@ -169,9 +170,10 @@
           "headerPlural": "Aftësitë personale",
           "headerSingular": "Aftësi personale"
         },
-        "drivingLicencesSection": {
+        "drivingLicensesSection": {
           "headerPlural": "Leja e drejtimit",
-          "headerSingular": "Leja e drejtimit"
+          "headerSingular": "Leja e drejtimit",
+          "noDrivingLicense": "Asnje"
         },
         "hobbiesSection": {
           "headerPlural": "Hobite",

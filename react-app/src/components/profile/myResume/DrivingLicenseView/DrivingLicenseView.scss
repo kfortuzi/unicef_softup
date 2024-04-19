@@ -1,4 +1,4 @@
-.driving-licence-container {
+.driving-license-container {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -12,14 +12,14 @@
     margin: 0;
   }
 
-  .driving-licence-image {
+  .driving-license-image {
     border-right: 1px solid gray;
     width: 30px;
     height: 30px;
     padding: 5px;
   }
 
-  .driving-licence-text {
+  .driving-license-text {
     font-family: 'Roboto';
     font-size: $medium;
   }

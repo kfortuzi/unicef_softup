@@ -42,9 +42,7 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
     getValues,
     formState: { errors },
   } = useForm({
-    defaultValues: {
-      experiences: props.workExperiences || [],
-    },
+    defaultValues: { experiences: props.workExperiences || [defaultValues] },
     resolver: yupResolver(fieldsValidationSchema),
     shouldFocusError: true,
   });
@@ -59,9 +57,18 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
   };
 
   const { mutate: patchResume, isPending } = usePatchResume();
-  const submitForm = handleSubmit((values) =>
-    patchResume({ id: props.cvId, experiences: values.experiences as WorkExperience[] }),
-  );
+  const submitForm = handleSubmit((values) => {
+    patchResume({ id: props.cvId, experiences: values.experiences as WorkExperience[] });
+  });
+  const [activeKeys, setActiveKeys] = useState<string[]>();
+
+  useEffect(() => {
+    if (errors?.experiences?.length && errors.experiences.length > 0) {
+      const errorItems = (errors.experiences as unknown as WorkExperience[])
+        .map((_, index) => fields?.[index]?.id ?? '') ?? [];
+      setActiveKeys(errorItems);
+    }
+  }, [errors?.experiences, fields]);
 
   const [isOpen, setOpen] = useState(false);
 
@@ -104,20 +111,16 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
     },
   ];
 
-  const [activeKeys, setActiveKeys] = useState<string[]>();
-
-  useEffect(() => {
-    if (errors && errors.experiences) {
-      setActiveKeys(fields.map((field) => field.id));
-    }
-  }, [errors, fields]);
-
   const items: CollapseProps['items'] = fields.map((field, index) => {
     return {
       key: field.id,
       label: `${t('headerSingular')} ${index + 1}`,
+      headerClass: `${(errors.experiences as unknown as WorkExperience[])
+        ?.find((_, errorIndex) => errorIndex === index)
+        ? 'is-invalid'
+        : 'is-valid'}`,
       children: (
-        <div className="input-element-container">
+        <div className='input-element-container'>
           <Controller
             control={control}
             name={`experiences.${index}.${FormField.POSITION}`}
@@ -141,6 +144,7 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
               <InputText
                 label={t('company')}
                 inputRef={ref}
+                key={`company-${index}`}
                 name={name}
                 error={error?.message}
                 value={value}

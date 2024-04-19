@@ -7,7 +7,7 @@ import { GetResumeResponse } from 'src/api/resumes/types';
 import PdfAboutMe from '../PdfAboutMe/PdfAboutMe';
 import PdfCertificates from '../PdfCertificates/PdfCertificates';
 import PdfContactInfo from '../PdfContactInfo/PdfContactInfo';
-import PdfDrivingLicenceItem from '../PdfDrivingLicenceItem/PdfDrivingLicenceItem';
+import PdfDrivingLicenseItem from '../PdfDrivingLicenseItem/PdfDrivingLicenseItem';
 import PdfEducationAndTrainings from '../PdfEducationAndTraining/PdfEducationAndTraining';
 import PdfLanguageItem from '../PdfLanguageItem/PdfLanguageItem';
 import PdfPublicationItem from '../PdfPublicationItem/PdfPublicationItem';
@@ -116,8 +116,8 @@ const ResumePdfView: React.FC<ResumePdfViewProps> = ({ resume }) => {
                 />
               ))}
             </PdfSection>
-            <PdfSection title={t('drivingLicencesSection.headerPlural')}>
-              <PdfDrivingLicenceItem drivingLicences={([resume.drivingLicense] as string[]) || []} />
+            <PdfSection title={t('drivingLicensesSection.headerPlural')}>
+              <PdfDrivingLicenseItem drivingLicense={resume?.drivingLicense || ''} />
             </PdfSection>
           </View>
         </View>

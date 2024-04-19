@@ -47,7 +47,7 @@ const PageWithNavigation: React.FC = () => {
     () => [
       {
         label: t('resume'),
-        key: 'resume',
+        key: 'resumes',
         icon: <SolutionOutlined />,
         onClick: () => navigate(Route.RESUMES),
         disabled: !hasBaseCv,
@@ -114,6 +114,7 @@ const PageWithNavigation: React.FC = () => {
     .split('/')
     .filter((path) => path !== '' && path !== 'home')
     .map((path, index, array) => ({
+      key: path,
       title: (index === array.length - 1) ? path : <Link to={path}>{path}</Link>,
     }));
 
@@ -140,6 +141,7 @@ const PageWithNavigation: React.FC = () => {
             className={'breadcrumb-container'}
             items={[
               {
+                key: 'home',
                 title: <Link to={Route.HOME}><HomeOutlined /> {t('home')}</Link>,
               }, ...breadCrumbItems
             ]}

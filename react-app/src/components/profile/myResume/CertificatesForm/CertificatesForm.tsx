@@ -2,6 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import type { CollapseProps } from 'antd';
 import { Collapse } from 'antd';
 import dayjs from 'dayjs';
+import { useEffect, useState } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -24,8 +25,8 @@ type CertificatesFormProps = {
 
 const CertificatesForm: React.FC<CertificatesFormProps> = (props) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.certificatesSection' });
-  const { handleSubmit, control, setValue } = useForm({
-    defaultValues: { certificates: props.certificates || [] },
+  const { handleSubmit, control, setValue, formState: { errors } } = useForm({
+    defaultValues: { certificates: props.certificates || [defaultValues] },
     resolver: yupResolver(fieldsValidationSchema),
     shouldFocusError: true,
   });
@@ -44,10 +45,24 @@ const CertificatesForm: React.FC<CertificatesFormProps> = (props) => {
     patchResume({ id: props.cvId, certificates: values.certificates });
   });
 
+  const [activeKeys, setActiveKeys] = useState<string[]>();
+
+  useEffect(() => {
+    if (errors?.certificates?.length && errors.certificates.length > 0) {
+      const errorItems = (errors.certificates as unknown as Certificate[])
+        .map((_, index) => fields?.[index]?.id ?? '') ?? [];
+      setActiveKeys(errorItems);
+    }
+  }, [errors?.certificates, fields]);
+
   const items: CollapseProps['items'] = fields.map((field, index) => {
     return {
       key: field.id,
       label: `${t('headerSingular')} ${index + 1}`,
+      headerClass: `${(errors.certificates as unknown as Certificate[])
+        ?.find((_, errorIndex) => errorIndex === index)
+        ? 'is-invalid'
+        : 'is-valid'}`,
       children: (
         <div className="input-element-container">
           <Controller
@@ -77,7 +92,7 @@ const CertificatesForm: React.FC<CertificatesFormProps> = (props) => {
                 error={error?.message}
                 value={value ? dayjs(value) : undefined}
                 onChange={(dateObject) => {
-                  setValue(name, dateObject.format(dateTimeFormats.backendDate));
+                  setValue(name, dateObject?.format(dateTimeFormats.backendDate));
                 }}
                 format={dateTimeFormats.albanianDate}
                 className="input-element"
@@ -121,9 +136,10 @@ const CertificatesForm: React.FC<CertificatesFormProps> = (props) => {
     >
       <form onSubmit={submitForm}>
         <Collapse
-          accordion
           items={items}
           defaultActiveKey={fields[0]?.id}
+          onChange={(keys) => setActiveKeys(keys as string[])}
+          activeKey={activeKeys}
         />
         <Button
           type="default"

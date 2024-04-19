@@ -2,6 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import type { CollapseProps } from 'antd';
 import { Collapse } from 'antd';
 import dayjs from 'dayjs';
+import { useEffect, useState } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -24,9 +25,9 @@ interface VolunteeringProps {
 
 const VolunteeringForm: React.FC<VolunteeringProps> = (props) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.volunteeringsSection' });
-  const { handleSubmit, control, setValue } = useForm({
+  const { handleSubmit, control, setValue, formState: { errors } } = useForm({
     defaultValues: {
-      volunteering: props.volunteering,
+      volunteering: props.volunteering || [defaultValues],
     },
     resolver: yupResolver(fieldsValidationSchema),
     shouldFocusError: true,
@@ -46,10 +47,24 @@ const VolunteeringForm: React.FC<VolunteeringProps> = (props) => {
     patchResume({ id: props.cvId, volunteering: values.volunteering as Volunteering[] }),
   );
 
+  const [activeKeys, setActiveKeys] = useState<string[]>();
+
+  useEffect(() => {
+    if (errors?.volunteering?.length && errors.volunteering.length > 0) {
+      const errorItems = (errors.volunteering as unknown as Volunteering[])
+        .map((_, index) => fields?.[index]?.id ?? '') ?? [];
+      setActiveKeys(errorItems);
+    }
+  }, [errors?.volunteering, fields]);
+
   const items: CollapseProps['items'] = fields.map((field, index) => {
     return {
       key: field.id,
       label: `${t('headerSingular')} ${index + 1}`,
+      headerClass: `${(errors.volunteering as unknown as Volunteering[])
+        ?.find((_, errorIndex) => errorIndex === index)
+        ? 'is-invalid'
+        : 'is-valid'}`,
       children: (
         <div className="input-element-container">
           <Controller
@@ -96,7 +111,7 @@ const VolunteeringForm: React.FC<VolunteeringProps> = (props) => {
                 error={error?.message}
                 value={value ? dayjs(value) : undefined}
                 onChange={(dateObject) => {
-                  setValue(name, dateObject.format(dateTimeFormats.backendDate));
+                  setValue(name, dateObject?.format(dateTimeFormats.backendDate));
                 }}
                 format={dateTimeFormats.albanianDate}
                 className="input-element"
@@ -115,7 +130,7 @@ const VolunteeringForm: React.FC<VolunteeringProps> = (props) => {
                 error={error?.message}
                 value={value ? dayjs(value) : undefined}
                 onChange={(dateObject) => {
-                  setValue(name, dateObject.format(dateTimeFormats.backendDate));
+                  setValue(name, dateObject?.format(dateTimeFormats.backendDate));
                 }}
                 format={dateTimeFormats.albanianDate}
                 className="input-element"
@@ -141,9 +156,10 @@ const VolunteeringForm: React.FC<VolunteeringProps> = (props) => {
     >
       <form onSubmit={submitForm}>
         <Collapse
-          accordion
           items={items}
           defaultActiveKey={fields[0]?.id}
+          onChange={(keys) => setActiveKeys(keys as string[])}
+          activeKey={activeKeys}
         />
       </form>
       <Button

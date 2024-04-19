@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { useTranslation } from 'react-i18next';
 
 import { Education } from 'src/api/resumes/types';
 
@@ -12,6 +13,7 @@ interface EducationAndTrainingsProps {
 
 const EducationAndTrainings: React.FC<EducationAndTrainingsProps> = (props) => {
   const { educationAndTrainings } = props;
+  const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume' });
 
   return (
     <>
@@ -19,9 +21,9 @@ const EducationAndTrainings: React.FC<EducationAndTrainingsProps> = (props) => {
         return (
           <ListItem
             title={`
-        ${education.startDate ? dayjs(education.startDate).format('MMM YYYY') : ''} 
-        - ${education.endDate ? dayjs(education.endDate).format('MMM YYYY') : ''} 
-        - ${education.title}
+            ${education.title} 
+            - ${education.startDate ? dayjs(education.startDate).format('MMM YYYY') : ''} 
+            - ${education.endDate ? dayjs(education.endDate).format('MMM YYYY') : t('present')} 
         `}
             key={index}
             titleStyle={{ color: 'blue' }}

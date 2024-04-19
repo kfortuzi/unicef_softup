@@ -2,6 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import type { CollapseProps } from 'antd';
 import { Collapse } from 'antd';
 import dayjs from 'dayjs';
+import { useEffect, useState } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -24,9 +25,9 @@ interface PublicationsProps {
 
 const PublicationsForm: React.FC<PublicationsProps> = (props) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.publicationsSection' });
-  const { handleSubmit, control, setValue } = useForm({
+  const { handleSubmit, control, setValue, formState: { errors } } = useForm({
     defaultValues: {
-      publications: props.publications,
+      publications: props.publications || [defaultValues],
     },
     resolver: yupResolver(fieldsValidationSchema),
     shouldFocusError: true,
@@ -46,10 +47,24 @@ const PublicationsForm: React.FC<PublicationsProps> = (props) => {
     patchResume({ id: props.cvId, publications: values.publications as Publication[] }),
   );
 
+  const [activeKeys, setActiveKeys] = useState<string[]>();
+
+  useEffect(() => {
+    if (errors?.publications?.length && errors.publications.length > 0) {
+      const errorItems = (errors.publications as unknown as Publication[])
+        .map((_, index) => fields?.[index]?.id ?? '') ?? [];
+      setActiveKeys(errorItems);
+    }
+  }, [errors?.publications, fields]);
+
   const items: CollapseProps['items'] = fields.map((field, index) => {
     return {
       key: field.id,
       label: `${t('headerSingular')} ${index + 1}`,
+      headerClass: `${(errors.publications as unknown as Publication[])
+        ?.find((_, errorIndex) => errorIndex === index)
+        ? 'is-invalid'
+        : 'is-valid'}`,
       children: (
         <div className="input-element-container">
           <Controller
@@ -80,7 +95,7 @@ const PublicationsForm: React.FC<PublicationsProps> = (props) => {
                 name={name}
                 value={value ? dayjs(value) : undefined}
                 onChange={(dateObject) => {
-                  setValue(name, dateObject.format(dateTimeFormats.backendDate));
+                  setValue(name, dateObject?.format(dateTimeFormats.backendDate));
                 }}
                 format={dateTimeFormats.albanianDate}
                 className="input-element"
@@ -122,9 +137,10 @@ const PublicationsForm: React.FC<PublicationsProps> = (props) => {
     >
       <form onSubmit={submitForm}>
         <Collapse
-          accordion
           items={items}
           defaultActiveKey={fields[0]?.id}
+          onChange={(keys) => setActiveKeys(keys as string[])}
+          activeKey={activeKeys}
         />
       </form>
       <Button

@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { useTranslation } from 'react-i18next';
 
 import { WorkExperience } from 'src/api/resumes/types';
 
@@ -10,14 +11,16 @@ interface WorkExperiencesProps {
 
 const WorkExperiencesView: React.FC<WorkExperiencesProps> = (props) => {
   const { workExperiences } = props;
+  const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume' });
 
   return (
     <>
       {workExperiences.map((workExperience, index) => {
         return (
           <ListItem
-            title={`${dayjs(workExperience.startDate).format('MMM YYYY')} 
-            - ${workExperience.endDate ? dayjs(workExperience.endDate).format('MMM YYYY') : 'Present'}`}
+            title={`${workExperience.position} 
+          - ${workExperience.startDate ? dayjs(workExperience.startDate).format('MMM YYYY') : ''} 
+          - ${workExperience.endDate ? dayjs(workExperience.endDate).format('MMM YYYY') : t('present')} `}
             key={index}
             titleStyle={{ color: 'blue' }}
           >

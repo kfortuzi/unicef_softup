@@ -116,7 +116,7 @@ export type PatchResumeRequest = {
   certificates?: Certificate[];
   volunteering?: Volunteering[];
   publications?: Publication[];
-  drivingLicense?: string;
+  drivingLicense?: string | null;
 };
 
 export type GetResumeRequest = {

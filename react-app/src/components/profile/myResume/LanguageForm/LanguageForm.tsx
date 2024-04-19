@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import type { CollapseProps } from 'antd';
 import { Collapse } from 'antd';
+import { useEffect, useState } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -22,9 +23,9 @@ interface LanguagesProps {
 
 const LanguagesForm: React.FC<LanguagesProps> = (props) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.languagesSection' });
-  const { handleSubmit, control, watch } = useForm({
+  const { handleSubmit, control, watch, formState: { errors } } = useForm({
     defaultValues: {
-      languages: props.languages || [],
+      languages: props.languages || [defaultValues],
     },
     resolver: yupResolver(fieldsValidationSchema),
     shouldFocusError: false,
@@ -44,10 +45,24 @@ const LanguagesForm: React.FC<LanguagesProps> = (props) => {
     patchResume({ id: props.cvId, languages: values.languages as Language[] }),
   );
 
+  const [activeKeys, setActiveKeys] = useState<string[]>();
+
+  useEffect(() => {
+    if (errors?.languages?.length && errors.languages.length > 0) {
+      const errorItems = (errors.languages as unknown as Language[])
+        .map((_, index) => fields?.[index]?.id ?? '') ?? [];
+      setActiveKeys(errorItems);
+    }
+  }, [errors?.languages, fields]);
+
   const items: CollapseProps['items'] = fields.map((field, index) => {
     return {
       key: field.id,
       label: `${t('headerSingular')} ${index + 1}`,
+      headerClass: `${(errors.languages as unknown as Language[])
+        ?.find((_, errorIndex) => errorIndex === index)
+        ? 'is-invalid'
+        : 'is-valid'}`,
       children: (
         <div className="input-element-container">
           <Controller
@@ -75,7 +90,7 @@ const LanguagesForm: React.FC<LanguagesProps> = (props) => {
                 inputRef={ref}
                 error={error?.message}
                 name={name}
-                value={Number(value)}
+                value={value ? Number(value) : undefined}
                 onChange={onChange}
                 options={[
                   { label: t('yes'), value: 1 },
@@ -159,9 +174,10 @@ const LanguagesForm: React.FC<LanguagesProps> = (props) => {
     >
       <form onSubmit={submitForm}>
         <Collapse
-          accordion
           items={items}
           defaultActiveKey={fields[0]?.id}
+          onChange={(keys) => setActiveKeys(keys as string[])}
+          activeKey={activeKeys}
         />
       </form>
       <Button

@@ -43,7 +43,7 @@ const PersonalInfoEditForm: React.FC<Props> = ({ toggleEditMode }) => {
               label={t('firstName')}
               inputRef={ref}
               name={name}
-              value={value}
+              value={value || ''}
               error={error?.message}
               onChange={onChange}
               placeholder={t('firstName')}
@@ -60,7 +60,7 @@ const PersonalInfoEditForm: React.FC<Props> = ({ toggleEditMode }) => {
               label={t('lastName')}
               inputRef={ref}
               name={name}
-              value={value}
+              value={value || ''}
               error={error?.message}
               onChange={onChange}
               placeholder={t('lastName')}
@@ -113,7 +113,7 @@ const PersonalInfoEditForm: React.FC<Props> = ({ toggleEditMode }) => {
               value={value ? dayjs(value) : undefined}
               name={name}
               onChange={(dateObject) => {
-                setValue(name, dateObject.format(dateTimeFormats.backendDate));
+                setValue(name, dateObject?.format(dateTimeFormats.backendDate));
               }}
               placeholder={t('birthdayDate')}
               format={dateTimeFormats.albanianDate}

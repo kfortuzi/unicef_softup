@@ -2,6 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import type { CollapseProps } from 'antd';
 import { Collapse } from 'antd';
 import dayjs from 'dayjs';
+import { useEffect, useState } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -24,8 +25,13 @@ type EducationAndTrainingsFormProps = {
 
 const EducationAndTrainingsForm: React.FC<EducationAndTrainingsFormProps> = (props) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.educationAndTrainingsSection' });
-  const { handleSubmit, control, setValue } = useForm({
-    defaultValues: { educations: props.educationAndTrainings || [] },
+  const {
+    handleSubmit,
+    control,
+    setValue,
+    formState: { errors }
+  } = useForm({
+    defaultValues: { educations: props.educationAndTrainings || [defaultValues] },
     resolver: yupResolver(fieldsValidationSchema),
     shouldFocusError: true,
   });
@@ -44,10 +50,24 @@ const EducationAndTrainingsForm: React.FC<EducationAndTrainingsFormProps> = (pro
     patchResume({ id: props.cvId, educations: values.educations as Education[] });
   });
 
+  const [activeKeys, setActiveKeys] = useState<string[]>();
+
+  useEffect(() => {
+    if (errors?.educations?.length && errors.educations.length > 0) {
+      const errorItems = (errors.educations as unknown as Education[])
+        .map((_, index) => fields?.[index]?.id ?? '') ?? [];
+      setActiveKeys(errorItems);
+    }
+  }, [errors?.educations, fields]);
+
   const items: CollapseProps['items'] = fields.map((field, index) => {
     return {
       key: field.id,
       label: `${t('headerSingular')} ${index + 1}`,
+      headerClass: `${(errors.educations as unknown as Education[])
+        ?.find((_, errorIndex) => errorIndex === index)
+        ? 'is-invalid'
+        : 'is-valid'}`,
       children: (
         <div className="input-element-container">
           <Controller
@@ -107,7 +127,7 @@ const EducationAndTrainingsForm: React.FC<EducationAndTrainingsFormProps> = (pro
                 error={error?.message}
                 value={value ? dayjs(value) : undefined}
                 onChange={(dateObject) => {
-                  setValue(name, dateObject.format(dateTimeFormats.backendDate));
+                  setValue(name, dateObject?.format(dateTimeFormats.backendDate));
                 }}
                 format={dateTimeFormats.albanianDate}
                 className="input-element"
@@ -125,7 +145,7 @@ const EducationAndTrainingsForm: React.FC<EducationAndTrainingsFormProps> = (pro
                 name={name}
                 value={value ? dayjs(value) : undefined}
                 onChange={(dateObject) => {
-                  setValue(name, dateObject.format(dateTimeFormats.backendDate));
+                  setValue(name, dateObject?.format(dateTimeFormats.backendDate));
                 }}
                 format={dateTimeFormats.albanianDate}
                 className="input-element"
@@ -151,9 +171,10 @@ const EducationAndTrainingsForm: React.FC<EducationAndTrainingsFormProps> = (pro
     >
       <form onSubmit={submitForm}>
         <Collapse
-          accordion
           items={items}
           defaultActiveKey={fields[0]?.id}
+          onChange={(keys) => setActiveKeys(keys as string[])}
+          activeKey={activeKeys}
         />
         <Button
           type="default"

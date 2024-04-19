@@ -1,6 +1,7 @@
 p {
   margin: 0;
 }
+
 .certificate-subtitle {
   font-family: $karla-bold;
   font-size: $medium;
@@ -11,4 +12,14 @@ p {
   align-items: center;
   justify-content: center;
   margin: 10px;
+}
+
+.is-invalid {
+  transition: all 0.1s ease-in;
+  box-shadow: $error-color 0px 0px 5px;
+  border-radius: 0.25rem;
+}
+
+.is-valid {
+  transition: all 0.1s ease-out;
 }

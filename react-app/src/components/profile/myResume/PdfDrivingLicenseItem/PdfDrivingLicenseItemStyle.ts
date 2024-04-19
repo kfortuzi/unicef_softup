@@ -1,7 +1,7 @@
 import { StyleSheet } from '@react-pdf/renderer';
 
 const styles = StyleSheet.create({
-  drivingLicenceContainer: {
+  drivingLicenseContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-evenly',
@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     width: 60,
     borderRadius: 5,
   },
-  drivingLicenceImage: {
+  drivingLicenseImage: {
     borderRight: 1,
     width: 30,
     height: 30,

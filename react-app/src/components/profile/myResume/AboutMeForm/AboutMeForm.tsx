@@ -35,7 +35,6 @@ const AboutMeForm: React.FC<AboutMeProps> = ({ aboutMe, workExperiences, cvId })
     resolver: yupResolver(validationSchema),
     shouldFocusError: true,
   });
-
   const { mutate: patchResume, isPending } = usePatchResume();
   const submitForm = handleSubmit((values) => patchResume({
     id: cvId, summary: values.aboutMe

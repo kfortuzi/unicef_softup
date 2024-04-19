@@ -5,49 +5,48 @@ import usePatchResume from 'src/api/resumes/hooks/usePatchResume';
 import Drawer from 'src/components/common/Drawer/Drawer';
 import InputSelect from 'src/components/common/InputSelect/InputSelect';
 
-import { drivingLicenceOptions } from './constants';
+import { drivingLicenseOptions } from './constants';
 import { FormField } from './enums';
 
-interface DrivingLicenceProps {
+interface DrivingLicenseProps {
   cvId: string;
-  drivingLicences: string[];
+  drivingLicense?: string;
 }
 
-const DrivingLicenceForm: React.FC<DrivingLicenceProps> = ({ cvId, drivingLicences }) => {
-  const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.drivingLicencesSection' });
+const DrivingLicenseForm: React.FC<DrivingLicenseProps> = ({ cvId, drivingLicense }) => {
+  const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.drivingLicensesSection' });
   const { handleSubmit, control } = useForm({
     defaultValues: {
-      drivingLicences: drivingLicences,
+      drivingLicense: drivingLicense,
     },
     shouldFocusError: true,
   });
   const { mutate: patchResume, isPending } = usePatchResume();
   const submitForm = handleSubmit((values) =>
-    patchResume({ id: cvId, drivingLicense: values.drivingLicences.join(',') }),
+    patchResume({ id: cvId, drivingLicense: values.drivingLicense }),
   );
 
   return (
     <Drawer
       submitForm={submitForm}
       isPending={isPending}
-      title="Driving Licences"
+      title="Driving License"
     >
       <form onSubmit={submitForm}>
         <div className="input-element-container">
           <Controller
             control={control}
-            name={FormField.DRIVING_LICENCES}
+            name={FormField.DRIVING_LICENSE}
             render={({ field: { onChange, value, ref, name } }) => (
               <InputSelect
                 placeholder={t('headerPlural')}
                 label={t('headerPlural')}
                 inputRef={ref}
+                allowClear
                 name={name}
                 value={value}
                 onChange={onChange}
-                tokenSeparators={[',']}
-                mode="tags"
-                options={drivingLicenceOptions.map((item) => ({ value: item, label: item }))}
+                options={drivingLicenseOptions.map((item) => ({ value: item, label: item }))}
               />
             )}
           />
@@ -57,4 +56,4 @@ const DrivingLicenceForm: React.FC<DrivingLicenceProps> = ({ cvId, drivingLicenc
   );
 };
 
-export default DrivingLicenceForm;
+export default DrivingLicenseForm;

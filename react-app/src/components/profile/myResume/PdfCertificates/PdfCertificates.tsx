@@ -1,4 +1,5 @@
 import { Text } from '@react-pdf/renderer';
+import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 
 import { Certificate } from 'src/api/resumes/types';
@@ -23,11 +24,14 @@ const PdfCertificates: React.FC<PdfCertificatesProps> = (props) => {
           titleStyle={styles.listTitle}
         >
           <Text>
-            {t('receivedDate')} {certificate.receivedDate}
+            {`${t('receivedDate')} - 
+            ${certificate.receivedDate ? dayjs(certificate.receivedDate).format('MMM YYYY') : ''}
+            `}
           </Text>
-          {certificate.expirationDate && (
-            <Text>{`${t('expirationDate')} ${certificate.expirationDate}`}</Text>
-          )}
+          {certificate.expirationDate ? (
+            <Text>{`${t('expirationDate')} - 
+            ${certificate.expirationDate ? dayjs(certificate.expirationDate).format('MMM YYYY') : ''}`}</Text>
+          ) : null}
         </PdfListItem>;
       })}
     </>

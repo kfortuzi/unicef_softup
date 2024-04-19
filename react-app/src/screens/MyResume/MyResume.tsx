@@ -26,9 +26,9 @@ const MyResume: React.FC = () => {
       }}
     >
       {baseResume ? (
-        <MyResumeView resume={baseResume} />
+        <MyResumeView resume={baseResume} key={`my-resume-detail-${baseResume.id}`} />
       ) : (
-        <div>{t('resumeNotFound')}</div>
+        <div key={'resume-not-found'} >{t('resumeNotFound')}</div>
       )}
     </div>
   );

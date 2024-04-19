@@ -1,5 +1,9 @@
 import { Image, View, Text, Link } from '@react-pdf/renderer';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
+import UserPlaceholderImage from 'src/assets/images/user-placeholder.jpeg';
+import imgUrlToBase64 from 'src/utils/imgUrlToBase64';
 
 import styles from './PdfContactInfoStyle';
 
@@ -17,6 +21,15 @@ interface PdfContactInfoProps {
 const PdfContactInfo: React.FC<PdfContactInfoProps> = (props) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.contactInfoSection' });
   const { imgUrl, name, nationality, address, phone, email, linkedIn, linkedInText } = props;
+  const [profilePic, setProfilePic] = useState<string | null>('');
+
+  useEffect(() => {
+    if (imgUrl) {
+      imgUrlToBase64(imgUrl).then((base64) => {
+        return setProfilePic(base64?.toString() || null);
+      });
+    }
+  }, [imgUrl]);
 
   return (
     <View style={styles.contactSection}>
@@ -25,11 +38,10 @@ const PdfContactInfo: React.FC<PdfContactInfoProps> = (props) => {
           style={{
             objectFit: 'cover',
             height: 180,
-            width: '100%',
+            width: 180,
             borderRadius: '50%',
           }}
-          // src={imgUrl}
-          source={{ uri: imgUrl || '', method: 'GET', headers: { 'Cache-Control': 'no-cache' }, body: '' }}
+          src={profilePic || UserPlaceholderImage}
         />
         <Text style={styles.name}>{name}</Text>
       </View>

@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 
 import { Certificate } from 'src/api/resumes/types';
@@ -21,9 +22,14 @@ const CertificatesView: React.FC<CertificatesProps> = (props) => {
           titleStyle={{ color: 'blue' }}
         >
           <p>
-            {t('receivedDate')} {certificate.receivedDate}
+            {`${t('receivedDate')} - 
+            ${certificate.receivedDate ? dayjs(certificate.receivedDate).format('MMM YYYY') : ''}
+            `}
           </p>
-          {certificate.expirationDate && <p>{`${t('expirationDate')} ${certificate.expirationDate}`}</p>}
+          {certificate.expirationDate
+            ? (<p>{`${t('expirationDate')} - 
+              ${certificate.expirationDate ? dayjs(certificate.expirationDate).format('MMM YYYY') : ''}`}</p>)
+            : null}
         </ListItem>
       ))}
     </>

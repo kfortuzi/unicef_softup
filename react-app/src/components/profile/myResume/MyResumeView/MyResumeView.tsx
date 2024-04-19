@@ -14,8 +14,8 @@ import CertificatesView from '../CertificatesView/CertificatesView';
 import ContactInfoForm from '../ContactInfoForm/ContactInfoForm';
 import ContactInfoView from '../ContactInfoView/ContactInfoView';
 import DigitalSkillsForm from '../DigitalSkillsForm/DigitalSkillsForm';
-import DrivingLicenceForm from '../DrivingLicenceForm/DrivingLicenceForm';
-import DrivingLicenceView from '../DrivingLicenceView/DrivingLicenceView';
+import DrivingLicenseForm from '../DrivingLicenseForm/DrivingLicenseForm';
+import DrivingLicenseView from '../DrivingLicenseView/DrivingLicenseView';
 import EducationAndTrainingsForm from '../EducationAndTrainingsForm/EducationAndTrainingsForm';
 import EducationAndTrainings from '../EducationAndTrainingsView/EducationAndTrainingsView';
 import HobbiesForm from '../HobbiesForm/HobbiesForm';
@@ -35,15 +35,16 @@ type MyResumeViewProps = {
   resume: GetResumeResponse;
 };
 
-const MyResumeView: React.FC<MyResumeViewProps> = ({ resume }) => {
+const MyResumeView: React.FC<MyResumeViewProps> = (props) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume' });
+  const resume = props.resume;
 
   const { data: job } = useGetJob({ id: resume?.referenceId });
 
   const { firstName, email, linkedinUrl, location, profilePicture, summary, phoneNumber, lastName } = resume;
 
   return (
-    <div className="my-resume-layout">
+    <div className="my-resume-layout" key={`resume-view-${resume.id}`}>
       <div className="slide-container">
         <div className="cv-header">
           <h1>
@@ -190,7 +191,7 @@ const MyResumeView: React.FC<MyResumeViewProps> = ({ resume }) => {
                 <PublicationItem
                   key={index}
                   name={publication.name}
-                  releaseDate={publication.releaseDate}
+                  releaseDate={publication?.releaseDate}
                   link={publication.link}
                 />
               ))}
@@ -199,11 +200,11 @@ const MyResumeView: React.FC<MyResumeViewProps> = ({ resume }) => {
                 publications={resume?.publications || []}
               />
             </Section>
-            <Section title={t('drivingLicencesSection.headerPlural')}>
-              <DrivingLicenceView drivingLicences={resume?.drivingLicense?.split(',') || []} />
-              <DrivingLicenceForm
+            <Section title={t('drivingLicensesSection.headerSingular')}>
+              <DrivingLicenseView drivingLicense={resume?.drivingLicense || ''} />
+              <DrivingLicenseForm
                 cvId={resume.id}
-                drivingLicences={resume?.drivingLicense?.split(',') || []}
+                drivingLicense={resume?.drivingLicense || ''}
               />
             </Section>
           </div>

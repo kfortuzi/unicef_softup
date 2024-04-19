@@ -1,4 +1,6 @@
 import { Text, View } from '@react-pdf/renderer';
+import dayjs from 'dayjs';
+import { useTranslation } from 'react-i18next';
 
 import { Volunteering } from 'src/api/resumes/types';
 
@@ -7,7 +9,8 @@ import styles from './PdfVolunteeringItemStyle';
 type PdfVolunteeringItemItemProps = Volunteering;
 
 const PdfVolunteeringItem: React.FC<PdfVolunteeringItemItemProps> = (props) => {
-  const { organization, role, startDate, endDate = 'present' } = props;
+  const { organization, role, startDate, endDate } = props;
+  const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume' });
 
   return (
     <View
@@ -20,7 +23,9 @@ const PdfVolunteeringItem: React.FC<PdfVolunteeringItemItemProps> = (props) => {
         <Text style={styles.volunteeringTitle}>{role}</Text>
         <Text style={styles.volunteeringOrganization}>{organization}</Text>
         <Text style={styles.volunteeringDate}>
-          {startDate} - {endDate}
+          {startDate ? dayjs(startDate).format('MMM YYYY') : ''}
+          {' - '}
+          {endDate ? dayjs(endDate).format('MMM YYYY') : t('present')}
         </Text>
       </View>
     </View>
