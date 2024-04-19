@@ -163,6 +163,10 @@
           "responsibilities": "Detyrat"
         },
         "digitalSkillsSection": {
+          "headerPlural": "Aftësitë dixhitale",
+          "headerSingular": "Aftësi dixhitale"
+        },
+        "technicalSkillsSection": {
           "headerPlural": "Aftësitë teknike",
           "headerSingular": "Aftësi teknike"
         },
@@ -371,7 +375,7 @@
       "educations": "Edukimi",
       "nativeLanguage": "Gjuha Amtare",
       "otherLanguage": "Gjuha e Dyte",
-      "digitalSkills": "Aftësitë Teknike",
+      "technicalSkills": "Aftësitë Teknike",
       "softSkills": "Aftësitë Personale",
       "hobbies": "Hobite",
       "summary": "Përmbledhje",

@@ -177,6 +177,11 @@ export class ResumeDto {
   @ApiPropertyOptional()
   @IsArray()
   @IsOptional()
+  technicalSkills?: string[];
+
+  @ApiPropertyOptional()
+  @IsArray()
+  @IsOptional()
   softSkills?: string[];
 
   @ApiPropertyOptional()

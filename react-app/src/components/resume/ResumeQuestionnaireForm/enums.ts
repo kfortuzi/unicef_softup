@@ -3,7 +3,7 @@ export enum FormField {
   EDUCATIONS = 'educations',
   NATIVE_LANGUAGE = 'nativeLanguage',
   OTHER_LANGUAGE = 'otherLanguage',
-  DIGITAL_SKILLS = 'digitalSkills',
+  TECHNICAL_SKILLS = 'technicalSkills',
   SOFT_SKILLS = 'softSkills',
   HOBBIES = 'hobbies',
   SUMMARY = 'summary',

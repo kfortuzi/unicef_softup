@@ -63,6 +63,7 @@ type BaseResponse = {
   experiences?: WorkExperience[];
   languages?: Language[];
   digitalSkills?: string[];
+  technicalSkills?: string[];
   softSkills?: string[];
   hobbies?: string[];
   certificates?: Certificate[];
@@ -88,6 +89,7 @@ export type PostResumeRequest = {
   experiences?: WorkExperience[];
   languages?: Language[];
   digitalSkills?: string[];
+  technicalSkills?: string[];
   softSkills?: string[];
   hobbies?: string[];
   certificates?: Certificate[];
@@ -111,6 +113,7 @@ export type PatchResumeRequest = {
   experiences?: WorkExperience[];
   languages?: Language[];
   digitalSkills?: string[];
+  technicalSkills?: string[];
   softSkills?: string[];
   hobbies?: string[];
   certificates?: Certificate[];

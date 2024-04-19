@@ -12,6 +12,7 @@ export const prepareResumeBody = (
       : [],
     digitalSkills: resume?.digitalSkills || [],
     softSkills: resume?.softSkills || [],
+    technicalSkills: resume?.technicalSkills || [],
     hobbies: resume?.hobbies || [],
     drivingLicense:
       isValid(resume?.drivingLicense) &&

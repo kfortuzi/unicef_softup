@@ -76,6 +76,9 @@ export class ResumeService {
         ? (data.languages as unknown as Prisma.JsonObject)
         : undefined,
       digitalSkills: data?.digitalSkills?.length ? data.digitalSkills : [],
+      technicalSkills: data?.technicalSkills?.length
+        ? data.technicalSkills
+        : [],
       softSkills: data?.softSkills?.length ? data.softSkills : [],
       hobbies: data?.hobbies?.length ? data.hobbies : [],
       certificates: data.certificates
@@ -159,6 +162,7 @@ export class ResumeService {
           (data.languages as unknown as Prisma.JsonObject) ||
           (resume.languages as Prisma.JsonObject),
         digitalSkills: data.digitalSkills || resume.digitalSkills,
+        technicalSkills: data.technicalSkills || resume.technicalSkills,
         softSkills: data.softSkills || resume.softSkills,
         hobbies: data.hobbies || resume.hobbies,
         certificates:
@@ -261,6 +265,7 @@ export class ResumeService {
       experiences: resumeData.experiences || undefined,
       languages: resumeData.languages || undefined,
       digitalSkills: resumeData.digitalSkills,
+      technicalSkills: resumeData.technicalSkills,
       softSkills: resumeData.softSkills,
       hobbies: resumeData.hobbies,
       certificates: resumeData.certificates || undefined,
@@ -310,6 +315,7 @@ export class ResumeService {
         languages: datas.languages || null,
         summary: datas.summary || null,
         digitalSkills: datas.digitalSkills || null,
+        technicalSkills: datas.technicalSkills || null,
         softSkills: datas.softSkills || null,
         hobbies: datas.hobbies || null,
         certificates: datas.certificates || null,
@@ -384,7 +390,7 @@ export class ResumeService {
       },
       {
         role: 'user',
-        content: `The interviewer asked me questions chronologically about: experiences, educations, native language, other languages, technical skills, soft skills, hobbies and the last one was a summary. Here are my interview answers: ${JSON.stringify(
+        content: `The interviewer asked me questions chronologically about: experiences, educations, native language, other languages, technical/digital skills, soft skills, hobbies and the last one was a summary. Here are my interview answers: ${JSON.stringify(
           userInput,
         )}`,
       },
@@ -411,27 +417,6 @@ export class ResumeService {
       userId,
       PromptType.ResumeWizard,
     );
-  }
-
-  private evaluateResponse(response: { [key: string]: boolean }): boolean {
-    if (response) {
-      return this.checkUserResponses(response);
-    } else {
-      throw new InternalServerErrorException('Invalid response structure.');
-    }
-  }
-
-  private checkUserResponses(criteria: { [key: string]: boolean }): boolean {
-    let errorMessage = '';
-    for (const [key, value] of Object.entries(criteria)) {
-      if (!value) {
-        errorMessage += ` ${key} does not meet the required criteria;`;
-      }
-    }
-    if (errorMessage) {
-      throw new InternalServerErrorException(errorMessage.trim());
-    }
-    return true;
   }
 
   async getUserExperiences(userId: string) {

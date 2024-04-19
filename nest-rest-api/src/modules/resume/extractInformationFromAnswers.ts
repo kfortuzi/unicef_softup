@@ -131,7 +131,14 @@ export const extractInformationFromAnswers: ChatCompletionCreateParams.Function 
           required: ['name', 'isNative', 'reading', 'listening', 'speaking'],
         },
         digitalSkills: {
-          description: 'List of technical/digital skills',
+          description: 'List of digital skills',
+          type: 'array',
+          items: {
+            type: 'string',
+          },
+        },
+        technicalSkills: {
+          description: 'List of technical skills',
           type: 'array',
           items: {
             type: 'string',
@@ -244,6 +251,7 @@ export const extractInformationFromAnswers: ChatCompletionCreateParams.Function 
         'languages',
         'digitalSkills',
         'softSkills',
+        'technicalSkills',
         'hobbies',
         'certificates',
         'volunteering',

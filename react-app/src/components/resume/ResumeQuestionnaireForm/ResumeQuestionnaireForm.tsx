@@ -96,7 +96,7 @@ const ResumeQuestionnaireForm: React.FC = () => {
         />
         <Controller
           control={control}
-          name={FormField.DIGITAL_SKILLS}
+          name={FormField.TECHNICAL_SKILLS}
           render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
             <InputTextArea
               inputRef={ref}
@@ -104,9 +104,9 @@ const ResumeQuestionnaireForm: React.FC = () => {
               value={value}
               onChange={onChange}
               error={error?.message}
-              placeholder={t('digitalSkills')}
+              placeholder={t('technicalSkills')}
               className="input-textarea"
-              label={t('digitalSkills')}
+              label={t('technicalSkills')}
             />
           )}
         />

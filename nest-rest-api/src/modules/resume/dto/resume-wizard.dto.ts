@@ -20,7 +20,7 @@ export class ResumeWizardDto {
 
   @ApiProperty()
   @IsString()
-  digitalSkills: string;
+  technicalSkills: string;
 
   @ApiPropertyOptional()
   @IsString()

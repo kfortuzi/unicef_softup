@@ -20,8 +20,8 @@ const validationSchema: ObjectSchema<FormValues> = object({
   [FormField.OTHER_LANGUAGE]: string().required(
     i18n.t(`${global}.required`, { field: i18n.t(`${prefix}.otherLanguage`) }),
   ),
-  [FormField.DIGITAL_SKILLS]: string().required(
-    i18n.t(`${global}.required`, { field: i18n.t(`${prefix}.digitalSkills`) }),
+  [FormField.TECHNICAL_SKILLS]: string().required(
+    i18n.t(`${global}.required`, { field: i18n.t(`${prefix}.technicalSkills`) }),
   ),
   [FormField.SOFT_SKILLS]: string().required(
     i18n.t(`${global}.required`, { field: i18n.t(`${prefix}.softSkills`) }),

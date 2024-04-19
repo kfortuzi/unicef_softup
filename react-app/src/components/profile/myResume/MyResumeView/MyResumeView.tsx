@@ -26,6 +26,7 @@ import PublicationItem from '../PublicationItem/PublicationItem';
 import ResumePdfView from '../ResumePdfView/ResumePdfView';
 import Section from '../Section/Section';
 import SoftSkillsForm from '../SoftSkillsForm/SoftSkillsForm';
+import TechnicalSkillsForm from '../TechnicalSkills/TechnicalSkillsForm';
 import VolunteeringForm from '../VolunteeringForm/VolunteeringForm';
 import VolunteeringItem from '../VolunteeringItem/VolunteeringItem';
 import WorkExperiencesForm from '../WorkExperiencesForm/WorkExperiencesForm';
@@ -143,6 +144,16 @@ const MyResumeView: React.FC<MyResumeViewProps> = (props) => {
               <DigitalSkillsForm
                 cvId={resume.id}
                 digitalSkills={resume?.digitalSkills || []}
+              />
+            </Section>
+            {/* Technical Skills*/}
+            <Section title={t('technicalSkillsSection.headerPlural')}>
+              <ul style={{ paddingLeft: '1rem' }}>
+                {resume?.technicalSkills?.map((skill) => <li key={skill}>{skill}</li>)}
+              </ul>
+              <TechnicalSkillsForm
+                cvId={resume.id}
+                technicalSkills={resume?.technicalSkills || []}
               />
             </Section>
             {/* Soft Skills*/}

@@ -39,33 +39,34 @@ model user_skills {
 }
 
 model resumes {
-  id             String          @id @default(cuid())
-  userId         String          @map("user_id")
-  email          String
-  firstName      String?         @map("first_name")
-  lastName       String?         @map("last_name")
-  profilePicture String?         @map("profile_picture")
-  nationality    String?
-  linkedinUrl    String?         @map("linkedin_url")
-  location       String?
-  phoneNumber    String?         @map("phone_number")
-  summary        String?
-  experiences    Json?
-  languages      Json?
-  certificates   Json?
-  volunteering   Json?
-  publications   Json?
-  drivingLicense DrivingLicense? @map("driving_license")
-  createdAt      DateTime        @default(now()) @map("created_at") @db.Timestamp(6)
-  updatedAt      DateTime?       @updatedAt @map("updated_at") @db.Timestamp(6)
-  deletedAt      DateTime?       @map("deleted_at") @db.Timestamp(6)
-  educations     Json?
-  referenceId    String?
-  digitalSkills  String[]        @default([]) @map("digital_skills")
-  softSkills     String[]        @default([]) @map("soft_skills")
-  hobbies        String[]        @default([])
-  job            jobs?           @relation(fields: [referenceId], references: [id])
-  user           users           @relation(fields: [userId], references: [id])
+  id              String          @id @default(cuid())
+  userId          String          @map("user_id")
+  email           String
+  firstName       String?         @map("first_name")
+  lastName        String?         @map("last_name")
+  profilePicture  String?         @map("profile_picture")
+  nationality     String?
+  linkedinUrl     String?         @map("linkedin_url")
+  location        String?
+  phoneNumber     String?         @map("phone_number")
+  summary         String?
+  experiences     Json?
+  languages       Json?
+  certificates    Json?
+  volunteering    Json?
+  publications    Json?
+  drivingLicense  DrivingLicense? @map("driving_license")
+  createdAt       DateTime        @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt       DateTime?       @updatedAt @map("updated_at") @db.Timestamp(6)
+  deletedAt       DateTime?       @map("deleted_at") @db.Timestamp(6)
+  educations      Json?
+  referenceId     String?
+  digitalSkills   String[]        @default([]) @map("digital_skills")
+  softSkills      String[]        @default([]) @map("soft_skills")
+  technicalSkills String[]        @default([]) @map("technical_skills")
+  hobbies         String[]        @default([])
+  job             jobs?           @relation(fields: [referenceId], references: [id])
+  user            users           @relation(fields: [userId], references: [id])
 }
 
 model cover_letters {

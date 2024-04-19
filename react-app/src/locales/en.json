@@ -172,6 +172,10 @@
           "headerPlural": "Digital Skills",
           "headerSingular": "Digital Skill"
         },
+        "technicalSkillsSection": {
+          "headerPlural": "Technical Skills",
+          "headerSingular": "Technical Skill"
+        },
         "softSkillsSection": {
           "headerPlural": "Soft Skills",
           "headerSingular": "Soft Skill"
@@ -378,7 +382,7 @@
       "educations": "Educations",
       "nativeLanguage": "Native Language",
       "otherLanguage": "Other Language",
-      "digitalSkills": "Technical Skills",
+      "technicalSkills": "Technical Skills",
       "softSkills": "Soft Skills",
       "hobbies": "Hobbies",
       "summary": "Summary",
