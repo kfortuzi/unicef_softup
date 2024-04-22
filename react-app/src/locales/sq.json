@@ -259,7 +259,8 @@
       "logOut": "Dil",
       "home": "Orientim kariere per te rinjte",
       "resume": "Resume",
-      "coverLetter": "Leter motivimi",
+      "coverLetters": "Leter motivimit",
+      "coverLetterWizard": "Asistenti",
       "jobs": "Punet",
       "training": "Trajnim",
       "trainingVideos": "Video trajnime",
@@ -300,6 +301,9 @@
       "lastUpdated": "Perditesimi i fundit",
       "coverLetterDeletePopconfirmTitle": "Fshirja e Letres se Motivimit",
       "coverLetterDeletePopconfirmDescription": "Jeni i sigurt qe doni te fshini kete Letre te Motivimit?"
+    },
+    "coverLetterQuestionnaire" : {
+      "header": "Pyetësor për Letër Motivimi"
     },
     "coverLetterDetails": {
       "header": "Letra e motivimit",

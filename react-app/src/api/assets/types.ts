@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 type VideoResponseData = {
   id: number;
   attributes: VideoAttributes;
@@ -83,3 +84,4 @@ export type GetTrainingVideosResponse = {
   data: VideoResponseData[];
   meta: Meta;
 };
+/* eslint-enable @typescript-eslint/no-explicit-any */

@@ -1,7 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import type { CollapseProps } from 'antd';
 import { Collapse } from 'antd';
-import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -13,6 +12,7 @@ import Drawer from 'src/components/common/Drawer/Drawer';
 import InputDatePicker from 'src/components/common/InputDatePicker/InputDatePicker';
 import InputText from 'src/components/common/InputText/InputText';
 import dateTimeFormats from 'src/constants/dateTimeFormats';
+import { isValidDate } from 'src/utils/dateUtils';
 
 import { defaultValues } from './constants';
 import { FormField } from './enums';
@@ -109,7 +109,7 @@ const VolunteeringForm: React.FC<VolunteeringProps> = (props) => {
                 inputRef={ref}
                 name={name}
                 error={error?.message}
-                value={value ? dayjs(value) : undefined}
+                value={isValidDate(value)}
                 onChange={(dateObject) => {
                   setValue(name, dateObject?.format(dateTimeFormats.backendDate));
                 }}
@@ -121,14 +121,13 @@ const VolunteeringForm: React.FC<VolunteeringProps> = (props) => {
           <Controller
             control={control}
             name={`volunteering.${index}.${FormField.END_DATE}`}
-            render={({ field: { name, value, ref }, fieldState: { error } }) => (
+            render={({ field: { name, value, ref } }) => (
               <InputDatePicker
                 label={t('endDate')}
                 placeholder={t('endDate')}
                 inputRef={ref}
                 name={name}
-                error={error?.message}
-                value={value ? dayjs(value) : undefined}
+                value={isValidDate(value)}
                 onChange={(dateObject) => {
                   setValue(name, dateObject?.format(dateTimeFormats.backendDate));
                 }}

@@ -1,8 +1,8 @@
 import { Text, View } from '@react-pdf/renderer';
-import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 
 import { Volunteering } from 'src/api/resumes/types';
+import { formatDate } from 'src/utils/dateUtils';
 
 import styles from './PdfVolunteeringItemStyle';
 
@@ -23,9 +23,9 @@ const PdfVolunteeringItem: React.FC<PdfVolunteeringItemItemProps> = (props) => {
         <Text style={styles.volunteeringTitle}>{role}</Text>
         <Text style={styles.volunteeringOrganization}>{organization}</Text>
         <Text style={styles.volunteeringDate}>
-          {startDate ? dayjs(startDate).format('MMM YYYY') : ''}
+          {formatDate(startDate)}
           {' - '}
-          {endDate ? dayjs(endDate).format('MMM YYYY') : t('present')}
+          {formatDate(endDate, t('present'))}
         </Text>
       </View>
     </View>

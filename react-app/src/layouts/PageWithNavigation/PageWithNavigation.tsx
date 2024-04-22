@@ -53,11 +53,22 @@ const PageWithNavigation: React.FC = () => {
         disabled: !hasBaseCv,
       },
       {
-        label: t('coverLetter'),
+        label: t('coverLetters'),
         key: 'coverLetter',
         icon: <ContainerOutlined />,
-        onClick: () => navigate(Route.COVER_LETTERS),
         disabled: !hasBaseCv,
+        children: [
+          {
+            label: t('coverLetterWizard'),
+            key: 'coverLetterWizard',
+            onClick: () => navigate(Route.COVER_LETTER_QUESTIONNAIRE),
+          },
+          {
+            label: t('coverLetters'),
+            key: 'myCoverLetters',
+            onClick: () => navigate(Route.COVER_LETTERS),
+          }
+        ],
       },
       {
         label: t('jobs'),
@@ -132,7 +143,6 @@ const PageWithNavigation: React.FC = () => {
           theme="dark"
           mode="horizontal"
           selectable={false}
-        // disabled={!hasBaseCv}
         />
       </Header>
       <Layout className="layout-content">

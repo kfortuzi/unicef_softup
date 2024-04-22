@@ -10,6 +10,7 @@ import InputDatePicker from 'src/components/common/InputDatePicker/InputDatePick
 import InputText from 'src/components/common/InputText/InputText';
 import dateTimeFormats from 'src/constants/dateTimeFormats';
 import i18n from 'src/locales';
+import { isValidDate } from 'src/utils/dateUtils';
 
 import { FormField } from './enums';
 import { generateDefaultValues } from './helpers/generateDefaultValues';
@@ -110,7 +111,7 @@ const PersonalInfoEditForm: React.FC<Props> = ({ toggleEditMode }) => {
             <InputDatePicker
               label={t('birthdayDate')}
               inputRef={ref}
-              value={value ? dayjs(value) : undefined}
+              value={isValidDate(value)}
               name={name}
               onChange={(dateObject) => {
                 setValue(name, dateObject?.format(dateTimeFormats.backendDate));

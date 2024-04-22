@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -7,6 +6,7 @@ import { User } from 'src/api/users/types';
 import Button from 'src/components/common/Button/Button';
 import dateTimeFormats from 'src/constants/dateTimeFormats';
 import i18n from 'src/locales';
+import { formatDate } from 'src/utils/dateUtils';
 
 interface Props {
   toggleEditMode: VoidFunction;
@@ -37,7 +37,7 @@ const PersonalInfoDescription: React.FC<Props> = ({ toggleEditMode }) => {
       </div>
       <div className="info-group">
         <span>{t('birthdayDate')}: </span>
-        <span>{birthdayDate ? dayjs(birthdayDate)?.format(dateTimeFormats.albanianDate) : ''}</span>
+        <span>{formatDate(birthdayDate, '', dateTimeFormats.albanianDate)}</span>
       </div>
       <div className="info-group">
         <Button

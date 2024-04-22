@@ -1,7 +1,7 @@
-import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 
 import { Education } from 'src/api/resumes/types';
+import { formatDate } from 'src/utils/dateUtils';
 
 import ListItem from '../ListItem/ListItem';
 
@@ -22,8 +22,8 @@ const EducationAndTrainings: React.FC<EducationAndTrainingsProps> = (props) => {
           <ListItem
             title={`
             ${education.title} 
-            - ${education.startDate ? dayjs(education.startDate).format('MMM YYYY') : ''} 
-            - ${education.endDate ? dayjs(education.endDate).format('MMM YYYY') : t('present')} 
+            - ${formatDate(education?.startDate)} 
+            - ${formatDate(education?.endDate), t('present')} 
         `}
             key={index}
             titleStyle={{ color: 'blue' }}

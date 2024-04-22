@@ -1,7 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import type { CollapseProps } from 'antd';
 import { Collapse } from 'antd';
-import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -13,6 +12,7 @@ import Drawer from 'src/components/common/Drawer/Drawer';
 import InputDatePicker from 'src/components/common/InputDatePicker/InputDatePicker';
 import InputText from 'src/components/common/InputText/InputText';
 import dateTimeFormats from 'src/constants/dateTimeFormats';
+import { isValidDate } from 'src/utils/dateUtils';
 
 import { defaultValues } from './constants';
 import { FormField } from './enums';
@@ -93,7 +93,7 @@ const PublicationsForm: React.FC<PublicationsProps> = (props) => {
                 error={error?.message}
                 inputRef={ref}
                 name={name}
-                value={value ? dayjs(value) : undefined}
+                value={isValidDate(value)}
                 onChange={(dateObject) => {
                   setValue(name, dateObject?.format(dateTimeFormats.backendDate));
                 }}

@@ -1,7 +1,7 @@
-import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 
 import { WorkExperience } from 'src/api/resumes/types';
+import { formatDate } from 'src/utils/dateUtils';
 
 import ListItem from '../ListItem/ListItem';
 
@@ -18,15 +18,15 @@ const WorkExperiencesView: React.FC<WorkExperiencesProps> = (props) => {
       {workExperiences.map((workExperience, index) => {
         return (
           <ListItem
-            title={`${workExperience.position} 
-          - ${workExperience.startDate ? dayjs(workExperience.startDate).format('MMM YYYY') : ''} 
-          - ${workExperience.endDate ? dayjs(workExperience.endDate).format('MMM YYYY') : t('present')} `}
+            title={`${workExperience?.position}
+          - ${formatDate(workExperience?.startDate)} 
+          - ${formatDate(workExperience?.endDate, t('present'))}`}
             key={index}
             titleStyle={{ color: 'blue' }}
           >
-            <p className="work-experience-title">{workExperience.position}</p>
-            <p>{workExperience.company}</p>
-            <p>{workExperience.responsibilities}</p>
+            <p className="work-experience-title">{workExperience?.position}</p>
+            <p>{workExperience?.company}</p>
+            <p>{workExperience?.responsibilities}</p>
           </ListItem>
         );
       })}

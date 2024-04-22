@@ -1,8 +1,8 @@
 import { Text } from '@react-pdf/renderer';
-import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 
 import { WorkExperience } from 'src/api/resumes/types';
+import { formatDate } from 'src/utils/dateUtils';
 
 import ListItem from '../PdfListItem/PdfListItem';
 import styles from './PdfWorkExperienceStyle';
@@ -20,7 +20,7 @@ const PdfWorkExperiences: React.FC<PdfWorkExperiencesProps> = (props) => {
       {workExperiences.map((workExperience, index) => (
         <ListItem
           // eslint-disable-next-line max-len
-          title={`${workExperience.position} - ${workExperience.startDate ? dayjs(workExperience.startDate).format('MMM YYYY') : ''} - ${workExperience.endDate ? dayjs(workExperience.endDate).format('MMM YYYY') : t('present')}`}
+          title={`${workExperience.position} - ${formatDate(workExperience?.startDate)} - ${formatDate(workExperience?.endDate), t('present')}`}
           key={index}
           titleStyle={styles.listTitle}
         >
