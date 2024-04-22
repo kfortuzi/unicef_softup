@@ -87,9 +87,9 @@
         "skills": "Aftesi",
         "hobbies": "Hobi",
         "submit": "Ruaj",
-        "loading": "Duke ngarkuar aftesite dhe hobite...",
-        "success": "Aftesite dhe hobite u ruajten me sukses!",
-        "error": "Aftesite dhe hobite nuk u ruajten me sukses!"
+        "loading": "Duke ngarkuar aftesite dhe hobi...",
+        "success": "Hobi dhe aftesite u ruajten me sukses!",
+        "error": "Hobi dhe aftesite nuk u ruajten me sukses!"
       },
       "changePassword": {
         "header": "Rivendos Fjalekalimin",
@@ -180,7 +180,7 @@
           "noDrivingLicense": "Asnje"
         },
         "hobbiesSection": {
-          "headerPlural": "Hobite",
+          "headerPlural": "Hobi",
           "headerSingular": "Hobi"
         },
         "languagesSection": {
@@ -302,7 +302,7 @@
       "coverLetterDeletePopconfirmTitle": "Fshirja e Letres se Motivimit",
       "coverLetterDeletePopconfirmDescription": "Jeni i sigurt qe doni te fshini kete Letre te Motivimit?"
     },
-    "coverLetterQuestionnaire" : {
+    "coverLetterQuestionnaire": {
       "header": "Pyetësor për Letër Motivimi"
     },
     "coverLetterDetails": {
@@ -380,8 +380,9 @@
       "nativeLanguage": "Gjuha Amtare",
       "otherLanguage": "Gjuha e Dyte",
       "technicalSkills": "Aftësitë Teknike",
+      "digitalSkills": "Aftësitë dixhitale",
       "softSkills": "Aftësitë Personale",
-      "hobbies": "Hobite",
+      "hobbies": "Hobi",
       "summary": "Përmbledhje",
       "createSuccessMessage": "CV u krijua me sukses!",
       "createErrorMessage": "CV nuk u krijua me sukses!"

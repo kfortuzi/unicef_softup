@@ -2,18 +2,21 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 import usePostResumesWizard from 'src/api/resumes/hooks/usePostResumesWizard';
 import Button from 'src/components/common/Button/Button';
 import InputTextArea from 'src/components/common/InputTextArea/InputTextArea';
 import i18n from 'src/locales';
+import { Route } from 'src/router/enums';
 
 import { defaultValues } from './constants';
 import { FormField } from './enums';
 import validationSchema from './validations';
 
 const ResumeQuestionnaireForm: React.FC = () => {
-  const { mutate: postResumesWizard } = usePostResumesWizard();
+  const { mutateAsync: postResumesWizard, isPending } = usePostResumesWizard();
+  const navigate = useNavigate();
 
   const { handleSubmit, control } = useForm({
     defaultValues: defaultValues,
@@ -23,13 +26,19 @@ const ResumeQuestionnaireForm: React.FC = () => {
 
   const { t } = useTranslation('translation', { keyPrefix: 'resumeQuestionnaire' });
 
-  const submitForm = handleSubmit((data) => {
-    postResumesWizard(data);
+  const submitForm = handleSubmit(async (data) => {
+    await postResumesWizard(data);
+    navigate(Route.MY_RESUME);
   });
 
   return (
     <div className="resume-questionnaire-form-container">
-      <form onSubmit={submitForm}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          submitForm(e);
+        }}
+      >
         <Controller
           control={control}
           name={FormField.EXPERIENCES}
@@ -91,6 +100,22 @@ const ResumeQuestionnaireForm: React.FC = () => {
               placeholder={t('otherLanguage')}
               className="input-textarea"
               label={t('otherLanguage')}
+            />
+          )}
+        />
+        <Controller
+          control={control}
+          name={FormField.DIGITAL_SKILLS}
+          render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
+            <InputTextArea
+              inputRef={ref}
+              name={name}
+              value={value}
+              onChange={onChange}
+              error={error?.message}
+              placeholder={t('digitalSkills')}
+              className="input-textarea"
+              label={t('digitalSkills')}
             />
           )}
         />
@@ -164,6 +189,7 @@ const ResumeQuestionnaireForm: React.FC = () => {
             text={i18n.t('globalStrings.submit')}
             htmlType="submit"
             style={{ marginTop: '20px' }}
+            loading={isPending}
           />
         </div>
       </form>

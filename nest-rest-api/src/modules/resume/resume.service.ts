@@ -13,7 +13,7 @@ import {
 import { AkpaModels } from '../openai/models';
 import { AkpaPrompts } from '../openai/promptContent';
 import { ResumeRepository } from './resume.repository';
-import { Prisma, SourceType } from '@prisma/client';
+import { DrivingLicense, Prisma, SourceType } from '@prisma/client';
 import { UserService } from 'src/modules/user/user.service';
 import { ExperienceDto, ResumeDto } from './dto/resume.dto';
 import { JobService } from 'src/modules/job/job.service';
@@ -207,7 +207,10 @@ export class ResumeService {
       throw new InternalServerErrorException(
         'OpenAI failed to generate content!',
       );
+
     const resume: ResumeDto = extractJSON(generatedResume);
+    const summary = await this.improveSummary(resume, userId);
+    if (summary) resume.summary = summary;
     const resumeBody = prepareResumeBody(userId, resume);
 
     await Promise.all([
@@ -386,11 +389,11 @@ export class ResumeService {
       {
         role: 'system',
         content:
-          'You are a helpful resume assistant that formats and extracts all the necessary resume data from my interview answers that will be in albanian language. You never generate fictive resume information.',
+          'You are a helpful resume assistant that formats and extracts all the necessary resume data from my interview answers that will be in albanian language. You never generate fictive resume information. Always assign null if there is no value. For example if there is no first name the firstName of the in the json response should be : {firstName:null}',
       },
       {
         role: 'user',
-        content: `The interviewer asked me questions chronologically about: experiences, educations, native language, other languages, technical/digital skills, soft skills, hobbies and the last one was a summary. Here are my interview answers: ${JSON.stringify(
+        content: `The interviewer asked me questions chronologically about: experiences, educations, native language, other languages, digital skills, technical skills, soft skills, hobbies and the last one was a summary. Here are my interview answers: ${JSON.stringify(
           userInput,
         )}`,
       },
@@ -400,7 +403,7 @@ export class ResumeService {
       },
       {
         role: 'user',
-        content: `Reply only with the response nothing else. The response must be a json. Do not change, add or remove any information of the sections. Replace double quotes inside the values of json (not the starting and ending double quotes) with single quotes. The json response must have this exact interface: {email: string;firstName: string;lastName: string; profilePicture: string;nationality: string; linkedinUrl: string;location: string;  phoneNumber: string;summary: string;  educations: { title: string;type: string;location: string;    startDate: Date;  endDate: Date;}[];  experiences: { position: string;startDate: Date;endDate: Date;  company: string;responsibilities: string;  }[]; languages: { name: string;isNative: boolean;reading: string;    listening: string;   speaking: string;}[];  digitalSkills: string[]; softSkills: string[];  hobbies: string[]; certificates: {name: string;    receivedDate: Date;    expirationDate: Date;  }[];volunteering: {role: string; organization: string;}[];publications: {name: string;    link: string; releaseDate: Date;}[];  drivingLicense: string;}. If the value of a specific key is not found and its type is string, assign it as empty. Validate every property value if are correctly spelled in albanian and correct them. Reply only with the json no other/additional words/symbols before or after it. Translate every json value into albanian. Do not add fake values, such as fake or random firstName or lastName. For example if there is no email assign it as empty string.`,
+        content: `Reply only with the response nothing else. The response must be a json. Do not change, add or remove any information of the sections. Replace double quotes inside the values of json (not the starting and ending double quotes) with single quotes. This is the type of the driving licence:${DrivingLicense}. It must be null if there is no info about driving licence mentioned. Find its type based on the word I have chosen to describe it and then convert it based on the enum. Use it in the json response. The language reading, listening and writing must have have one of these values: [A1,B1,B2,C1,C2]. Convert the language level if it is a word to one of these values. For example if the level is shlelqyeshem, it means the level is C1. The json response must have this exact interface: {email: string|null;firstName: string|null;lastName: string|null; profilePicture: string|null;nationality: string|null; linkedinUrl: string|null;location: string|null;  phoneNumber: string|null;summary: string|null;  educations: { title: string|null;type: string|null;location: string|null;    startDate: Date|null;  endDate: Date|null;}[];  experiences: { position: string|null;startDate: Date|null;endDate: Date|null;  company: string|null;responsibilities: string|null;  }[]; languages: { name: string|null;isNative: boolean|null;reading: string|null;    listening: string|null;   speaking: string|null;}[];  digitalSkills: string[]; softSkills: string[];  hobbies: string[]; certificates: {name: string|null;    receivedDate: Date|null;    expirationDate: Date|null;  }[];volunteering: {role: string|null; organization: string|null;}[];publications: {name: string|null;    link: string|null; releaseDate: Date|null;}[];  drivingLicense: DrivingLicence|null;}. If the value of a specific key is not found and its type is string, assign it as empty. Validate every property value if are correctly spelled in albanian and correct them. Reply only with the json no other/additional words/symbols before or after it. Translate every json value into albanian. Do not add fake values, such as fake or random firstName or lastName. For example if there is no email assign it as empty string.`,
       },
     ];
 
@@ -432,44 +435,40 @@ export class ResumeService {
     userInput: ExperienceDto[],
     jobDetails?: JobSummaryDTO,
   ): Promise<string | null> {
-    try {
-      const yearsOfExperience = await this.calculateYearsOfExperience(
-        userId,
-        userInput,
-      );
-      let systemPrompt: string = AkpaPrompts.generateSummaryWithoutExperience;
-      if (yearsOfExperience > 0) {
-        const years = Math.round(yearsOfExperience);
-        systemPrompt = `${AkpaPrompts.generateSummary}. ${years}`;
-      }
-      let userMessage = this.toString(userInput);
-      if (jobDetails) {
-        userMessage += ` ${this.toString(jobDetails)}`;
-      }
-      const messages: ChatCompletionMessageParam[] = [
-        {
-          role: 'system',
-          content: systemPrompt,
-        },
-        {
-          role: 'user',
-          content: userMessage,
-        },
-      ];
-
-      const body: ChatCompletionCreateParamsNonStreaming = {
-        messages,
-        model: AkpaModels.CHAT,
-      };
-
-      return this.openAIService.generateCompletion(
-        body,
-        userId,
-        PromptType.Summary,
-      );
-    } catch (error) {
-      throw new InternalServerErrorException(`${error}`);
+    const yearsOfExperience = await this.calculateYearsOfExperience(
+      userId,
+      userInput,
+    );
+    let systemPrompt: string = AkpaPrompts.generateSummaryWithoutExperience;
+    if (yearsOfExperience > 0) {
+      const years = Math.round(yearsOfExperience);
+      systemPrompt = `${AkpaPrompts.generateSummary}. ${years}`;
     }
+    let userMessage = this.toString(userInput);
+    if (jobDetails) {
+      userMessage += ` ${this.toString(jobDetails)}`;
+    }
+    const messages: ChatCompletionMessageParam[] = [
+      {
+        role: 'system',
+        content: systemPrompt,
+      },
+      {
+        role: 'user',
+        content: userMessage,
+      },
+    ];
+
+    const body: ChatCompletionCreateParamsNonStreaming = {
+      messages,
+      model: AkpaModels.CHAT,
+    };
+
+    return this.openAIService.generateCompletion(
+      body,
+      userId,
+      PromptType.Summary,
+    );
   }
 
   async calculateYearsOfExperience(
@@ -592,5 +591,33 @@ export class ResumeService {
         'Failed to generate text from OpenAI',
       );
     }
+  }
+
+  async improveSummary(actualResume: ResumeDto, userId: string) {
+    const messages: ChatCompletionMessageParam[] = [
+      {
+        role: 'user',
+        content:
+          'I am seeking to generate an impressive summary for my resume. I would like the summary to reflect my expertise and achievements. Please generate a concise summary highlighting my key skills, notable accomplishments and professional background in general without adding details, that will captivate hiring managers. Keep it under 60 words. The language of the generated summary must be in albanian.',
+      },
+      {
+        role: 'user',
+        content: `Here is my actual resume ${JSON.stringify(
+          actualResume,
+        )}. Generate a professional summary based on the my resume given above.  Return only the summary as a string. The summary must be translated in albanian`,
+      },
+    ];
+
+    const body: ChatCompletionCreateParamsNonStreaming = {
+      messages,
+      model: AkpaModels.CHAT,
+      response_format: { type: 'text' },
+    };
+
+    return this.openAIService.generateCompletion(
+      body,
+      userId,
+      PromptType.ResumeWizard,
+    );
   }
 }

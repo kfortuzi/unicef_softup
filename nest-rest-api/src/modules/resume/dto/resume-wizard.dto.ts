@@ -22,6 +22,10 @@ export class ResumeWizardDto {
   @IsString()
   technicalSkills: string;
 
+  @ApiProperty()
+  @IsString()
+  digitalSkills: string;
+
   @ApiPropertyOptional()
   @IsString()
   softSkills?: string;

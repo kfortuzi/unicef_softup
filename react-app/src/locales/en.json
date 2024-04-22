@@ -308,7 +308,7 @@
       "coverLetterDeletePopconfirmTitle": "Delete Cover Letter",
       "coverLetterDeletePopconfirmDescription": "Are you sure you want to delete this cover letter?"
     },
-    "coverLetterQuestionnaire" : {
+    "coverLetterQuestionnaire": {
       "header": "Cover Letter Questionnaire"
     },
     "coverLetterDetails": {
@@ -387,6 +387,7 @@
       "nativeLanguage": "Native Language",
       "otherLanguage": "Other Language",
       "technicalSkills": "Technical Skills",
+      "digitalSkills": "Digital Skills",
       "softSkills": "Soft Skills",
       "hobbies": "Hobbies",
       "summary": "Summary",

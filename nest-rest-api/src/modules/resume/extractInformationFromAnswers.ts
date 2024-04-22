@@ -43,7 +43,7 @@ export const extractInformationFromAnswers: ChatCompletionCreateParams.Function 
         },
         summary: {
           type: 'string',
-          description: 'Generate an 80-character summary for my CV.',
+          description: 'Generate an 80 character summary for my CV.',
         },
         educations: {
           type: 'array',
@@ -131,21 +131,21 @@ export const extractInformationFromAnswers: ChatCompletionCreateParams.Function 
           required: ['name', 'isNative', 'reading', 'listening', 'speaking'],
         },
         digitalSkills: {
-          description: 'List of digital skills',
+          description: `List of extacted digital skills.  EX: ['microsoft word', 'microsoft powerpoint']`,
           type: 'array',
           items: {
             type: 'string',
           },
         },
         technicalSkills: {
-          description: 'List of technical skills',
+          description: `List of extracted technical skills.  EX: ['Kodimi', 'Testimi i softuerit','Simulimet kompjuterike']`,
           type: 'array',
           items: {
             type: 'string',
           },
         },
         softSkills: {
-          description: 'List of soft skills',
+          description: `List of extracted soft skills. EX: ['Bashkepunimi','Puna ne grup','Komunikimi']`,
           type: 'array',
           items: {
             type: 'string',
@@ -153,7 +153,7 @@ export const extractInformationFromAnswers: ChatCompletionCreateParams.Function 
         },
         hobbies: {
           type: 'array',
-          description: 'List of my hobbies',
+          description: `List of extracted hobbies. EX: ['Te luaj ping ping','Te luaj futboll','Te shikoj filma']`,
           items: {
             type: 'string',
           },
