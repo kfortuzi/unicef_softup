@@ -58,12 +58,20 @@ const PersonalInfo: React.FC = () => {
         gutter={[16, 16]}
       >
         <Col
-          span={6}
-          style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}
+          xs={24}
+          sm={24}
+          md={8}
+          xl={8}
+          xxl={8}
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
         >
           <Image
             preview={false}
-            width="50%"
+            width={200}
             src={user?.profilePicture}
             fallback="/src/assets/images/profile-placeholder.png"
           />
@@ -76,7 +84,19 @@ const PersonalInfo: React.FC = () => {
             />
           </Upload>
         </Col>
-        <Col span={12}>
+        <Col
+          xs={24}
+          sm={24}
+          md={12}
+          xl={12}
+          xxl={12}
+
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
           {isEditMode ? (
             <PersonalInfoEditForm toggleEditMode={toggleIsEditForm} />
           ) : (

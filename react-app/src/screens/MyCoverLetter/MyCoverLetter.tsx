@@ -8,7 +8,6 @@ import useGetCoverLetter from 'src/api/coverLetters/hooks/useGetCoverLetter';
 import { GetCoverLetterResponse } from 'src/api/coverLetters/types';
 import useGetProfile from 'src/api/users/hooks/useGetProfile';
 import { User } from 'src/api/users/types';
-import Button from 'src/components/common/Button/Button';
 import LoadingFullPage from 'src/components/common/LoadingFullPage/LoadingFullPage';
 import CoverLetterPdfView from 'src/components/coverLetter/CoverLetterPdfView/CoverLetterPdfView';
 import CoverLetterView from 'src/components/coverLetter/CoverLetterView/CoverLetterView';
@@ -25,34 +24,26 @@ const MyCoverLetter: React.FC = () => {
   }
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexFlow: 'column',
-        gap: '20px',
-      }}
-    >
-      <h1 className='cover-letter-details-container'>
-        {t('header')}
-        <PDFDownloadLink
-          document={
-            <CoverLetterPdfView coverLetter={coverLetter as GetCoverLetterResponse} user={user as User} />
-          }
-          fileName="coverLetter.pdf"
-          style={{ width: 'fit-content' }}
-        >
-          <Button
-            text={t('downloadPdfButtonText')}
-            type="primary"
-            icon={<DownloadOutlined />}
+    <div className='cover-letter-layout'>
+      <div className='slide-container'>
+        <div className='cover-letter-details-header'>
+          <h1> {t('header')} </h1>
+          <PDFDownloadLink
+            document={
+              <CoverLetterPdfView coverLetter={coverLetter as GetCoverLetterResponse} user={user as User} />
+            }
+            fileName="coverLetter.pdf"
+          >
+            {t('downloadPdfButtonText')} <DownloadOutlined />
+          </PDFDownloadLink>
+        </div>
+        <div className='cover-letter-details-body'>
+          <CoverLetterView
+            coverLetter={coverLetter as GetCoverLetterResponse}
+            user={user as User}
           />
-        </PDFDownloadLink></h1>
-
-      <CoverLetterView
-        coverLetter={coverLetter as GetCoverLetterResponse}
-        user={user as User}
-      />
-
+        </div>
+      </div>
     </div>
   );
 };

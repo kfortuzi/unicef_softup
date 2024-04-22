@@ -1,3 +1,4 @@
+import { Col, Row } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -8,10 +9,20 @@ const ResumeQuestionnaire: React.FC = () => {
 
   return (
     <div className="resume-questionnaire-container">
-      <div className='resume-questionnaire-form'>
-        <h1>{t('header')}</h1>
-        <ResumeQuestionnaireForm />
-      </div>
+      <Row justify='center'>
+        <Col
+          xs={24}
+          sm={24}
+          md={16}
+          xl={12}
+          xxl={12}
+        >
+          <div className='resume-questionnaire-form'>
+            <h1>{t('header')}</h1>
+            <ResumeQuestionnaireForm />
+          </div>
+        </Col>
+      </Row>
     </div>
   );
 };

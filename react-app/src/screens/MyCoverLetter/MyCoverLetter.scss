@@ -1,6 +1,37 @@
-.cover-letter-details-container {
+.cover-letter-layout {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: $large;
+  flex-flow: column nowrap;
+  gap: $small;
+  margin: $large;
+
+  .slide-container {
+    display: flex;
+    flex-direction: column;
+    transform: translateX(20%);
+    transition: transform 0.5s;
+    width: 70%;
+
+
+    .cover-letter-details-body {
+      display: flex;
+      flex-direction: column;
+      background-color: white;
+      padding: $large;
+      box-shadow: $suggested-box-shadow;
+    }
+
+    .cover-letter-details-header {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: $large;
+    }
+  }
+
+}
+
+.slide-left {
+  transform: translateX(0%) !important;
 }

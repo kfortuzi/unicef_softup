@@ -1,4 +1,4 @@
-import { Typography } from 'antd';
+import { Col, Row, Typography } from 'antd';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
@@ -22,19 +22,29 @@ const InterviewTips: React.FC = () => {
   }
 
   return (
-    <div className="interview-tips-container">
-      <Title
-        level={3}
-        className="interview-tips-title"
+    <Row justify='center'>
+      <Col
+        xs={24}
+        sm={24}
+        md={16}
+        xl={12}
+        xxl={12}
       >
-        {t('header')}
-      </Title>
-      <Title level={4}>{t('tips')}</Title>
-      <Text>{data?.tips}</Text>
-      <hr className="divider" />
-      <Title level={4}>{t('interviewQuestions')}</Title>
-      <Text style={{ whiteSpace: 'pre-wrap' }}>{data?.interviewQuestions}</Text>
-    </div>
+        <div className="interview-tips-container">
+          <Title
+            level={3}
+            className="interview-tips-title"
+          >
+            {t('header')}
+          </Title>
+          <Title level={4}>{t('tips')}</Title>
+          <Text>{data?.tips}</Text>
+          <hr className="divider" />
+          <Title level={4}>{t('interviewQuestions')}</Title>
+          <Text style={{ whiteSpace: 'pre-wrap' }}>{data?.interviewQuestions}</Text>
+        </div>
+      </Col>
+    </Row>
   );
 };
 

@@ -46,7 +46,7 @@ const Home: React.FC = () => {
         <Chatbot />
       </div>
       <div className="services">
-        <Typography.Paragraph className="services-steps-text">{t('servicesStepsText')}</Typography.Paragraph>
+        <Typography.Text className="services-steps-text">{t('servicesStepsText')}</Typography.Text>
         <Typography.Title className="services-title">{t('servicesTitle')}</Typography.Title>
         <div className="service-wrapper">
           <Image src={generateResumeImage} className="icon" preview={false} />

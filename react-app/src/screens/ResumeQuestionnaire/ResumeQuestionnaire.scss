@@ -1,12 +1,10 @@
 .resume-questionnaire-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
 
   .resume-questionnaire-form {
     display: flex;
-    flex-direction: column;
-    width: 700px;
+    flex-flow: column nowrap;
     box-shadow: $suggested-box-shadow;
     background-color: white;
     padding: $large;

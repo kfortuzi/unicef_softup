@@ -58,12 +58,17 @@ const ProfileSettingsWithNavigation: React.FC = () => {
       hasSider
       className="page-with-navigation-container"
     >
-      <Sider style={{ height: '100vh' }}>
+      <Sider
+        breakpoint="lg"
+        collapsedWidth="0"
+        zeroWidthTriggerStyle={{ color: 'black' }}
+      >
+        <div className="demo-logo-vertical" />
         <Menu
-          theme="dark"
           mode="inline"
-          style={{ marginTop: '5vh' }}
+          theme='dark'
           items={navigationItems}
+          className='profile-settings-navigation-menu'
         />
       </Sider>
       <Layout className="layout-content">

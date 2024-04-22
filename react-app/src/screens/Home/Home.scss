@@ -71,8 +71,10 @@
     justify-content: center;
     background-color: $background-color;
     padding: calc(2 * $large);
+    gap: $large;
 
     .services-steps-text {
+      text-align: center;
       margin: 0;
     }
 
@@ -88,7 +90,6 @@
     }
 
     .service-wrapper {
-      flex: 1;
       display: flex;
       flex-flow: column nowrap;
       align-items: center;

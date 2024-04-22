@@ -1,12 +1,10 @@
 .cover-letter-questionnaire-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
 
   .cover-letter-questionnaire-form {
     display: flex;
     flex-direction: column;
-    width: 700px;
     box-shadow: $suggested-box-shadow;
     background-color: white;
     padding: $large;
