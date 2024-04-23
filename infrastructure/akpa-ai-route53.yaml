@@ -8,9 +8,9 @@ Resources:
     Properties:
       HostedZoneConfig:
         Comment: "Hosted zone for managing Akpa Ai DNS entries"
-      Name: "akpa.ai"
+      Name: "akpa.softup.co"
 
 Outputs:
-  SoftupXZoneId:
+  AkpaHostedZoneId:
     Description: ID of the Hosted Zone for akpa.ai
     Value: !Ref DNS

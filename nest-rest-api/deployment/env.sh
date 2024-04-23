@@ -13,8 +13,6 @@ akpa_featured_jobs_url="https://www.puna.gov.al/shkp_api/odoo_post/getFeaturedJo
 strapi_base_url="http://strapi:1337/api"
 strapi_token="token" #TODO: Store the tokens in secret manager
 
-strapi_public_url="https://akpa-dev.softup.co/strapi"
-
 db_user=$(get_secret_value rds-db-instance-credentials/master-$ENVIRONMENT username)
 db_password=$(get_secret_value rds-db-instance-credentials/master-$ENVIRONMENT password)
 db_host=$(get_secret_value rds-db-instance-credentials/master-$ENVIRONMENT host)
@@ -59,7 +57,6 @@ echo "DATABASE_PORT=5432" >> .env.strapi.$ENVIRONMENT
 echo "DATABASE_USERNAME=$db_user" >> .env.strapi.$ENVIRONMENT
 echo "DATABASE_PASSWORD=$db_password" >> .env.strapi.$ENVIRONMENT
 echo "AWS_BUCKET=$strapi_s3_bucket_name" >> .env.strapi.$ENVIRONMENT
-echo "PUBLIC_URL=$strapi_public_url" >> .env.strapi.$ENVIRONMENT
 echo "JWT_SECRET=$strapi_jwt_secret" >> .env.strapi.$ENVIRONMENT
 echo "ADMIN_JWT_SECRET=$strapi_admin_jwt_secret" >> .env.strapi.$ENVIRONMENT
 echo "APP_KEYS=$strapi_app_keys" >> .env.strapi.$ENVIRONMENT

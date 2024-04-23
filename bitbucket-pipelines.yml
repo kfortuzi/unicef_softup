@@ -148,6 +148,8 @@ deploy-to-ec2-dev: &deploy-to-ec2-dev
           COMMAND: "${BITBUCKET_CLONE_DIR}/nest-rest-api/deployment/spinup-docker-compose.sh"
           ENV_VARS: >-
             ENVIRONMENT=dev
+            API_HOST=api-dev.akpa.softup.co
+            STRAPI_HOST=strapi-dev.akpa.softup.co
 
 test-api: &test-api
   step:
@@ -174,6 +176,14 @@ deploy-frontend-infrastructure-dev: &deploy-frontend-infrastructure-dev
     script:
       - cd react-app/infrastructure
       - ENVIRONMENT=dev ./deploy.sh
+
+deploy-route-53: &deploy-route-53
+  step:
+    name: Deploy Route 53 Hosted Zone
+    image: atlassian/pipelines-awscli:1.29.35
+    script:
+      - cd infrastructure
+      - ./akpa-ai-route53.sh
 
 frontend-build-dev: &frontend-build-dev
   step:
@@ -211,6 +221,7 @@ pipelines:
       - parallel:
           - <<: *deploy-api-infrastructure-dev
           - <<: *deploy-frontend-infrastructure-dev
+          - <<: *deploy-route-53
       - parallel:
           - <<: *build-api-and-push-to-ecr-dev
           - <<: *build-migrations-and-push-to-ecr-dev

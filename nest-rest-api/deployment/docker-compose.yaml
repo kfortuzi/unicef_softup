@@ -15,9 +15,9 @@ services:
     env_file:
       - '.env.${ENVIRONMENT}'
     environment:
-      - VIRTUAL_HOST=akpa-dev.softup.co #TODO: Inject the host from variables, after creating the akpa hosted zone
+      - VIRTUAL_HOST=$API_HOST #TODO: Inject the host from variables, after creating the akpa hosted zone
       - VIRTUAL_PORT=3000
-      - LETSENCRYPT_HOST=akpa-dev.softup.co
+      - LETSENCRYPT_HOST=$API_HOST
       - VIRTUAL_PATH=/
     networks:
       - akpa
@@ -28,9 +28,10 @@ services:
     env_file:
       - '.env.strapi.${ENVIRONMENT}'
     environment:
-      - VIRTUAL_HOST=akpa-dev.softup.co
+      - VIRTUAL_HOST=$STRAPI_HOST
       - VIRTUAL_PORT=1337
-      - VIRTUAL_PATH=/strapi
+      - LETSENCRYPT_HOST=$STRAPI_HOST
+      - VIRTUAL_PATH=/
     ports:
       - '1337:1337'
     restart: unless-stopped
