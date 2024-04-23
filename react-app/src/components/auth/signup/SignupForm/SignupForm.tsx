@@ -1,3 +1,4 @@
+import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Alert, Typography } from 'antd';
 import React, { useState } from 'react';
@@ -7,7 +8,6 @@ import { Link } from 'react-router-dom';
 
 import useSignUp from 'src/api/users/hooks/useSignUp';
 import Button from 'src/components/common/Button/Button';
-import InputCheckbox from 'src/components/common/InputCheckbox/InputCheckbox.tsx';
 import InputText from 'src/components/common/InputText/InputText';
 import { Route } from 'src/router/enums';
 
@@ -62,17 +62,14 @@ const SignupForm: React.FC = () => {
             placeholder={t('passwordPlaceholder')}
             textVisible={showPassword}
             type="password"
+            suffix={showPassword
+              ? <EyeOutlined onClick={() => setShowPassword(false)} />
+              : <EyeInvisibleOutlined onClick={() => setShowPassword(true)} />}
           />
         )}
       />
       <div className="password-rules-and-show-password">
         <Typography.Text>{t('passwordRules')}</Typography.Text>
-        <InputCheckbox
-          name={FormField.SHOW_PASSWORD}
-          label={t('showPassword')}
-          checked={showPassword}
-          onChange={() => setShowPassword((current) => !current)}
-        />
       </div>
       <div className="submit-button-group">
         {isSuccess && (

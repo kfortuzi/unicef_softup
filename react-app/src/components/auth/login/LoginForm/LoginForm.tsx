@@ -1,3 +1,4 @@
+import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Typography } from 'antd';
 import React, { useState } from 'react';
@@ -7,7 +8,6 @@ import { Link } from 'react-router-dom';
 
 import useLogIn from 'src/api/auth/hooks/useLogin';
 import Button from 'src/components/common/Button/Button';
-import InputCheckbox from 'src/components/common/InputCheckbox/InputCheckbox';
 import InputText from 'src/components/common/InputText/InputText';
 import { Route } from 'src/router/enums';
 
@@ -62,25 +62,12 @@ const LoginForm: React.FC = () => {
             placeholder={t('passwordPlaceholder')}
             textVisible={showPassword}
             type="password"
+            suffix={showPassword
+              ? <EyeOutlined onClick={() => setShowPassword(false)} />
+              : <EyeInvisibleOutlined onClick={() => setShowPassword(true)} />}
           />
         )}
       />
-      <div className="show-password-checkbox-and-forgot-password">
-        <InputCheckbox
-          name={FormField.SHOW_PASSWORD}
-          label={t('showPassword')}
-          checked={showPassword}
-          onChange={() => setShowPassword((current) => !current)}
-        />
-        <Typography.Text>
-          <Link
-            className="login-form-forgot-password"
-            to={`${Route.ACCESS}/${Route.FORGOT_PASSWORD}`}
-          >
-            {t('forgotPassword')}
-          </Link>
-        </Typography.Text>
-      </div>
       <div className="submit-button-group">
         <Button
           type="primary"
