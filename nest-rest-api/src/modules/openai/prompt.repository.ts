@@ -6,6 +6,10 @@ import { PrismaService } from 'src/modules/commons/prisma/prisma.service';
 export class PromptRepository {
   constructor(private prismaService: PrismaService) {}
 
+  async findPrompts(query: Prisma.promptsWhereInput) {
+    return this.prismaService.prompts.findMany({ where: query });
+  }
+
   async getLatestPromptsByUser(
     userId: string,
     promptType: string,

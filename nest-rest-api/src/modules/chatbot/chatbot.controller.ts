@@ -26,7 +26,7 @@ export class ChatbotController {
     @Request() req: RequestWithUser,
     @Body() body: AskAssistantDto,
   ) {
-    return await this.chatbotService.assistant(req.user.id, body.message);
+    return await this.chatbotService.assistant(req.user.id, body);
   }
 
   @Post('helper')

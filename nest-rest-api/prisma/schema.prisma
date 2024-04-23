@@ -138,6 +138,7 @@ model prompts {
   prompResponse  String?  @map("promp_response")
   promptRequest  String   @map("prompt_request")
   promptType     String   @map("prompt_type")
+  firstChatbotConversationMessage Boolean @map("first_chatbot_conversation_message") @default(false)
   requireHistory Boolean  @default(false) @map("require_history")
   startedAt      DateTime @default(now()) @map("started_at")
   user           users    @relation(fields: [userId], references: [id])

@@ -4,6 +4,9 @@ import { ChatCompletionCreateParamsNonStreaming } from 'openai/resources/chat';
 import { PromptRepository } from './prompt.repository';
 import { PromptType } from './promptTypes';
 import { Config } from 'config';
+import { Prisma } from '@prisma/client';
+import { PrismaService } from '../commons/prisma/prisma.service';
+import { ConversatonHistoryDialog } from './types';
 
 @Injectable()
 export class OpenAIService {
@@ -11,6 +14,7 @@ export class OpenAIService {
 
   constructor(
     private promptRepository: PromptRepository,
+    private prismaService: PrismaService,
     private config: Config,
   ) {
     const configuration: ClientOptions = {
@@ -23,6 +27,7 @@ export class OpenAIService {
     body: ChatCompletionCreateParamsNonStreaming,
     userId: string,
     promptType: PromptType,
+    firstChatbotConversationMessage?: boolean,
   ) {
     try {
       const startTime = new Date();
@@ -33,9 +38,10 @@ export class OpenAIService {
         promptType: promptType,
         requireHistory: false,
         promptRequest: JSON.stringify(body.messages),
-        prompResponse: JSON.stringify(response.message),
+        prompResponse: JSON.stringify([response.message]),
         startedAt: startTime,
         endedAt: endDate,
+        firstChatbotConversationMessage,
         user: {
           connect: { id: userId },
         },
@@ -76,6 +82,23 @@ export class OpenAIService {
     }
   }
 
+  async findPrompts(query: Prisma.promptsWhereInput) {
+    return this.promptRepository.findPrompts(query);
+  }
+
+  async findLastConversationHistoryPerUser(userid: string) {
+    const conversation = await this.prismaService.$queryRaw`
+SELECT (prompt_request::json->(json_array_length(prompt_request::json) - 1))::json->>'content' AS question,
+COALESCE(
+        (promp_response::json->(json_array_length(promp_response::json) - 1))::json->>'content',
+        'function_call'
+    ) AS answer
+ FROM prompts WHERE user_id=${userid} AND prompt_type='MainChat' AND started_at >=
+(SELECT  started_at FROM prompts WHERE first_chatbot_conversation_message=true AND prompt_type='MainChat' ORDER BY started_at DESC LIMIT 1)
+  `;
+    return conversation as ConversatonHistoryDialog[];
+  }
+
   prepareMessageForAIValidation(
     prompts: string,
     inputObject: any,
@@ -87,9 +110,5 @@ export class OpenAIService {
     }
     message += `. ${JSON.stringify(inputObject)} . ${prompts}`;
     return JSON.stringify(message);
-  }
-
-  getJobTitle(jobTitle: string) {
-    return ` omg thsi is a jobbb${jobTitle}`;
   }
 }

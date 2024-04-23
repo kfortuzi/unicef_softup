@@ -8,13 +8,16 @@ import AskWizardModal from '../common/AskWizardModal/AskWizardModal';
 
 const Chatbot: React.FC = () => {
   const [isOpen, setOpen] = useState(false);
+  const [firstChatbotConversationMessage, setFirstChatbotConversationMessage] = useState(true);
   const { mutateAsync: postChatbotAsync } = usePostChatbot();
 
   const sendMessageAndGetAiPrompt = async (text: string): Promise<string | undefined> => {
     const data = await postChatbotAsync({
       message: text,
+      firstChatbotConversationMessage,
     });
 
+    setFirstChatbotConversationMessage(false);
     if (data) {
       return data;
     }
@@ -22,7 +25,7 @@ const Chatbot: React.FC = () => {
 
   const openChatbot = () => {
     setOpen(true);
-  }
+  };
 
   return (
     <>
@@ -40,7 +43,6 @@ const Chatbot: React.FC = () => {
       />
     </>
   );
-
 };
 
 export default Chatbot;

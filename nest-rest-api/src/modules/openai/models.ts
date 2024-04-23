@@ -6,3 +6,7 @@ export enum AkpaModels {
   RESUME_GENERATE = 'ft:gpt-3.5-turbo-1106:softup-technologies-gmbh::8z0vxexr',
   COVER_LETTER = 'ft:gpt-3.5-turbo-1106:softup-technologies-gmbh:cover-letter:8zv2ha7T',
 }
+
+export enum AIModels {
+  gpt_35_turbo_0125 = 'gpt-3.5-turbo-0125',
+}

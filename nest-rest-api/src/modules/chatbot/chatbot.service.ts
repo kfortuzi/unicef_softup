@@ -1,49 +1,61 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { OpenAIService } from '../openai/openai.service';
 import {
   ChatCompletionCreateParamsNonStreaming,
   ChatCompletionMessageParam,
 } from 'openai/resources/chat';
-import { AkpaPrompts } from '../openai/promptContent';
 import { HelperService } from 'src/modules/openai/openai.helper';
 import { PromptType } from '../openai/promptTypes';
 import { JobService } from 'src/modules/job/job.service';
-import { AkpaModels } from '../openai/models';
+import { AIModels, AkpaModels } from '../openai/models';
+import { AskAssistantDto } from './dto/ask-assistant.dto';
+import { getJobTitle } from './functions/getJobTitle';
+import { AkpaPrompts } from '../openai/promptContent';
+import { UserService } from '../user/user.service';
+import { ChatbotHelper } from './chatbot.helper';
 
 @Injectable()
 export class ChatbotService {
   constructor(
     private openAIService: OpenAIService,
     private helper: HelperService,
+    private chatbotHelper: ChatbotHelper,
     private jobService: JobService,
+    private userService: UserService,
   ) {}
 
-  async assistant(userId: string, userRequest: string) {
+  async assistant(userId: string, body: AskAssistantDto) {
+    const { firstChatbotConversationMessage, message: userRequest } = body;
+
+    const user = this.userService.findOne(userId);
+    if (!user) throw new NotFoundException('User was not found');
+
     try {
-      const getJobTitle = {
-        name: 'getJobTitle',
-        description:
-          'Ekstrakto titullin e punes nga pyetja e perdoruesit nese perdoruesi deshiron te dije informacione mbi nje vend te lire pune',
-        parameters: {
-          type: 'object',
-          properties: {
-            jobTitle: {
-              type: 'string',
-              description: 'Titulli i punes ne gjuhen shqipe.',
-            },
-          },
-          required: ['jobTitle'],
-        },
-      };
+      const chatHistory = firstChatbotConversationMessage
+        ? null
+        : await this.generateChatHistorySummary(userId);
 
       const messages: ChatCompletionMessageParam[] = [
         {
           role: 'system',
           content: AkpaPrompts.chatbot,
         },
+        chatHistory
+          ? {
+              role: 'user',
+              content: `Kjo eshte nje permbledhje e bisedes me perdoruesin deri ne kete moment: ${chatHistory}. Kjo eshte pyetja e rradhes: ${userRequest}`,
+            }
+          : {
+              role: 'user',
+              content: `Perdoruesi do beje pyetjen e tij te pare. Chati nuk ka histori. Tregoji mireseardhje dhe pergjigju me profesionalizem.`,
+            },
         {
           role: 'user',
-          content: userRequest,
+          content: `${userRequest}`,
         },
       ];
 
@@ -58,6 +70,7 @@ export class ChatbotService {
         body,
         userId,
         PromptType.MainChat,
+        firstChatbotConversationMessage,
       );
 
       if (response?.charAt(0) === '{') {
@@ -112,7 +125,7 @@ export class ChatbotService {
       !!mostRelevantJobs.length
         ? {
             role: 'user',
-            content: `Jepni një përgjigje të pranueshme dhe profesionale për pyetjen. Jepi perdoruesit detaje per te gjitha vendet e lira te punes. Perfshi address dhe description te punes. Pergjigju vetem ne shqip dhe ne menyre te permbledhur.`,
+            content: `Jepni një përgjigje të pranueshme dhe profesionale për pyetjen. Jepi perdoruesit detaje per te gjitha vendet e lira te punes. Perfshi address, description te punes dhe gjithashtu per cdo pozicion te lire pune bashkengjiti referenceId linkut 'https://www.puna.gov.al/job/'. Linkun beje te klikueshem duke e mbeshtjelle me <a>. Linku do te duket keshtu: <a href="https://www.puna.gov.al/job/{referenceId} target="_blank"">https://www.puna.gov.al/job/{referenceId}</a>. Renditi pozicionet e punes. Cdo pozicion pune duhet te jete i ndare nga tjetri dhe ne rresht te ri. Pergjigju vetem ne shqip dhe ne menyre te permbledhur.`,
           }
         : {
             role: 'user',
@@ -133,5 +146,39 @@ export class ChatbotService {
     if (!response)
       throw new InternalServerErrorException('No response generated from AI');
     return response;
+  }
+
+  async generateChatHistorySummary(userId: string) {
+    const conversation =
+      await this.openAIService.findLastConversationHistoryPerUser(userId);
+
+    const chatHistory =
+      this.chatbotHelper.mergeChatHistoryWithFunctionCalling(conversation);
+
+    const messages: ChatCompletionMessageParam[] = [
+      {
+        role: 'system',
+        content:
+          'Ti je nje asistent qe gjeneron nje permbledhje te te gjitha pyetjeve dhe pergjigjeve te bera gjate nje bisede mes nje perdoruesi dhe nje asisteni AI. Permbledhja duhet te jete nje tekst paragraf qe thekson pikat me te rendesishme te biseds. Pergjigja duhet te jete vetem ne gjuhen shqipe.',
+      },
+      {
+        role: 'user',
+        content: `Kjo eshte biseda per te cilen duhet te gjenerosh nje permbledhje : \n${JSON.stringify(
+          chatHistory,
+        )}.\n Kthe vetem permbledhjen si string`,
+      },
+    ];
+
+    const body: ChatCompletionCreateParamsNonStreaming = {
+      messages,
+      model: AIModels.gpt_35_turbo_0125,
+      response_format: { type: 'text' },
+    };
+
+    return await this.openAIService.generateCompletion(
+      body,
+      userId,
+      PromptType.GenerateHistorySummaryForMainChatbot,
+    );
   }
 }

@@ -1,6 +1,7 @@
 import { RightOutlined, RobotOutlined, UserOutlined } from '@ant-design/icons';
 import { Modal, Typography, ModalProps } from 'antd';
 import Search from 'antd/es/input/Search';
+import parse from 'html-react-parser';
 import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -125,7 +126,9 @@ const AskWizardModal: React.FC<AskWizardModalProps> = ({
                 </div>
                 <div className="ask-wizard-message-container">
                   <div className="ask-wizard-message-text">
-                    <Typography.Paragraph>{message.text}</Typography.Paragraph>
+                    <Typography.Paragraph style={{ whiteSpace: 'pre-wrap' }}>
+                      {parse(message.text)}
+                    </Typography.Paragraph>
                   </div>
                   {message.type === 'ai' && message.isUsable && !isMainChatbot && (
                     <div className="ask-wizard-button-group">

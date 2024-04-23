@@ -11,4 +11,5 @@ export enum PromptType {
   InterviewQuestions = 'InterviewQuestions',
   CoverLetter = 'CoverLetter',
   Resume = 'Resume',
+  GenerateHistorySummaryForMainChatbot = 'HistorySummaryForMainChatbot',
 }

@@ -49,8 +49,12 @@ export const prepareResumeBody = (
 const isValid = (input: unknown) => {
   if (
     input === 'undefined' ||
+    input === 'null' ||
     input === 'not provided' ||
     input === '*' ||
+    input === 'N/A' ||
+    input === ' ' ||
+    input === 'not specified' ||
     input === '-'
   )
     return false;
