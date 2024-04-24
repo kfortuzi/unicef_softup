@@ -11,7 +11,6 @@ fe_host="https://db6acida7ydfm.cloudfront.net" # TODO: Temp only for demo
 akpa_base_job_url="https://www.puna.gov.al/shkp_api/odoo/getJob/"
 akpa_featured_jobs_url="https://www.puna.gov.al/shkp_api/odoo_post/getFeaturedJobs/5000/1"
 strapi_base_url="http://strapi:1337/api"
-strapi_token="token" #TODO: Store the tokens in secret manager
 
 db_user=$(get_secret_value rds-db-instance-credentials/master-$ENVIRONMENT username)
 db_password=$(get_secret_value rds-db-instance-credentials/master-$ENVIRONMENT password)
@@ -19,6 +18,7 @@ db_host=$(get_secret_value rds-db-instance-credentials/master-$ENVIRONMENT host)
 db_port=$(get_secret_value rds-db-instance-credentials/master-$ENVIRONMENT port)
 db_name=$(get_secret_value rds-db-instance-credentials/master-$ENVIRONMENT dbname)
 
+strapi_token=$(get_secret_value $ENVIRONMENT/strapi/api strapiToken)
 strapi_db_name=$(get_secret_value rds-db-instance-credentials/strapi-$ENVIRONMENT dbname)
 strapi_jwt_secret=$(get_secret_value $ENVIRONMENT/strapi strapiJwtSecret)
 strapi_admin_jwt_secret=$(get_secret_value $ENVIRONMENT/strapi strapiAdminJwtSecret)
@@ -62,3 +62,4 @@ echo "ADMIN_JWT_SECRET=$strapi_admin_jwt_secret" >> .env.strapi.$ENVIRONMENT
 echo "APP_KEYS=$strapi_app_keys" >> .env.strapi.$ENVIRONMENT
 echo "API_TOKEN_SALT=$strapi_api_token_salt" >> .env.strapi.$ENVIRONMENT
 echo "TRANSFER_TOKEN_SALT=$strapi_transfer_token_salt" >> .env.strapi.$ENVIRONMENT
+echo "AWS_REGION=$AWS_REGION" >> .env.strapi.$ENVIRONMENT
