@@ -3,13 +3,18 @@
   flex-flow: column nowrap;
   border-radius: $base-border-radius;
   box-shadow: $suggested-box-shadow;
+  height: 100%;
 
   .resume-card-body {
+    display: flex;
+    flex-direction: column;
     background-color: $card-background-color;
+    height: 100%;
 
     .ant-card-body {
       display: flex;
       flex-flow: column nowrap;
+      height: 100%;
       padding: $medium;
       gap: $small;
     }
@@ -43,6 +48,7 @@
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
+    margin-top: auto;
     gap: $small;
 
     .edit {
