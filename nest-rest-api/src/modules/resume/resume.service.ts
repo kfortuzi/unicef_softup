@@ -104,10 +104,6 @@ export class ResumeService {
 
   async findAllResumes(userId: string) {
     const resumes = await this.resumeRepository.findAll(userId);
-    if (!resumes || resumes.length === 0) {
-      throw new NotFoundException(`Resumes for user not found`);
-    }
-
     const updatedResumes = await Promise.all(
       resumes.map(async (resume) => {
         if (resume.profilePicture) {

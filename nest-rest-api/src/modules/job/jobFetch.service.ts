@@ -3,15 +3,21 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
-import { JobRepository } from './job.repository';
-import { Job } from './dto/job.dto';
-import dayjs from 'dayjs';
-import { JobListDTO } from './dto/job-list.dto';
-import { AkpaJobDTO } from './dto/akpa-job.dto';
 import { jobs, EducationType, JobType, Prisma } from '@prisma/client';
 import { Cron } from '@nestjs/schedule';
+import { Document } from '@langchain/core/documents';
+import { OpenAIEmbeddings } from '@langchain/openai';
+import { PineconeStore } from '@langchain/pinecone';
+import dayjs from 'dayjs';
+
 import { Config } from 'config';
+import { akpaPageDocs } from 'assets/docs/akpaWebpage';
+import { JobRepository } from './job.repository';
+import { Job } from './dto/job.dto';
+import { JobListDTO } from './dto/job-list.dto';
+import { AkpaJobDTO } from './dto/akpa-job.dto';
 import { SmService } from '../sm/sm.service';
+import pinecone from 'src/clients/pinecone';
 
 @Injectable()
 export class JobsFetchService {
@@ -23,7 +29,8 @@ export class JobsFetchService {
 
   @Cron('0 23 * * *')
   async fetchAndSaveJob() {
-    this.updateJobsBasedOnAkpa();
+    await this.updateJobsBasedOnAkpa();
+    await this.refreshVectorialData();
   }
 
   async fetchAndSaveJobForTestingPurpose() {
@@ -197,5 +204,33 @@ export class JobsFetchService {
       default:
         return null;
     }
+  }
+
+  async generateDocsFromJobs() {
+    const jobs = await this.jobRepository.findMany();
+
+    const jobDocs = jobs.map((job) => {
+      return new Document({
+        pageContent: `Hapet vend i lire pune si ${job.title} ne kompanine ${job.company}, adresa ${job.address}, ne qytetin e ${job.location}. Eksperienca e nevojshme eshte:  ${job.experience}. Punekerkuesi duhet te kete keto aftesi ${job.basicSkills},${job.skillLines}. Per te aplikuar mund te vizitoni linkun: https://www.puna.gov.al/job/${job.referenceId}`,
+        metadata: { jobTitle: `${job.title}`, jobLocation: `${job.location}` },
+      });
+    });
+
+    return [...jobDocs, ...akpaPageDocs];
+  }
+
+  async refreshVectorialData() {
+    const embeddings = new OpenAIEmbeddings({
+      openAIApiKey: this.config.openAiApiKey,
+    });
+
+    const pineconeIndex = pinecone.Index(this.config.pineconeIndex);
+
+    const docs = await this.generateDocsFromJobs();
+
+    await pineconeIndex.deleteAll();
+    await PineconeStore.fromDocuments(docs, embeddings, {
+      pineconeIndex,
+    });
   }
 }

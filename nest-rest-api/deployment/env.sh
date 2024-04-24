@@ -26,6 +26,9 @@ strapi_app_keys=$(get_secret_value $ENVIRONMENT/strapi strapiAppKeys)
 strapi_api_token_salt=$(get_secret_value $ENVIRONMENT/strapi strapiApiTokenSalt)
 strapi_transfer_token_salt=$(get_secret_value $ENVIRONMENT/strapi strapiTransferTokenSalt)
 
+pinecone_key=$(get_secret_value akpa/pinecone pineconeKey)
+pinecone_index=$(get_secret_value akpa/pinecone pineconeIndex)
+
 akpa_images_s3_stack_output=$(stack_output akpa-ai-images-s3-$ENVIRONMENT)
 images_s3_bucket_name=$(param_from_stack_output "$akpa_images_s3_stack_output" BucketName)
 
@@ -46,6 +49,8 @@ echo "STRAPI_BASE_URL=$strapi_base_url" >> .env.$ENVIRONMENT
 echo "STRAPI_TOKEN=$strapi_token" >> .env.$ENVIRONMENT
 echo "AWS_REGION=$AWS_REGION" >> .env.$ENVIRONMENT
 echo "OPENAI_API_KEY=$openai_api_key" >> .env.$ENVIRONMENT
+echo "PINECONE_KEY=$pinecone_key" >> .env.$ENVIRONMENT
+echo "PINECONE_INDEX=$pinecone_index" >> .env.$ENVIRONMENT
 
 # Strapi env file
 

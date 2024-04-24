@@ -29,6 +29,10 @@ export class JobService {
     return this.jobRepository.findMany(cursor, parseInt(take));
   }
 
+  async findAllJobs() {
+    return this.jobRepository.findMany();
+  }
+
   async getJobsByFilter(filter: string) {
     try {
       const filteredJobs = await this.jobRepository.getJobsByFilter(filter);
@@ -60,8 +64,11 @@ export class JobService {
     return jobData;
   }
 
-  async getLatestJobsByTitle(title: string) {
-    return await this.jobRepository.getLatestJobsByTitle(title);
+  async getLatestJobsByTitle(
+    title: string | undefined,
+    location: string | undefined,
+  ) {
+    return await this.jobRepository.getLatestJobsByTitle(title, location);
   }
 
   generateTagsForJob(job: Job): string {

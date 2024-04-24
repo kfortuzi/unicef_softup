@@ -6,6 +6,8 @@ import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
+import { wrapLinks } from 'src/utils/wrapLinks';
+
 import Button from '../Button/Button';
 import MainChatbotMessages from './MainChatBotMessages';
 
@@ -127,7 +129,7 @@ const AskWizardModal: React.FC<AskWizardModalProps> = ({
                 <div className="ask-wizard-message-container">
                   <div className="ask-wizard-message-text">
                     <Typography.Paragraph style={{ whiteSpace: 'pre-wrap' }}>
-                      {parse(message.text)}
+                      {parse(wrapLinks(message.text))}
                     </Typography.Paragraph>
                   </div>
                   {message.type === 'ai' && message.isUsable && !isMainChatbot && (

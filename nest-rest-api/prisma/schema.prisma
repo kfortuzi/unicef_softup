@@ -29,6 +29,7 @@ model users {
   user_recommended_jobs user_recommended_jobs[]
   user_skills           user_skills[]
   wizard_answer         wizard_answer[]
+  chatbot_history       chatbot_history[]
 }
 
 model user_skills {
@@ -138,12 +139,21 @@ model prompts {
   prompResponse  String?  @map("promp_response")
   promptRequest  String   @map("prompt_request")
   promptType     String   @map("prompt_type")
-  firstChatbotConversationMessage Boolean @map("first_chatbot_conversation_message") @default(false)
   requireHistory Boolean  @default(false) @map("require_history")
   startedAt      DateTime @default(now()) @map("started_at")
   user           users    @relation(fields: [userId], references: [id])
 
   @@map("prompts")
+}
+
+model chatbot_history {
+  id                       String   @id @default(cuid())
+  userId                   String   @map("user_id")
+  question                 String
+  answer                   String
+  firstConversationMessage Boolean  @default(false) @map("first_conversation_message")
+  createdAt                DateTime @default(now()) @map("created_at")
+  user                     users    @relation(fields: [userId], references: [id])
 }
 
 model wizard_answer {

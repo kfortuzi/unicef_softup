@@ -14,6 +14,8 @@ export class Config {
   public imagesBucketName: string;
   public sesFromEmail: string;
   public smCookieKey: string;
+  public pineconeKey: string;
+  public pineconeIndex: string;
 
   constructor() {
     const config = new ConfigService();
@@ -31,5 +33,7 @@ export class Config {
     this.imagesBucketName = config.get('AWS_S3_BUCKET_NAME') || 'images bucket';
     this.sesFromEmail = 'client-akpa@softup.co';
     this.smCookieKey = 'akpa-cookie';
+    this.pineconeKey = config.get('PINECONE_KEY') || '';
+    this.pineconeIndex = config.get('PINECONE_INDEX') || '';
   }
 }

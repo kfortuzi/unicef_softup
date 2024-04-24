@@ -53,14 +53,29 @@ export class JobRepository {
     });
   }
 
-  async getLatestJobsByTitle(title: string): Promise<jobs[]> {
+  async getLatestJobsByTitle(
+    title: string | undefined,
+    location: string | undefined,
+  ): Promise<jobs[]> {
+    const searchTitle = title ?? '';
+    const searchLocation = location ?? '';
+
     return this.prismaService.jobs.findMany({
       where: {
         OR: [
-          { title: { contains: title } },
-          { description: { contains: title } },
+          { title: { contains: searchTitle, mode: 'insensitive' } },
+          { description: { contains: searchTitle, mode: 'insensitive' } },
+          { skillLines: { contains: searchTitle, mode: 'insensitive' } },
         ],
-        AND: { isUnvailable: false },
+        AND: [
+          { isUnvailable: false },
+          {
+            OR: [
+              { location: { contains: searchLocation, mode: 'insensitive' } },
+              { address: { contains: searchLocation, mode: 'insensitive' } },
+            ],
+          },
+        ],
       },
       orderBy: { id: 'desc' },
     });

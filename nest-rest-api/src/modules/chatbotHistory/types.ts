@@ -1,4 +1,4 @@
 export interface ConversatonHistoryDialog {
-  question: string;
-  answer: string;
+  user: string;
+  assistant: string;
 }
