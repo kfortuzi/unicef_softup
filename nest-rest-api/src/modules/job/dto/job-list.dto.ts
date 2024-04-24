@@ -8,6 +8,22 @@ import {
 } from 'class-validator';
 import { ArrayOfNumAndString } from './types';
 
+class EmployerDetails {
+  @IsInt()
+  id: number;
+
+  @IsString()
+  @IsNotEmpty()
+  name: string;
+
+  @IsBoolean()
+  @IsString()
+  image: boolean | string;
+
+  @IsBoolean()
+  image_type: boolean;
+}
+
 export class JobListDTO {
   @IsString()
   @IsNotEmpty()
@@ -55,20 +71,4 @@ export class JobListDTO {
 
   @IsInt()
   vacant_positions: number;
-}
-
-class EmployerDetails {
-  @IsInt()
-  id: number;
-
-  @IsString()
-  @IsNotEmpty()
-  name: string;
-
-  @IsBoolean()
-  @IsString()
-  image: boolean | string;
-
-  @IsBoolean()
-  image_type: boolean;
 }

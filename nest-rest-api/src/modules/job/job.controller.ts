@@ -19,11 +19,14 @@ import {
 import { JwtAuthGuard } from 'src/modules/auth/jwt-auth.guard';
 import { RequestWithUser } from 'src/types/request';
 import { JobTipsDto } from './dto/job-tips.dto';
+import { JobsFetchService } from './jobFetch.service';
+import { JobListDTO } from './dto/job-list.dto';
 
 @Controller('jobs')
 export class JobController {
   constructor(
     private readonly jobService: JobService,
+    private readonly jobFetchService: JobsFetchService,
     private readonly userJobs: UserRecommendedJobsService,
   ) {}
 
@@ -102,5 +105,18 @@ export class JobController {
     @Request() req: RequestWithUser,
   ) {
     return this.jobService.getTipsAndInterviewQuestions(id, req.user.id);
+  }
+
+  @ApiBearerAuth()
+  @ApiTags('jobs')
+  @UseGuards(JwtAuthGuard)
+  @ApiResponse({
+    type: JobListDTO,
+    description: 'List of featured jobs from AKPA',
+  })
+  @ApiForbiddenResponse({ status: 403, description: 'Forbidden.' })
+  @Get('featured/akpa')
+  async getAkpaFeaturedJobs() {
+    return this.jobFetchService.fetchAndSaveJobForTestingPurpose();
   }
 }

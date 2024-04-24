@@ -1,4 +1,8 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { JobRepository } from './job.repository';
 import { Job } from './dto/job.dto';
 import dayjs from 'dayjs';
@@ -17,25 +21,33 @@ export class JobsFetchService {
 
   @Cron('0 23 * * *')
   async fetchAndSaveJob() {
+    this.updateJobsBasedOnAkpa();
+  }
+
+  async fetchAndSaveJobForTestingPurpose() {
+    this.updateJobsBasedOnAkpa();
+  }
+
+  async updateJobsBasedOnAkpa() {
     const list = await this.fetchFeaturedJobs();
-    if (list.response.length) {
-      for (const job of list.response) {
-        await this.processJob(job);
-      }
-    } else {
-      console.log('No jobs available');
+    if (!list.response.length) {
+      throw new NotFoundException('No jobs Available');
+    }
+
+    for (const job of list.response) {
+      await this.processJob(job);
     }
   }
 
   async processJob(job: JobListDTO) {
-    const jobExist = await this.jobRepository.findOneReferenceId(job.id);
-    if (jobExist) {
-      await this.checkAndUpdateJob(jobExist);
-    } else {
+    const jobInOurDb = await this.jobRepository.findOneReferenceId(job.id);
+    if (!jobInOurDb) {
       const details = await this.fetchJobDetails(job.id);
       const transformedJob = this.transformJobDetailsToModel(job, details);
-      await this.saveJob(transformedJob);
+      return await this.saveJob(transformedJob);
     }
+
+    return await this.checkAndUpdateJob(jobInOurDb);
   }
 
   async fetchFeaturedJobs() {
@@ -47,7 +59,7 @@ export class JobsFetchService {
         'Content-Type': 'application/json;charset=UTF-8',
         Referer: 'https://www.puna.gov.al/',
         cookie:
-          '_ga=GA1.1.2060805193.1707859283; visid_incap_2810608=aGfqP6l3Sfejd/U+Vio1Sbfy5mUAAAAAQkIPAAAAAACAWzuzAU9qf7Eq3RxbdhKVVCT4ZKm1xsD7; incap_ses_1091_2810608=mnocfaDH8gDyzZrs5gMkD33xGGYAAAAAnczCyon6uhq42KECaWjGpQ==; _ga_BQB8F7PK08=GS1.1.1712910726.14.0.1712910726.0.0.0',
+          'visid_incap_2810608=tvsBs4ePTaiHSHAVhVpILxiBHWYAAAAAQUIPAAAAAABhvQdafWyeI2KBtXqgIGe3; incap_ses_1078_2810608=gmlYNZ/lmk6962stU9P1DsSXH2YAAAAAXNNZc4cj2Nos8eW6lJErbQ==; incap_ses_1092_2810608=9F76JlJlES7G7lQ6OZAnDwq/KGYAAAAA+NU2ERkgbu2Lm1YrZyOOFg==',
       },
       body: JSON.stringify({
         token: null,
@@ -69,6 +81,7 @@ export class JobsFetchService {
       headers: {
         Accept: 'application/json, text/plain, */*',
         'Content-Type': 'application/json;charset=UTF-8',
+        Referer: 'https://www.puna.gov.al/',
       },
       body: JSON.stringify({ token: null }),
     });
@@ -80,7 +93,7 @@ export class JobsFetchService {
   }
 
   async saveJob(job: Prisma.jobsCreateInput) {
-    await this.jobRepository.create(job);
+    return await this.jobRepository.create(job);
   }
 
   async deactivateJob(referenceId: number) {
@@ -91,12 +104,13 @@ export class JobsFetchService {
     }
   }
 
-  async checkAndUpdateJob(jobExist: Job) {
+  async checkAndUpdateJob(job: Job) {
     const today = dayjs().startOf('day');
-    const dateEnd = dayjs(jobExist.dateEnd).startOf('day');
+    const dateEnd = dayjs(job.dateEnd).startOf('day');
     if (dateEnd.isBefore(today)) {
-      await this.deactivateJob(jobExist.referenceId);
+      return await this.deactivateJob(job.referenceId);
     }
+    return job;
   }
 
   concatenateSkills = (skills: any[]) => {
