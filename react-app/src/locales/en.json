@@ -347,6 +347,8 @@
       "searchPlaceholder": "Search",
       "viewDetails": "View Details",
       "applyButtonText": "Apply",
+      "applyJobPopconfirmTitle": "Apply for Job",
+      "applyJobPopconfirmDescription": "Are you sure you want to apply for this job without generate a cover letter?",
       "loadMoreButtonText": "Load More",
       "getPreparedButtonText": "Get Prepared",
       "viewDetailsButtonText": "View Details",

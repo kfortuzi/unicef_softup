@@ -1,6 +1,6 @@
-import { DownloadOutlined } from "@ant-design/icons";
+import { DownloadOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import { Modal, Tooltip } from "antd";
+import { Modal, Popconfirm, Tooltip } from "antd";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
@@ -20,6 +20,7 @@ type JobApplyModalProps = {
   resume?: GetResumeResponse;
   coverLetter?: GetCoverLetterResponse;
   referenceId?: string;
+  isApplied?: boolean;
 };
 
 const JobApplyModal: React.FC<JobApplyModalProps> = ({
@@ -28,6 +29,7 @@ const JobApplyModal: React.FC<JobApplyModalProps> = ({
   resume,
   coverLetter,
   referenceId,
+  isApplied,
 }) => {
 
   const navigate = useNavigate();
@@ -69,6 +71,120 @@ const JobApplyModal: React.FC<JobApplyModalProps> = ({
     setIsModalOpen(false);
   };
 
+  const getFooterButtons = () => {
+    if (resume && coverLetter) {
+      return (
+        <Button
+          key={`job-apply-modal-${jobId}-apply`}
+          type="primary"
+          text={t('applyButtonText')}
+          onClick={handleApply}
+        />
+      );
+    }
+
+    if (resume) {
+      return (
+        <Popconfirm
+          title={t('applyJobPopconfirmTitle')}
+          description={t('applyJobPopconfirmDescription')}
+          onConfirm={handleApply}
+          icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+          overlayInnerStyle={{ width: '20vh' }}
+          key={`job-apply-modal-${jobId}-apply-popconfirm`}
+        >
+          <Button
+            key="submit"
+            type="primary"
+            text={t('applyButtonText')}
+          />
+        </Popconfirm>
+      );
+    }
+
+    return (
+      <Tooltip
+        title={t('applyButtonDisabledTooltip')}
+        showArrow={true}
+        placement="top"
+        key={`job-apply-modal-${jobId}-apply-tooltip`}
+      >
+        <Button
+          key={`job-apply-modal-${jobId}-apply`}
+          type="primary"
+          text={t('applyButtonText')}
+          disabled={!resume}
+        />
+      </Tooltip>
+    );
+  };
+
+  const getResumeButtons = () => {
+    if (resume) {
+      return (
+
+        <div className='generated-info-group'>
+          <Button
+            text={t('viewResumeButtonText')}
+            type='link'
+            onClick={() => navigate(`/resumes/${resume?.id}`)}
+          />
+          <PDFDownloadLink
+            document={<ResumePdfView resume={resume} />}
+            fileName={`${resume?.firstName}-${companyName}.pdf`}
+          >
+            <DownloadOutlined />
+          </PDFDownloadLink>
+        </div>
+      );
+    }
+
+    return (
+      <Button
+        type="link"
+        text={t('tailorResumeButtonText')}
+        onClick={() => postResumeForJob({ jobId })}
+        loading={isResumePending}
+        className='generate-button'
+      />
+    );
+  }
+
+  const getCoverLetterButtons = () => {
+    if (coverLetter) {
+      return (
+
+        <div className='generated-info-group'>
+          <Button
+            text={t('viewCoverLetterButtonText')}
+            type='link'
+            onClick={() => navigate(`/cover-letters/${coverLetter?.id}`)}
+          />
+          <PDFDownloadLink
+            document={<CoverLetterPdfView coverLetter={coverLetter} user={user} />}
+            fileName={`${coverLetter?.to} - ${coverLetter?.company}.pdf`}
+          >
+            <DownloadOutlined />
+          </PDFDownloadLink>
+        </div>
+      );
+    }
+
+    return (
+      <Button
+        type="link"
+        text={t('generateCoverLetterButtonText')}
+        onClick={() => postCoverLetterForJob({ jobId })}
+        loading={isCoverLetterPending}
+        className='generate-button'
+      />
+    );
+  }
+
+  const footerButtons = getFooterButtons();
+  const coverLetterButtons = getCoverLetterButtons();
+  const resumeButtons = getResumeButtons();
+
   if (isCoverLetterSuccess) {
     navigate(`/cover-letters/${generatedCoverLetter?.id}`);
   }
@@ -84,86 +200,20 @@ const JobApplyModal: React.FC<JobApplyModalProps> = ({
         open={isModalOpen}
         onOk={handleApply}
         onCancel={handleCancel}
+        key={`job-apply-modal-${jobId}`}
+        destroyOnClose={true}
         footer={[
           <Button
-            key="back"
+            key={`job-apply-modal-${jobId}-${isApplied && 'applied'}-back`}
             type="link"
             text={t('cancelButtonText')}
             onClick={handleCancel}
           />,
-          <Tooltip
-            title={
-              !resume || !coverLetter ? t('applyButtonDisabledTooltip') : ''}
-            showArrow={true}
-            placement={'top'
-            }
-          >
-            <Button
-              key="submit"
-              type="primary"
-              text={t('applyButtonText')}
-              onClick={handleApply}
-              disabled={!resume || !coverLetter}
-            />
-          </Tooltip>
+          footerButtons
         ]}
       >
-        {resume ? (
-          <PDFDownloadLink
-            document={<ResumePdfView resume={resume} />}
-            fileName={`${resume?.firstName}-${companyName}.pdf`}
-          >
-            <div className='generated-info-group'>
-              <Button
-                text={t('viewResumeButtonText')}
-                type='link'
-                onClick={() => navigate(`/resumes/${resume?.id}`)}
-              />
-              <Button
-                type="primary"
-                text=''
-                icon={<DownloadOutlined />}
-                size="middle"
-              />
-            </div>
-          </PDFDownloadLink>
-        ) : (
-          <Button
-            type="link"
-            text={t('tailorResumeButtonText')}
-            onClick={() => postResumeForJob({ jobId })}
-            loading={isResumePending}
-            className='generate-button'
-          />
-        )}
-        {coverLetter ? (
-          <PDFDownloadLink
-            document={<CoverLetterPdfView coverLetter={coverLetter} user={user} />}
-            fileName={`${coverLetter?.to} - ${coverLetter?.company}.pdf`}
-          >
-            <div className='generated-info-group'>
-              <Button
-                text={t('viewCoverLetterButtonText')}
-                type='link'
-                onClick={() => navigate(`/cover-letters/${coverLetter?.id}`)}
-              />
-              <Button
-                type="primary"
-                text=''
-                icon={<DownloadOutlined />}
-                size="middle"
-              />
-            </div>
-          </PDFDownloadLink>
-        ) : (
-          <Button
-            type="link"
-            text={t('generateCoverLetterButtonText')}
-            onClick={() => postCoverLetterForJob({ jobId })}
-            loading={isCoverLetterPending}
-            className='generate-button'
-          />
-        )}
+        {resumeButtons}
+        {coverLetterButtons}
       </Modal>
       <Button
         type="primary"
@@ -171,7 +221,7 @@ const JobApplyModal: React.FC<JobApplyModalProps> = ({
         text={t('applyButtonText')}
         size="middle"
       />
-    </div>
+    </div >
   );
 }
 

@@ -26,7 +26,9 @@ const Jobs: React.FC = () => {
   const { data: resumes } = useGetResumes();
   const { data: coverLetters } = useGetCoverLetters();
   const appliedJobs = allJobs?.pages?.flatMap((page) =>
-    page?.filter((job) => resumes?.some((resume) => resume.referenceId === job?.id)),
+    page?.filter((job) =>
+      resumes?.some((resume) => resume.referenceId === job?.id)
+      || coverLetters?.some((coverLetter) => coverLetter.referenceId === job?.id)),
   ) as GetJobsResponse;
 
   return (
@@ -63,6 +65,7 @@ const Jobs: React.FC = () => {
                     location={job.location}
                     resume={resumes?.find((resume) => resume.referenceId === job.id)}
                     coverLetter={coverLetters?.find((coverLetter) => coverLetter.referenceId === job.id)}
+                    isApplied={true}
                   />
                 </Col>
               ),
@@ -97,6 +100,9 @@ const Jobs: React.FC = () => {
                 description={job.description}
                 companyName={job.company}
                 location={job.location}
+                resume={resumes?.find((resume) => resume.referenceId === job.id)}
+                coverLetter={coverLetters?.find((coverLetter) => coverLetter.referenceId === job.id)}
+                isApplied={appliedJobs.some((appliedJob) => appliedJob.id === job.id)}
               />
             </Col>
           ))
@@ -146,6 +152,9 @@ const Jobs: React.FC = () => {
                     description={job.description}
                     companyName={job.company}
                     location={job.location}
+                    resume={resumes?.find((resume) => resume.referenceId === job.id)}
+                    coverLetter={coverLetters?.find((coverLetter) => coverLetter.referenceId === job.id)}
+                    isApplied={appliedJobs?.some((appliedJob) => appliedJob.id === job.id)}
                   />
                 </Col>
               )))) : (

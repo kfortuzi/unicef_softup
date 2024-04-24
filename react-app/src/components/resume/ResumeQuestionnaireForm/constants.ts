@@ -7,6 +7,7 @@ export const defaultValues: FormValues = {
   [FormField.NATIVE_LANGUAGE]: '',
   [FormField.OTHER_LANGUAGE]: '',
   [FormField.TECHNICAL_SKILLS]: '',
+  [FormField.DIGITAL_SKILLS]: '',
   [FormField.SOFT_SKILLS]: '',
   [FormField.HOBBIES]: '',
   [FormField.SUMMARY]: '',

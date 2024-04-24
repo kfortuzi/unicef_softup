@@ -9,7 +9,7 @@ module.exports = {
     indent: [
       'error',
       2,
-      { SwitchCase: 1, ignoredNodes: ['TemplateLiteral'], offsetTernaryExpressions: true },
+      { SwitchCase: 1, ignoredNodes: ['TemplateLiteral', 'ConditionalExpression'], offsetTernaryExpressions: true },
     ],
     'import-helpers/order-imports': [
       "error",
