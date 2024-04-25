@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: space-evenly;
   border: 1px solid gray;
-  width: 60px;
+  width: min-content;
   border-radius: 5px;
   margin: 5px;
 
@@ -12,15 +12,15 @@
     margin: 0;
   }
 
-  .driving-license-image {
+  .driving-license-icon {
     border-right: 1px solid gray;
-    width: 30px;
-    height: 30px;
+    font-size: x-large;
     padding: 5px;
   }
 
   .driving-license-text {
     font-family: 'Roboto';
     font-size: $medium;
+    padding: 5px;
   }
 }

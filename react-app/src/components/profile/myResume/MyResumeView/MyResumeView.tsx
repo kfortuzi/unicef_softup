@@ -57,7 +57,7 @@ const MyResumeView: React.FC<MyResumeViewProps> = (props) => {
           </PDFDownloadLink>
         </div>
         <div className="my-resume-body">
-          <Row justify="center" wrap={true}>
+          <Row justify="center" wrap={true} style={{ width: '100%' }}>
             <Col
               className='contact-section'
               xs={24}

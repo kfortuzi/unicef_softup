@@ -37,6 +37,34 @@ const SignupForm: React.FC = () => {
     >
       <Controller
         control={control}
+        name={FormField.FIRST_NAME}
+        render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
+          <InputText
+            inputRef={ref}
+            name={name}
+            value={value}
+            error={error?.message}
+            onChange={onChange}
+            placeholder={t('firstNamePlaceholder')}
+          />
+        )}
+      />
+      <Controller
+        control={control}
+        name={FormField.LAST_NAME}
+        render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
+          <InputText
+            inputRef={ref}
+            name={name}
+            value={value}
+            error={error?.message}
+            onChange={onChange}
+            placeholder={t('lastNamePlaceholder')}
+          />
+        )}
+      />
+      <Controller
+        control={control}
         name={FormField.EMAIL}
         render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
           <InputText

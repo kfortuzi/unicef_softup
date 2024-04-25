@@ -1,3 +1,5 @@
+import { omitFalsyValue } from "src/utils/stringUtils";
+
 interface AboutMeViewProps {
   description?: string;
 }
@@ -5,7 +7,7 @@ interface AboutMeViewProps {
 const AboutMeView: React.FC<AboutMeViewProps> = (props) => {
   const { description } = props;
 
-  return <p className="about-me-description">{description}</p>;
+  return <p className="about-me-description">{omitFalsyValue(description)}</p>;
 };
 
 export default AboutMeView;

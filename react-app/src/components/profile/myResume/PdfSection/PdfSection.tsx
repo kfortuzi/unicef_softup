@@ -1,5 +1,7 @@
 import { Text, View, ViewProps } from '@react-pdf/renderer';
 
+import { omitFalsyValue } from 'src/utils/stringUtils';
+
 import styles from './PdfSectionStyle';
 
 interface PdfSectionProps extends ViewProps {
@@ -9,7 +11,10 @@ interface PdfSectionProps extends ViewProps {
 }
 
 const PdfSection: React.FC<PdfSectionProps> = (props) => {
-  const { title, subTitle, children, ...rest } = props;
+  const omittedFalsyProps = Object.fromEntries(
+    Object.entries(props).map(([key, value]) => [key, omitFalsyValue(value)])
+  );
+  const { title, subTitle, children, ...rest } = omittedFalsyProps;
 
   return (
     <View

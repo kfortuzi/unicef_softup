@@ -1,13 +1,18 @@
 import { Text, View } from '@react-pdf/renderer';
 
 import { Language } from 'src/api/resumes/types';
+import { omitFalsyValue } from 'src/utils/stringUtils';
 
 import styles from './PdfLanguageItemStyle';
 
 type PdfLanguageItemProps = Language;
 
 const PdfLanguageItem: React.FC<PdfLanguageItemProps> = (props) => {
-  const { name, reading, writing, speaking } = props;
+  const omittedFalsyProps = Object.fromEntries(
+    Object.entries(props).map(([key, value]) => [key, omitFalsyValue(value)])
+  );
+
+  const { name, reading, writing, speaking } = omittedFalsyProps;
 
   return (
     <View>

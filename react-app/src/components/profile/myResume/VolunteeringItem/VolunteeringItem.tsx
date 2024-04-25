@@ -2,11 +2,16 @@ import { useTranslation } from 'react-i18next';
 
 import { Volunteering } from 'src/api/resumes/types';
 import { formatDate } from 'src/utils/dateUtils';
+import { omitFalsyValue } from 'src/utils/stringUtils';
 
 type VolunteeringItemItemProps = Volunteering;
 
 const VolunteeringItem: React.FC<VolunteeringItemItemProps> = (props) => {
-  const { role, organization, startDate, endDate } = props;
+  const omittedFalsyProps = Object.fromEntries(
+    Object.entries(props).map(([key, value]) => [key, omitFalsyValue(value)])
+  );
+
+  const { role, organization, startDate, endDate } = omittedFalsyProps;
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume' });
 
   return (

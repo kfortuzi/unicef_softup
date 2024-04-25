@@ -3,13 +3,17 @@ import { useTranslation } from 'react-i18next';
 
 import { Volunteering } from 'src/api/resumes/types';
 import { formatDate } from 'src/utils/dateUtils';
+import { omitFalsyValue } from 'src/utils/stringUtils';
 
 import styles from './PdfVolunteeringItemStyle';
 
 type PdfVolunteeringItemItemProps = Volunteering;
 
 const PdfVolunteeringItem: React.FC<PdfVolunteeringItemItemProps> = (props) => {
-  const { organization, role, startDate, endDate } = props;
+  const omittedFalsyProps = Object.fromEntries(
+    Object.entries(props).map(([key, value]) => [key, omitFalsyValue(value)])
+  );
+  const { organization, role, startDate, endDate } = omittedFalsyProps;
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume' });
 
   return (

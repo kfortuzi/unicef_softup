@@ -1,20 +1,21 @@
+import { IdcardOutlined } from "@ant-design/icons";
+
+import { omitFalsyValue } from "src/utils/stringUtils";
+
 interface DrivingLicenseViewProps {
   drivingLicense: string;
 }
 
 const DrivingLicenseView: React.FC<DrivingLicenseViewProps> = ({ drivingLicense }) => {
-  return (
-    <div
-      className="driving-license-container"
-    >
-      <img
-        src={'https://cdn-icons-png.flaticon.com/512/1023/1023397.png'}
-        className="driving-license-image"
-        alt="Driving License Icon"
-      />
-      <p className="driving-license-text">{drivingLicense}</p>
-    </div>
-  );
+  return drivingLicense
+    ? (
+      <div
+        className="driving-license-container"
+      >
+        <IdcardOutlined className="driving-license-icon" />
+        <p className="driving-license-text">{omitFalsyValue(drivingLicense)}</p>
+      </div>
+    ) : null;
 }
 
 export default DrivingLicenseView;

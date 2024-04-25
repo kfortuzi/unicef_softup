@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Certificate } from 'src/api/resumes/types';
 import { formatDate, isValidDate } from 'src/utils/dateUtils';
+import { omitFalsyValue } from 'src/utils/stringUtils';
 
 import ListItem from '../ListItem/ListItem';
 
@@ -17,13 +18,15 @@ const CertificatesView: React.FC<CertificatesProps> = (props) => {
     <>
       {certificates?.map((certificate, index) => (
         <ListItem
-          title={certificate.name}
+          title={omitFalsyValue(certificate.name)}
           key={index}
           titleStyle={{ color: 'blue' }}
         >
-          <p>{`${t('receivedDate')} - ${formatDate(certificate?.receivedDate)}`}</p>
           {isValidDate(certificate?.expirationDate)
-            ? (<p>{`${t('expirationDate')} - ${formatDate(certificate?.expirationDate)}`}</p>)
+            ? `${t('receivedDate')} - ${formatDate(certificate?.receivedDate)}`
+            : null}
+          {isValidDate(certificate?.expirationDate)
+            ? `${t('expirationDate')} - ${formatDate(certificate?.expirationDate)}`
             : null}
         </ListItem>
       ))}

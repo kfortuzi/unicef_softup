@@ -2,10 +2,12 @@ import { EditOutlined } from '@ant-design/icons';
 import { Upload, UploadProps, message, Image } from 'antd';
 import { useTranslation } from 'react-i18next';
 
+import UserPlaceHolderImage from 'src/assets/images/user-placeholder.jpeg';
 import Button from 'src/components/common/Button/Button';
 import config from 'src/config';
 import i18n from 'src/locales';
 import { LocalStorageKey, getItem } from 'src/utils/storage';
+import { omitFalsyValue } from 'src/utils/stringUtils';
 
 interface ContactInfoViewProps {
   cvId: string;
@@ -23,7 +25,22 @@ interface ContactInfoViewProps {
 
 const ContactInfoView: React.FC<ContactInfoViewProps> = (props) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.contactInfoSection' });
-  const { cvId, name, nationality, phoneNumber, email, linkedinUrl, address, linkedinText, surname } = props;
+
+  const omittedFalsyProps = Object.fromEntries(
+    Object.entries(props).map(([key, value]) => [key, omitFalsyValue(value)])
+  );
+
+  const {
+    cvId,
+    name,
+    nationality,
+    phoneNumber,
+    email,
+    linkedinUrl,
+    address,
+    linkedinText,
+    surname
+  } = omittedFalsyProps;
 
   const uploadProps: UploadProps = {
     name: 'file',
@@ -49,14 +66,13 @@ const ContactInfoView: React.FC<ContactInfoViewProps> = (props) => {
   return (
     <div className="contact-info-view-section">
       <div className="profile-pic-section">
-        {props.profilePicture && (
-          <Image
-            src={props.profilePicture}
-            preview={false}
-            alt="Profile Picture"
-            className="profile-pic"
-          />
-        )}
+        <Image
+          src={props.profilePicture}
+          preview={false}
+          alt="Profile Picture"
+          className="profile-pic"
+          fallback={UserPlaceHolderImage}
+        />
         <Upload {...uploadProps}>
           <Button
             text={t('uploadProfilePicture')}
@@ -85,12 +101,11 @@ const ContactInfoView: React.FC<ContactInfoViewProps> = (props) => {
         </div>
         <div className="info-group">
           <p className="group-title">{t('linkedin')}</p>
-          <a
-            href={linkedinUrl}
-            className="group-value linkedin-link"
-          >
-            {linkedinText}
-          </a>
+          {linkedinUrl && (
+            <a href={linkedinUrl} className="group-value linkedin-link">
+              {linkedinText}
+            </a>
+          )}
         </div>
         <div className="info-group">
           <p className="group-title">{t('address')}</p>

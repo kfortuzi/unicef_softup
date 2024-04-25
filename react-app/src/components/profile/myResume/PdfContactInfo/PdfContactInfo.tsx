@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import UserPlaceholderImage from 'src/assets/images/user-placeholder.jpeg';
 import imgUrlToBase64 from 'src/utils/imgUrlToBase64';
+import { omitFalsyValue } from 'src/utils/stringUtils';
 
 import styles from './PdfContactInfoStyle';
 
@@ -20,7 +21,11 @@ interface PdfContactInfoProps {
 
 const PdfContactInfo: React.FC<PdfContactInfoProps> = (props) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.contactInfoSection' });
-  const { imgUrl, name, nationality, address, phone, email, linkedIn, linkedInText } = props;
+  const omittedFalsyProps = Object.fromEntries(
+    Object.entries(props).map(([key, value]) => [key, omitFalsyValue(value)])
+  );
+
+  const { imgUrl, name, nationality, address, phone, email, linkedIn, linkedInText } = omittedFalsyProps;
   const [profilePic, setProfilePic] = useState<string | null>('');
 
   useEffect(() => {
@@ -60,12 +65,14 @@ const PdfContactInfo: React.FC<PdfContactInfoProps> = (props) => {
         </View>
         <View style={styles.infoGroup}>
           <Text style={styles.groupTitle}>{t('linkedin')}</Text>
-          <Link
-            href={linkedIn}
-            style={styles.groupValue}
-          >
-            {linkedInText}
-          </Link>
+          {linkedIn ? (
+            <Link
+              href={linkedIn}
+              style={styles.groupValue}
+            >
+              {linkedInText}
+            </Link>
+          ) : null}
         </View>
         <View style={styles.infoGroup}>
           <Text style={styles.groupTitle}>{t('address')}</Text>

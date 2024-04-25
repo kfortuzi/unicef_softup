@@ -10,8 +10,8 @@ const signUp = async (request: SignupRequest): Promise<User | undefined> => {
       body: JSON.stringify({
         email: request.email,
         password: request.password,
-        firstName: '',
-        lastName: '',
+        firstName: request.firstName,
+        lastName: request.lastName,
       }),
     },
     false,

@@ -1,5 +1,7 @@
 import { View, Text, Image } from '@react-pdf/renderer';
 
+import { omitFalsyValue } from 'src/utils/stringUtils';
+
 import styles from './PdfDrivingLicenseItemStyle';
 
 interface PdfDrivingLicenseItemProps {
@@ -15,7 +17,7 @@ const PdfDrivingLicenseItem: React.FC<PdfDrivingLicenseItemProps> = ({ drivingLi
         src={'https://cdn-icons-png.flaticon.com/512/1023/1023397.png'}
         style={styles.drivingLicenseImage}
       />
-      <Text style={styles.drivingLicensText}>{drivingLicense}</Text>
+      <Text style={styles.drivingLicensText}>{omitFalsyValue(drivingLicense)}</Text>
     </View>
   );
 }
