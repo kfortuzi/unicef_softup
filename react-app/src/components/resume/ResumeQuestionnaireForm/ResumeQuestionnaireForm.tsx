@@ -1,9 +1,10 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
+import useGetResumes from 'src/api/resumes/hooks/useGetResumes';
 import usePostResumesWizard from 'src/api/resumes/hooks/usePostResumesWizard';
 import Button from 'src/components/common/Button/Button';
 import InputTextArea from 'src/components/common/InputTextArea/InputTextArea';
@@ -17,7 +18,13 @@ import validationSchema from './validations';
 
 const ResumeQuestionnaireForm: React.FC = () => {
   const { mutateAsync: postResumesWizardAsync, isPending } = usePostResumesWizard();
+  const { data: resumes } = useGetResumes();
   const navigate = useNavigate();
+  useEffect(() => {
+    if (resumes) {
+      navigate(Route.MY_RESUME);
+    }
+  }, [navigate, resumes]);
 
   const { handleSubmit, control } = useForm({
     defaultValues: defaultValues,

@@ -17,7 +17,7 @@ export class AuthService {
 
     const isMatch = await compareHash(pass, user.password);
 
-    if (!isMatch) return null;
+    if (!isMatch) throw new BadRequestException('Invalid credentials');
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, ...result } = user;

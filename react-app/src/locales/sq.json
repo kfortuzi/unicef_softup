@@ -13,7 +13,10 @@
         "rememberMe": "Me mbaj mend",
         "newToPlatform": "Hera e pare ne AKPA AI?",
         "emailPlaceholder": "E-Mail",
-        "showPassword": "Shfaq fjalekalimin"
+        "showPassword": "Shfaq fjalekalimin",
+        "failedToLogIn": "Diçka shkoi keq, ju lutemi provoni përsëri më vonë!",
+        "invalidCredentials": "Email ose fjalëkalim i pavlefshëm",
+        "emailIsNotVerified": "Email-i nuk është verifikuar"
       },
       "signUp": {
         "header": "Krijoni nje Llogari",
@@ -33,7 +36,9 @@
         "passwordPlaceholder": "Fjalekalimi",
         "showPassword": "Shfaq fjalekalimin",
         "passwordRules": "Fjalekalimi duhet te kete te pakten nje shkronje, nje shifer, dhe minimumi shtate karaktere.",
-        "invalidPassword": "Fjalekalimi nuk i ploteson kushtet"
+        "invalidPassword": "Fjalekalimi nuk i ploteson kushtet",
+        "failedToSignUp": "Diçka shkoi keq, ju lutemi provoni përsëri më vonë!",
+        "userAlreadyExists": "Ky email është i regjistruar më parë"
       },
       "forgotPassword": {
         "header": "Keni Harruar Fjalekalimin?",
@@ -57,7 +62,11 @@
         "submit": "Ruaj Fjalekalimin",
         "requestSuccess": "Fjalekalimi i ri u ruajt me sukses!",
         "showPassword": "Shfaq fjalekalimin",
-        "invalidPassword": "Fjalekalimi nuk i ploteson kushtet"
+        "invalidPassword": "Fjalekalimi nuk i ploteson kushtet",
+        "failedToRequestNewPassword": "Diçka shkoi keq, ju lutemi provoni përsëri më vonë!",
+        "userDoesNotExist": "Ky perdorues nuk ekziston",
+        "passwordResetEmailSent": "Nje email me instruksionet per rivendosjen e fjalekalimit u dergua ne email-in tuaj.",
+        "invalidOrExpiredResetCode": "Kodi i rivendosjes se fjalekalimit eshte i pavlefshem ose ka skaduar"
       },
       "confirmUser": {
         "confirming": "Duke konfirmuar...",

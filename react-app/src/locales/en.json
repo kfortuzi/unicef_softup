@@ -13,7 +13,10 @@
         "rememberMe": "Remember me",
         "newToPlatform": "New to AKPA AI?",
         "emailPlaceholder": "E-Mail",
-        "showPassword": "Show password"
+        "showPassword": "Show password",
+        "failedToLogIn": "Something went wrong, please try again later!",
+        "invalidCredentials": "Invalid email or password",
+        "emailIsNotVerified": "Email is not verified"
       },
       "signUp": {
         "header": "Create New Account",
@@ -33,7 +36,9 @@
         "passwordPlaceholder": "Password",
         "showPassword": "Show password",
         "passwordRules": "Use at least one letter, one numeral, and seven characters.",
-        "invalidPassword": "Invalid password"
+        "invalidPassword": "Invalid password",
+        "userAlreadyExists": "User already exists",
+        "failedToSignUp": "Something went wrong, please try again later!"
       },
       "forgotPassword": {
         "header": "Forgot Your Password?",
@@ -56,7 +61,11 @@
         "confirmPasswordRequired": "Password must be confirmed",
         "submit": "Save Password",
         "requestSuccess": "Password was reset successfully!",
-        "showPassword": "Show password"
+        "showPassword": "Show password",
+        "failedToRequestNewPassword": "Failed to reset password!",
+        "userDoesNotExist": "User not found",
+        "passwordResetEmailSent": "Password reset email was sent",
+        "invalidOrExpiredResetCode": "Invalid or expired reset code"
       },
       "confirmUser": {
         "confirming": "Confirming...",

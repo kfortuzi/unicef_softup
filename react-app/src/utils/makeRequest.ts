@@ -11,9 +11,9 @@ const makeRequest = async <ResponseType>(
 
   if (requiresAuth) {
     const accessToken = getItem<string>(LocalStorageKey.USER_SESSION_TOKEN);
-
+    
     if (!accessToken) {
-      throw new Error('Invalid request');
+      throw new Error('Unauthorized');
     }
 
     authorizationHeader = `Bearer ${accessToken}`;
@@ -35,8 +35,18 @@ const makeRequest = async <ResponseType>(
     body,
   });
 
-  if (!response.ok) {
-    throw new Error(`${response.status}: ${response.statusText}`);
+  // Check if the response is not successful and throw an meaningful error
+  try {
+    if (!response.ok) {
+      const responseBody = await response.json();
+      if (responseBody?.message) {
+        throw new Error(responseBody.message);
+      }
+      throw new Error(`${response.status}: ${response.statusText}`);
+    }
+  } catch (error: Error | unknown) {
+    const errorMessage = (error as Error).message || 'Invalid response';
+    throw new Error(errorMessage);
   }
 
   try {

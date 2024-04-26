@@ -1,5 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { App } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import setUserSessionToken from 'src/helpers/setUserSessionToken';
@@ -11,6 +12,7 @@ import logIn from '../requests/login';
 const useLogIn = () => {
   const { message } = App.useApp();
   const navigate = useNavigate();
+  const { t } = useTranslation('translation', { keyPrefix: 'auth.login' });
 
   return useMutation({
     mutationKey: [Keys.LOG_IN],
@@ -24,7 +26,14 @@ const useLogIn = () => {
       }
     },
     onError: (error) => {
-      message.error(error.message);
+      let errorMessage = t('failedToLogIn');
+      if (error.message === 'Invalid credentials') {
+        errorMessage = t('invalidCredentials');
+      }
+      if (error.message === 'User not confirmed!') {
+        errorMessage = t('emailIsNotVerified');
+      }
+      message.error(errorMessage);
     },
   });
 };
