@@ -21,7 +21,10 @@ Resources:
         CorsRules:
           - AllowedMethods:
               - 'GET'
+              - 'HEAD'
             AllowedOrigins:
+              - '*'
+            AllowedHeaders:
               - '*'
 Outputs:
   BucketName:
