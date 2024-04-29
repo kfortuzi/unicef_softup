@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.540.0",
+    "@aws-sdk/client-secrets-manager": "^3.563.0",
     "@aws-sdk/client-sesv2": "^3.554.0",
     "@aws-sdk/s3-request-presigner": "^3.537.0",
     "@casl/ability": "^6.5.0",

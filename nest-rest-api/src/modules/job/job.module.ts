@@ -11,6 +11,7 @@ import { UserRepository } from 'src/modules/user/user.repository';
 import { OpenAIModule } from 'src/modules/openai/openai.module';
 import { OpenAIService } from 'src/modules/openai/openai.service';
 import { Config } from 'config';
+import { SmService } from '../sm/sm.service';
 
 @Module({
   imports: [ScheduleModule.forRoot(), UserModule, OpenAIModule],
@@ -24,6 +25,7 @@ import { Config } from 'config';
     UserRepository,
     OpenAIService,
     Config,
+    SmService,
   ],
   exports: [JobService],
 })

@@ -11,12 +11,14 @@ import { AkpaJobDTO } from './dto/akpa-job.dto';
 import { jobs, EducationType, JobType, Prisma } from '@prisma/client';
 import { Cron } from '@nestjs/schedule';
 import { Config } from 'config';
+import { SmService } from '../sm/sm.service';
 
 @Injectable()
 export class JobsFetchService {
   constructor(
     private jobRepository: JobRepository,
     private config: Config,
+    private sm: SmService,
   ) {}
 
   @Cron('0 23 * * *')
@@ -51,6 +53,9 @@ export class JobsFetchService {
   }
 
   async fetchFeaturedJobs() {
+    const { value: cookie } = await this.sm.getSecret<{ value: string }>(
+      this.config.smCookieKey,
+    );
     const url = this.config.featuredJobsUrl;
     const response = await fetch(url, {
       method: 'POST',
@@ -58,8 +63,7 @@ export class JobsFetchService {
         Accept: 'application/json, text/plain, */*',
         'Content-Type': 'application/json;charset=UTF-8',
         Referer: 'https://www.puna.gov.al/',
-        cookie:
-          'visid_incap_2810608=tvsBs4ePTaiHSHAVhVpILxiBHWYAAAAAQUIPAAAAAABhvQdafWyeI2KBtXqgIGe3; incap_ses_1078_2810608=gmlYNZ/lmk6962stU9P1DsSXH2YAAAAAXNNZc4cj2Nos8eW6lJErbQ==; incap_ses_1092_2810608=9F76JlJlES7G7lQ6OZAnDwq/KGYAAAAA+NU2ERkgbu2Lm1YrZyOOFg==',
+        cookie,
       },
       body: JSON.stringify({
         token: null,
@@ -75,16 +79,22 @@ export class JobsFetchService {
   }
 
   async fetchJobDetails(jobId: number) {
-    const url = `${this.config.baseJobUrl}${jobId}` as string;
+    const { value: cookie } = await this.sm.getSecret<{ value: string }>(
+      this.config.smCookieKey,
+    );
+
+    const url = `${this.config.baseJobUrl}${jobId}`;
     const response = await fetch(url, {
       method: 'POST',
       headers: {
         Accept: 'application/json, text/plain, */*',
         'Content-Type': 'application/json;charset=UTF-8',
         Referer: 'https://www.puna.gov.al/',
+        cookie,
       },
       body: JSON.stringify({ token: null }),
     });
+
     if (!response.ok) {
       throw new InternalServerErrorException('Network response was not ok.');
     }

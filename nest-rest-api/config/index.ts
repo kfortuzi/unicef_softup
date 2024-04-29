@@ -13,6 +13,7 @@ export class Config {
   public baseJobUrl: string;
   public imagesBucketName: string;
   public sesFromEmail: string;
+  public smCookieKey: string;
 
   constructor() {
     const config = new ConfigService();
@@ -29,5 +30,6 @@ export class Config {
     this.baseJobUrl = config.get('BASE_JOB_URL') || 'base job url';
     this.imagesBucketName = config.get('AWS_S3_BUCKET_NAME') || 'images bucket';
     this.sesFromEmail = 'client-akpa@softup.co';
+    this.smCookieKey = 'akpa-cookie';
   }
 }

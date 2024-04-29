@@ -39,7 +39,6 @@ openai_api_key="$OPEN_AI_KEY_DEV"
 echo "DATABASE_URL=$db_connection_url" >> .env.$ENVIRONMENT
 echo "SERVER_PORT=$server_port" >> .env.$ENVIRONMENT
 echo "FE_HOST=$fe_host" >> .env.$ENVIRONMENT
-echo "SEND_GRID_KEY=$send_grid_key" >> .env.$ENVIRONMENT
 echo "AWS_S3_BUCKET_NAME=$images_s3_bucket_name" >> .env.$ENVIRONMENT
 echo "BASE_JOB_URL=$akpa_base_job_url" >> .env.$ENVIRONMENT
 echo "FEATURED_JOBS_URL=$akpa_featured_jobs_url" >> .env.$ENVIRONMENT
