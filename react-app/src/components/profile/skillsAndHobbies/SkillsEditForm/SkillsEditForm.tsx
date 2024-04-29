@@ -10,6 +10,9 @@ import InputSelect from 'src/components/common/InputSelect/InputSelect';
 import LoadingFullPage from 'src/components/common/LoadingFullPage/LoadingFullPage';
 import i18n from 'src/locales';
 
+import customDigitalSkills from '../../../../assets/jsons/digital-skills.json';
+import customSoftSkills from '../../../../assets/jsons/soft-skills.json';
+import customTechnicalSkills from '../../../../assets/jsons/technical-skills.json';
 import { FormField } from './enums';
 import { generateDefaultValues } from './helpers/generateDefaultValues';
 import { handleDeselect, handleSelect } from './helpers/handleChange';
@@ -32,6 +35,10 @@ const SkillsEditForm: React.FC<Props> = ({ toggleEditMode }) => {
   useEffect(() => {
     reset({ [FormField.TAGS]: generateDefaultValues(skills) });
   }, [reset, skills]);
+
+  const options = [...customDigitalSkills, ...customSoftSkills, ...customTechnicalSkills].map((skill) => {
+    return { value: skill, label: skill };
+  });
 
   const handleSubmit = async () => {
     await Promise.all(changeLog.entries()).then((entries) => {
@@ -77,7 +84,7 @@ const SkillsEditForm: React.FC<Props> = ({ toggleEditMode }) => {
               onChange={onChange}
               tokenSeparators={[',']}
               mode="tags"
-              options={generateDefaultValues(skills)}
+              options={options}
               onSelect={(value) => handleSelect(value, skills, changeLog)}
               onDeselect={(value) => handleDeselect(value, skills, changeLog)}
             />

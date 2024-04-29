@@ -27,10 +27,10 @@ const CoverLetterView: React.FC<CoverLetterViewProps> = ({ coverLetter, user }) 
             <MailOutlined className="cover-letter-personal-info-icon" />
             {`${user?.email}`}
           </p>
-          <p>
+          {user?.phoneNumber ? <p>
             <PhoneOutlined className="cover-letter-personal-info-icon" />
-            {`${user?.phoneNumber || 'N/A'}`}
-          </p>
+            {`${user?.phoneNumber}`}
+          </p> : null}
         </div>
       </div>
       <div className="cover-letter-body">

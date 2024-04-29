@@ -36,12 +36,12 @@ const CoverLetterPdfView: React.FC<CoverLetterPdfViewProps> = ({ coverLetter, us
                   {`${user?.email}`}
                 </Text>
               </View>
-              <View style={styles.coverLetterInfoItem}>
+              {user?.phoneNumber ? (<View style={styles.coverLetterInfoItem}>
                 <Image src={phoneIcon} style={styles.coverLetterPersonalInfoIcon} />
                 <Text>
-                  {`${user?.phoneNumber || 'N/A'}`}
+                  {`${user?.phoneNumber}`}
                 </Text>
-              </View>
+              </View>) : null}
             </View>
           </View>
           <View style={styles.coverLetterBody}>
