@@ -6,12 +6,11 @@ import { User } from 'src/api/users/types';
 import CoverLetterForm from '../CoverLetterForm/CoverLetterForm';
 
 type CoverLetterViewProps = {
-  coverLetter: GetCoverLetterResponse;
-  user: User;
+  coverLetter?: GetCoverLetterResponse;
+  user?: User;
 };
 
 const CoverLetterView: React.FC<CoverLetterViewProps> = ({ coverLetter, user }) => {
-
   return (
     <div>
       <div className="cover-letter-personal-info">
@@ -39,7 +38,7 @@ const CoverLetterView: React.FC<CoverLetterViewProps> = ({ coverLetter, user }) 
           <p>{coverLetter?.company}</p>
           <p>{coverLetter?.companyAddress}</p>
         </div>
-        <p className='cover-letter-content'>{coverLetter?.content}</p>
+        <p className="cover-letter-content">{coverLetter?.content}</p>
         <CoverLetterForm />
       </div>
     </div>

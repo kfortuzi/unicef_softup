@@ -56,17 +56,18 @@ const PageWithNavigation: React.FC = () => {
         key: 'coverLetter',
         icon: <ContainerOutlined />,
         disabled: !hasBaseCv,
+
         children: [
+          {
+            label: t('coverLetters'),
+            key: 'coverLetters',
+            onClick: () => navigate(Route.COVER_LETTERS),
+          },
           {
             label: t('coverLetterWizard'),
             key: 'coverLetterWizard',
             onClick: () => navigate(Route.COVER_LETTER_QUESTIONNAIRE),
           },
-          {
-            label: t('coverLetters'),
-            key: 'myCoverLetters',
-            onClick: () => navigate(Route.COVER_LETTERS),
-          }
         ],
       },
       {
@@ -105,14 +106,14 @@ const PageWithNavigation: React.FC = () => {
             key: 'settings',
             icon: <SettingOutlined />,
             onClick: () => navigate(Route.PERSONAL_INFO),
-            disabled: !hasBaseCv
+            disabled: !hasBaseCv,
           },
           {
             label: t('logOut'),
             key: 'logOut',
             icon: <LogoutOutlined />,
             onClick: logOut,
-            disabled: false
+            disabled: false,
           },
         ],
       },
@@ -129,7 +130,7 @@ const PageWithNavigation: React.FC = () => {
     .filter((match) => {
       return Boolean(match.handle?.crumb);
     })
-    .map((match) => match.handle?.crumb ? match.handle.crumb() : undefined);
+    .map((match) => (match.handle?.crumb ? match.handle.crumb() : undefined));
 
   const breadCrumbItems: BreadcrumbItemType[] = crumbs.map((crumb) => ({
     key: crumb,

@@ -13,8 +13,8 @@ export type BaseResponse = {
 
 export type PostCoverLetterRequest = {
   to: string;
-  company: string;
-  companyAddress: string;
+  company?: string;
+  companyAddress?: string;
   content: string;
 };
 

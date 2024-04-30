@@ -14,9 +14,10 @@ interface Props extends DrawerProps {
   title: string;
   children: React.ReactNode;
   className?: string;
+  isCreate?: boolean;
 }
 
-const Drawer: React.FC<Props> = ({ title, children, submitForm, isPending, ...rest }) => {
+const Drawer: React.FC<Props> = ({ title, children, submitForm, isPending, isCreate, ...rest }) => {
   const [open, setOpen] = useState(rest.open || false);
 
   const showDrawer = () => {
@@ -37,7 +38,7 @@ const Drawer: React.FC<Props> = ({ title, children, submitForm, isPending, ...re
     <>
       <Button
         type="primary"
-        text={i18n.t('globalStrings.edit')}
+        text={isCreate ? i18n.t('globalStrings.create') : i18n.t('globalStrings.edit')}
         onClick={showDrawer}
         className="edit-button"
         icon={<EditOutlined />}

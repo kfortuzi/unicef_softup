@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom';
 
 import useGetCoverLetter from 'src/api/coverLetters/hooks/useGetCoverLetter';
 import usePatchCoverLetter from 'src/api/coverLetters/hooks/usePatchCoverLetter';
+import usePostCoverLetter from 'src/api/coverLetters/hooks/usePostCoverLetter';
 import usePostCoverLetterAskWizard from 'src/api/coverLetters/hooks/usePostCoverLetterAskWizard';
 import { GetCoverLetterResponse } from 'src/api/coverLetters/types';
 import AskWizardModal from 'src/components/common/AskWizardModal/AskWizardModal';
@@ -25,9 +26,12 @@ const CoverLetterForm: React.FC = () => {
   const { id } = useParams();
   const { t } = useTranslation('translation', { keyPrefix: 'coverLetterDetails' });
   const { data: coverLetter, isFetched } = useGetCoverLetter({ id } as GetCoverLetterResponse);
-  const { mutate: patchCoverLetter, isPending } = usePatchCoverLetter();
+  const { mutate: patchCoverLetter, isPending: isUpdating } = usePatchCoverLetter();
+  const { mutate: postCoverLetter, isPending: isCreating } = usePostCoverLetter();
   const { mutateAsync: postCoverLetterAskWizardAsync } = usePostCoverLetterAskWizard();
   const [contentLoading, setContentLoading] = useState(false);
+
+  const isCreateMode = !id;
 
   const { handleSubmit, control, setValue, reset, getValues } = useForm({
     resolver: yupResolver(validationSchema),
@@ -42,7 +46,11 @@ const CoverLetterForm: React.FC = () => {
   }, [isFetched, reset, coverLetter]);
 
   const submitForm = handleSubmit((data) => {
-    patchCoverLetter({ id, ...data } as GetCoverLetterResponse);
+    if (isCreateMode) {
+      postCoverLetter(data);
+    } else {
+      patchCoverLetter({ id, ...data } as GetCoverLetterResponse);
+    }
   });
 
   const [isOpen, setOpen] = useState(false);
@@ -50,9 +58,11 @@ const CoverLetterForm: React.FC = () => {
   const wizardModalItems: MenuProps['items'] = [
     {
       key: 'dropdown-auto-generate-button',
-      label: <a onClick={async () => await autoGenerateFromAiAndSetContent()}>
-        {i18n.t('askWizardModal.autoGenerateButtonText')}
-      </a>,
+      label: (
+        <a onClick={async () => await autoGenerateFromAiAndSetContent()}>
+          {i18n.t('askWizardModal.autoGenerateButtonText')}
+        </a>
+      ),
     },
     {
       key: 'dropdown-ask-wizard-button',
@@ -88,10 +98,11 @@ const CoverLetterForm: React.FC = () => {
   return (
     <Drawer
       submitForm={submitForm}
-      isPending={isPending}
+      isPending={isUpdating || isCreating}
       title={t('header')}
       width={600}
       key={`cover-letter-form-${id}`}
+      isCreate={isCreateMode}
     >
       <form onSubmit={submitForm}>
         <div className="cover-letter-form">
@@ -172,7 +183,6 @@ const CoverLetterForm: React.FC = () => {
               type="primary"
               text={i18n.t('askWizardModal.enhanceWithAiButtonText')}
             />
-
           </Dropdown>
 
           <AskWizardModal

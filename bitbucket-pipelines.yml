@@ -41,6 +41,15 @@ build-api: &build-api
     caches:
       - api-node
 
+build-ui: &build-ui
+  step:
+    name: Build UI
+    script:
+      - cd react-app
+      - npm run build:dev
+    caches:
+      - ui-node
+
 deploy-api-infrastructure-dev: &deploy-api-infrastructure-dev
   step:
     name: Deploy api infrastructure Dev
@@ -211,7 +220,7 @@ pipelines:
       - <<: *build-api
     "feature/ui/*":
       - <<: *install-dep-ui
-      - <<: *test-ui
+      - <<: *build-ui
 
   branches:
     master:

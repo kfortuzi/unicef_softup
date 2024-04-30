@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import useGetCoverLetters from 'src/api/coverLetters/hooks/useGetCoverLetters';
 import CoverLetterCard from 'src/components/coverLetter/CoverLetterCard/CoverLetterCard';
+import CoverLetterForm from 'src/components/coverLetter/CoverLetterForm/CoverLetterForm';
 import dateTimeFormats from 'src/constants/dateTimeFormats';
 
 const MyCoverLetters: React.FC = () => {
@@ -15,6 +16,7 @@ const MyCoverLetters: React.FC = () => {
     <div className="my-cover-letters-container">
       <div className="my-cover-letters-header">
         <Typography.Title className="title">{t('header')}</Typography.Title>
+        <CoverLetterForm />
       </div>
 
       {
