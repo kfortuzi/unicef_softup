@@ -308,4 +308,8 @@ export class UserService {
       throw new InternalServerErrorException(`${error}`);
     }
   }
+
+  async findUserSkillsAndProfession(userId: string) {
+    return await this.userRepository.findUserSkillsAndProfession(userId);
+  }
 }
