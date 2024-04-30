@@ -271,20 +271,39 @@
     "pageWithNavigation": {
       "logOut": "Dil",
       "home": "Orientim kariere per te rinjte",
-      "resume": "Resume",
+      "resumes": "Rezyme",
       "coverLetters": "Leter motivimit",
       "coverLetterWizard": "Asistenti",
       "jobs": "Punet",
       "training": "Trajnim",
       "trainingVideos": "Video trajnime",
       "trainingArticles": "Artikuj trajnimi",
-      "settings": "Settings"
+      "settings": "Cilësimet"
     },
     "profileWithNavigation": {
-      "personalInfo": "Personal Info",
-      "skillsAndHobbies": "Skills & Hobbies",
-      "resetPassword": "Reset Password",
-      "myResume": "My Resume"
+      "personalInfo": "Informacione Personale",
+      "skillsAndHobbies": "Aftesi & Hobi",
+      "resetPassword": "Ndrysho fjalekalimin",
+      "myResume": "Rezymenë time"
+    },
+    "breadcrumb": {
+      "home": "Kryefaqja",
+      "resumes": "Rezyme",
+      "resumeDetails": "Detajet e rezymes",
+      "coverLetters": "Leter motivimit",
+      "coverLetterDetails": "Detajet e Letres se Motivimit",
+      "coverLetterWizard": "Asistenti",
+      "jobs": "Punet",
+      "jobDetails": "Detajet e punes",
+      "interviewTips": "Keshilla per interviste",
+      "training": "Trajnim",
+      "trainingVideos": "Video trajnime",
+      "trainingArticles": "Artikuj trajnimi",
+      "settings": "Cilësimet",
+      "personalInfo": "Informacione Personale",
+      "skillsAndHobbies": "Aftesi & Hobi",
+      "changePassword": "Ndrysho fjalekalimin",
+      "myResume": "Rezymenë time"
     },
     "myResumes": {
       "header": "CV-të e mia",

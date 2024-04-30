@@ -48,7 +48,7 @@ export type PatchJobRequest = {
 };
 
 export type GetJobRequest = {
-  id?: string;
+  id?: string | null;
 };
 
 export type GetJobsRequest = {

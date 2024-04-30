@@ -277,7 +277,7 @@
     "pageWithNavigation": {
       "logOut": "Log Out",
       "home": "Youth career orientation",
-      "resume": "Resume",
+      "resumes": "Resumes",
       "coverLetters": "Cover letters",
       "coverLetterWizard": "Wizard",
       "jobs": "Jobs",
@@ -290,6 +290,25 @@
       "personalInfo": "Personal Info",
       "skillsAndHobbies": "Skills & Hobbies",
       "resetPassword": "Reset Password",
+      "myResume": "My Resume"
+    },
+    "breadcrumb": {
+      "home": "Home",
+      "resumes": "Resumes",
+      "resumeDetails": "Resume Details",
+      "coverLetters": "Cover Letters",
+      "coverLetterDetails": "Cover Letter Details",
+      "coverLetterWizard": "Wizard",
+      "jobs": "Jobs",
+      "jobDetails": "Job Details",
+      "interviewTips": "Interview Tips",
+      "training": "Training",
+      "trainingVideos": "Training Videos",
+      "trainingArticles": "Training Articles",
+      "settings": "Settings",
+      "personalInfo": "Personal Info",
+      "skillsAndHobbies": "Skills & Hobbies",
+      "changePassword": "Change Password",
       "myResume": "My Resume"
     },
     "myResumes": {

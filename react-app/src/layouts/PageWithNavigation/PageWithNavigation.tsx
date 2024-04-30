@@ -1,7 +1,6 @@
 import {
   BarsOutlined,
   ContainerOutlined,
-  HomeOutlined,
   LogoutOutlined,
   ReadOutlined,
   SettingOutlined,
@@ -13,7 +12,7 @@ import { BreadcrumbItemType } from 'antd/es/breadcrumb/Breadcrumb';
 import { Content, Header } from 'antd/es/layout/layout';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate, useMatches, UIMatch } from 'react-router-dom';
 
 import useLogOut from 'src/api/auth/hooks/useLogOut';
 import useGetResumes from 'src/api/resumes/hooks/useGetResumes';
@@ -46,7 +45,7 @@ const PageWithNavigation: React.FC = () => {
   const navigationItems: MenuProps['items'] = useMemo(
     () => [
       {
-        label: t('resume'),
+        label: t('resumes'),
         key: 'resumes',
         icon: <SolutionOutlined />,
         onClick: () => navigate(Route.RESUMES),
@@ -121,13 +120,21 @@ const PageWithNavigation: React.FC = () => {
     [hasBaseCv, logOut, navigate, t, user?.firstName, user?.lastName],
   );
 
-  const breadCrumbItems: BreadcrumbItemType[] = location.pathname
-    .split('/')
-    .filter((path) => path !== '' && path !== 'home')
-    .map((path, index, array) => ({
-      key: path,
-      title: (index === array.length - 1) ? path : <Link to={path}>{path}</Link>,
-    }));
+  type Handle = {
+    crumb?: () => string;
+  };
+  const matches = useMatches() as UIMatch<unknown, Handle>[];
+
+  const crumbs = matches
+    .filter((match) => {
+      return Boolean(match.handle?.crumb);
+    })
+    .map((match) => match.handle?.crumb ? match.handle.crumb() : undefined);
+
+  const breadCrumbItems: BreadcrumbItemType[] = crumbs.map((crumb) => ({
+    key: crumb,
+    title: crumb,
+  }));
 
   return (
     <Layout className="page-with-navigation-container">
@@ -149,12 +156,7 @@ const PageWithNavigation: React.FC = () => {
         <Content className="page-content">
           <Breadcrumb
             className={'breadcrumb-container'}
-            items={[
-              {
-                key: 'home',
-                title: <Link to={Route.HOME}><HomeOutlined /> {t('home')}</Link>,
-              }, ...breadCrumbItems
-            ]}
+            items={breadCrumbItems}
           />
           <Outlet />
         </Content>

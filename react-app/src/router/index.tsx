@@ -1,7 +1,9 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { createHashRouter, RouterProvider } from 'react-router-dom';
 
 import useGetProfile from 'src/api/users/hooks/useGetProfile';
+import Breadcrumb from 'src/components/common/Breadcrumb/Breadcrumb';
 import LoadingFullPage from 'src/components/common/LoadingFullPage/LoadingFullPage';
 import PrivateRoute from 'src/components/router/PrivateRoute';
 import PublicRoute from 'src/components/router/PublicRoute';
@@ -34,7 +36,9 @@ import TrainingVideos from 'src/screens/TrainingVideos/TrainingVideos';
 import { Route } from './enums';
 
 const Router: React.FC = () => {
+
   const { isFetching } = useGetProfile();
+  const { t } = useTranslation('translation', { keyPrefix: 'breadcrumb' });
 
   if (isFetching) {
     return <LoadingFullPage />;
@@ -50,35 +54,126 @@ const Router: React.FC = () => {
           children: [
             {
               path: Route.HOME,
-              element: <Home />,
+              element: <Home />
             },
             {
               path: Route.RESUMES,
               element: <MyResumes />,
+              handle: {
+                crumb: () => (
+                  <Breadcrumb
+                    crumbs={[
+                      {
+                        to: '#',
+                        children: t('resumes')
+                      }
+                    ]}
+                  />)
+              },
             },
             {
               path: Route.COVER_LETTERS,
               element: <MyCoverLetters />,
+              handle: {
+                crumb: () => (
+                  <Breadcrumb
+                    crumbs={[
+                      {
+                        to: '#',
+                        children: t('coverLetters')
+                      }
+                    ]}
+                  />
+                )
+              },
             },
             {
               path: Route.COVER_LETTERS_DETAILS,
               element: <MyCoverLetter />,
+              handle: {
+                crumb: () => (
+                  <Breadcrumb
+                    crumbs={[
+                      {
+                        to: Route.COVER_LETTERS,
+                        children: t('coverLetters')
+                      },
+                      {
+                        to: '#',
+                        children: t('coverLetterDetails')
+                      }
+                    ]}
+                  />
+                )
+              },
             },
             {
               path: Route.JOBS,
               element: <Jobs />,
+              handle: {
+                crumb: () => (
+                  <Breadcrumb
+                    crumbs={[
+                      {
+                        to: '#',
+                        children: t('jobs')
+                      }
+                    ]}
+                  />
+                )
+              },
             },
             {
               path: Route.JOB_DETAILS,
               element: <JobDetails />,
+              handle: {
+                crumb: () => (
+                  <Breadcrumb
+                    crumbs={[
+                      {
+                        to: Route.JOBS,
+                        children: t('jobs')
+                      },
+                      {
+                        to: '#',
+                        children: t('jobDetails')
+                      }
+                    ]}
+                  />
+                )
+              },
             },
             {
               path: Route.TRAINING_VIDEOS,
               element: <TrainingVideos />,
+              handle: {
+                crumb: () => (
+                  <Breadcrumb
+                    crumbs={[
+                      {
+                        to: '#',
+                        children: t('trainingVideos')
+                      }
+                    ]}
+                  />
+                )
+              },
             },
             {
               path: Route.TRAINING_ARTICLES,
               element: <TrainingArticles />,
+              handle: {
+                crumb: () => (
+                  <Breadcrumb
+                    crumbs={[
+                      {
+                        to: '#',
+                        children: t('trainingArticles')
+                      }
+                    ]}
+                  />
+                )
+              },
             },
             {
               path: Route.PROFILE_SETTINGS,
@@ -87,24 +182,88 @@ const Router: React.FC = () => {
                 {
                   path: Route.PERSONAL_INFO,
                   element: <PersonalInfo />,
+                  handle: {
+                    crumb: () => (
+                      <Breadcrumb
+                        crumbs={[
+                          {
+                            to: '#',
+                            children: t('personalInfo')
+                          }
+                        ]}
+                      />
+                    )
+                  },
                 },
                 {
                   path: Route.SKILLS_AND_HOBBIES,
                   element: <SkillsAndHobbies />,
+                  handle: {
+                    crumb: () => (
+                      <Breadcrumb
+                        crumbs={[
+                          {
+                            to: '#',
+                            children: t('skillsAndHobbies')
+                          }
+                        ]}
+                      />
+                    )
+                  },
                 },
                 {
                   path: Route.CHANGE_PASSWORD,
                   element: <ChangePassword />,
+                  handle: {
+                    crumb: () => (
+                      <Breadcrumb
+                        crumbs={[
+                          {
+                            to: '#',
+                            children: t('changePassword')
+                          }
+                        ]}
+                      />
+                    )
+                  },
                 },
                 {
                   path: Route.MY_RESUME,
                   element: <MyResume />,
+                  handle: {
+                    crumb: () => (
+                      <Breadcrumb
+                        crumbs={[
+                          {
+                            to: '#',
+                            children: t('myResume')
+                          }
+                        ]}
+                      />
+                    )
+                  },
                 },
               ],
             },
             {
               path: Route.COVER_LETTER_QUESTIONNAIRE,
               element: <CoverLetterQuestionnaire />,
+              handle: {
+                crumb: () => (
+                  <Breadcrumb
+                    crumbs={[
+                      {
+                        to: Route.COVER_LETTERS,
+                        children: t('coverLetters')
+                      },
+                      {
+                        to: '#',
+                        children: t('coverLetterWizard')
+                      }
+                    ]}
+                  />
+                )
+              },
             },
             {
               path: Route.RESUME_QUESTIONNAIRE,
@@ -113,10 +272,42 @@ const Router: React.FC = () => {
             {
               path: Route.JOB_INTERVIEW_TIPS,
               element: <InterviewTips />,
+              handle: {
+                crumb: () => (
+                  <Breadcrumb
+                    crumbs={[
+                      {
+                        to: Route.RESUMES,
+                        children: t('resumes')
+                      },
+                      {
+                        to: '#',
+                        children: t('interviewTips')
+                      }
+                    ]}
+                  />
+                )
+              },
             },
             {
               path: Route.RESUME_DETAILS,
               element: <ResumeDetail />,
+              handle: {
+                crumb: () => (
+                  <Breadcrumb
+                    crumbs={[
+                      {
+                        to: Route.RESUMES,
+                        children: t('resumes')
+                      },
+                      {
+                        to: '#',
+                        children: t('resumeDetails')
+                      }
+                    ]}
+                  />
+                )
+              },
             },
           ],
         },
