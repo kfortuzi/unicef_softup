@@ -45,7 +45,7 @@ const ResumeCard: React.FC<ResumeCardProps> = ({ resume }) => {
       >
         <div className="metadata">
           <h3 className="name">
-            <Link to={'https://www.puna.gov.al/job/${referenceId}'} type='_blank'>{firstName} {lastName} - {job?.company}</Link>
+            <Link to={`https://www.puna.gov.al/job/${job?.referenceId}`} type='_blank'>{firstName} {lastName} - {job?.company}</Link>
           </h3>
           <p className="last-updated">
             {t('lastUpdated')}: {dayjs(resume.updatedAt).format(dateTimeFormats.albanianDate)}
