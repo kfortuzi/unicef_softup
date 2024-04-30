@@ -1,8 +1,8 @@
-import { RobotOutlined } from "@ant-design/icons";
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { RobotOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
-import Button from "../Button/Button";
+import Button from '../Button/Button';
 
 type MainChatbotMessagesProps = {
   askWizard: (text: string) => void;
@@ -32,8 +32,8 @@ const MainChatbotMessages: React.FC<MainChatbotMessagesProps> = ({ askWizard }) 
       text={t('careerAdvice')}
       icon={<span className="icon">🔎</span>}
       className="topic-button"
-      onClick={() => askWizard('career advice')}
-    />
+      onClick={() => askWizard(t('careerAdviceMessage'))}
+    />,
   ];
 
   return (
@@ -48,9 +48,7 @@ const MainChatbotMessages: React.FC<MainChatbotMessagesProps> = ({ askWizard }) 
             <RobotOutlined />
           </div>
           <div className="ask-wizard-message-container">
-            <div className="ask-wizard-message-text">
-              {option}
-            </div>
+            <div className="ask-wizard-message-text">{option}</div>
           </div>
         </div>
       ))}

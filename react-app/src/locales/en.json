@@ -331,7 +331,8 @@
       "welcomeMessage": "Hi, I am Worky. 👋 How can I help you?",
       "jobOpportunities": "Explore Job Opportunities",
       "craftResume": "Craft a Winning Resume",
-      "careerAdvice": "Receive Career Guidance"
+      "careerAdvice": "Receive Career Guidance",
+      "careerAdviceMessage": "I need career advice"
     },
     "myCoverLetters": {
       "header": "My Cover Letters",

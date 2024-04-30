@@ -21,16 +21,18 @@ export class UserJobsRepository {
   }
 
   async findJobsByUser(userId: string) {
-    return this.prisma.user_recommended_jobs.findMany({
-      where: {
-        job: {
-          isUnvailable: false,
+    return this.prisma.user_recommended_jobs
+      .findMany({
+        where: {
+          job: {
+            isUnvailable: false,
+          },
+          userId: userId,
         },
-        userId: userId,
-      },
-      include: {
-        job: true,
-      },
-    });
+        include: {
+          job: true,
+        },
+      })
+      .then((data) => data.map((d) => d.job));
   }
 }

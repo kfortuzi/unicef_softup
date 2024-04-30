@@ -91,10 +91,12 @@ const AskWizardModal: React.FC<AskWizardModalProps> = ({
                 value={value}
                 onChange={onChange}
                 onPressEnter={async () => {
+                  if (!value) return;
                   await askWizard(value);
                   setValue('chat', '');
                 }}
                 onSearch={async () => {
+                  if (!value) return;
                   await askWizard(value);
                   setValue('chat', '');
                 }}
