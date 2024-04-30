@@ -91,7 +91,8 @@
         "phoneNumber": "Telefoni",
         "profession": "Profesioni",
         "birthdayDate": "Data e lindjes",
-        "phoneNumberValidation": "Numri i telefonit duhet te permbaje vetem numra"
+        "phoneNumberValidation": "Numri i telefonit duhet te permbaje vetem numra",
+        "required": "{{field}} eshte i detyrueshem"
       },
       "skillsAndHobbies": {
         "header": "Aftesi & Hobi",

@@ -75,7 +75,7 @@ export type PatchUserRequest = {
   lastName?: string;
   phoneNumber?: string;
   profession?: string;
-  birthdayDate?: string;
+  birthdayDate?: string | null;
   hobbies?: string;
   oldPassword?: string;
   newPassword?: string;

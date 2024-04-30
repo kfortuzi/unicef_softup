@@ -90,7 +90,8 @@
         "phoneNumber": "Phone",
         "profession": "Profession",
         "birthdayDate": "Birthday Date",
-        "phoneNumberValidation": "Phone number is not valid"
+        "phoneNumberValidation": "Phone number is not valid",
+        "required": "{{field}} is required"
       },
       "skillsAndHobbies": {
         "header": "Skills & Hobbies",
