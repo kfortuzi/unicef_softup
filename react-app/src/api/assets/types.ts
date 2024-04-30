@@ -14,7 +14,7 @@ export type VideoAttributes = {
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
-  VidoContent: Content;
+  VideoContent: Content;
 };
 
 export type ArticleAttributes = {

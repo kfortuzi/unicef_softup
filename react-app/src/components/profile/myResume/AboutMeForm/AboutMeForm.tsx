@@ -102,6 +102,7 @@ const AboutMeForm: React.FC<AboutMeProps> = ({ aboutMe, workExperiences, cvId })
                 onChange={onChange}
                 placeholder={t('aboutMeSection.placeholder')}
                 className="input-textarea"
+                rows={15}
               />
             )}
           />

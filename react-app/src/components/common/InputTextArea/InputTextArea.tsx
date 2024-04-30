@@ -11,6 +11,7 @@ interface Props extends TextAreaProps {
   placeholder?: string;
   label?: string;
   className?: string;
+  rows?: number;
 }
 
 const InputTextArea: React.FC<Props> = ({
@@ -21,6 +22,7 @@ const InputTextArea: React.FC<Props> = ({
   placeholder,
   label,
   className = '',
+  rows = 4,
   ...rest
 }) => {
   let textAreaStatus: TextAreaProps['status'] = rest.status;
@@ -44,6 +46,7 @@ const InputTextArea: React.FC<Props> = ({
           value={value}
           placeholder={placeholder}
           status={textAreaStatus}
+          rows={rows}
           {...rest}
         />
         {error && <Typography.Text type="danger">{error}</Typography.Text>}

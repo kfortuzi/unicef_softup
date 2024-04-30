@@ -1,5 +1,6 @@
 import { EditOutlined } from '@ant-design/icons';
 import { Upload, UploadProps, message, Image } from 'antd';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import UserPlaceHolderImage from 'src/assets/images/user-placeholder.jpeg';
@@ -25,7 +26,7 @@ interface ContactInfoViewProps {
 
 const ContactInfoView: React.FC<ContactInfoViewProps> = (props) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.contactInfoSection' });
-
+  const [imageKey, setImageKey] = useState(0);
   const omittedFalsyProps = Object.fromEntries(
     Object.entries(props).map(([key, value]) => [key, omitFalsyValue(value)])
   );
@@ -56,6 +57,7 @@ const ContactInfoView: React.FC<ContactInfoViewProps> = (props) => {
       }
       if (info.file.status === 'done') {
         message.success(i18n.t('globalStrings.uploadSuccess'));
+        setImageKey((prev) => prev + 1);
         window.location.reload();
       } else if (info.file.status === 'error') {
         message.error(i18n.t('globalStrings.uploadError'));
@@ -72,6 +74,7 @@ const ContactInfoView: React.FC<ContactInfoViewProps> = (props) => {
           alt="Profile Picture"
           className="profile-pic"
           fallback={UserPlaceHolderImage}
+          key={imageKey}
         />
         <Upload {...uploadProps}>
           <Button

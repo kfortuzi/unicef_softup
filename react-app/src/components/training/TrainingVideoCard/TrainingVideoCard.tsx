@@ -15,7 +15,7 @@ const TrainingVideoCard: React.FC<TrainingVideoCardProps> = ({ id, attributes })
       <Card
         cover={
           <Player
-            src={attributes.VidoContent.data.attributes.url}
+            src={attributes.VideoContent.data.attributes.url}
             playsInline
           />
         }

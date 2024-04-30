@@ -23,7 +23,7 @@ const CertificatesView: React.FC<CertificatesProps> = (props) => {
           titleStyle={{ color: 'blue' }}
         >
           {isValidDate(certificate?.expirationDate)
-            ? `${t('receivedDate')} - ${formatDate(certificate?.receivedDate)}`
+            ? `${t('receivedDate')} - ${formatDate(certificate?.receivedDate)}\n`
             : null}
           {isValidDate(certificate?.expirationDate)
             ? `${t('expirationDate')} - ${formatDate(certificate?.expirationDate)}`

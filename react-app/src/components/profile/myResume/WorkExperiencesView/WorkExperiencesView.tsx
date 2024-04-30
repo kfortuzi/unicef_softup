@@ -14,14 +14,31 @@ const WorkExperiencesView: React.FC<WorkExperiencesProps> = (props) => {
   const { workExperiences } = props;
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume' });
 
+  const prepareWorkExperienceTitle = (workExperience: WorkExperience) => {
+    let workExperienceTitle = '';
+    if (!workExperience) {
+      return workExperienceTitle;
+    }
+
+    if (workExperience?.position) {
+      workExperienceTitle += `${workExperience.position}`;
+    }
+    if (workExperience?.startDate) {
+      workExperienceTitle += ` - ${formatDate(workExperience.startDate)}`;
+    }
+    if (workExperience?.endDate) {
+      workExperienceTitle += ` - ${formatDate(workExperience.endDate, t('present'))}`;
+    }
+
+    return workExperienceTitle;
+  }
+
   return (
     <>
       {workExperiences.map((workExperience, index) => {
         return (
           <ListItem
-            title={`${omitFalsyValue(workExperience?.position)}
-          - ${formatDate(workExperience?.startDate)} 
-          - ${formatDate(workExperience?.endDate, t('present'))}`}
+            title={prepareWorkExperienceTitle(workExperience)}
             key={index}
             titleStyle={{ color: 'blue' }}
           >

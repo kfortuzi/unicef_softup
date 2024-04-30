@@ -201,7 +201,6 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
                 name={name}
                 value={contentLoading ? i18n.t('globalStrings.loading') : value || ''}
                 disabled={contentLoading}
-                rows={3}
                 onChange={onChange}
                 placeholder={t('responsibilities')}
                 className="input-element"

@@ -13,14 +13,14 @@ import dateTimeFormats from 'src/constants/dateTimeFormats';
 const JobDetails: React.FC = () => {
   const { id } = useParams();
   const { t } = useTranslation('translation', { keyPrefix: 'jobDetails' });
-  const { data: job, isFetched } = useGetJob({ id });
-  const { data: resumes } = useGetResumes();
-  const { data: coverLetters } = useGetCoverLetters();
+  const { data: job, isFetched: isJobFetched } = useGetJob({ id });
+  const { data: resumes, isFetched: isResumesFetched } = useGetResumes();
+  const { data: coverLetters, isFetched: isCoverLettersFetched } = useGetCoverLetters();
   const resume = resumes?.find((resume) => resume.referenceId === job?.id);
   const coverLetter = coverLetters?.find((coverLetter) => coverLetter.referenceId === job?.id);
   const { Text, Title } = Typography;
 
-  if (isFetched) {
+  if (isResumesFetched && isJobFetched && isCoverLettersFetched) {
     return (
       <div className="job-details-container">
         <Title level={3}>{`${t('title')}:${job?.title}`}</Title>
