@@ -8,6 +8,10 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto',
     fontWeight: 700,
   },
+  content: {
+    flexShrink:1,
+    flexWrap: 'wrap',
+  },
 });
 
 export default styles;

@@ -13,12 +13,13 @@ Font.register({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 9,
+    flex: 12,
     flexDirection: 'row',
   },
   contentSection: {
-    flex: 6,
-    padding: 10,
+    flex: 9,
+    paddingVertical: 20,
+    paddingRight: 30,
   },
   sectionTitle: {
     fontSize: titleFontSize,

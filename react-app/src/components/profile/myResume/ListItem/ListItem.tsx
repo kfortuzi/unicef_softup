@@ -3,7 +3,6 @@ interface ListItemProps {
   withLine?: boolean;
   withBullet?: boolean;
   children?: React.ReactNode;
-  content?: string;
   titleStyle?: React.CSSProperties;
 }
 

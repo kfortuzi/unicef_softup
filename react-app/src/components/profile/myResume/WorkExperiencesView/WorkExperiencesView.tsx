@@ -14,37 +14,20 @@ const WorkExperiencesView: React.FC<WorkExperiencesProps> = (props) => {
   const { workExperiences } = props;
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume' });
 
-  const prepareWorkExperienceTitle = (workExperience: WorkExperience) => {
-    let workExperienceTitle = '';
-    if (!workExperience) {
-      return workExperienceTitle;
-    }
-
-    if (workExperience?.position) {
-      workExperienceTitle += `${workExperience.position}`;
-    }
-    if (workExperience?.startDate) {
-      workExperienceTitle += ` - ${formatDate(workExperience.startDate)}`;
-    }
-    if (workExperience?.endDate) {
-      workExperienceTitle += ` - ${formatDate(workExperience.endDate, t('present'))}`;
-    }
-
-    return workExperienceTitle;
-  }
-
   return (
     <>
-      {workExperiences.map((workExperience, index) => {
+      {workExperiences.map((experience, index) => {
         return (
           <ListItem
-            title={prepareWorkExperienceTitle(workExperience)}
+            title={omitFalsyValue(experience?.position)}
             key={index}
             titleStyle={{ color: 'blue' }}
           >
-            <p className="work-experience-title">{omitFalsyValue(workExperience?.position)}</p>
-            <p>{omitFalsyValue(workExperience?.company)}</p>
-            <p>{omitFalsyValue(workExperience?.responsibilities)}</p>
+            <p className="work-experience-title">
+              {`${formatDate(experience.startDate)} - ${formatDate(experience.endDate, t('present'))}`}
+            </p>
+            <p>{omitFalsyValue(experience?.company)}</p>
+            <p>{omitFalsyValue(experience?.responsibilities)}</p>
           </ListItem>
         );
       })}

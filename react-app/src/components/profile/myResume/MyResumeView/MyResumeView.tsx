@@ -52,6 +52,7 @@ const MyResumeView: React.FC<MyResumeViewProps> = (props) => {
             {job?.company} {t('header')}
 
           </h1>
+
           <PDFDownloadLink document={<ResumePdfView resume={resume} />}>
             {t('downloadPdfButtonText')} <DownloadOutlined />
           </PDFDownloadLink>

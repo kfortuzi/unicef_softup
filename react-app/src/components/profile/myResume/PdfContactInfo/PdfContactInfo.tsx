@@ -1,6 +1,11 @@
 import { Image, View, Text, Link } from '@react-pdf/renderer';
 import { useTranslation } from 'react-i18next';
 
+import AddressIcon from 'src/assets/icons/address-icon.png';
+import EmailIcon from 'src/assets/icons/email-icon.png';
+import LinkedinIcon from 'src/assets/icons/linkedin-icon.png';
+import NationalityIcon from 'src/assets/icons/nationality-icon.png';
+import PhoneIcon from 'src/assets/icons/phone-icon.png';
 import UserPlaceholderImage from 'src/assets/images/user-placeholder.jpeg';
 import { omitFalsyValue } from 'src/utils/stringUtils';
 
@@ -31,8 +36,8 @@ const PdfContactInfo: React.FC<PdfContactInfoProps> = (props) => {
         <Image
           style={{
             objectFit: 'cover',
-            height: 180,
-            width: 180,
+            height: 120,
+            width: 120,
             borderRadius: '50%',
           }}
           source={{
@@ -46,19 +51,31 @@ const PdfContactInfo: React.FC<PdfContactInfoProps> = (props) => {
       </View>
       <View style={styles.infoSection}>
         <View style={styles.infoGroup}>
-          <Text style={styles.groupTitle}>{t('nationality')}</Text>
+          <View style={styles.groupTitle}>
+            <Image source={NationalityIcon} style={styles.icon} />
+            <Text>{t('nationality')}</Text>
+          </View>
           <Text style={styles.groupValue}>{nationality}</Text>
         </View>
         <View style={styles.infoGroup}>
-          <Text style={styles.groupTitle}>{t('phoneNumber')}</Text>
+          <View style={styles.groupTitle}>
+            <Image source={PhoneIcon} style={styles.icon} />
+            <Text>{t('phoneNumber')}</Text>
+          </View>
           <Text style={styles.groupValue}>{phone}</Text>
         </View>
         <View style={styles.infoGroup}>
-          <Text style={styles.groupTitle}>{t('email')}</Text>
+          <View style={styles.groupTitle}>
+            <Image source={EmailIcon} style={styles.icon} />
+            <Text>{t('email')}</Text>
+          </View>
           <Text style={styles.groupValue}>{email}</Text>
         </View>
         <View style={styles.infoGroup}>
-          <Text style={styles.groupTitle}>{t('linkedin')}</Text>
+          <View style={styles.groupTitle}>
+            <Image source={LinkedinIcon} style={styles.icon} />
+            <Text>{t('linkedin')}</Text>
+          </View>
           {linkedIn ? (
             <Link
               href={linkedIn}
@@ -69,7 +86,10 @@ const PdfContactInfo: React.FC<PdfContactInfoProps> = (props) => {
           ) : null}
         </View>
         <View style={styles.infoGroup}>
-          <Text style={styles.groupTitle}>{t('address')}</Text>
+          <View style={styles.groupTitle}>
+            <Image source={AddressIcon} style={styles.icon} />
+            <Text>{t('address')}</Text>
+          </View>
           <Text style={styles.groupValue}>{address}</Text>
         </View>
       </View>

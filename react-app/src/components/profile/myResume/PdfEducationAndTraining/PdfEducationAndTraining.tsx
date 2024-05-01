@@ -22,13 +22,15 @@ const PdfEducationAndTrainings: React.FC<PdfEducationAndTrainingsProps> = (props
     <>
       {educationAndTrainings.map((education, index) => (
         <PdfListItem
-          // eslint-disable-next-line max-len
-          title={`${omitFalsyValue(education.title)} - ${formatDate(education?.startDate)} - ${formatDate(education?.endDate), t('present')}`}
+          title={omitFalsyValue(education?.title)}
           key={index}
           titleStyle={styles.listTitle}
         >
-          <Text style={styles.subTitle}>{`${omitFalsyValue(education.type)}`}</Text>
-          <Text>{omitFalsyValue(education.location)}</Text>
+          <Text style={styles.subTitle}>
+            {`${formatDate(education?.startDate)} - ${formatDate(education?.endDate, t('present'))}`}
+          </Text>
+          <Text style={styles.subTitle}>{`${omitFalsyValue(education?.type)}`}</Text>
+          <Text>{omitFalsyValue(education?.location)}</Text>
         </PdfListItem>
       ))}
     </>

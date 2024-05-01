@@ -18,16 +18,18 @@ const PdfWorkExperiences: React.FC<PdfWorkExperiencesProps> = (props) => {
 
   return (
     <>
-      {workExperiences.map((workExperience, index) => (
+      {workExperiences.map((experience, index) => (
         <ListItem
-          // eslint-disable-next-line max-len
-          title={`${omitFalsyValue(workExperience.position)} - ${formatDate(workExperience?.startDate)} - ${formatDate(workExperience?.endDate), t('present')}`}
+          title={omitFalsyValue(experience?.position)}
           key={index}
           titleStyle={styles.listTitle}
         >
-          <Text style={styles.subTitle}>{omitFalsyValue(workExperience.position)}</Text>
-          <Text>{omitFalsyValue(workExperience.company)}</Text>
-          <Text>{omitFalsyValue(workExperience.responsibilities)}</Text>
+          <Text style={styles.subTitle}>
+            {`${formatDate(experience?.startDate)} - ${formatDate(experience?.endDate, t('present'))}`}
+          </Text>
+          <Text style={styles.subTitle}>{omitFalsyValue(experience?.position)}</Text>
+          <Text style={styles.subTitle}>{omitFalsyValue(experience?.company)}</Text>
+          <Text style={styles.content}>{omitFalsyValue(experience?.responsibilities)}</Text>
         </ListItem>
       ))}
     </>

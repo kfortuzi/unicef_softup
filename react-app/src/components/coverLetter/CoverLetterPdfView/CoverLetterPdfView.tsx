@@ -3,7 +3,7 @@ import React from 'react';
 
 import { GetCoverLetterResponse } from 'src/api/coverLetters/types';
 import { User } from 'src/api/users/types';
-import mailIcon from 'src/assets/icons/mail-icon.png';
+import mailIcon from 'src/assets/icons/email-icon.png';
 import phoneIcon from 'src/assets/icons/phone-icon.png';
 import userIcon from 'src/assets/icons/user-icon.png';
 
