@@ -22,13 +22,9 @@ export class ChatbotService {
       ? null
       : await this.chatbotAIService.generateChatHistorySummary(userId);
 
-    const professionInfo =
-      await this.userService.findUserSkillsAndProfession(userId);
-
     const response = await this.chatbotAIService.askAssistant(
       question,
       chatHistory,
-      professionInfo,
     );
 
     await this.chatbotHistoryService.createHistoryDialog({
