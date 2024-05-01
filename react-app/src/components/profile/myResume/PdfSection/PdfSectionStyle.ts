@@ -12,6 +12,8 @@ const styleSheet = StyleSheet.create({
     fontSize: subTitleFontSize,
   },
   section: {
+    display: 'flex',
+    flexDirection: 'column',
     padding: 10,
     gap: 5,
   },

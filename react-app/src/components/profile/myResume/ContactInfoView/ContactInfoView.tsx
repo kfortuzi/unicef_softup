@@ -1,8 +1,13 @@
 import { EditOutlined } from '@ant-design/icons';
-import { Upload, UploadProps, message, Image } from 'antd';
+import { Upload, UploadProps, message, Image, Typography, Avatar } from 'antd';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import AddressIcon from 'src/assets/icons/address-icon.png';
+import EmailIcon from 'src/assets/icons/email-icon.png';
+import LinkedinIcon from 'src/assets/icons/linkedin-icon.png';
+import NationalityIcon from 'src/assets/icons/nationality-icon.png';
+import PhoneIcon from 'src/assets/icons/phone-icon.png';
 import UserPlaceHolderImage from 'src/assets/images/user-placeholder.jpeg';
 import Button from 'src/components/common/Button/Button';
 import config from 'src/config';
@@ -68,12 +73,9 @@ const ContactInfoView: React.FC<ContactInfoViewProps> = (props) => {
   return (
     <div className="contact-info-view-section">
       <div className="profile-pic-section">
-        <Image
-          src={props.profilePicture}
-          preview={false}
-          alt="Profile Picture"
-          className="profile-pic"
-          fallback={UserPlaceHolderImage}
+        <Avatar
+          size={160}
+          src={props.profilePicture || UserPlaceHolderImage}
           key={imageKey}
         />
         <Upload {...uploadProps}>
@@ -91,19 +93,31 @@ const ContactInfoView: React.FC<ContactInfoViewProps> = (props) => {
       </div>
       <div className="info-section">
         <div className="info-group">
-          <p className="group-title">{t('nationality')}</p>
+          <div className="group-title-container">
+            <Image src={NationalityIcon} preview={false} className='contact-info-icon' />
+            <Typography.Text className='group-title-text'>{t('nationality')}</Typography.Text>
+          </div>
           <p className="group-value">{nationality}</p>
         </div>
         <div className="info-group">
-          <p className="group-title">{t('phoneNumber')}</p>
+          <div className="group-title-container">
+            <Image src={PhoneIcon} preview={false} className='contact-info-icon' />
+            <Typography.Text className='group-title-text'>{t('phoneNumber')}</Typography.Text>
+          </div>
           <p className="group-value">{phoneNumber}</p>
         </div>
         <div className="info-group">
-          <p className="group-title">{t('email')}</p>
+          <div className="group-title-container">
+            <Image src={EmailIcon} preview={false} className='contact-info-icon' />
+            <Typography.Text className='group-title-text'>{t('email')}</Typography.Text>
+          </div>
           <p className="group-value">{email}</p>
         </div>
         <div className="info-group">
-          <p className="group-title">{t('linkedin')}</p>
+          <div className="group-title-container">
+            <Image src={LinkedinIcon} preview={false} className='contact-info-icon' />
+            <Typography.Text className='group-title-text'>{t('linkedin')}</Typography.Text>
+          </div>
           {linkedinUrl && (
             <a href={linkedinUrl} className="group-value linkedin-link">
               {linkedinText}
@@ -111,7 +125,10 @@ const ContactInfoView: React.FC<ContactInfoViewProps> = (props) => {
           )}
         </div>
         <div className="info-group">
-          <p className="group-title">{t('address')}</p>
+          <div className="group-title-container">
+            <Image src={AddressIcon} preview={false} className='contact-info-icon' />
+            <Typography.Text className='group-title-text'>{t('address')}</Typography.Text>
+          </div>
           <p className="group-value">{address}</p>
         </div>
       </div>

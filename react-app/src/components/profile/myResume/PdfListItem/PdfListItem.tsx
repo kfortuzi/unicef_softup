@@ -16,13 +16,17 @@ const PdfListItem: React.FC<PdfListItemProps> = (props) => {
 
   return (
     <View style={styles.listItem}>
-      <View style={styles.listHeader}>
-        {withBullet && <View style={styles.bullet}></View>}
-        <Text style={{ ...styles.listTitle, ...titleStyle }}>{title}</Text>
+      <View style={styles.listDecoration}>
+        {withBullet && <View style={styles.listBullet}></View>}
+        {withLine && <View style={styles.listLine}></View>}
       </View>
-      <View style={styles.listBody}>
-        {withLine && <View style={styles.line}></View>}
-        <View>{children}</View>
+      <View style={styles.listContent}>
+        <Text style={{ ...styles.listItemTitle, ...titleStyle }}>
+          {title}
+        </Text>
+        <View style={styles.listBody}>
+          <View>{children}</View>
+        </View>
       </View>
     </View>
   );

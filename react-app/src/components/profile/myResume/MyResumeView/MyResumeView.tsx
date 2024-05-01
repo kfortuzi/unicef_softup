@@ -50,14 +50,13 @@ const MyResumeView: React.FC<MyResumeViewProps> = (props) => {
         <div className="cv-header">
           <h1>
             {job?.company} {t('header')}
-
           </h1>
-
           <PDFDownloadLink document={<ResumePdfView resume={resume} />}>
             {t('downloadPdfButtonText')} <DownloadOutlined />
           </PDFDownloadLink>
         </div>
         <div className="my-resume-body">
+
           <Row justify="center" wrap={true} style={{ width: '100%' }}>
             <Col
               className='contact-section'

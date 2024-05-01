@@ -23,10 +23,12 @@ const WorkExperiencesView: React.FC<WorkExperiencesProps> = (props) => {
             key={index}
             titleStyle={{ color: 'blue' }}
           >
-            <p className="work-experience-title">
-              {`${formatDate(experience.startDate)} - ${formatDate(experience.endDate, t('present'))}`}
-            </p>
-            <p>{omitFalsyValue(experience?.company)}</p>
+            <div className="work-experience-title">
+              <p>
+                {`${formatDate(experience.startDate)} - ${formatDate(experience.endDate, t('present'))}`}
+              </p>
+              <p>{omitFalsyValue(experience?.company)}</p>
+            </div>
             <p>{omitFalsyValue(experience?.responsibilities)}</p>
           </ListItem>
         );

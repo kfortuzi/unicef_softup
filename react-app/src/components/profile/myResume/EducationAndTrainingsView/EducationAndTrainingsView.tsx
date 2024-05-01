@@ -25,10 +25,12 @@ const EducationAndTrainings: React.FC<EducationAndTrainingsProps> = (props) => {
             key={index}
             titleStyle={{ color: 'blue' }}
           >
-            <p className="education-subtitle">
-              {`${formatDate(education?.startDate)} - ${formatDate(education?.endDate, t('present'))}`}
-            </p>
-            <p className="education-subtitle">{omitFalsyValue(education?.type)}</p>
+            <div className="education-subtitle">
+              <p>
+                {`${formatDate(education?.startDate)} - ${formatDate(education?.endDate, t('present'))}`}
+              </p>
+              <p>{omitFalsyValue(education?.type)}</p>
+            </div>
             <p>{omitFalsyValue(education?.location)}</p>
           </ListItem>
         );

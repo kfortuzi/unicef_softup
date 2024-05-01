@@ -1,11 +1,11 @@
-import { Text } from '@react-pdf/renderer';
+import { Text, View } from '@react-pdf/renderer';
 import { useTranslation } from 'react-i18next';
 
 import { WorkExperience } from 'src/api/resumes/types';
 import { formatDate } from 'src/utils/dateUtils';
 import { omitFalsyValue } from 'src/utils/stringUtils';
 
-import ListItem from '../PdfListItem/PdfListItem';
+import PdfListItem from '../PdfListItem/PdfListItem';
 import styles from './PdfWorkExperienceStyle';
 
 interface PdfWorkExperiencesProps {
@@ -19,18 +19,19 @@ const PdfWorkExperiences: React.FC<PdfWorkExperiencesProps> = (props) => {
   return (
     <>
       {workExperiences.map((experience, index) => (
-        <ListItem
+        <PdfListItem
           title={omitFalsyValue(experience?.position)}
           key={index}
           titleStyle={styles.listTitle}
         >
-          <Text style={styles.subTitle}>
-            {`${formatDate(experience?.startDate)} - ${formatDate(experience?.endDate, t('present'))}`}
-          </Text>
-          <Text style={styles.subTitle}>{omitFalsyValue(experience?.position)}</Text>
-          <Text style={styles.subTitle}>{omitFalsyValue(experience?.company)}</Text>
+          <View style={styles.subTitle}>
+            <Text>
+              {`${formatDate(experience?.startDate)} - ${formatDate(experience?.endDate, t('present'))}`}
+            </Text>
+            <Text>{omitFalsyValue(experience?.company)}</Text>
+          </View>
           <Text style={styles.content}>{omitFalsyValue(experience?.responsibilities)}</Text>
-        </ListItem>
+        </PdfListItem>
       ))}
     </>
   );

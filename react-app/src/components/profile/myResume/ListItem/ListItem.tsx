@@ -11,18 +11,21 @@ const ListItem: React.FC<ListItemProps> = (props) => {
 
   return (
     <div className="list-item">
-      <div className="list-header">
+      <div className="list-decoration">
         {withBullet && <div className="list-bullet"></div>}
-        <p
-          className="list-title"
-          style={titleStyle}
-        >
-          {title}
-        </p>
-      </div>
-      <div className="list-body">
         {withLine && <div className="list-line"></div>}
-        <div>{children}</div>
+      </div>
+      <div className="list-content">
+        <div className="list-title">
+          <p
+            style={titleStyle}
+          >
+            {title}
+          </p>
+        </div>
+        <div className="list-body">
+          <div>{children}</div>
+        </div>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { Text } from '@react-pdf/renderer';
+import { Text, View } from '@react-pdf/renderer';
 import { useTranslation } from 'react-i18next';
 
 import { Education } from 'src/api/resumes/types';
@@ -26,10 +26,12 @@ const PdfEducationAndTrainings: React.FC<PdfEducationAndTrainingsProps> = (props
           key={index}
           titleStyle={styles.listTitle}
         >
-          <Text style={styles.subTitle}>
-            {`${formatDate(education?.startDate)} - ${formatDate(education?.endDate, t('present'))}`}
-          </Text>
-          <Text style={styles.subTitle}>{`${omitFalsyValue(education?.type)}`}</Text>
+          <View style={styles.subTitle}>
+            <Text>
+              {`${formatDate(education?.startDate)} - ${formatDate(education?.endDate, t('present'))}`}
+            </Text>
+            <Text>{omitFalsyValue(education?.type)}</Text>
+          </View>
           <Text>{omitFalsyValue(education?.location)}</Text>
         </PdfListItem>
       ))}
