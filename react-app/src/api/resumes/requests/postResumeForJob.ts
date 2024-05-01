@@ -4,7 +4,7 @@ import { PostResumeForJobRequest, PostResumeForJobResponse } from '../types';
 
 export const postResumeForJob = async (
   request: PostResumeForJobRequest,
-): Promise<PostResumeForJobResponse | undefined> => {
+): Promise<PostResumeForJobResponse> => {
   const parsedData = makeRequest<PostResumeForJobResponse>(`/resumes/for-job/${request.jobId}`, {
     method: 'POST',
   });

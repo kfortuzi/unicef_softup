@@ -4,7 +4,7 @@ import { PostCoverLetterWizardRequest, PostCoverLetterWizardResponse } from '../
 
 export const postCoverLetterWizard = async (
   request: PostCoverLetterWizardRequest,
-): Promise<PostCoverLetterWizardResponse | undefined> => {
+): Promise<PostCoverLetterWizardResponse> => {
   const parsedData = await makeRequest<PostCoverLetterWizardResponse>(`/cover-letters/wizard`, {
     method: 'POST',
     body: JSON.stringify(request),

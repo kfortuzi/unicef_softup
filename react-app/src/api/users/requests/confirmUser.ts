@@ -2,7 +2,7 @@ import makeRequest from 'src/utils/makeRequest';
 
 import { ConfirmUserRequest, ConfirmUserResponse } from '../types';
 
-const confirmUser = async (request: ConfirmUserRequest): Promise<ConfirmUserResponse | undefined> => {
+const confirmUser = async (request: ConfirmUserRequest): Promise<ConfirmUserResponse> => {
   if (!request.id || !request.verificationCode) {
     throw new Error('Invalid request');
   }

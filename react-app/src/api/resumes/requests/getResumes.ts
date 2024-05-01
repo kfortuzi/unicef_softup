@@ -2,7 +2,7 @@ import makeRequest from 'src/utils/makeRequest';
 
 import { GetResumesResponse } from '../types';
 
-const getResumes = async (): Promise<GetResumesResponse | undefined> => {
+const getResumes = async (): Promise<GetResumesResponse> => {
   const response = await makeRequest<GetResumesResponse>('/resumes');
 
   return response;

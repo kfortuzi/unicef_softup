@@ -4,7 +4,7 @@ import { RequestNewPasswordRequest, RequestNewPasswordResponse } from '../types'
 
 const requestNewPassword = async (
   request: RequestNewPasswordRequest,
-): Promise<RequestNewPasswordResponse | undefined> => {
+): Promise<RequestNewPasswordResponse> => {
   const parsedData = await makeRequest<RequestNewPasswordResponse>(
     '/user/send-reset-password',
     {

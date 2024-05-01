@@ -2,7 +2,7 @@ import makeRequest from 'src/utils/makeRequest';
 
 import { GetProfileResponse, Role, User } from '../types';
 
-const getProfile = async (): Promise<User | undefined> => {
+const getProfile = async (): Promise<User> => {
   const parsedData = await makeRequest<GetProfileResponse>('/user/profile');
 
   // TODO: use role from response

@@ -31,7 +31,7 @@ const PageWithNavigation: React.FC = () => {
   const { logOut } = useLogOut();
 
   useEffect(() => {
-    if (isFetched && !resumes) {
+    if (isFetched && !resumes?.length) {
       navigate(Route.RESUME_QUESTIONNAIRE, { replace: true });
       setHasBaseCv(false);
     } else {

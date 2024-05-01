@@ -4,7 +4,7 @@ import { PostCoverLetterForJobRequest, PostCoverLetterForJobResponse } from '../
 
 export const postCoverLetterForJob = async (
   request: PostCoverLetterForJobRequest,
-): Promise<PostCoverLetterForJobResponse | undefined> => {
+): Promise<PostCoverLetterForJobResponse> => {
   const parsedData = makeRequest<PostCoverLetterForJobResponse>(`/cover-letters/for-job/${request.jobId}`, {
     method: 'POST',
   });

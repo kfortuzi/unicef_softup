@@ -2,7 +2,7 @@ import makeRequest from 'src/utils/makeRequest';
 
 import { SignupRequest, SignupResponse, User } from '../types';
 
-const signUp = async (request: SignupRequest): Promise<User | undefined> => {
+const signUp = async (request: SignupRequest): Promise<User> => {
   const parsedData = await makeRequest<SignupResponse>(
     '/user/signup',
     {
@@ -17,17 +17,15 @@ const signUp = async (request: SignupRequest): Promise<User | undefined> => {
     false,
   );
 
-  if (parsedData) {
-    const { id, email, first_name: firstName, last_name: lastName, confirmed_at: confirmedAt } = parsedData;
+  const { id, email, first_name: firstName, last_name: lastName, confirmed_at: confirmedAt } = parsedData;
 
-    return {
-      id,
-      email,
-      firstName,
-      lastName,
-      confirmedAt,
-    };
-  }
+  return {
+    id,
+    email,
+    firstName,
+    lastName,
+    confirmedAt,
+  };
 };
 
 export default signUp;

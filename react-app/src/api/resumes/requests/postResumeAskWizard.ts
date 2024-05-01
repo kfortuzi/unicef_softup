@@ -4,7 +4,7 @@ import { PostResumeAskWizardRequest, PostResumeAskWizardResponse } from '../type
 
 export const postResumeAskWizard = async (
   request: PostResumeAskWizardRequest,
-): Promise<PostResumeAskWizardResponse | undefined> => {
+): Promise<PostResumeAskWizardResponse> => {
   const parsedData = makeRequest<PostResumeAskWizardResponse>(`/resumes/ask-wizard`, {
     method: 'POST',
     body: JSON.stringify(request),

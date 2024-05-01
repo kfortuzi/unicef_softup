@@ -2,7 +2,7 @@ import makeRequest from 'src/utils/makeRequest';
 
 import { PostSkillRequest, PostSkillResponse } from '../types';
 
-const postSkill = async (request: PostSkillRequest): Promise<PostSkillResponse | undefined> => {
+const postSkill = async (request: PostSkillRequest): Promise<PostSkillResponse> => {
   const parsedData = await makeRequest<PostSkillResponse>(
     '/user/skills',
     {

@@ -4,7 +4,7 @@ import { PostResumeSummaryRequest, PostResumeSummaryResponse } from '../types';
 
 export const postResumeSummary = async (
   request: PostResumeSummaryRequest,
-): Promise<PostResumeSummaryResponse | undefined> => {
+): Promise<PostResumeSummaryResponse> => {
   const parsedData = makeRequest<PostResumeSummaryResponse>(`/resumes/summary`, {
     method: 'POST',
     body: JSON.stringify(request),

@@ -2,7 +2,7 @@ import makeRequest from 'src/utils/makeRequest';
 
 import { ResetPasswordRequest, ResetPasswordResponse } from '../types';
 
-const resetPassword = async (request: ResetPasswordRequest): Promise<ResetPasswordResponse | undefined> => {
+const resetPassword = async (request: ResetPasswordRequest): Promise<ResetPasswordResponse> => {
   const queryParams = new URLSearchParams({ verificationCode: request.verificationCode });
 
   const parsedData = await makeRequest<ResetPasswordResponse>(

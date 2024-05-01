@@ -4,7 +4,7 @@ import { PostResumeResponsibilityRequest, PostResumeResponsibilityResponse } fro
 
 export const postResumeResponsibility = async (
   request: PostResumeResponsibilityRequest,
-): Promise<PostResumeResponsibilityResponse | undefined> => {
+): Promise<PostResumeResponsibilityResponse> => {
   const parsedData = makeRequest<PostResumeResponsibilityResponse>(`/resumes/responsibility`, {
     method: 'POST',
     body: JSON.stringify(request),

@@ -4,7 +4,7 @@ import { PostJobTipsAndAdvicesRequest, PostJobTipsAndAdvicesResponse } from '../
 
 export const postJobTipsAndAdvices = async (
   request: PostJobTipsAndAdvicesRequest,
-): Promise<PostJobTipsAndAdvicesResponse | undefined> => {
+): Promise<PostJobTipsAndAdvicesResponse> => {
   const parsedData = makeRequest<PostJobTipsAndAdvicesResponse>(`/jobs/${request.id}/tips-and-advices`, {
     method: 'POST',
     body: JSON.stringify(request),

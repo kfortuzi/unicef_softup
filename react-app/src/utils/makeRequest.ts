@@ -6,12 +6,12 @@ const makeRequest = async <ResponseType>(
   path: string,
   options: RequestInit = { method: 'GET' },
   requiresAuth = true,
-): Promise<ResponseType | undefined> => {
+): Promise<ResponseType> => {
   let authorizationHeader: string | undefined;
 
   if (requiresAuth) {
     const accessToken = getItem<string>(LocalStorageKey.USER_SESSION_TOKEN);
-    
+
     if (!accessToken) {
       throw new Error('Unauthorized');
     }
@@ -49,15 +49,13 @@ const makeRequest = async <ResponseType>(
     throw new Error(errorMessage);
   }
 
-  try {
-    if (response.headers.get('Content-Length') !== '0') {
-      const parsedData = await response.json();
-
-      return parsedData;
-    }
-  } catch {
+  if (response.headers.get('Content-Length') === '0') {
     throw new Error('Invalid response');
   }
+
+  const parsedData = await response.json();
+
+  return parsedData;
 };
 
 export default makeRequest;

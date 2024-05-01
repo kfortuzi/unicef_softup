@@ -4,7 +4,7 @@ import { PostResumesWizardRequest, PostResumesWizardResponse } from '../types';
 
 export const postResumesWizard = async (
   request: PostResumesWizardRequest,
-): Promise<PostResumesWizardResponse | undefined> => {
+): Promise<PostResumesWizardResponse> => {
   const parsedData = makeRequest<PostResumesWizardResponse>(`/resumes/wizard`, {
     method: 'POST',
     body: JSON.stringify(request),
