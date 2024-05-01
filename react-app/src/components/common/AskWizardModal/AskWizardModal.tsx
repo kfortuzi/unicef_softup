@@ -43,6 +43,7 @@ const AskWizardModal: React.FC<AskWizardModalProps> = ({
     setLoading(true);
     const userMessage = { text: text, type: 'user' } as Message;
     let aiMessage: Message;
+    setMessages([...messages, userMessage]);
     try {
       const systemMessage = await sendMessageAndGetAiPrompt(text);
       aiMessage = { text: systemMessage, type: 'ai', isUsable: true } as Message;
@@ -92,13 +93,13 @@ const AskWizardModal: React.FC<AskWizardModalProps> = ({
                 onChange={onChange}
                 onPressEnter={async () => {
                   if (!value) return;
-                  await askWizard(value);
                   setValue('chat', '');
+                  await askWizard(value);
                 }}
                 onSearch={async () => {
                   if (!value) return;
-                  await askWizard(value);
                   setValue('chat', '');
+                  await askWizard(value);
                 }}
                 suffix={<RightOutlined />}
               />
