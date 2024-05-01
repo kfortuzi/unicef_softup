@@ -1,4 +1,4 @@
-import { Col, Row, Spin, Typography } from 'antd';
+import { Col, Empty, Row, Spin, Typography } from 'antd';
 import Search from 'antd/es/input/Search';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -37,52 +37,50 @@ const Jobs: React.FC = () => {
         <Typography.Title className="title">{t('header')}</Typography.Title>
       </div>
       <h2 className="category">{t('appliedJobs')}</h2>
-      <Row
-        className="list-of-jobs recommended-jobs"
-        gutter={[32, 32]}
-        key={'applied-jobs'}
-      >
-        {appliedJobs && appliedJobs.length > 0 ? (
-          appliedJobs.map(
-            (job) =>
-              job && (
-                <Col
-                  className="col-job-card"
-                  xxl={8}
-                  xl={12}
-                  lg={24}
-                  md={24}
-                  sm={24}
-                  xs={24}
-                  key={'applied-' + job.id}
-                >
-                  <JobCard
-                    jobId={job.id}
-                    referenceId={job.referenceId}
-                    title={job.title}
-                    description={job.description}
-                    companyName={job.company}
-                    location={job.location}
-                    resume={resumes?.find((resume) => resume.referenceId === job.id)}
-                    coverLetter={coverLetters?.find((coverLetter) => coverLetter.referenceId === job.id)}
-                    isApplied={true}
-                  />
-                </Col>
-              ),
-          )
-        ) : (
-          <p>{t('noAppliedJobs')}</p>
-        )}
-      </Row>
+      {appliedJobs && appliedJobs.length > 0 ? (
+        <Row
+          className="list-of-jobs recommended-jobs"
+          gutter={[32, 32]}
+          key={'applied-jobs'}
+        >
+          {appliedJobs.map(
+            (job) => job && (
+              <Col
+                className="col-job-card"
+                xxl={8}
+                xl={12}
+                lg={24}
+                md={24}
+                sm={24}
+                xs={24}
+                key={'applied-' + job.id}
+              >
+                <JobCard
+                  jobId={job.id}
+                  referenceId={job.referenceId}
+                  title={job.title}
+                  description={job.description}
+                  companyName={job.company}
+                  location={job.location}
+                  resume={resumes?.find((resume) => resume.referenceId === job.id)}
+                  coverLetter={coverLetters?.find((coverLetter) => coverLetter.referenceId === job.id)}
+                  isApplied={true}
+                />
+              </Col>
+            )
+          )}
+        </Row>
+      ) : <Empty className='empty-text' description={t('noAppliedJobs')} />}
       <hr className='header-divider' />
       <h2 className="category">{t('recommendedJobs')}</h2>
-      <Row
-        className="list-of-jobs recommended-jobs"
-        gutter={[32, 32]}
-        key={'recommended-jobs'}
-      >
-        {recommendedJobs && recommendedJobs.length > 0 ? (
-          recommendedJobs.map((job) => (
+
+      {recommendedJobs && recommendedJobs.length > 0 ? (
+        <Row
+          className="list-of-jobs recommended-jobs"
+          gutter={[32, 32]}
+          key={'recommended-jobs'}
+        >
+          {recommendedJobs.map((job) => (
             <Col
               className="col-job-card"
               xxl={8}
@@ -105,11 +103,9 @@ const Jobs: React.FC = () => {
                 isApplied={appliedJobs.some((appliedJob) => appliedJob.id === job.id)}
               />
             </Col>
-          ))
-        ) : (
-          <p>{t('noRecommendedJobs')}</p>
-        )}
-      </Row>
+          ))}
+        </Row>
+      ) : <Empty className='empty-text' description={t('noAppliedJobs')} />}
       <hr className='header-divider' />
       <h2 className="category">{t('allJobs')}
         <Search
@@ -125,53 +121,55 @@ const Jobs: React.FC = () => {
           size='large'
         />
       </h2>
-      <Row
-        className="list-of-jobs"
-        gutter={[32, 32]}
-        key={'all-jobs'}
-      >
-        <Spin spinning={isFetching} size='large' />
-        {
-          allJobs && allJobs.pages.flat().length > 0 ? (
-            allJobs?.pages.map((page) =>
-              page?.map((job) => (
-                <Col
-                  className="col-job-card"
-                  xxl={8}
-                  xl={12}
-                  lg={24}
-                  md={24}
-                  sm={24}
-                  xs={24}
-                  key={'all-jobs-' + Math.random()}
-                >
-                  <JobCard
-                    jobId={job.id}
-                    referenceId={job.referenceId}
-                    title={job.title}
-                    description={job.description}
-                    companyName={job.company}
-                    location={job.location}
-                    resume={resumes?.find((resume) => resume.referenceId === job.id)}
-                    coverLetter={coverLetters?.find((coverLetter) => coverLetter.referenceId === job.id)}
-                    isApplied={appliedJobs?.some((appliedJob) => appliedJob.id === job.id)}
-                  />
-                </Col>
-              )))) : (
-            <p>{t('noRecommendedJobs')}</p>
-          )}
-      </Row>
-      {!filterValue ? (
-        <Button
-          className="load-more-button"
-          onClick={() => hasNextPage && !isFetchingNextPage && fetchNextPage()}
-          size="large"
-          text={t('loadMoreButtonText')}
-          type="primary"
-          loading={isFetchingNextPage}
-        />
-      ) : null}
-    </div>
+      {allJobs && allJobs.pages.flat().length > 0 ? (
+        <Row
+          className="list-of-jobs"
+          gutter={[32, 32]}
+          key={'all-jobs'}
+        >
+          <Spin spinning={isFetching} size='large' />
+          {
+            allJobs?.pages.map((page) => page?.map((job) => (
+              <Col
+                className="col-job-card"
+                xxl={8}
+                xl={12}
+                lg={24}
+                md={24}
+                sm={24}
+                xs={24}
+                key={'all-jobs-' + Math.random()}
+              >
+                <JobCard
+                  jobId={job.id}
+                  referenceId={job.referenceId}
+                  title={job.title}
+                  description={job.description}
+                  companyName={job.company}
+                  location={job.location}
+                  resume={resumes?.find((resume) => resume.referenceId === job.id)}
+                  coverLetter={coverLetters?.find((coverLetter) => coverLetter.referenceId === job.id)}
+                  isApplied={appliedJobs?.some((appliedJob) => appliedJob.id === job.id)}
+                />
+              </Col>
+            )))
+          }
+        </Row>
+      ) : <Empty className='empty-text' description={t('noAppliedJobs')} />
+      }
+      {
+        !filterValue ? (
+          <Button
+            className="load-more-button"
+            onClick={() => hasNextPage && !isFetchingNextPage && fetchNextPage()}
+            size="large"
+            text={t('loadMoreButtonText')}
+            type="primary"
+            loading={isFetchingNextPage}
+          />
+        ) : null
+      }
+    </div >
   );
 };
 

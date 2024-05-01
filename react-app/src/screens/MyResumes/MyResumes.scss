@@ -4,7 +4,12 @@
     font-size: 150%;
     margin: $large 0;
   }
+
   .list-of-resumes {
     margin-bottom: $large;
+  }
+
+  .empty-text {
+    font-size: $small-font-size;
   }
 }

@@ -310,6 +310,7 @@
     },
     "myResumes": {
       "header": "CV-të e mia",
+      "noUserGeneratedResumes": "Nuk u gjeten CV të gjeneruara nga une!",
       "lastUpdated": "Perditesimi i fundit",
       "edit": "Edito",
       "delete": "Fshi",
@@ -330,8 +331,10 @@
     },
     "myCoverLetters": {
       "header": "Letrat e mia te motivimit",
-      "aiGenerated": "Letrat e motivimit te gjeneruara me AI",
-      "userGenerated": "Letrat e motivimit te krijuara nga une",
+      "tailoredCoverLetters": "Letrat e motivimit te personalizuara",
+      "userGeneratedCoverLetters": "Letrat e motivimit te gjeneruara nga une",
+      "noTailoredCoverLetters": "Nuk u gjeten letra te motivimit te personalizuara!",
+      "noUserGeneratedCoverLetters": "Nuk u gjeten letra te motivimit te gjeneruara nga une!",
       "delete": "Fshi",
       "edit": "Edito",
       "lastUpdated": "Perditesimi i fundit",

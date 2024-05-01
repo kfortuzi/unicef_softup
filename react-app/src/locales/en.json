@@ -316,6 +316,7 @@
     },
     "myResumes": {
       "header": "My Resumes",
+      "noUserGeneratedResumes": "No user generated resumes found!",
       "lastUpdated": "Last updated",
       "edit": "Edit",
       "delete": "Dele",
@@ -336,8 +337,10 @@
     },
     "myCoverLetters": {
       "header": "My Cover Letters",
-      "aiGenerated": "My AI generated cover letters",
-      "userGenerated": "My composed cover letters",
+      "tailoredCoverLetters": "Tailored cover letters",
+      "userGeneratedCoverLetters": "My composed cover letters",
+      "noTailoredCoverLetters": "No tailored cover letters found!",
+      "noUserGeneratedCoverLetters": "No user generated cover letters found!",
       "delete": "Dele",
       "edit": "Edit",
       "lastUpdated": "Last updated",

@@ -4,11 +4,13 @@
     justify-content: space-between;
     align-items: center;
   }
+
   .title {
     font-family: $karla-bold;
     font-size: 150%;
     margin: $large 0;
   }
+
   .list-of-cover-letters {
     margin-bottom: $large;
 
@@ -17,5 +19,9 @@
       font-size: 125%;
       margin: 0;
     }
+  }
+
+  .empty-text {
+    font-size: $small-font-size;
   }
 }
