@@ -287,7 +287,9 @@
       "training": "Training",
       "trainingVideos": "Training videos",
       "trainingArticles": "Training articles",
-      "settings": "Settings"
+      "settings": "Settings",
+      "footerText": "Copyright AKPA 2024",
+      "developedBy": "Powered by Softup Technologies ShPK"
     },
     "profileWithNavigation": {
       "personalInfo": "Personal Info",

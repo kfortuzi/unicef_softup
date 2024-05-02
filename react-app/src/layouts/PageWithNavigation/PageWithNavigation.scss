@@ -51,4 +51,10 @@
       padding: 0 $small;
     }
   }
+
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    border-top: 0.2px solid $base-font-color;
+  }
 }

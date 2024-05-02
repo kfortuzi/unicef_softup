@@ -9,7 +9,7 @@ import {
 } from '@ant-design/icons';
 import { Breadcrumb, Layout, Menu, MenuProps } from 'antd';
 import { BreadcrumbItemType } from 'antd/es/breadcrumb/Breadcrumb';
-import { Content, Header } from 'antd/es/layout/layout';
+import { Content, Footer, Header } from 'antd/es/layout/layout';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Outlet, useLocation, useNavigate, useMatches, UIMatch } from 'react-router-dom';
@@ -162,6 +162,10 @@ const PageWithNavigation: React.FC = () => {
           <Outlet />
         </Content>
       </Layout>
+      <Footer className='footer'>
+        <span>{t('footerText')}</span>
+        <span>{t('developedBy')}</span>
+      </Footer>
     </Layout>
   );
 };

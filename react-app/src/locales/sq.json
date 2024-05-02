@@ -281,7 +281,9 @@
       "training": "Trajnim",
       "trainingVideos": "Video trajnime",
       "trainingArticles": "Artikuj trajnimi",
-      "settings": "Cilësimet"
+      "settings": "Cilësimet",
+      "footerText": "Copyright AKPA 2024",
+      "developedBy": "Powered by Softup Technologies ShPK"
     },
     "profileWithNavigation": {
       "personalInfo": "Informacione Personale",
