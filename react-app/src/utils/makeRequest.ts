@@ -1,6 +1,6 @@
 import config from 'src/config';
 
-import { LocalStorageKey, getItem } from './storage';
+import { LocalStorageKey, deleteItem, getItem } from './storage';
 
 const makeRequest = async <ResponseType>(
   path: string,
@@ -13,7 +13,7 @@ const makeRequest = async <ResponseType>(
     const accessToken = getItem<string>(LocalStorageKey.USER_SESSION_TOKEN);
 
     if (!accessToken) {
-      throw new Error('Unauthorized');
+      window.location.href = '/';
     }
 
     authorizationHeader = `Bearer ${accessToken}`;
@@ -38,6 +38,11 @@ const makeRequest = async <ResponseType>(
   // Check if the response is not successful and throw an meaningful error
   try {
     if (!response.ok) {
+      if (response.status === 401) {
+        deleteItem(LocalStorageKey.USER_SESSION_TOKEN);
+        window.location.href = '/';
+      }
+
       const responseBody = await response.json();
       if (responseBody?.message) {
         throw new Error(responseBody.message);

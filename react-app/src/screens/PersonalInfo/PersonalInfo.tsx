@@ -48,14 +48,14 @@ const PersonalInfo: React.FC = () => {
       style={{
         display: 'flex',
         flexDirection: 'column',
-        gap: '20px',
+        justifyItems: 'flex-start',
+        gap: '30px',
       }}
     >
       <h1 style={{ alignSelf: 'center' }}>{t('header')}</h1>
       <Row
         justify="center"
-        align="middle"
-        gutter={[16, 16]}
+        gutter={[32, 32]}
       >
         <Col
           xs={24}

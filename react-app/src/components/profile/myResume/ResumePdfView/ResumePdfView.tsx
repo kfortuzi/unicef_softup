@@ -40,85 +40,131 @@ const ResumePdfView: React.FC<ResumePdfViewProps> = ({ resume }) => {
             imgUrl={resume.profilePicture}
           />
           <View style={styles.contentSection}>
+
             {/* About Me*/}
             <PdfSection title={t('aboutMeSection.header')}>
               <PdfAboutMe description={resume.summary} />
             </PdfSection>
+
             {/* Education And Training*/}
-            <PdfSection title={t('educationAndTrainingsSection.headerPlural')}>
-              <PdfEducationAndTrainings educationAndTrainings={resume.educations || []} />
-            </PdfSection>
+            {resume.educations && resume.educations?.length > 0 && (
+              <PdfSection title={t('educationAndTrainingsSection.headerPlural')}>
+                <PdfEducationAndTrainings educationAndTrainings={resume.educations} />
+              </PdfSection>
+            )}
+
             {/* Work Experience*/}
-            <PdfSection title={t('workExperiencesSection.headerPlural')}>
-              <PdfWorkExperiences workExperiences={resume.experiences || []} />
-            </PdfSection>
+            {resume.experiences && resume.experiences?.length > 0 && (
+              <PdfSection title={t('workExperiencesSection.headerPlural')}>
+                <PdfWorkExperiences workExperiences={resume.experiences} />
+              </PdfSection>
+            )}
+
             {/* Languages*/}
-            <PdfSection title={t('languagesSection.headerPlural')}>
-              <Text style={styles.sectionText}>
-                <Text style={styles.sectionSubTitle}>{t('languagesSection.motherTongue')}: </Text>
-                {resume.languages
-                  ?.filter((language) => language.isNative)
-                  .map((language) => <Text key={language.name}>{language.name}</Text>)}
-              </Text>
-              <View style={{ gap: 10 }}>
-                <Text style={styles.sectionSubTitle}>{t('languagesSection.otherLanguages')}: </Text>
-                {resume.languages
-                  ?.filter((language) => !language.isNative)
-                  .map((language) => (
-                    <PdfLanguageItem
-                      key={language.name}
-                      name={language.name}
-                      reading={language.reading}
-                      writing={language.writing}
-                      speaking={language.speaking}
-                      isNative={language.isNative}
-                    />
-                  ))}
-              </View>
-            </PdfSection>
+            {resume.languages && resume.languages?.length > 0 && (
+              <PdfSection title={t('languagesSection.headerPlural')}>
+                <Text style={styles.sectionText}>
+                  <Text style={styles.sectionSubTitle}>{t('languagesSection.motherTongue')}: </Text>
+                  {resume.languages
+                    ?.filter((language) => language.isNative)
+                    .map((language) => <Text key={language.name}>{language.name}</Text>)}
+                </Text>
+                <View style={{ gap: 10 }}>
+                  <Text style={styles.sectionSubTitle}>{t('languagesSection.otherLanguages')}: </Text>
+                  {resume.languages
+                    ?.filter((language) => !language.isNative)
+                    .map((language) => (
+                      <PdfLanguageItem
+                        key={language.name}
+                        name={language.name}
+                        reading={language.reading}
+                        writing={language.writing}
+                        speaking={language.speaking}
+                        isNative={language.isNative}
+                      />
+                    ))}
+                </View>
+              </PdfSection>
+            )}
 
             {/* Digital Skills*/}
-            <PdfSection title={t('digitalSkillsSection.headerPlural')}>
-              <Text style={styles.sectionText}>{resume.digitalSkills}</Text>
-            </PdfSection>
+            {resume.digitalSkills && resume.digitalSkills.length > 0 && (
+              <PdfSection title={t('digitalSkillsSection.headerPlural')}>
+                {resume.digitalSkills?.map((skill) => (
+                  <Text key={skill} style={styles.sectionText}>{skill}</Text>
+                ))}
+              </PdfSection>
+            )}
+
             {/* Soft Skills*/}
-            <PdfSection title={t('softSkillsSection.headerPlural')}>
-              <Text style={styles.sectionText}>{resume.softSkills}</Text>
-            </PdfSection>
+            {resume.softSkills && resume.softSkills.length > 0 && (
+              <PdfSection title={t('softSkillsSection.headerPlural')}>
+                {resume.softSkills?.map((skill) => (
+                  <Text key={skill} style={styles.sectionText}>{skill}</Text>
+                ))}
+              </PdfSection>
+            )}
+
+            {/* Technical Skills*/}
+            {resume.technicalSkills && resume.technicalSkills.length > 0 && (
+              <PdfSection title={t('technicalSkillsSection.headerPlural')}>
+                {resume.technicalSkills?.map((skill) => (
+                  <Text key={skill} style={styles.sectionText}>{skill}</Text>
+                ))}
+              </PdfSection>
+            )}
+
             {/* Hobbies and Interests*/}
-            <PdfSection title={t('hobbiesSection.headerPlural')}>
-              <Text style={styles.sectionText}>{resume.hobbies}</Text>
-            </PdfSection>
+            {resume.hobbies && resume.hobbies.length > 0 && (
+              <PdfSection title={t('hobbiesSection.headerPlural')}>
+                {resume.hobbies?.map((hobby) => (
+                  <Text key={hobby} style={styles.sectionText}>{hobby}</Text>
+                ))}
+              </PdfSection>
+            )}
+
             {/* Certificate(s)*/}
-            <PdfSection title={t('certificatesSection.headerPlural')}>
-              <PdfCertificates certificates={resume?.certificates || []} />
-            </PdfSection>
+            {resume.certificates && resume.certificates.length > 0 && (
+              <PdfSection title={t('certificatesSection.headerPlural')}>
+                <PdfCertificates certificates={resume?.certificates || []} />
+              </PdfSection>
+            )}
+
             {/* Volunteering*/}
-            <PdfSection title={t('volunteeringsSection.headerPlural')}>
-              {resume.volunteering?.map((volunteering) => (
-                <PdfVolunteeringItem
-                  key={volunteering.role}
-                  role={volunteering.role}
-                  organization={volunteering.organization}
-                  startDate={volunteering.startDate}
-                  endDate={volunteering.endDate}
-                />
-              ))}
-            </PdfSection>
+            {resume.volunteering && resume.volunteering.length > 0 && (
+              <PdfSection title={t('volunteeringsSection.headerPlural')}>
+                {resume.volunteering?.map((volunteering) => (
+                  <PdfVolunteeringItem
+                    key={volunteering.role}
+                    role={volunteering.role}
+                    organization={volunteering.organization}
+                    startDate={volunteering.startDate}
+                    endDate={volunteering.endDate}
+                  />
+                ))}
+              </PdfSection>
+            )}
+
             {/* Publication(s)*/}
-            <PdfSection title={t('publicationsSection.headerPlural')}>
-              {resume.publications?.map((publication) => (
-                <PdfPublicationItem
-                  key={publication.name}
-                  name={publication.name}
-                  releaseDate={publication.releaseDate}
-                  link={publication.link}
-                />
-              ))}
-            </PdfSection>
-            <PdfSection title={t('drivingLicensesSection.headerPlural')}>
-              <PdfDrivingLicenseItem drivingLicense={resume?.drivingLicense || ''} />
-            </PdfSection>
+            {resume.publications && resume.publications.length > 0 && (
+              <PdfSection title={t('publicationsSection.headerPlural')}>
+                {resume.publications?.map((publication) => (
+                  <PdfPublicationItem
+                    key={publication.name}
+                    name={publication.name}
+                    releaseDate={publication.releaseDate}
+                    link={publication.link}
+                  />
+                ))}
+              </PdfSection>
+            )}
+
+            {/* Driving License*/}
+            {resume.drivingLicense && (
+              <PdfSection title={t('drivingLicensesSection.headerPlural')}>
+                <PdfDrivingLicenseItem drivingLicense={resume?.drivingLicense || ''} />
+              </PdfSection>
+            )}
           </View>
         </View>
       </Page>

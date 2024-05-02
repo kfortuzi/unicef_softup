@@ -1,4 +1,4 @@
-import { Col, Row, Typography } from 'antd';
+import { Col, Empty, Row, Typography } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -12,12 +12,12 @@ const TrainingVideos: React.FC = () => {
   return (
     <div className="trainings-container">
       <Typography.Title className="title">{t('header')}</Typography.Title>
-      <Row
-        className="list-of-trainings"
-        gutter={[32, 32]}
-      >
-        {trainings?.data ? (
-          trainings?.data.map((video) => (
+      {trainings?.data ? (
+        <Row
+          className="list-of-trainings"
+          gutter={[32, 32]}
+        >
+          {trainings?.data.map((video) => (
             <Col
               key={video.id}
               className="gutter-row"
@@ -33,11 +33,9 @@ const TrainingVideos: React.FC = () => {
                 attributes={video.attributes}
               />
             </Col>
-          ))
-        ) : (
-          <p>{t('noVideos')}</p>
-        )}
-      </Row>
+          ))}
+        </Row>
+      ) : <Empty description={t('noVideos')} className='empty-text' />}
     </div>
   );
 };

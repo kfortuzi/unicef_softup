@@ -100,7 +100,7 @@ const Jobs: React.FC = () => {
                 location={job.location}
                 resume={resumes?.find((resume) => resume.referenceId === job.id)}
                 coverLetter={coverLetters?.find((coverLetter) => coverLetter.referenceId === job.id)}
-                isApplied={appliedJobs.some((appliedJob) => appliedJob.id === job.id)}
+                isApplied={appliedJobs?.some((appliedJob) => appliedJob.id === job.id)}
               />
             </Col>
           ))}

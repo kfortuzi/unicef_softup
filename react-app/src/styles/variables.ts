@@ -1,18 +1,18 @@
 const fonts = {
-  karlaBold: 'Karla-Bold',
-  karlaBoldItalic: 'Karla-BoldItalic',
-  karlaExtraBold: 'Karla-ExtraBold',
-  karlaExtraBoldItalic: 'Karla-ExtraBoldItalic',
-  karlaEctraLight: 'Karla-ExtraLight',
-  karlaEctraLightItalic: 'Karla-ExtraLightItalic',
-  karlaItalic: 'Karla-Italic',
-  karlaLight: 'Karla-Light',
-  karlaLightItalic: 'Karla-LightItalic',
-  karlaMedium: 'Karla-Medium',
-  karlaMediumItalic: 'Karla-MediumItalic',
-  karlaRegular: 'Karla-Regular',
-  karlaSemiBold: 'Karla-SemiBold',
-  karlaSemiBoldItalic: 'Karla-SemiBoldItalic',
+  poppinsBold: 'Poppins-Bold',
+  poppinsBoldItalic: 'Poppins-BoldItalic',
+  poppinsExtraBold: 'Poppins-ExtraBold',
+  poppinsExtraBoldItalic: 'Poppins-ExtraBoldItalic',
+  poppinsEctraLight: 'Poppins-ExtraLight',
+  poppinsEctraLightItalic: 'Poppins-ExtraLightItalic',
+  poppinsItalic: 'Poppins-Italic',
+  poppinsLight: 'Poppins-Light',
+  poppinsLightItalic: 'Poppins-LightItalic',
+  poppinsMedium: 'Poppins-Medium',
+  poppinsMediumItalic: 'Poppins-MediumItalic',
+  poppinsRegular: 'Poppins-Regular',
+  poppinsSemiBold: 'Poppins-SemiBold',
+  poppinsSemiBoldItalic: 'Poppins-SemiBoldItalic',
 };
 
 const sizeVariables = {
@@ -31,7 +31,7 @@ const colors = {
 };
 
 const baseVariables = {
-  font: fonts.karlaRegular,
+  font: fonts.poppinsRegular,
   fontSize: '12px',
   fontColor: '#36383B',
   borderRadius: '5px',

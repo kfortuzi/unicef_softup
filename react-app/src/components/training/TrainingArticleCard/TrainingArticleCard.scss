@@ -6,6 +6,7 @@
 
   .training-card-body {
     background-color: $card-background-color;
+
     .ant-card-body {
       display: flex;
       flex-flow: column nowrap;
@@ -22,13 +23,13 @@
     color: white;
 
     .name {
-      font-family: $karla-bold;
+      font-family: $poppins-bold;
       font-size: 100%;
       margin: 0;
     }
 
     .last-updated {
-      font-family: $karla-regular;
+      font-family: $poppins-regular;
       font-size: 80%;
       margin: 0;
     }

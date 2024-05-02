@@ -1,4 +1,4 @@
-import { Image, Typography } from 'antd';
+import { Col, Image, Row, Typography } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -8,7 +8,6 @@ import generateResumeImage from 'src/assets/images/generate-resume.svg';
 import lambImage from 'src/assets/images/lamb.png';
 import Resume from 'src/assets/images/resume.webp';
 import Chatbot from 'src/components/chatbot/Chatbot';
-import Button from 'src/components/common/Button/Button';
 import getDayOfTip from 'src/utils/getDayOfTip';
 
 const Home: React.FC = () => {
@@ -17,63 +16,98 @@ const Home: React.FC = () => {
 
   return (
     <div className="home-container">
-      <div className="home-header">
-        <div className="title-container">
+      <Row className="home-header">
+        <Col
+          className="title-container"
+          md={15}
+          sm={24}
+          xs={24}
+        >
           <Typography.Title
             className="title"
             style={{ margin: 0 }}
           >
             {t('header')}
           </Typography.Title>
-          <Typography.Paragraph className='header-subtitle'>{t('subHeader')}</Typography.Paragraph>
           <hr className='header-divider' />
-          <Button
-            type="primary"
-            text={t('learnMore')}
-            size='large'
-            className='learn-more-button'
-          />
-        </div>
-        <div className="picture-container">
-          <img
+          <Typography.Paragraph className='header-subtitle'>{t('subHeader')}</Typography.Paragraph>
+        </Col>
+        <Col
+          className="picture-container"
+          md={8}
+          sm={24}
+          xs={24}
+        >
+          <Image
             src={Resume}
+            preview={false}
             alt="home-header"
             className="header-picture"
-            height={300}
-            width={200}
           />
-        </div>
+        </Col>
         <Chatbot />
-      </div>
-      <div className="services">
+      </Row>
+      <Row
+        className="services"
+        justify="center"
+        align="middle"
+        gutter={[32, 32]}
+      >
         <Typography.Text className="services-steps-text">{t('servicesStepsText')}</Typography.Text>
         <Typography.Title className="services-title">{t('servicesTitle')}</Typography.Title>
-        <div className="service-wrapper">
+        <Col
+          className="service-wrapper"
+          md={8}
+          sm={24}
+          xs={24}
+        >
           <Image src={generateResumeImage} className="icon" preview={false} />
           <Typography.Title className="title">{t('service1')}</Typography.Title>
           <Typography.Paragraph className="description">{t('service1Description')}</Typography.Paragraph>
-        </div>
-        <div className="service-wrapper">
+        </Col>
+        <Col
+          className="service-wrapper"
+          md={8}
+          sm={24}
+          xs={24}
+        >
           <Image src={generateCoverLetterImage} className="icon" preview={false} />
           <Typography.Title className="title">{t('service2')}</Typography.Title>
           <Typography.Paragraph className="description">{t('service2Description')}</Typography.Paragraph>
-        </div>
-        <div className="service-wrapper">
+        </Col>
+        <Col
+          className="service-wrapper"
+          md={8}
+          sm={24}
+          xs={24}
+        >
           <Image src={counselingImage} className="icon" preview={false} />
           <Typography.Title className="title">{t('service3')}</Typography.Title>
           <Typography.Paragraph className="description">{t('service3Description')}</Typography.Paragraph>
-        </div>
-      </div>
+        </Col>
+      </Row>
       <div className='tip-of-the-day-border-wrapper'>
-        <div className="tip-of-the-day">
-          <div className='tip-of-the-day-icon'>
+        <Row
+          className="tip-of-the-day"
+          align="middle"
+        >
+          <Col
+            className='tip-of-the-day-icon'
+            md={8}
+            sm={6}
+            xs={10}
+          >
             <Image src={lambImage} preview={false} />
-          </div>
-          <div>
+          </Col>
+          <Col
+            md={16}
+            sm={16}
+            xs={14}
+          >
             <Typography.Title className="title">{t('tipOfTheDay')}</Typography.Title>
             <Typography.Paragraph className="description">{dayOfTip}</Typography.Paragraph>
-          </div>
-        </div>
+          </Col>
+        </Row>
       </div>
     </div>
   );
