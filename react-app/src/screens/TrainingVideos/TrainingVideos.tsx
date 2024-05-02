@@ -26,7 +26,7 @@ const TrainingVideos: React.FC = () => {
               md={12}
               lg={8}
               xl={6}
-              xxl={4}
+              xxl={6}
             >
               <TrainingVideoCard
                 id={video.id}
@@ -35,7 +35,12 @@ const TrainingVideos: React.FC = () => {
             </Col>
           ))}
         </Row>
-      ) : <Empty description={t('noVideos')} className='empty-text' />}
+      ) : (
+        <Empty
+          description={t('noVideos')}
+          className="empty-text"
+        />
+      )}
     </div>
   );
 };

@@ -217,7 +217,7 @@ export class UserService {
       'PASSWORD_RESET',
       expiresAt,
     );
-    const link = `<a href=${this.config.feHost}/#/acccess/reset-password?id=${user.id}&verificationCode=${resetCode}> Link to reset password</a>`;
+    const link = `<a href=${this.config.feHost}/#/access/reset-password?id=${user.id}&verificationCode=${resetCode}> Link to reset password</a>`;
 
     this.sesService.sendEmail(
       'Reset Your Password',

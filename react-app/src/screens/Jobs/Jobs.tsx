@@ -4,12 +4,26 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import useGetCoverLetters from 'src/api/coverLetters/hooks/useGetCoverLetters';
+import { GetCoverLettersResponse } from 'src/api/coverLetters/types';
 import useGetJobs from 'src/api/jobs/hooks/useGetJobs';
 import useGetRecommendedJobs from 'src/api/jobs/hooks/useGetRecommendedJobs';
 import { GetJobsResponse } from 'src/api/jobs/types';
 import useGetResumes from 'src/api/resumes/hooks/useGetResumes';
+import { GetResumesResponse } from 'src/api/resumes/types';
 import Button from 'src/components/common/Button/Button';
 import JobCard from 'src/components/jobs/JobCard/JobCard';
+import { unique } from 'src/utils/unique';
+
+const getAppliedJobs = (
+  jobs: GetJobsResponse,
+  resumes?: GetResumesResponse,
+  coverLetters?: GetCoverLettersResponse,
+) =>
+  jobs?.filter(
+    (job) =>
+      resumes?.some((resume) => resume.referenceId === job?.id) ||
+      coverLetters?.some((coverLetter) => coverLetter.referenceId === job?.id),
+  ) as GetJobsResponse;
 
 const Jobs: React.FC = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'jobs' });
@@ -25,11 +39,11 @@ const Jobs: React.FC = () => {
   const { data: recommendedJobs } = useGetRecommendedJobs();
   const { data: resumes } = useGetResumes();
   const { data: coverLetters } = useGetCoverLetters();
-  const appliedJobs = allJobs?.pages?.flatMap((page) =>
-    page?.filter((job) =>
-      resumes?.some((resume) => resume.referenceId === job?.id)
-      || coverLetters?.some((coverLetter) => coverLetter.referenceId === job?.id)),
-  ) as GetJobsResponse;
+  const appliedJobs = getAppliedJobs(allJobs?.pages?.flatMap((page) => page) || [], resumes, coverLetters);
+
+  const appliedFromRecommended = getAppliedJobs(recommendedJobs || [], resumes, coverLetters);
+
+  const applied = unique([...appliedJobs, ...appliedFromRecommended], () => 'id');
 
   return (
     <div className="jobs-container">
@@ -37,41 +51,47 @@ const Jobs: React.FC = () => {
         <Typography.Title className="title">{t('header')}</Typography.Title>
       </div>
       <h2 className="category">{t('appliedJobs')}</h2>
-      {appliedJobs && appliedJobs.length > 0 ? (
+      {applied && applied.length > 0 ? (
         <Row
           className="list-of-jobs recommended-jobs"
           gutter={[32, 32]}
           key={'applied-jobs'}
         >
-          {appliedJobs.map(
-            (job) => job && (
-              <Col
-                className="col-job-card"
-                xxl={8}
-                xl={12}
-                lg={24}
-                md={24}
-                sm={24}
-                xs={24}
-                key={'applied-' + job.id}
-              >
-                <JobCard
-                  jobId={job.id}
-                  referenceId={job.referenceId}
-                  title={job.title}
-                  description={job.description}
-                  companyName={job.company}
-                  location={job.location}
-                  resume={resumes?.find((resume) => resume.referenceId === job.id)}
-                  coverLetter={coverLetters?.find((coverLetter) => coverLetter.referenceId === job.id)}
-                  isApplied={true}
-                />
-              </Col>
-            )
+          {applied.map(
+            (job) =>
+              job && (
+                <Col
+                  className="col-job-card"
+                  xxl={8}
+                  xl={12}
+                  lg={24}
+                  md={24}
+                  sm={24}
+                  xs={24}
+                  key={'applied-' + job.id}
+                >
+                  <JobCard
+                    jobId={job.id}
+                    referenceId={job.referenceId}
+                    title={job.title}
+                    description={job.description}
+                    companyName={job.company}
+                    location={job.location}
+                    resume={resumes?.find((resume) => resume.referenceId === job.id)}
+                    coverLetter={coverLetters?.find((coverLetter) => coverLetter.referenceId === job.id)}
+                    isApplied={true}
+                  />
+                </Col>
+              ),
           )}
         </Row>
-      ) : <Empty className='empty-text' description={t('noAppliedJobs')} />}
-      <hr className='header-divider' />
+      ) : (
+        <Empty
+          className="empty-text"
+          description={t('noAppliedJobs')}
+        />
+      )}
+      <hr className="header-divider" />
       <h2 className="category">{t('recommendedJobs')}</h2>
 
       {recommendedJobs && recommendedJobs.length > 0 ? (
@@ -105,20 +125,26 @@ const Jobs: React.FC = () => {
             </Col>
           ))}
         </Row>
-      ) : <Empty className='empty-text' description={t('noAppliedJobs')} />}
-      <hr className='header-divider' />
-      <h2 className="category">{t('allJobs')}
+      ) : (
+        <Empty
+          className="empty-text"
+          description={t('noAppliedJobs')}
+        />
+      )}
+      <hr className="header-divider" />
+      <h2 className="category">
+        {t('allJobs')}
         <Search
           placeholder={t('searchPlaceholder')}
-          type='search'
-          name='filter'
+          type="search"
+          name="filter"
           onSearch={(value) => {
             setFilterValue(value);
           }}
           loading={isFetching}
           disabled={isFetching}
-          className='jobs-search-input'
-          size='large'
+          className="jobs-search-input"
+          size="large"
         />
       </h2>
       {allJobs && allJobs.pages.flat().length > 0 ? (
@@ -127,9 +153,12 @@ const Jobs: React.FC = () => {
           gutter={[32, 32]}
           key={'all-jobs'}
         >
-          <Spin spinning={isFetching} size='large' />
-          {
-            allJobs?.pages.map((page) => page?.map((job) => (
+          <Spin
+            spinning={isFetching}
+            size="large"
+          />
+          {allJobs?.pages.map((page) =>
+            page?.map((job) => (
               <Col
                 className="col-job-card"
                 xxl={8}
@@ -152,24 +181,26 @@ const Jobs: React.FC = () => {
                   isApplied={appliedJobs?.some((appliedJob) => appliedJob.id === job.id)}
                 />
               </Col>
-            )))
-          }
+            )),
+          )}
         </Row>
-      ) : <Empty className='empty-text' description={t('noAppliedJobs')} />
-      }
-      {
-        !filterValue ? (
-          <Button
-            className="load-more-button"
-            onClick={() => hasNextPage && !isFetchingNextPage && fetchNextPage()}
-            size="large"
-            text={t('loadMoreButtonText')}
-            type="primary"
-            loading={isFetchingNextPage}
-          />
-        ) : null
-      }
-    </div >
+      ) : (
+        <Empty
+          className="empty-text"
+          description={t('noAppliedJobs')}
+        />
+      )}
+      {!filterValue ? (
+        <Button
+          className="load-more-button"
+          onClick={() => hasNextPage && !isFetchingNextPage && fetchNextPage()}
+          size="large"
+          text={t('loadMoreButtonText')}
+          type="primary"
+          loading={isFetchingNextPage}
+        />
+      ) : null}
+    </div>
   );
 };
 

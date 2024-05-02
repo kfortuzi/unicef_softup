@@ -22,66 +22,68 @@ const MyCoverLetters: React.FC = () => {
       </div>
 
       <h2 className="category">{t('userGeneratedCoverLetters')}</h2>
-      {
-        userGeneratedCoverLetters?.length ? (
-          <Row
-            className="list-of-cover-letters"
-            gutter={[32, 32]}
-          >
-            {
-              userGeneratedCoverLetters?.map((coverLetter) => (
-                <Col
-                  key={coverLetter.id}
-                  className="gutter-row"
-                  xs={24}
-                  sm={24}
-                  md={12}
-                  lg={8}
-                  xl={6}
-                  xxl={6}
-                >
-                  <CoverLetterCard
-                    id={coverLetter.id}
-                    to={coverLetter.to}
-                    createdAt={dayjs(coverLetter.createdAt).format(dateTimeFormats.albanianDate)}
-                  />
-                </Col>
-              ))
-            }
-          </Row>
-        ) : <Empty className='empty-text' description={t('noUserGeneratedCoverLetters')} />
-      }
+      {userGeneratedCoverLetters?.length ? (
+        <Row
+          className="list-of-cover-letters"
+          gutter={[32, 32]}
+        >
+          {userGeneratedCoverLetters?.map((coverLetter) => (
+            <Col
+              key={coverLetter.id}
+              className="gutter-row"
+              xs={24}
+              sm={24}
+              md={12}
+              lg={8}
+              xl={6}
+              xxl={6}
+            >
+              <CoverLetterCard
+                id={coverLetter.id}
+                to={coverLetter.to}
+                createdAt={dayjs(coverLetter.createdAt).format(dateTimeFormats.albanianDate)}
+              />
+            </Col>
+          ))}
+        </Row>
+      ) : (
+        <Empty
+          className="empty-text"
+          description={t('noUserGeneratedCoverLetters')}
+        />
+      )}
       <h2 className="category">{t('tailoredCoverLetters')}</h2>
-      {
-        tailoredCoverLetters?.length ? (
-          <Row
-            className="list-of-cover-letters"
-            gutter={[32, 32]}
-          >
-            {
-              tailoredCoverLetters?.map((coverLetter) => (
-                <Col
-                  key={coverLetter.id}
-                  className="gutter-row"
-                  xs={24}
-                  sm={24}
-                  md={12}
-                  lg={8}
-                  xl={6}
-                  xxl={6}
-                >
-                  <CoverLetterCard
-                    id={coverLetter.id}
-                    to={coverLetter.to}
-                    createdAt={dayjs(coverLetter.createdAt).format(dateTimeFormats.albanianDate)}
-                    referenceId={coverLetter.referenceId}
-                  />
-                </Col>
-              ))
-            }
-          </Row>
-        ) : <Empty className='empty-text' description={t('noUserGeneratedCoverLetters')} />
-      }
+      {tailoredCoverLetters?.length ? (
+        <Row
+          className="list-of-cover-letters"
+          gutter={[32, 32]}
+        >
+          {tailoredCoverLetters?.map((coverLetter) => (
+            <Col
+              key={coverLetter.id}
+              className="gutter-row"
+              xs={24}
+              sm={24}
+              md={12}
+              lg={8}
+              xl={6}
+              xxl={6}
+            >
+              <CoverLetterCard
+                id={coverLetter.id}
+                to={coverLetter.to}
+                createdAt={dayjs(coverLetter.createdAt).format(dateTimeFormats.albanianDate)}
+                referenceId={coverLetter.referenceId}
+              />
+            </Col>
+          ))}
+        </Row>
+      ) : (
+        <Empty
+          className="empty-text"
+          description={t('noUserGeneratedCoverLetters')}
+        />
+      )}
     </div>
   );
 };

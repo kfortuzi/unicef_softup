@@ -140,18 +140,20 @@ const PageWithNavigation: React.FC = () => {
   return (
     <Layout className="page-with-navigation-container">
       <Header className="navigation-bar">
-        <img
-          onClick={() => hasBaseCv && navigate(Route.HOME)}
-          className="logo"
-          src={logo}
-        />
-        <Menu
-          className="navigation-menu"
-          items={navigationItems}
-          theme="dark"
-          mode="horizontal"
-          selectable={false}
-        />
+        <div className="navigation-wrapper">
+          <img
+            onClick={() => hasBaseCv && navigate(Route.HOME)}
+            className="logo"
+            src={logo}
+          />
+          <Menu
+            className="navigation-menu"
+            items={navigationItems}
+            theme="dark"
+            mode="horizontal"
+            selectable={false}
+          />
+        </div>
       </Header>
       <Layout className="layout-content">
         <Content className="page-content">
@@ -162,9 +164,11 @@ const PageWithNavigation: React.FC = () => {
           <Outlet />
         </Content>
       </Layout>
-      <Footer className='footer'>
-        <span>{t('footerText')}</span>
-        <span>{t('developedBy')}</span>
+      <Footer className="footer">
+        <div className="footer-wrapper">
+          <span>{t('footerText')}</span>
+          <span>{t('developedBy')}</span>
+        </div>
       </Footer>
     </Layout>
   );

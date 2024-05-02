@@ -8,7 +8,7 @@ const requestNewPassword = async (
   const parsedData = await makeRequest<RequestNewPasswordResponse>(
     '/user/send-reset-password',
     {
-      method: 'PATCH',
+      method: 'POST',
       body: JSON.stringify(request),
     },
     false,

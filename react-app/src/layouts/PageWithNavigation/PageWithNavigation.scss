@@ -13,26 +13,34 @@
   .navigation-bar {
     display: flex;
     flex-flow: row nowrap;
-    justify-content: flex-end;
     margin-left: 0px;
     position: sticky;
     top: 0;
     z-index: 1;
-    border-bottom: 1px solid $base-font-color;
+    border-bottom: 1px solid $light-gray;
+    justify-content: center;
 
-    .navigation-menu {
+    .navigation-wrapper {
+      max-width: 1080px;
+      display: flex;
       flex: 1;
-      min-width: 0px;
-      justify-content: flex-end;
+
+      .navigation-menu {
+        flex: 1;
+        min-width: 0px;
+        justify-content: flex-end;
+      }
+
+      .logo {
+        border: 0;
+        list-style: none;
+        min-width: 250px;
+        height: 100%;
+        padding: 10px;
+      }
     }
 
-    .logo {
-      border: 0;
-      list-style: none;
-      min-width: 250px;
-      height: 100%;
-      padding: 10px;
-    }
+
   }
 
   .layout-content {
@@ -54,7 +62,22 @@
 
   .footer {
     display: flex;
-    justify-content: space-between;
-    border-top: 0.2px solid $base-font-color;
+    justify-content: center;
+    border-top: 0.2px solid $light-gray;
+    flex-flow: row nowrap;
+    position: sticky;
+    bottom: 0;
+    z-index: 1;
+    padding: 10px 0px;
+
+    .footer-wrapper {
+      span {
+        margin: 0
+      }
+      display: flex;
+      justify-content: space-between;
+      flex: 1;
+      max-width: 1080px;
+    }
   }
 }

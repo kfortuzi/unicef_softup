@@ -12,33 +12,34 @@ const MyResumes: React.FC = () => {
   return (
     <div className="resumes-container">
       <Typography.Title className="title">{t('header')}</Typography.Title>
-      {
-        resumesData?.length ? (
-          <Row
-            className="list-of-resumes"
-            gutter={[32, 32]}
-          >
-            {
-              resumesData
-                ?.filter((resume) => resume.referenceId !== null)
-                .map((resume) => (
-                  <Col
-                    key={resume.id}
-                    className="gutter-row"
-                    xs={24}
-                    sm={24}
-                    md={12}
-                    lg={8}
-                    xl={6}
-                    xxl={4}
-                  >
-                    <ResumeCard resume={resume} />
-                  </Col>
-                ))
-            }
-          </Row>
-        ) : <Empty className='empty-text' description={t('noUserGeneratedResumes')} />
-      }
+      {resumesData?.length ? (
+        <Row
+          className="list-of-resumes"
+          gutter={[32, 32]}
+        >
+          {resumesData
+            ?.filter((resume) => resume.referenceId !== null)
+            .map((resume) => (
+              <Col
+                key={resume.id}
+                className="gutter-row"
+                xs={26}
+                sm={26}
+                md={14}
+                lg={12}
+                xl={10}
+                xxl={8}
+              >
+                <ResumeCard resume={resume} />
+              </Col>
+            ))}
+        </Row>
+      ) : (
+        <Empty
+          className="empty-text"
+          description={t('noUserGeneratedResumes')}
+        />
+      )}
     </div>
   );
 };

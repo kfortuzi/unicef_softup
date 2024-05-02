@@ -26,7 +26,7 @@ const TrainingArticles: React.FC = () => {
               md={12}
               lg={8}
               xl={6}
-              xxl={4}
+              xxl={6}
             >
               <TrainingArticleCard
                 id={article.id}
@@ -35,8 +35,12 @@ const TrainingArticles: React.FC = () => {
             </Col>
           ))}
         </Row>
-      ) : <Empty description={t('noArticles')} className='empty-text' />
-      }
+      ) : (
+        <Empty
+          description={t('noArticles')}
+          className="empty-text"
+        />
+      )}
     </div>
   );
 };
