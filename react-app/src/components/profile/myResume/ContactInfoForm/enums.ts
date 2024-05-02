@@ -1,7 +1,8 @@
 export enum FormField {
   PROFILE_PICTURE = 'profilePicture',
-  NAME = 'name',
+  FIRST_NAME = 'firstName',
   LAST_NAME = 'lastName',
+  NATIONALITY = 'nationality',
   EMAIL = 'email',
   LINKEDIN_URL = 'linkedinUrl',
   LOCATION = 'location',

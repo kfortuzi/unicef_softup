@@ -69,23 +69,25 @@ const MyResumeView: React.FC<MyResumeViewProps> = (props) => {
               <ContactInfoView
                 cvId={resume.id}
                 profilePicture={profilePicture}
-                name={firstName}
+                firstName={firstName}
                 surname={lastName}
                 email={email}
                 linkedinUrl={linkedinUrl}
                 linkedinText="linkedin"
                 address={location}
                 phoneNumber={phoneNumber}
+                nationality={resume.nationality}
               />
               <ContactInfoForm
                 cvId={resume.id}
                 profilePicture={profilePicture}
-                name={firstName}
+                firstName={firstName}
                 lastName={lastName}
                 email={email}
                 linkedinUrl={linkedinUrl}
                 address={location}
                 phoneNumber={phoneNumber}
+                nationality={resume.nationality}
               />
             </Col>
             <Col

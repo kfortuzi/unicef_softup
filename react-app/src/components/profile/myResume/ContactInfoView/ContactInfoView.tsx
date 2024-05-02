@@ -19,7 +19,7 @@ interface ContactInfoViewProps {
   cvId: string;
   profilePicture?: string;
   imgUrl?: string;
-  name?: string;
+  firstName?: string;
   nationality?: string;
   address?: string;
   phoneNumber?: string;
@@ -38,7 +38,7 @@ const ContactInfoView: React.FC<ContactInfoViewProps> = (props) => {
 
   const {
     cvId,
-    name,
+    firstName,
     nationality,
     phoneNumber,
     email,
@@ -88,7 +88,7 @@ const ContactInfoView: React.FC<ContactInfoViewProps> = (props) => {
           />
         </Upload>
         <p className="name">
-          {name} {surname}
+          {firstName} {surname}
         </p>
       </div>
       <div className="info-section">

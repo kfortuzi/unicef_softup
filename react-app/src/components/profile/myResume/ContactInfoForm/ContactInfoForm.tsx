@@ -14,23 +14,25 @@ import validationSchema from './validation';
 type ContactInfoFormProps = {
   cvId: string;
   profilePicture?: string;
-  name?: string;
+  firstName?: string;
   email?: string;
   linkedinUrl?: string;
   address?: string;
   phoneNumber?: string;
   lastName?: string;
+  nationality?: string;
 };
 
 const ContactInfoForm: React.FC<ContactInfoFormProps> = ({
   cvId,
   profilePicture,
-  name,
+  firstName,
   email,
   linkedinUrl,
   address,
   phoneNumber,
   lastName,
+  nationality,
 }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.contactInfoSection' });
   const { handleSubmit, control } = useForm({
@@ -39,7 +41,8 @@ const ContactInfoForm: React.FC<ContactInfoFormProps> = ({
       location: address,
       linkedinUrl,
       email,
-      name,
+      firstName,
+      nationality,
       profilePicture,
       lastName,
     },
@@ -60,7 +63,7 @@ const ContactInfoForm: React.FC<ContactInfoFormProps> = ({
         <div className="input-element-container">
           <Controller
             control={control}
-            name={FormField.NAME}
+            name={FormField.FIRST_NAME}
             render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
               <InputText
                 label={t('name')}
@@ -85,6 +88,21 @@ const ContactInfoForm: React.FC<ContactInfoFormProps> = ({
                 error={error?.message}
                 onChange={onChange}
                 placeholder={t('lastName')}
+              />
+            )}
+          />
+          <Controller
+            control={control}
+            name={FormField.NATIONALITY}
+            render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
+              <InputText
+                label={t('nationality')}
+                inputRef={ref}
+                name={name}
+                value={value || ''}
+                error={error?.message}
+                onChange={onChange}
+                placeholder={t('nationality')}
               />
             )}
           />
