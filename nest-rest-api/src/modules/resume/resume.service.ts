@@ -10,7 +10,7 @@ import {
   ChatCompletionCreateParamsNonStreaming,
   ChatCompletionMessageParam,
 } from 'openai/resources/chat';
-import { AkpaModels } from '../openai/models';
+import { AIModels, AkpaModels } from '../openai/models';
 import { AkpaPrompts } from '../openai/promptContent';
 import { ResumeRepository } from './resume.repository';
 import { DrivingLicense, Prisma, SourceType } from '@prisma/client';
@@ -458,7 +458,7 @@ export class ResumeService {
 
     const body: ChatCompletionCreateParamsNonStreaming = {
       messages,
-      model: AkpaModels.CHAT,
+      model: AIModels.gpt_4_1106_preview,
     };
 
     return this.openAIService.generateCompletion(

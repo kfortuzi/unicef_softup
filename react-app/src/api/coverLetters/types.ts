@@ -44,6 +44,10 @@ export type PostCoverLetterAskWizardRequest = {
   content?: string;
 };
 
+export type PostCoverLetterAutogenerateRequest = {
+  content: string;
+};
+
 export type PostCoverLetterAskWizardResponse = {
   message: string;
 };

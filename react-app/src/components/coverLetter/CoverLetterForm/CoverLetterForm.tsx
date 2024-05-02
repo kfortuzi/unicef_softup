@@ -10,6 +10,7 @@ import useGetCoverLetter from 'src/api/coverLetters/hooks/useGetCoverLetter';
 import usePatchCoverLetter from 'src/api/coverLetters/hooks/usePatchCoverLetter';
 import usePostCoverLetter from 'src/api/coverLetters/hooks/usePostCoverLetter';
 import usePostCoverLetterAskWizard from 'src/api/coverLetters/hooks/usePostCoverLetterAskWizard';
+import usePostCoverLetterAutogenerate from 'src/api/coverLetters/hooks/usePostCoverLetterAutogenerate';
 import { GetCoverLetterResponse } from 'src/api/coverLetters/types';
 import AskWizardModal from 'src/components/common/AskWizardModal/AskWizardModal';
 import Button from 'src/components/common/Button/Button';
@@ -29,7 +30,10 @@ const CoverLetterForm: React.FC = () => {
   const { mutate: patchCoverLetter, isPending: isUpdating } = usePatchCoverLetter();
   const { mutate: postCoverLetter, isPending: isCreating } = usePostCoverLetter();
   const { mutateAsync: postCoverLetterAskWizardAsync } = usePostCoverLetterAskWizard();
+  const { mutateAsync: postCoverLetterAutogenerate } = usePostCoverLetterAutogenerate();
   const [contentLoading, setContentLoading] = useState(false);
+  const [aiContent, setAiContent] = useState('');
+  const [autogenerateContent, setAutogenerateContent] = useState('');
 
   const isCreateMode = !id;
 
@@ -72,9 +76,12 @@ const CoverLetterForm: React.FC = () => {
 
   const autoGenerateFromAiAndSetContent = async () => {
     setContentLoading(true);
-    const data = await postCoverLetterAskWizardAsync({ message: getValues(FormField.CONTENT) || '' });
+    const data = await postCoverLetterAutogenerate({
+      content: autogenerateContent || getValues(FormField.CONTENT) || '',
+    });
 
     if (data) {
+      setAutogenerateContent(data);
       setValue(FormField.CONTENT, data, { shouldDirty: true });
     }
     setContentLoading(false);
@@ -86,11 +93,13 @@ const CoverLetterForm: React.FC = () => {
 
   const sendMessageAndGetAiPrompt = async (text: string): Promise<string | undefined> => {
     const data = await postCoverLetterAskWizardAsync({
-      message: getValues(FormField.CONTENT) || '',
-      content: text,
+      message: text,
+      content: aiContent || getValues(FormField.CONTENT),
     });
 
     if (data) {
+      setAiContent(data);
+
       return data;
     }
   };

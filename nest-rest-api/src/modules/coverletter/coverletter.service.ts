@@ -21,6 +21,8 @@ import { WizardService } from 'src/modules/wizard/wizard.service';
 import { PromptType } from 'src/modules/openai/promptTypes';
 import { SourceType } from '@prisma/client';
 import { extractJSON } from 'src/helpers/parser';
+import { MessageDto } from '../chatbot/dto/message.dto';
+import { AutoGenerateCoverLetterDto } from './dto/cover-letter-autogenerate.dto';
 
 @Injectable()
 export class CoverLetterService {
@@ -206,7 +208,7 @@ export class CoverLetterService {
 
   async askWizardCoverLetter(
     userId: string,
-    userRequest: string,
+    userRequest: MessageDto,
   ): Promise<string | null> {
     try {
       const messages: ChatCompletionMessageParam[] = [
@@ -216,7 +218,48 @@ export class CoverLetterService {
         },
         {
           role: 'user',
-          content: userRequest,
+          content: userRequest.message,
+        },
+      ];
+
+      if (userRequest.content) {
+        messages.push({
+          role: 'user',
+          content: userRequest.content,
+        });
+      }
+
+      const body: ChatCompletionCreateParamsNonStreaming = {
+        messages,
+        model: AkpaModels.COVER_LETTER,
+      };
+
+      return this.openAIService.generateCompletion(
+        body,
+        userId,
+        PromptType.CoverLetter,
+      );
+    } catch (error) {
+      console.error('Error calling OpenAI API:', error);
+      throw new InternalServerErrorException(
+        'Failed to generate text from OpenAI',
+      );
+    }
+  }
+
+  async autogenerateCoverLetter(
+    userId: string,
+    userRequest: AutoGenerateCoverLetterDto,
+  ) {
+    try {
+      const messages: ChatCompletionMessageParam[] = [
+        {
+          role: 'system',
+          content: AkpaPrompts.coverLetterWizard,
+        },
+        {
+          role: 'user',
+          content: userRequest.content,
         },
       ];
 
