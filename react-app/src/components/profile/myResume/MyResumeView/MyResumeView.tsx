@@ -45,7 +45,10 @@ const MyResumeView: React.FC<MyResumeViewProps> = (props) => {
   const { firstName, email, linkedinUrl, location, profilePicture, summary, phoneNumber, lastName } = resume;
 
   return (
-    <div className="my-resume-layout" key={`resume-view-${resume.id}`}>
+    <div
+      className="my-resume-layout"
+      key={`resume-view-${resume.id}`}
+    >
       <div className="slide-container">
         <div className="cv-header">
           <h1>
@@ -56,10 +59,13 @@ const MyResumeView: React.FC<MyResumeViewProps> = (props) => {
           </PDFDownloadLink>
         </div>
         <div className="my-resume-body">
-
-          <Row justify="center" wrap={true} style={{ width: '100%' }}>
+          <Row
+            justify="center"
+            wrap={true}
+            style={{ width: '100%' }}
+          >
             <Col
-              className='contact-section'
+              className="contact-section"
               xs={24}
               sm={24}
               md={24}
@@ -239,7 +245,7 @@ const MyResumeView: React.FC<MyResumeViewProps> = (props) => {
                 </Section>
               </div>
             </Col>
-          </ Row>
+          </Row>
         </div>
       </div>
     </div>

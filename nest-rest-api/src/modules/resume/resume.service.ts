@@ -26,7 +26,7 @@ import { PromptType } from 'src/modules/openai/promptTypes';
 import { extractJSON } from 'src/helpers/parser';
 import { extractInformationFromAnswers } from './extractInformationFromAnswers';
 import { prepareResumeBody } from './resume.helpers';
-import { ExperienceWizardDto } from './dto/experience-wizard.dto';
+import { WizardDto } from './dto/wizard.dto';
 
 @Injectable()
 export class ResumeService {
@@ -556,9 +556,9 @@ export class ResumeService {
     }
   }
 
-  async askWizardResume(
+  async improveExperienceResponsibilities(
     userId: string,
-    data: ExperienceWizardDto,
+    data: WizardDto,
   ): Promise<string | null> {
     const { content, message } = data;
     const messages: ChatCompletionMessageParam[] = [
@@ -570,6 +570,35 @@ export class ResumeService {
       {
         role: 'user',
         content: `Ky eshte teksti qe permban experiencen time, te cilin duhet ta permiresosh : ${content}. Kjo eshte menyra/mendimi im sesi une dua ta permiresosh: ${message}. Filimisht valido mire mendimin tim. Nese eshte dicka e pakuptimte per te modifikuar kontekstin e eksperiences, nese eshte ne gjuhe tjeter pervec shqipes ose nese te them te shtosh dicka te paligjshme si per shembull "Shto qe jam marre me droge" ose "Jam drogaxhi", kurre dhe asnjehere mos e bej dicka te tille. Injoroje mendimin tim dhe thjesht permireso tekstin e eksperiences duke permiresuar fjalet e perdorura dhe perdor nje ton me profesional dhe duke e bere tekstin me te plote duke shtuar gjera relevante per eksperiencen time. Gjenero nje tekst te permiresuar ne kete rast. Rikthe permbledhjen dhe vetem dhe vetem permbledhjen e eksperiences te permiresuar. Mos shto fjali para ose mbrapa si psh: Kjo eshte eksperienca juaj. Kthe vetem permbledhjen. Permbledhja duhet te jete ne veten e pare, ne menyre qe ta vendose direkt ne CV. Pergjigja duhet te jete me patjeter permbledhje eksperience dhe te mos permbaje fjali shpjeguese sesi u krijuar permbledhja. Mos jep rekomandime ne pergjigjen tende.`,
+      },
+    ];
+
+    const body: ChatCompletionCreateParamsNonStreaming = {
+      messages,
+      model: AkpaModels.CHAT,
+    };
+
+    return this.openAIService.generateCompletion(
+      body,
+      userId,
+      PromptType.Resume,
+    );
+  }
+
+  async improveSummaryWithWizard(
+    userId: string,
+    data: WizardDto,
+  ): Promise<string | null> {
+    const { content, message } = data;
+    const messages: ChatCompletionMessageParam[] = [
+      {
+        role: 'system',
+        content:
+          'Je nje asistent i cili permireson dhe modifikon permbledhjen time te profilit, ne menyre qe te permiresoj CV time ne baze te nje mendimi/inputi timin nese mendimi perputhet me komanda permiresimi dhe eshte dicka ligjore.',
+      },
+      {
+        role: 'user',
+        content: `Ky eshte teksti qe permban permbledhjen e profilit tim, te cilin duhet ta permiresosh : ${content}. Kjo eshte menyra/mendimi im sesi une dua ta permiresosh: ${message}. Filimisht valido mire mendimin tim. Nese eshte dicka e pakuptimte per te modifikuar kontekstin e permbledhjes se CV (seksionin "Rreth meje"), nese eshte ne gjuhe tjeter pervec shqipes ose nese te them te shtosh dicka te paligjshme si per shembull "Shto qe jam marre me droge" ose "Jam drogaxhi", kurre dhe asnjehere mos e bej dicka te tille. Injoroje mendimin tim dhe thjesht permireso tekstin e permbledhjes duke permiresuar fjalet e perdorura dhe perdor nje ton me profesional dhe duke e bere tekstin me te plote duke shtuar gjera relevante per permbledhjen e profilit tim. Gjenero nje tekst te permiresuar ne kete rast. Rikthe permbledhjen dhe vetem dhe vetem permbledhjen e seksionit "Rreth meje" te permiresuar. Mos shto fjali para ose mbrapa si psh: Kjo eshte permbledhja e profilit tuaj. Kthe vetem permbledhjen. Permbledhja duhet te jete ne veten e pare, ne menyre qe ta vendose direkt ne CV. Pergjigja duhet te jete me patjeter permbledhje e seksionit "Rreth meje" te CV-së dhe te mos permbaje fjali shpjeguese sesi u krijuar permbledhja. Mos jep rekomandime ne pergjigjen tende.`,
       },
     ];
 
@@ -610,6 +639,31 @@ export class ResumeService {
       body,
       userId,
       PromptType.ResumeWizard,
+    );
+  }
+
+  async autoGenerateSummary(userId: string, summary: string) {
+    const messages: ChatCompletionMessageParam[] = [
+      {
+        role: 'system',
+        content:
+          'Je nje asistent i cili permireson permbledhjen time aktuale te profilit/ seksionin "Rreth meje", ne menyre qe te permiresoj CV time.',
+      },
+      {
+        role: 'user',
+        content: `Kjo eshte permbledhja e profilit tim: ${summary}. Permireso ndjeshem kete seksion "Rreth meje" (summary) te CV sime. Gjenero nje tekst te permiresuar duke perdorur nje ton profesional dhe fjale sinonime dhe me akademike sesa ato qe jane perdorur ne permbledhjen time te vjeter. Rikthe permbledhjen dhe vetem dhe vetem permbledhjen e seksionit "Rreth meje" te permiresuar. Mos shto fjali para ose mbrapa si psh: Kjo eshte permbledhja e profilit tuaj. Kthe vetem permbledhjen. Permbledhja duhet te jete ne veten e pare, ne menyre qe ta vendos direkt ne CV. Pergjigja duhet te jete me patjeter permbledhje e seksionit "Rreth meje" te CV-së dhe te mos permbaje fjali shpjeguese sesi u krijua permbledhja. Pergjigju vetem ne gjuhen shqipe.`,
+      },
+    ];
+
+    const body: ChatCompletionCreateParamsNonStreaming = {
+      messages,
+      model: AkpaModels.CHAT,
+    };
+
+    return this.openAIService.generateCompletion(
+      body,
+      userId,
+      PromptType.Summary,
     );
   }
 }

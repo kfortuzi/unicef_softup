@@ -25,10 +25,11 @@ type AboutMeProps = {
   workExperiences?: WorkExperience[];
 };
 
-const AboutMeForm: React.FC<AboutMeProps> = ({ aboutMe, workExperiences, cvId }) => {
+const AboutMeForm: React.FC<AboutMeProps> = ({ aboutMe, cvId }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume' });
   const [contentLoading, setContentLoading] = useState(false);
-  const { handleSubmit, control, setValue, getValues } = useForm({
+  const [content, setContent] = useState(aboutMe);
+  const { handleSubmit, control, setValue } = useForm({
     defaultValues: {
       [FormField.ABOUT_ME]: aboutMe || defaultValues.aboutMe,
     },
@@ -36,18 +37,23 @@ const AboutMeForm: React.FC<AboutMeProps> = ({ aboutMe, workExperiences, cvId })
     shouldFocusError: true,
   });
   const { mutate: patchResume, isPending } = usePatchResume();
-  const submitForm = handleSubmit((values) => patchResume({
-    id: cvId, summary: values.aboutMe
-  }));
+  const submitForm = handleSubmit((values) =>
+    patchResume({
+      id: cvId,
+      summary: values.aboutMe,
+    }),
+  );
 
   const [isOpen, setOpen] = useState(false);
 
   const wizardModalItems: MenuProps['items'] = [
     {
       key: 'dropdown-auto-generate-button',
-      label: <a onClick={async () => await autoGenerateFromAiAndSetContent()}>
-        {i18n.t('askWizardModal.autoGenerateButtonText')}
-      </a>,
+      label: (
+        <a onClick={async () => await autoGenerateFromAiAndSetContent()}>
+          {i18n.t('askWizardModal.autoGenerateButtonText')}
+        </a>
+      ),
     },
     {
       key: 'dropdown-ask-wizard-button',
@@ -57,7 +63,7 @@ const AboutMeForm: React.FC<AboutMeProps> = ({ aboutMe, workExperiences, cvId })
 
   const autoGenerateFromAiAndSetContent = async () => {
     setContentLoading(true);
-    const data = await postResumeSummary(workExperiences || []);
+    const data = await postResumeSummary({ content: aboutMe || '' });
 
     if (data) {
       setValue(FormField.ABOUT_ME, data, { shouldDirty: true });
@@ -71,11 +77,13 @@ const AboutMeForm: React.FC<AboutMeProps> = ({ aboutMe, workExperiences, cvId })
 
   const sendMessageAndGetAiPrompt = async (text: string): Promise<string | undefined> => {
     const data = await postResumeAskWizard({
-      message: getValues(FormField.ABOUT_ME) || '',
-      content: text,
+      message: text,
+      content: content || '',
     });
 
     if (data) {
+      setContent(data);
+
       return data;
     }
   };

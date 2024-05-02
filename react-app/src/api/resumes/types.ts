@@ -130,7 +130,7 @@ export type PostResumeResponsibilityRequest = WorkExperience | string;
 
 export type PostResumeResponsibilityResponse = string;
 
-export type PostResumeSummaryRequest = WorkExperience[];
+export type PostResumeSummaryRequest = { content: string };
 
 export type PostResumeSummaryResponse = string;
 
