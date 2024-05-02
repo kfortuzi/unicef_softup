@@ -28,6 +28,7 @@ import { ResumeWizardDto } from './dto/resume-wizard.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { MessageDto } from 'src/modules/chatbot/dto/message.dto';
 import { Response } from 'express';
+import { ExperienceWizardDto } from './dto/experience-wizard.dto';
 
 @Controller('resumes')
 export class ResumeController {
@@ -205,11 +206,11 @@ export class ResumeController {
   @Post('ask-wizard')
   async askWizardResume(
     @Request() req: RequestWithUser,
-    @Body() body: MessageDto,
+    @Body() body: ExperienceWizardDto,
     @Res() res: Response,
   ) {
     return res.json(
-      await this.resumeService.askWizardResume(req.user.id, body.message),
+      await this.resumeService.askWizardResume(req.user.id, body),
     );
   }
 }

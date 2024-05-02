@@ -26,6 +26,7 @@ import { PromptType } from 'src/modules/openai/promptTypes';
 import { extractJSON } from 'src/helpers/parser';
 import { extractInformationFromAnswers } from './extractInformationFromAnswers';
 import { prepareResumeBody } from './resume.helpers';
+import { ExperienceWizardDto } from './dto/experience-wizard.dto';
 
 @Injectable()
 export class ResumeService {
@@ -557,36 +558,31 @@ export class ResumeService {
 
   async askWizardResume(
     userId: string,
-    userRequest: string,
+    data: ExperienceWizardDto,
   ): Promise<string | null> {
-    try {
-      const messages: ChatCompletionMessageParam[] = [
-        {
-          role: 'system',
-          content: AkpaPrompts.resumeWizard,
-        },
-        {
-          role: 'user',
-          content: userRequest,
-        },
-      ];
+    const { content, message } = data;
+    const messages: ChatCompletionMessageParam[] = [
+      {
+        role: 'system',
+        content:
+          'Je nje asistent i cili permireson pergjegjesite dhe detyrat e nje eksperience pune per nje kandidat te caktuar, i cili deshiron te permiresojne CV e tij.',
+      },
+      {
+        role: 'user',
+        content: `Ky eshte teksti qe permban pergjegjesite dhe detyrat e bera ne pune, te cilin duhet ta permiresosh : ${content}. Ky eshte mendimi/mesazhi i kandidatit sesi ai deshiron te permiresoje eksperiencen e tij: ${message}. Permiresoje sipas mendimit te tij. Nese mesazhi nuk perputhet me ndonje komande permiresimi teksti,por eshte dicka e pakuptimte ose jashte kontekstit te permiresimit te nje permbledhje eksperience, atehere thjesht permireso tekstin duke perdorur nje ton me profesional dhe duke e bere me te plote. Rikthe permbledhjen dhe vetem dhe vetem permbledhjen e eksperiences te permiresuar. Mos shto fjali para ose mbrapa si psh: Kjo eshte permbledhja e eksperiences se kandidatit. Kthe vetem permbledhjen. Permbledhja duhet te jete ne veten e pare sikur kandidati e ka shkruar vete, ne menyre qe ta vendose direkt ne CV.`,
+      },
+    ];
 
-      const body: ChatCompletionCreateParamsNonStreaming = {
-        messages,
-        model: AkpaModels.CHAT,
-      };
+    const body: ChatCompletionCreateParamsNonStreaming = {
+      messages,
+      model: AkpaModels.CHAT,
+    };
 
-      return this.openAIService.generateCompletion(
-        body,
-        userId,
-        PromptType.Resume,
-      );
-    } catch (error) {
-      console.error('Error calling OpenAI API:', error);
-      throw new InternalServerErrorException(
-        'Failed to generate text from OpenAI',
-      );
-    }
+    return this.openAIService.generateCompletion(
+      body,
+      userId,
+      PromptType.Resume,
+    );
   }
 
   async improveSummary(actualResume: ResumeDto, userId: string) {

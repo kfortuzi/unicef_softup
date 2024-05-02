@@ -6,7 +6,6 @@ import {
 import { jobs, EducationType, JobType, Prisma } from '@prisma/client';
 import { Cron } from '@nestjs/schedule';
 import { Document } from '@langchain/core/documents';
-import { OpenAIEmbeddings } from '@langchain/openai';
 import { PineconeStore } from '@langchain/pinecone';
 import dayjs from 'dayjs';
 
@@ -18,6 +17,7 @@ import { JobListDTO } from './dto/job-list.dto';
 import { AkpaJobDTO } from './dto/akpa-job.dto';
 import { SmService } from '../sm/sm.service';
 import pinecone from 'src/clients/pinecone';
+import embeddings from 'src/clients/embeddings';
 
 @Injectable()
 export class JobsFetchService {
@@ -209,24 +209,20 @@ export class JobsFetchService {
   async generateDocsFromJobs() {
     const jobs = await this.jobRepository.findMany();
 
-    const jobDocs = jobs.map((job) => {
+    return jobs.map((job) => {
       return new Document({
         pageContent: `Hapet vend i lire pune si ${job.title} ne kompanine ${job.company}, adresa ${job.address}, ne qytetin e ${job.location}. Eksperienca e nevojshme eshte:  ${job.experience}. Punekerkuesi duhet te kete keto aftesi ${job.basicSkills},${job.skillLines}. Per te aplikuar mund te vizitoni linkun: https://www.puna.gov.al/job/${job.referenceId}`,
         metadata: { jobTitle: `${job.title}`, jobLocation: `${job.location}` },
       });
     });
-
-    return [...jobDocs, ...akpaPageDocs];
   }
 
   async refreshVectorialData() {
-    const embeddings = new OpenAIEmbeddings({
-      openAIApiKey: this.config.openAiApiKey,
-    });
-
     const pineconeIndex = pinecone.Index(this.config.pineconeIndex);
 
-    const docs = await this.generateDocsFromJobs();
+    const jobDocs = await this.generateDocsFromJobs();
+
+    const docs = [...jobDocs, ...akpaPageDocs];
 
     await pineconeIndex.deleteAll();
     await PineconeStore.fromDocuments(docs, embeddings, {

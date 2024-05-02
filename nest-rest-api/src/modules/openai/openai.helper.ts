@@ -18,7 +18,7 @@ export class HelperService {
     }
   }
 
-  async generatefileJsonl(question: string, answer: string, context: string) {
+  async generatefileJsonl(question: string, answer: string, context?: string) {
     const messages: ChatCompletionMessageParam[] = [
       {
         role: 'system',

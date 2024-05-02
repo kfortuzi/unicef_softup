@@ -64,8 +64,10 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
 
   useEffect(() => {
     if (errors?.experiences?.length && errors.experiences.length > 0) {
-      const errorItems = (errors.experiences as unknown as WorkExperience[])
-        .map((_, index) => fields?.[index]?.id ?? '') ?? [];
+      const experienceErrors = (errors.experiences as unknown as WorkExperience[]).map(
+        (_, index) => fields?.[index]?.id ?? '',
+      );
+      const errorItems = experienceErrors ?? [];
       setActiveKeys(errorItems);
     }
   }, [errors?.experiences, fields]);
@@ -89,8 +91,8 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
 
   const sendMessageAndGetAiPrompt = async (text: string, index: number): Promise<string | undefined> => {
     const data = await postResumeAskWizardAsync({
-      message: getValues(`experiences.${index}.${FormField.RESPONSIBILITIES}`) || '',
-      content: text,
+      content: getValues(`experiences.${index}.${FormField.RESPONSIBILITIES}`) || '',
+      message: text,
     });
 
     if (data) {
@@ -101,9 +103,11 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
   const wizardModalItems = (field: WorkExperience, index: number): MenuProps['items'] => [
     {
       key: 'dropdown-auto-generate-button',
-      label: <a onClick={() => handleAutoGenerate(field, index)}>
-        {i18n.t('askWizardModal.autoGenerateButtonText')}
-      </a>,
+      label: (
+        <a onClick={() => handleAutoGenerate(field, index)}>
+          {i18n.t('askWizardModal.autoGenerateButtonText')}
+        </a>
+      ),
     },
     {
       key: 'dropdown-ask-wizard-button',
@@ -115,12 +119,13 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
     return {
       key: field.id,
       label: `${t('headerSingular')} ${index + 1}`,
-      headerClass: `${(errors.experiences as unknown as WorkExperience[])
-        ?.find((_, errorIndex) => errorIndex === index)
-        ? 'is-invalid'
-        : 'is-valid'}`,
+      headerClass: `${
+        (errors.experiences as unknown as WorkExperience[])?.find((_, errorIndex) => errorIndex === index)
+          ? 'is-invalid'
+          : 'is-valid'
+      }`,
       children: (
-        <div className='input-element-container'>
+        <div className="input-element-container">
           <Controller
             control={control}
             name={`experiences.${index}.${FormField.POSITION}`}
@@ -220,7 +225,6 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
               type="primary"
               text={i18n.t('askWizardModal.enhanceWithAiButtonText')}
             />
-
           </Dropdown>
 
           <AskWizardModal
