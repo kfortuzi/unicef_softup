@@ -36,6 +36,7 @@ const ResumePdfView: React.FC<ResumePdfViewProps> = ({ resume }) => {
             phone={resume.phoneNumber}
             address={resume.location}
             linkedIn={resume.linkedinUrl}
+            nationality={resume.nationality}
             linkedInText="linkedin"
             imgUrl={resume.profilePicture}
           />
