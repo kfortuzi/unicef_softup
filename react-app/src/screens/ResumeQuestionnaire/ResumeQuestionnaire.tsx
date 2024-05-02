@@ -11,11 +11,7 @@ const ResumeQuestionnaire: React.FC = () => {
     <div className="resume-questionnaire-container">
       <Row justify='center'>
         <Col
-          xs={24}
-          sm={24}
-          md={16}
-          xl={12}
-          xxl={12}
+          span={16}
         >
           <div className='resume-questionnaire-form'>
             <h1>{t('header')}</h1>

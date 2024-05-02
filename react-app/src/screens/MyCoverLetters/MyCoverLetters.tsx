@@ -38,7 +38,7 @@ const MyCoverLetters: React.FC = () => {
                   md={12}
                   lg={8}
                   xl={6}
-                  xxl={3}
+                  xxl={6}
                 >
                   <CoverLetterCard
                     id={coverLetter.id}
@@ -68,12 +68,13 @@ const MyCoverLetters: React.FC = () => {
                   md={12}
                   lg={8}
                   xl={6}
-                  xxl={3}
+                  xxl={6}
                 >
                   <CoverLetterCard
                     id={coverLetter.id}
                     to={coverLetter.to}
                     createdAt={dayjs(coverLetter.createdAt).format(dateTimeFormats.albanianDate)}
+                    referenceId={coverLetter.referenceId}
                   />
                 </Col>
               ))

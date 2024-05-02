@@ -68,6 +68,16 @@ const LoginForm: React.FC = () => {
           />
         )}
       />
+      <div className="forgot-password">
+        <Typography.Text>
+          <Link
+            className="login-form-forgot-password"
+            to={`${Route.ACCESS}/${Route.FORGOT_PASSWORD}`}
+          >
+            {t('forgotPassword')}
+          </Link>
+        </Typography.Text>
+      </div>
       <div className="submit-button-group">
         <Button
           type="primary"
