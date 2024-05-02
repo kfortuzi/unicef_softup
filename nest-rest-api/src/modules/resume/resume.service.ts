@@ -565,11 +565,11 @@ export class ResumeService {
       {
         role: 'system',
         content:
-          'Je nje asistent i cili permireson pergjegjesite dhe detyrat e nje eksperience pune per nje kandidat te caktuar, i cili deshiron te permiresojne CV e tij.',
+          'Je nje asistent i cili permireson pergjegjesite dhe detyrat e mia te nje eksperience pune, ne menyre qe te permiresoj CV time ne baze te nje mendimi/inputi timin nese mendimi perputhet me komanda permiresimi dhe eshte dicka ligjore.',
       },
       {
         role: 'user',
-        content: `Ky eshte teksti qe permban pergjegjesite dhe detyrat e bera ne pune, te cilin duhet ta permiresosh : ${content}. Ky eshte mendimi/mesazhi i kandidatit sesi ai deshiron te permiresoje eksperiencen e tij: ${message}. Permiresoje sipas mendimit te tij. Nese mesazhi nuk perputhet me ndonje komande permiresimi teksti,por eshte dicka e pakuptimte ose jashte kontekstit te permiresimit te nje permbledhje eksperience, atehere thjesht permireso tekstin duke perdorur nje ton me profesional dhe duke e bere me te plote. Rikthe permbledhjen dhe vetem dhe vetem permbledhjen e eksperiences te permiresuar. Mos shto fjali para ose mbrapa si psh: Kjo eshte permbledhja e eksperiences se kandidatit. Kthe vetem permbledhjen. Permbledhja duhet te jete ne veten e pare sikur kandidati e ka shkruar vete, ne menyre qe ta vendose direkt ne CV.`,
+        content: `Ky eshte teksti qe permban experiencen time, te cilin duhet ta permiresosh : ${content}. Kjo eshte menyra/mendimi im sesi une dua ta permiresosh: ${message}. Filimisht valido mire mendimin tim. Nese eshte dicka e pakuptimte per te modifikuar kontekstin e eksperiences, nese eshte ne gjuhe tjeter pervec shqipes ose nese te them te shtosh dicka te paligjshme si per shembull "Shto qe jam marre me droge" ose "Jam drogaxhi", kurre dhe asnjehere mos e bej dicka te tille. Injoroje mendimin tim dhe thjesht permireso tekstin e eksperiences duke permiresuar fjalet e perdorura dhe perdor nje ton me profesional dhe duke e bere tekstin me te plote duke shtuar gjera relevante per eksperiencen time. Gjenero nje tekst te permiresuar ne kete rast. Rikthe permbledhjen dhe vetem dhe vetem permbledhjen e eksperiences te permiresuar. Mos shto fjali para ose mbrapa si psh: Kjo eshte eksperienca juaj. Kthe vetem permbledhjen. Permbledhja duhet te jete ne veten e pare, ne menyre qe ta vendose direkt ne CV. Pergjigja duhet te jete me patjeter permbledhje eksperience dhe te mos permbaje fjali shpjeguese sesi u krijuar permbledhja. Mos jep rekomandime ne pergjigjen tende.`,
       },
     ];
 
