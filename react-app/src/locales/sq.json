@@ -249,7 +249,9 @@
       "changePhotoButtonText": "Ndrysho Foton e Profilit",
       "uploading": "Duke ngarkuar foton...",
       "uploadSuccess": "Fotoja u ngarkua me sukses",
-      "uploadError": "Fotoja nuk u ngarkua me sukses"
+      "uploadError": "Fotoja nuk u ngarkua me sukses",
+      "sizeError": "Madhesia e fajllit duhet te jete me e vogel se {{size}}MB!",
+      "formatError": "Formati i fajllit duhet te jete {{format}}!"
     },
     "notFound": {
       "title": "Faqja qe po kerkoni nuk u gjet!",

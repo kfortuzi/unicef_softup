@@ -255,7 +255,9 @@
       "changePhotoButtonText": "Change Photo",
       "uploading": "Uploading...",
       "uploadSuccess": "Photo was uploaded successfully!",
-      "uploadError": "Failed to upload photo!"
+      "uploadError": "Failed to upload photo!",
+      "sizeError": "File size must be less than {{size}}!",
+      "formatError": "You can only upload {{format}} file!"
     },
     "notFound": {
       "title": "The page you are looking for was not found!",

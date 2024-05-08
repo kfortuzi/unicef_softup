@@ -1,5 +1,5 @@
 import { EditOutlined } from '@ant-design/icons';
-import { Upload, UploadProps, message, Image, Typography, Avatar } from 'antd';
+import { Upload, UploadProps, message, Image, Typography, Avatar, GetProp } from 'antd';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -12,8 +12,10 @@ import UserPlaceHolderImage from 'src/assets/images/user-placeholder.jpeg';
 import Button from 'src/components/common/Button/Button';
 import config from 'src/config';
 import i18n from 'src/locales';
+import { beforeUpload, getBase64 } from 'src/utils/imageUtils';
 import { LocalStorageKey, getItem } from 'src/utils/storage';
 import { omitFalsyValue } from 'src/utils/stringUtils';
+type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
 interface ContactInfoViewProps {
   cvId: string;
@@ -32,6 +34,8 @@ interface ContactInfoViewProps {
 const ContactInfoView: React.FC<ContactInfoViewProps> = (props) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.contactInfoSection' });
   const [imageKey, setImageKey] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [imageUrl, setImageUrl] = useState<string>();
   const omittedFalsyProps = Object.fromEntries(
     Object.entries(props).map(([key, value]) => [key, omitFalsyValue(value)])
   );
@@ -57,13 +61,19 @@ const ContactInfoView: React.FC<ContactInfoViewProps> = (props) => {
     },
     accept: 'image/*',
     onChange(info) {
-      if (info.file.status !== 'uploading') {
-        message.info(i18n.t('globalStrings.uploading'));
+      if (info.file.status === 'uploading') {
+        setLoading(true);
+
+        return;
       }
-      if (info.file.status === 'done') {
+      else if (info.file.status === 'done') {
         message.success(i18n.t('globalStrings.uploadSuccess'));
-        setImageKey((prev) => prev + 1);
-        window.location.reload();
+        getBase64(info.file.originFileObj as FileType, (url) => {
+          setLoading(false);
+          setImageUrl(url);
+          setImageKey((prev) => prev + 1);
+          window.location.reload();
+        });
       } else if (info.file.status === 'error') {
         message.error(i18n.t('globalStrings.uploadError'));
       }
@@ -75,16 +85,17 @@ const ContactInfoView: React.FC<ContactInfoViewProps> = (props) => {
       <div className="profile-pic-section">
         <Avatar
           size={160}
-          src={props.profilePicture || UserPlaceHolderImage}
+          src={imageUrl || props.profilePicture || UserPlaceHolderImage}
           key={imageKey}
         />
-        <Upload {...uploadProps}>
+        <Upload {...uploadProps} beforeUpload={beforeUpload}>
           <Button
             text={t('uploadProfilePicture')}
             type="primary"
             icon={<EditOutlined />}
             size="middle"
             style={{ marginTop: '10px' }}
+            loading={loading}
           />
         </Upload>
         <p className="name">
