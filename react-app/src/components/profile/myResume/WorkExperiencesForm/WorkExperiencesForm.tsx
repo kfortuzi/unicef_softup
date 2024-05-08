@@ -12,6 +12,7 @@ import usePostResumeResponsibility from 'src/api/resumes/hooks/usePostResumeResp
 import { WorkExperience } from 'src/api/resumes/types';
 import AskWizardModal from 'src/components/common/AskWizardModal/AskWizardModal';
 import Button from 'src/components/common/Button/Button';
+import DeleteItemButton from 'src/components/common/DeleteItemButton/DeleteItemButton';
 import Drawer from 'src/components/common/Drawer/Drawer';
 import InputDatePicker from 'src/components/common/InputDatePicker/InputDatePicker';
 import InputText from 'src/components/common/InputText/InputText';
@@ -127,11 +128,12 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
     return {
       key: field.id,
       label: `${t('headerSingular')} ${index + 1}`,
-      headerClass: `${
-        (errors.experiences as unknown as WorkExperience[])?.find((_, errorIndex) => errorIndex === index)
-          ? 'is-invalid'
-          : 'is-valid'
-      }`,
+      // eslint-disable-next-line max-len
+      headerClass: `${(errors.experiences as unknown as WorkExperience[])?.find((_, errorIndex) => errorIndex === index)
+        ? 'is-invalid'
+        : 'is-valid'
+        }`,
+      extra: <DeleteItemButton remove={remove} index={index} />,
       children: (
         <div className="input-element-container">
           <Controller
@@ -241,12 +243,6 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
             updateMessageText={(text: string) => updateMessageText(text || '', index)}
             sendMessageAndGetAiPrompt={(text: string) => sendMessageAndGetAiPrompt(text || '', index)}
           />
-          <Button
-            type="default"
-            text={t('removeButtonTitle')}
-            onClick={() => remove(index)}
-            className="add-remove-experience-button"
-          />
         </div>
       ),
     };
@@ -270,7 +266,7 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
         type="default"
         text={t('addButtonTitle')}
         onClick={addExperience}
-        className="add-remove-experience-button"
+        className="add-experience-button"
       />
     </Drawer>
   );

@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import usePatchResume from 'src/api/resumes/hooks/usePatchResume';
 import { Publication } from 'src/api/resumes/types';
 import Button from 'src/components/common/Button/Button';
+import DeleteItemButton from 'src/components/common/DeleteItemButton/DeleteItemButton';
 import Drawer from 'src/components/common/Drawer/Drawer';
 import InputDatePicker from 'src/components/common/InputDatePicker/InputDatePicker';
 import InputText from 'src/components/common/InputText/InputText';
@@ -65,6 +66,7 @@ const PublicationsForm: React.FC<PublicationsProps> = (props) => {
         ?.find((_, errorIndex) => errorIndex === index)
         ? 'is-invalid'
         : 'is-valid'}`,
+      extra: <DeleteItemButton remove={remove} index={index} />,
       children: (
         <div className="input-element-container">
           <Controller
@@ -118,12 +120,6 @@ const PublicationsForm: React.FC<PublicationsProps> = (props) => {
               />
             )}
           />
-          <Button
-            type="default"
-            text={t('removeButtonTitle')}
-            onClick={() => remove(index)}
-            className="add-remove-publication-button"
-          />
         </div>
       ),
     };
@@ -147,7 +143,7 @@ const PublicationsForm: React.FC<PublicationsProps> = (props) => {
         type="default"
         text={t('addButtonTitle')}
         onClick={addPublication}
-        className="add-remove-publication-button"
+        className="add-publication-button"
       />
     </Drawer>
   );

@@ -2,9 +2,18 @@ p {
   margin: 0;
 }
 
-.add-remove-publication-button {
+.add-publication-button {
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 10px;
+}
+
+.remove-item-button {
+  display: flex;
+  padding: 5px;
+}
+
+.remove-item-button:hover {
+  color: $error-color;
 }

@@ -1,0 +1,8 @@
+.delete-item-button {
+  display: flex;
+  padding: 5px;
+}
+
+.delete-item-button:hover {
+  color: $error-color;
+}

@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import usePatchResume from 'src/api/resumes/hooks/usePatchResume';
 import { Language } from 'src/api/resumes/types';
 import Button from 'src/components/common/Button/Button';
+import DeleteItemButton from 'src/components/common/DeleteItemButton/DeleteItemButton';
 import Drawer from 'src/components/common/Drawer/Drawer';
 import InputSelect from 'src/components/common/InputSelect/InputSelect';
 import InputText from 'src/components/common/InputText/InputText';
@@ -63,6 +64,7 @@ const LanguagesForm: React.FC<LanguagesProps> = (props) => {
         ?.find((_, errorIndex) => errorIndex === index)
         ? 'is-invalid'
         : 'is-valid'}`,
+      extra: <DeleteItemButton remove={remove} index={index} />,
       children: (
         <div className="input-element-container">
           <Controller
@@ -155,12 +157,6 @@ const LanguagesForm: React.FC<LanguagesProps> = (props) => {
               />
             </>
           )}
-          <Button
-            type="default"
-            text={t('removeButtonTitle')}
-            onClick={() => remove(index)}
-            className="add-remove-language-button"
-          />
         </div>
       ),
     };
@@ -184,7 +180,7 @@ const LanguagesForm: React.FC<LanguagesProps> = (props) => {
         type="default"
         text={t('addButtonTitle')}
         onClick={addLanguage}
-        className="add-remove-language-button"
+        className="add-language-button"
       />
     </Drawer>
   );
