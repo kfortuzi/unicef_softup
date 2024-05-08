@@ -33,6 +33,7 @@ $job-card-border-radius: 20px;
       flex-direction: column;
       gap: $small;
       color: white;
+      width: 80%;
       justify-content: space-evenly;
 
       .job-description-group {
@@ -71,6 +72,17 @@ $job-card-border-radius: 20px;
     flex-direction: column;
     margin: $small 0;
     gap: $small;
+
+    .apply-and-tips-buttons-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: $small;
+
+      .tips-link {
+        color: $warning-color;
+      }
+    }
 
     .view-details-link {
       color: $primary-color;

@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { GetCoverLetterResponse } from 'src/api/coverLetters/types';
 import { GetResumeResponse } from 'src/api/resumes/types';
 
+import JobInterviewTipsModal from '../InterviewTipsModal/InterviewTipsModal';
 import JobApplyModal from '../JobApplyModal/JobApplyModal';
 
 type JobCardProps = {
@@ -62,14 +63,17 @@ const JobCard: React.FC<JobCardProps> = ({
             >
               {t('viewDetails')}
             </Link>
-            <JobApplyModal
-              jobId={jobId}
-              companyName={companyName}
-              resume={resume}
-              coverLetter={coverLetter}
-              referenceId={referenceId}
-              isApplied={isApplied}
-            />
+            <div className="apply-and-tips-buttons-container">
+              <JobApplyModal
+                jobId={jobId}
+                companyName={companyName}
+                resume={resume}
+                coverLetter={coverLetter}
+                referenceId={referenceId}
+                isApplied={isApplied}
+              />
+              <JobInterviewTipsModal jobId={jobId} />
+            </div>
           </div>
         </div>
         <div className="logo-container">

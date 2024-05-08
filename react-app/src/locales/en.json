@@ -405,7 +405,8 @@
       "noAppliedJobs": "No applied jobs found!",
       "viewResumeButtonText": "View Resume",
       "viewCoverLetterButtonText": "View Cover Letter",
-      "applyButtonDisabledTooltip": "Please generate a CV and a Cover Letter first!"
+      "applyButtonDisabledTooltip": "Please generate a CV and a Cover Letter first!",
+      "tips": "Tips"
     },
     "jobDetails": {
       "title": "Title",

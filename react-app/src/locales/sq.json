@@ -399,7 +399,8 @@
       "noAppliedJobs": "Nuk keni aplikuar për asnjë punë.",
       "viewResumeButtonText": "Shiko CV-në",
       "viewCoverLetterButtonText": "Shiko Letrën e Motivimit",
-      "applyButtonDisabledTooltip": "Ju lutemi krijoni një CV dhe një Letër shoqëruese përpara se të aplikoni për këtë vend pune"
+      "applyButtonDisabledTooltip": "Ju lutemi krijoni një CV dhe një Letër shoqëruese përpara se të aplikoni për këtë vend pune",
+      "tips": "Keshilla"
     },
     "jobDetails": {
       "title": "Titulli",
