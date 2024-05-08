@@ -19,7 +19,6 @@ type JobCardProps = {
   location: string;
   resume?: GetResumeResponse;
   coverLetter?: GetCoverLetterResponse;
-  isApplied?: boolean;
 };
 
 const JobCard: React.FC<JobCardProps> = ({
@@ -31,7 +30,6 @@ const JobCard: React.FC<JobCardProps> = ({
   referenceId,
   resume,
   coverLetter,
-  isApplied,
 }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'jobs' });
 
@@ -70,7 +68,6 @@ const JobCard: React.FC<JobCardProps> = ({
                 resume={resume}
                 coverLetter={coverLetter}
                 referenceId={referenceId}
-                isApplied={isApplied}
               />
               <JobInterviewTipsModal jobId={jobId} />
             </div>

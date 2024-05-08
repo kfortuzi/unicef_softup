@@ -20,7 +20,6 @@ type JobApplyModalProps = {
   resume?: GetResumeResponse;
   coverLetter?: GetCoverLetterResponse;
   referenceId?: string;
-  isApplied?: boolean;
 };
 
 const JobApplyModal: React.FC<JobApplyModalProps> = ({
@@ -29,7 +28,6 @@ const JobApplyModal: React.FC<JobApplyModalProps> = ({
   resume,
   coverLetter,
   referenceId,
-  isApplied,
 }) => {
 
   const navigate = useNavigate();
@@ -204,7 +202,7 @@ const JobApplyModal: React.FC<JobApplyModalProps> = ({
         destroyOnClose={true}
         footer={[
           <Button
-            key={`job-apply-modal-${jobId}-${isApplied && 'applied'}-back`}
+            key={`job-apply-modal-${jobId}-back`}
             type="link"
             text={t('cancelButtonText')}
             onClick={handleCancel}
