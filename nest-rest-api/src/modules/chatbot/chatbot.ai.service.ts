@@ -82,7 +82,7 @@ export class ChatbotAIService {
     return await chain.invoke(question);
   }
 
-  async generateChatHistorySummary(userId: string) {
+  async generateChatHistory(userId: string) {
     const chatHistory =
       await this.chatbotHistoryService.findLastConversationHistoryPerUser(
         userId,

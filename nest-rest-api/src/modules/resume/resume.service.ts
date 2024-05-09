@@ -561,6 +561,10 @@ export class ResumeService {
     data: WizardDto,
   ): Promise<string | null> {
     const { content, message } = data;
+
+    const user = await this.userService.findOne(userId);
+    if (!user) throw new NotFoundException('User does not exist');
+
     const messages: ChatCompletionMessageParam[] = [
       {
         role: 'system',
@@ -590,6 +594,20 @@ export class ResumeService {
     data: WizardDto,
   ): Promise<string | null> {
     const { content, message } = data;
+
+    const user = await this.userService.findOne(userId);
+    if (!user) throw new NotFoundException('User does not exist');
+
+    const last8HourMessages =
+      await this.openAIService.findLastMessagesPer8Hours(
+        userId,
+        PromptType.AskResumeSummaryWizard,
+      );
+    if (last8HourMessages >= 7)
+      throw new UnprocessableEntityException(
+        'Limit 7 messages per 8 hours reached!',
+      );
+
     const messages: ChatCompletionMessageParam[] = [
       {
         role: 'system',
@@ -610,7 +628,7 @@ export class ResumeService {
     return this.openAIService.generateCompletion(
       body,
       userId,
-      PromptType.Resume,
+      PromptType.AskResumeSummaryWizard,
     );
   }
 

@@ -5,7 +5,7 @@ import { PromptRepository } from './prompt.repository';
 import { PromptType } from './promptTypes';
 import { Config } from 'config';
 import { Prisma } from '@prisma/client';
-import { PrismaService } from '../commons/prisma/prisma.service';
+import { SavePromptData } from './types';
 
 @Injectable()
 export class OpenAIService {
@@ -13,7 +13,6 @@ export class OpenAIService {
 
   constructor(
     private promptRepository: PromptRepository,
-    private prismaService: PrismaService,
     private config: Config,
   ) {
     const configuration: ClientOptions = {
@@ -68,6 +67,29 @@ export class OpenAIService {
     }
   }
 
+  async savePrompt(data: SavePromptData) {
+    const {
+      promptRequest,
+      prompResponse,
+      promptType,
+      endDate,
+      startDate,
+      userId,
+    } = data;
+
+    await this.promptRepository.create({
+      promptType: promptType,
+      requireHistory: false,
+      promptRequest,
+      prompResponse,
+      startedAt: startDate,
+      endedAt: endDate,
+      user: {
+        connect: { id: userId },
+      },
+    });
+  }
+
   async generateOpenAI(body: ChatCompletionCreateParamsNonStreaming) {
     try {
       const response = await this.openAI.chat.completions.create(body);
@@ -82,6 +104,10 @@ export class OpenAIService {
 
   async findPrompts(query: Prisma.promptsWhereInput) {
     return this.promptRepository.findPrompts(query);
+  }
+
+  async findLastMessagesPer8Hours(userId: string, promptType: PromptType) {
+    return this.promptRepository.findLastMessagesPer8Hours(userId, promptType);
   }
 
   prepareMessageForAIValidation(

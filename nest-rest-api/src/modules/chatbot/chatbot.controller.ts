@@ -29,9 +29,4 @@ export class ChatbotController {
   ) {
     return await this.chatbotService.assistant(req.user.id, body);
   }
-
-  @Post('helper')
-  async helper() {
-    return await this.chatbotService.completeChatbotFineTunign();
-  }
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma, prompts } from '@prisma/client';
 import { PrismaService } from 'src/modules/commons/prisma/prisma.service';
+import { PromptType } from './promptTypes';
 
 @Injectable()
 export class PromptRepository {
@@ -31,5 +32,17 @@ export class PromptRepository {
 
   async findOneById(id: string) {
     return this.prismaService.prompts.findMany({ where: { id: id } });
+  }
+
+  async findLastMessagesPer8Hours(userId: string, promptType: PromptType) {
+    const lastMessages: { count: number }[] = await this.prismaService
+      .$queryRaw`
+    SELECT count(*)
+    FROM prompts
+    WHERE user_id=${userId}
+    AND prompt_type=${promptType}
+    AND started_at >= NOW() - INTERVAL '8 hours'`;
+
+    return lastMessages[0].count;
   }
 }

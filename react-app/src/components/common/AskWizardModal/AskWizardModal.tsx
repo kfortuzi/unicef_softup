@@ -47,8 +47,13 @@ const AskWizardModal: React.FC<AskWizardModalProps> = ({
     try {
       const systemMessage = await sendMessageAndGetAiPrompt(text);
       aiMessage = { text: systemMessage, type: 'ai', isUsable: true } as Message;
-    } catch (error) {
-      aiMessage = { text: t('aiErrorMessage'), type: 'ai', isUsable: false } as Message;
+    } catch (error: unknown) {
+      const { message } = error as Error;
+      if (message === 'Limit 7 messages per 8 hours reached!') {
+        aiMessage = { text: t('aiLimitReached'), type: 'ai', isUsable: false } as Message;
+      } else {
+        aiMessage = { text: t('aiErrorMessage'), type: 'ai', isUsable: false } as Message;
+      }
     } finally {
       setLoading(false);
     }

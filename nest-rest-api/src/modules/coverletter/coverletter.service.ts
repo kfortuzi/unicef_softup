@@ -210,41 +210,47 @@ export class CoverLetterService {
     userId: string,
     userRequest: MessageDto,
   ): Promise<string | null> {
-    try {
-      const messages: ChatCompletionMessageParam[] = [
-        {
-          role: 'system',
-          content: AkpaPrompts.coverLetterWizard,
-        },
-        {
-          role: 'user',
-          content: userRequest.message,
-        },
-      ];
+    const user = await this.userService.findOne(userId);
+    if (!user) throw new NotFoundException('User does not exist');
 
-      if (userRequest.content) {
-        messages.push({
-          role: 'user',
-          content: userRequest.content,
-        });
-      }
-
-      const body: ChatCompletionCreateParamsNonStreaming = {
-        messages,
-        model: AkpaModels.COVER_LETTER,
-      };
-
-      return this.openAIService.generateCompletion(
-        body,
+    const last8HourMessages =
+      await this.openAIService.findLastMessagesPer8Hours(
         userId,
-        PromptType.CoverLetter,
+        PromptType.AskCoverLetterWizard,
       );
-    } catch (error) {
-      console.error('Error calling OpenAI API:', error);
-      throw new InternalServerErrorException(
-        'Failed to generate text from OpenAI',
+    if (last8HourMessages >= 7)
+      throw new UnprocessableEntityException(
+        'Limit 7 messages per 8 hours reached!',
       );
+
+    const messages: ChatCompletionMessageParam[] = [
+      {
+        role: 'system',
+        content: AkpaPrompts.coverLetterWizard,
+      },
+      {
+        role: 'user',
+        content: userRequest.message,
+      },
+    ];
+
+    if (userRequest.content) {
+      messages.push({
+        role: 'user',
+        content: userRequest.content,
+      });
     }
+
+    const body: ChatCompletionCreateParamsNonStreaming = {
+      messages,
+      model: AkpaModels.COVER_LETTER,
+    };
+
+    return this.openAIService.generateCompletion(
+      body,
+      userId,
+      PromptType.AskCoverLetterWizard,
+    );
   }
 
   async autogenerateCoverLetter(

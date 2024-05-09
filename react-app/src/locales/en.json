@@ -380,7 +380,8 @@
       "askWizardPlaceholder": "Ask Wizard",
       "useButtonText": "Use",
       "aiFirstMessage": "Hello, I am a wizard. How can I help you?",
-      "aiErrorMessage": "Failed to get response from wizard!"
+      "aiErrorMessage": "Failed to get response from wizard!",
+      "aiLimitReached": "Sorry, you just reached the maximum messages limit. Please try again after 8 hours."
     },
     "jobs": {
       "header": "Open Job Positions",
