@@ -10,8 +10,6 @@ check_environment_var
 
 AWS_REGION=eu-central-1
 
-ecr_stack_output=$(stack_output akpa-ai-ecr)
-
 images_s3_stack_output=$(stack_output akpa-ai-images-s3-$ENVIRONMENT)
 images_bucket_name=$(param_from_stack_output "$images_s3_stack_output" BucketName)
 

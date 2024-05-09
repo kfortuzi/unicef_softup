@@ -18,8 +18,12 @@ db_host=$(get_secret_value rds-db-instance-credentials/master-$ENVIRONMENT host)
 db_port=$(get_secret_value rds-db-instance-credentials/master-$ENVIRONMENT port)
 db_name=$(get_secret_value rds-db-instance-credentials/master-$ENVIRONMENT dbname)
 
+if [[ $ENVIRONMENT == 'prod' ]]; then
+  strapi_db_name="strapi_db_prod"
+else
+  strapi_db_name="strapi_db_dev"
+fi
 strapi_token=$(get_secret_value $ENVIRONMENT/strapi/api strapiToken)
-strapi_db_name=$(get_secret_value rds-db-instance-credentials/strapi-$ENVIRONMENT dbname)
 strapi_jwt_secret=$(get_secret_value $ENVIRONMENT/strapi strapiJwtSecret)
 strapi_admin_jwt_secret=$(get_secret_value $ENVIRONMENT/strapi strapiAdminJwtSecret)
 strapi_app_keys=$(get_secret_value $ENVIRONMENT/strapi strapiAppKeys)

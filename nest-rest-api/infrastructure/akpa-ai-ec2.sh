@@ -18,7 +18,11 @@ public_subnet_1=$(param_from_stack_output "$vpc_stack_output" PublicSubnet1)
 ec2_roles_outuput=$(stack_output akpa-ai-ec2-roles-$ENVIRONMENT)
 instance_role_name=$(param_from_stack_output "$ec2_roles_outuput" AkpaEc2InstanceRoleName)
 
-keypair_name="akpa-ai-dev"
+if [[ $ENVIRONMENT == 'prod' ]]; then
+  keypair_name="akpa-ai-prod"
+else
+  keypair_name="akpa-ai-dev"
+fi
 
 user_data=$(cat user-data.sh | base64)
 

@@ -34,7 +34,6 @@ Resources:
       Parameters:
         application_name: !Sub 'akpa-ai-${EnvironmentName}'
 
-  # TODO: Enable automated backups
   RDS:
     Type: AWS::RDS::DBInstance
     DeletionPolicy: Retain
@@ -48,7 +47,7 @@ Resources:
       BackupRetentionPeriod: !If [CreateProdResources, 21, 14]
       CACertificateIdentifier: 'rds-ca-rsa4096-g1'
       CopyTagsToSnapshot: true
-      DBInstanceClass: !If [CreateProdResources, 'db.t3.medium', 'db.t3.micro']
+      DBInstanceClass: !If [CreateProdResources, 'db.t3.small', 'db.t3.micro']
       DBInstanceIdentifier: !Sub 'akpa-ai-db-instance-${EnvironmentName}'
       DBName: !Sub 'akpa_ai_rds_${EnvironmentName}'
       DBParameterGroupName: !GetAtt [RDSDBParameterGroup, DBParameterGroupName]
@@ -62,7 +61,7 @@ Resources:
       MasterUserPassword: !Sub '{{resolve:secretsmanager:${RDSMasterUserSecret}::password}}'
       PreferredMaintenanceWindow: 'thu:04:22-thu:04:52'
       # Updates do not function if PreferredMaintenanceWindow is there. So it can be used for initial creation and then must be commented.
-      MultiAZ: !If [CreateProdResources, true, false]
+      MultiAZ: false
       PerformanceInsightsRetentionPeriod: 7
       PubliclyAccessible: false
       SourceRegion: !Sub '${AWS::Region}'
@@ -105,33 +104,6 @@ Resources:
         Version: '2012-10-17'
         Statement:
           - Resource: !Ref RDSMasterUserSecret
-            Action: secretsmanager:GetSecretValue
-            Effect: Deny
-            Principal: '*'
-            Condition:
-              StringNotLike:
-                aws:PrincipalArn:
-                  - arn:aws:iam::618228892382:user/Cloudformation
-
-  RDSStrapiUserSecret:
-    Type: AWS::SecretsManager::Secret
-    Properties:
-      Description: 'Secret for RDS strapi user and password'
-      Name: !Sub 'rds-db-instance-credentials/strapi-${EnvironmentName}'
-      GenerateSecretString:
-        SecretStringTemplate: !Sub '{"username": "strapi_user", "dbname": "strapi_db_${EnvironmentName}"}'
-        GenerateStringKey: 'password'
-        PasswordLength: 32
-        ExcludePunctuation: true
-
-  RDSStrapiUserSecretPolicy:
-    Type: AWS::SecretsManager::ResourcePolicy
-    Properties:
-      SecretId: !Ref RDSStrapiUserSecret
-      ResourcePolicy:
-        Version: '2012-10-17'
-        Statement:
-          - Resource: !Ref RDSStrapiUserSecret
             Action: secretsmanager:GetSecretValue
             Effect: Deny
             Principal: '*'
