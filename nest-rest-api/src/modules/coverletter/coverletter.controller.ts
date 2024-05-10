@@ -25,6 +25,7 @@ import { CoverLetterDto } from './dto/cover-letter-dto';
 import { MessageDto } from 'src/modules/chatbot/dto/message.dto';
 import { Response } from 'express';
 import { AutoGenerateCoverLetterDto } from './dto/cover-letter-autogenerate.dto';
+import { CoverLetterChatbotDto } from './dto/cover-letter-chatbot.dto';
 
 @Controller('cover-letters')
 export class CoverLetterController {
@@ -134,14 +135,14 @@ export class CoverLetterController {
   @ApiBearerAuth()
   @ApiTags('cover-letters')
   @UseGuards(JwtAuthGuard)
-  @ApiBody({ type: MessageDto })
+  @ApiBody({ type: CoverLetterChatbotDto })
   @ApiCreatedResponse({
     description: 'Cover letter wizard is ON!',
   })
   @Post('ask-wizard')
   async askWizardCoverLetter(
     @Request() req: RequestWithUser,
-    @Body() body: MessageDto,
+    @Body() body: CoverLetterChatbotDto,
     @Res() res: Response,
   ) {
     return res.json(

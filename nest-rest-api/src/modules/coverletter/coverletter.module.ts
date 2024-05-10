@@ -11,6 +11,7 @@ import { JobRepository } from 'src/modules/job/job.repository';
 import { WizardService } from 'src/modules/wizard/wizard.service';
 import { WizardRepository } from 'src/modules/wizard/wizard.repository';
 import { Config } from 'config';
+import { CoverLetterAIService } from './coverletter.ai.service';
 @Module({
   imports: [UserModule, OpenAIModule, JobModule],
   controllers: [CoverLetterController],
@@ -19,6 +20,7 @@ import { Config } from 'config';
     OpenAIService,
     CoverLetterRepository,
     JobService,
+    CoverLetterAIService,
     JobRepository,
     WizardService,
     WizardRepository,

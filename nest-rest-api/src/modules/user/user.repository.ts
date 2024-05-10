@@ -1,7 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { CodeType, Prisma } from '@prisma/client';
 import { PrismaService } from '../commons/prisma/prisma.service';
-import { UserProfessionInfo } from './user.types';
+import {
+  UserProfessionInfo,
+  UserProfessionSkillsCredentialsInfo,
+} from './user.types';
 
 @Injectable()
 export class UserRepository {
@@ -144,5 +147,18 @@ export class UserRepository {
     GROUP BY u.id`;
 
     return professionInfo[0];
+  }
+
+  async findUserSkillsProfessionAndCredentials(userId: string) {
+    const data: UserProfessionSkillsCredentialsInfo[] = await this.prismaService
+      .$queryRaw`
+    SELECT array_agg(us.name) as skills,u.first_name as firstName, u.last_name as lastName,u.profession as profession
+    FROM users u
+    LEFT JOIN user_skills us
+    on u.id=us.user_id
+    WHERE u.id=${userId}
+    GROUP BY u.id`;
+
+    return data[0];
   }
 }

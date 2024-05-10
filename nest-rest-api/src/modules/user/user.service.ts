@@ -312,4 +312,10 @@ export class UserService {
   async findUserSkillsAndProfession(userId: string) {
     return await this.userRepository.findUserSkillsAndProfession(userId);
   }
+
+  async findUserSkillsProfessionAndCredentials(userId: string) {
+    return await this.userRepository.findUserSkillsProfessionAndCredentials(
+      userId,
+    );
+  }
 }

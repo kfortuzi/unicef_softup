@@ -19,10 +19,11 @@ import { CoverLetterRepository } from './coverletter.repository';
 import { JobService } from 'src/modules/job/job.service';
 import { WizardService } from 'src/modules/wizard/wizard.service';
 import { PromptType } from 'src/modules/openai/promptTypes';
-import { SourceType } from '@prisma/client';
+import { jobs, SourceType } from '@prisma/client';
 import { extractJSON } from 'src/helpers/parser';
-import { MessageDto } from '../chatbot/dto/message.dto';
 import { AutoGenerateCoverLetterDto } from './dto/cover-letter-autogenerate.dto';
+import { CoverLetterAIService } from './coverletter.ai.service';
+import { CoverLetterChatbotDto } from './dto/cover-letter-chatbot.dto';
 
 @Injectable()
 export class CoverLetterService {
@@ -32,6 +33,7 @@ export class CoverLetterService {
     private coverLetterRepository: CoverLetterRepository,
     private jobService: JobService,
     private wizardService: WizardService,
+    private coverLetterAIService: CoverLetterAIService,
   ) {}
 
   async createCoverLetter(userId: string, data: CoverLetterDto) {
@@ -103,19 +105,22 @@ export class CoverLetterService {
 
   async generateCoverLetterFromJobPost(userId: string, jobId: string) {
     try {
-      const jobData = await this.jobService.findJob(jobId);
+      const job = (await this.jobService.getJob(jobId)) as jobs;
       const existingCoverLetter =
         await this.coverLetterRepository.getJobCoverLetter(userId, jobId);
       if (existingCoverLetter)
-        throw new UnprocessableEntityException({
-          errorCode: 422,
-          message: 'Cover letter already exists!',
-        });
-      const generatedCoverLetter = await this.generateCoverLetter(
-        userId,
-        jobData,
-        'json_object',
-      );
+        throw new UnprocessableEntityException('Cover letter already exists!');
+
+      const userInfo =
+        await this.userService.findUserSkillsProfessionAndCredentials(userId);
+
+      const generatedCoverLetter =
+        await this.coverLetterAIService.generateCoverLetterBasedOnJob(
+          userInfo,
+          userId,
+          job,
+        );
+
       if (generatedCoverLetter !== null) {
         return this.mapOutputData(generatedCoverLetter, userId, jobId);
       }
@@ -208,7 +213,7 @@ export class CoverLetterService {
 
   async askWizardCoverLetter(
     userId: string,
-    userRequest: MessageDto,
+    data: CoverLetterChatbotDto,
   ): Promise<string | null> {
     const user = await this.userService.findOne(userId);
     if (!user) throw new NotFoundException('User does not exist');
@@ -223,23 +228,19 @@ export class CoverLetterService {
         'Limit 7 messages per 8 hours reached!',
       );
 
+    const { content, message } = data;
+
     const messages: ChatCompletionMessageParam[] = [
       {
         role: 'system',
-        content: AkpaPrompts.coverLetterWizard,
+        content:
+          'Je nje chatbot, i cili ndihmon perdoruesin te editoje dhe permiresoje permbajtjen e letres se tij te motivimit ne varesi te mendimit te mesazhit te perdoruesit. Pergjigja duhet te te jete me patjeter permbajtja e nje letre motivimi dhe gjithmone ne gjuhen shqipe.',
       },
       {
         role: 'user',
-        content: userRequest.message,
+        content: `Kjo eshte letra e motivimit qe duhet te permiresosh: ${content}. Ky eshte mesazhi i perdoruesit: ${message}. Permiresoje permbajtjen e letres se motivimit ne varesi te mesazhit te perdoruesit. Fillimisht valido dhe kontrollo mesazhin e perdoruesit. Nese mesazhi nuk ka te beje me nje mesazh valid permiresimi te tekstit te letres se motivitimit, atehere vetem bej nje autogjenerim te kontentit duke perdorur nje ton me profesional. Mos shto asnjehere pune ose permbajtje te palejuar. Per shembull edhe nese perdoruesi te thote te shtosh nje eskperience si drogaxhi, kurre mos e shto sepse eshte dicka e jashteligjshme dhe qe nuk perputhet me nje tekst valid qe duhet futur ne nje leter motivimi.`,
       },
     ];
-
-    if (userRequest.content) {
-      messages.push({
-        role: 'user',
-        content: userRequest.content,
-      });
-    }
 
     const body: ChatCompletionCreateParamsNonStreaming = {
       messages,

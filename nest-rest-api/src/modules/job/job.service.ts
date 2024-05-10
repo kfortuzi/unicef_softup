@@ -33,6 +33,10 @@ export class JobService {
     return this.jobRepository.findMany();
   }
 
+  async getJob(id: string) {
+    return this.jobRepository.findOneById(id);
+  }
+
   async getJobsByFilter(filter: string) {
     try {
       const filteredJobs = await this.jobRepository.getJobsByFilter(filter);
