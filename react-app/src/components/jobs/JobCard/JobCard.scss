@@ -7,6 +7,7 @@ $job-card-border-radius: 20px;
   height: 100%;
 
   .job-card-body {
+    position: relative;
     background-color: transparent;
     border: 0;
     border-radius: $job-card-border-radius;
@@ -34,13 +35,20 @@ $job-card-border-radius: 20px;
       gap: $small;
       color: white;
       width: 80%;
-      justify-content: space-evenly;
+      justify-content: space-between;
+      font-family: $poppins-extralight;
 
       .job-description-group {
         display: flex;
         flex-direction: row;
         column-gap: $small;
-        margin: 0;
+        margin: 0 0 10px 0;
+        align-items: flex-start;
+        font-size: 14px;
+
+        .job-description {
+          margin-top: -5px
+        }
       }
 
       .view-details-link {
@@ -49,7 +57,8 @@ $job-card-border-radius: 20px;
 
       .position {
         font-family: $poppins-bold;
-        margin: 0;
+        margin: 0 0 20px 0;
+        font-size: 16px;
       }
 
       .last-updated {
@@ -60,10 +69,9 @@ $job-card-border-radius: 20px;
     }
 
     .logo-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 120px;
+      position: absolute;
+      top: 24px;
+      right: 24px;
     }
   }
 
@@ -75,7 +83,7 @@ $job-card-border-radius: 20px;
 
     .apply-and-tips-buttons-container {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
       align-items: center;
       gap: $small;
 

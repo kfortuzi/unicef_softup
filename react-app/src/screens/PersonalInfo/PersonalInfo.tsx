@@ -1,6 +1,5 @@
-import { Col, GetProp, Image, Row, Typography, Upload, UploadProps, message } from 'antd';
+import { Col, GetProp, Image, Row, Upload, UploadProps, message } from 'antd';
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import useGetProfile from 'src/api/users/hooks/useGetProfile';
@@ -21,7 +20,6 @@ const PersonalInfo: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string>();
 
-  const { t } = useTranslation('translation', { keyPrefix: 'profile.personalInfo' });
   const toggleIsEditForm = () => {
     setIsEditMode((currentIsEdit) => !currentIsEdit);
   };
@@ -40,8 +38,7 @@ const PersonalInfo: React.FC = () => {
         setLoading(true);
 
         return;
-      }
-      else if (info.file.status === 'done') {
+      } else if (info.file.status === 'done') {
         message.success(i18n.t('globalStrings.uploadSuccess'));
         getBase64(info.file.originFileObj as FileType, (url) => {
           setLoading(false);
@@ -54,8 +51,7 @@ const PersonalInfo: React.FC = () => {
   };
 
   return (
-    <div className='personal-info-container'>
-      <Typography.Title className='title'>{t('header')}</Typography.Title>
+    <div className="personal-info-container profile-page-content">
       <Row
         justify="space-between"
         gutter={[32, 32]}
@@ -73,7 +69,10 @@ const PersonalInfo: React.FC = () => {
             src={imageUrl || user?.profilePicture}
             fallback={PlaceHolderImage}
           />
-          <Upload {...uploadProps} beforeUpload={beforeUpload}>
+          <Upload
+            {...uploadProps}
+            beforeUpload={beforeUpload}
+          >
             <Button
               type="primary"
               text={i18n.t('globalStrings.changePhotoButtonText')}

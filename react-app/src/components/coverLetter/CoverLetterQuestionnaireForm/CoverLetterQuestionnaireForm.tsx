@@ -27,11 +27,13 @@ const CoverLetterQuestionnaireForm: React.FC = () => {
 
   const submitForm = handleSubmit(async (data) => {
     setLoading(true);
-    postCoverLetterWizardAsync(data).then((generatedCoverLetter) => {
-      navigate(`/cover-letters/${generatedCoverLetter?.id}`, { replace: true });
-    }).finally(() => {
-      setLoading(false);
-    });
+    postCoverLetterWizardAsync(data)
+      .then((generatedCoverLetter) => {
+        navigate(`/cover-letters/${generatedCoverLetter?.id}`, { replace: true });
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   });
 
   if (loading) {
@@ -39,7 +41,12 @@ const CoverLetterQuestionnaireForm: React.FC = () => {
   } else {
     return (
       <div className="cover-letter-questionnaire-form-container">
-        <form onSubmit={(e) => { e.preventDefault(); submitForm(e); }}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            submitForm(e);
+          }}
+        >
           <Controller
             control={control}
             name={FormField.TITLE}
@@ -50,7 +57,7 @@ const CoverLetterQuestionnaireForm: React.FC = () => {
                 value={value}
                 error={error?.message}
                 onChange={onChange}
-                placeholder={t('title')}
+                placeholder={t('titlePlaceholder')}
                 className="input-textarea"
                 label={t('title')}
               />
@@ -66,7 +73,7 @@ const CoverLetterQuestionnaireForm: React.FC = () => {
                 value={value}
                 error={error?.message}
                 onChange={onChange}
-                placeholder={t('company')}
+                placeholder={t('companyPlaceholder')}
                 className="input-textarea"
                 label={t('company')}
               />
@@ -82,7 +89,7 @@ const CoverLetterQuestionnaireForm: React.FC = () => {
                 value={value}
                 error={error?.message}
                 onChange={onChange}
-                placeholder={t('to')}
+                placeholder={t('toPlaceholder')}
                 className="input-textarea"
                 label={t('to')}
               />
@@ -98,7 +105,7 @@ const CoverLetterQuestionnaireForm: React.FC = () => {
                 value={value}
                 error={error?.message}
                 onChange={onChange}
-                placeholder={t('companyAddress')}
+                placeholder={t('companyAddressPlaceholder')}
                 className="input-textarea"
                 label={t('companyAddress')}
               />
@@ -114,7 +121,7 @@ const CoverLetterQuestionnaireForm: React.FC = () => {
                 value={value}
                 error={error?.message}
                 onChange={onChange}
-                placeholder={t('motive')}
+                placeholder={t('motivePlaceholder')}
                 className="input-textarea"
                 label={t('motive')}
               />
@@ -130,7 +137,7 @@ const CoverLetterQuestionnaireForm: React.FC = () => {
                 value={value}
                 error={error?.message}
                 onChange={onChange}
-                placeholder={t('topic')}
+                placeholder={t('topicPlaceholder')}
                 className="input-textarea"
                 label={t('topic')}
               />

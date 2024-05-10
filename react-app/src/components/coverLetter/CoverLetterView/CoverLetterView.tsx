@@ -12,7 +12,7 @@ type CoverLetterViewProps = {
 
 const CoverLetterView: React.FC<CoverLetterViewProps> = ({ coverLetter, user }) => {
   return (
-    <div>
+    <div className="cover-letter-container">
       <div className="cover-letter-personal-info">
         <div className="cover-letter-personal-info-title">
           <h2>{`${user?.firstName} ${user?.lastName}`}</h2>
@@ -26,10 +26,12 @@ const CoverLetterView: React.FC<CoverLetterViewProps> = ({ coverLetter, user }) 
             <MailOutlined className="cover-letter-personal-info-icon" />
             {`${user?.email}`}
           </p>
-          {user?.phoneNumber ? <p>
-            <PhoneOutlined className="cover-letter-personal-info-icon" />
-            {`${user?.phoneNumber}`}
-          </p> : null}
+          {user?.phoneNumber ? (
+            <p>
+              <PhoneOutlined className="cover-letter-personal-info-icon" />
+              {`${user?.phoneNumber}`}
+            </p>
+          ) : null}
         </div>
       </div>
       <div className="cover-letter-body">

@@ -34,6 +34,7 @@ import WorkExperiencesView from '../WorkExperiencesView/WorkExperiencesView';
 
 type MyResumeViewProps = {
   resume: GetResumeResponse;
+  showTitle?: boolean;
 };
 
 const MyResumeView: React.FC<MyResumeViewProps> = (props) => {
@@ -50,13 +51,21 @@ const MyResumeView: React.FC<MyResumeViewProps> = (props) => {
       key={`resume-view-${resume.id}`}
     >
       <div className="slide-container">
-        <div className="cv-header">
-          <Typography.Title className="title">{job?.company} {t('header')}</Typography.Title>
-          <PDFDownloadLink document={<ResumePdfView resume={resume} />}>
-            {t('downloadPdfButtonText')} <DownloadOutlined />
-          </PDFDownloadLink>
-        </div>
+        {props.showTitle ? (
+          <div className="cv-header">
+            <Typography.Title className="title">
+              {job?.company ? `${job?.company} - ` : null}
+              {t('header')}
+            </Typography.Title>
+          </div>
+        ) : null}
+
         <div className="my-resume-body">
+          <div className="download-icon">
+            <PDFDownloadLink document={<ResumePdfView resume={resume} />}>
+              <DownloadOutlined style={{ fontSize: '28px', color: 'black' }} />
+            </PDFDownloadLink>
+          </div>
           <Row
             justify="center"
             wrap={true}

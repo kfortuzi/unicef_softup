@@ -14,13 +14,15 @@ const SkillsAndHobbies: React.FC = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.skillsAndHobbies' });
 
   return (
-    <div className="skills-and-hobbies-container">
-      <Typography.Title className="title">{t('header')}</Typography.Title>
-      <Row
-        gutter={[20, 20]}
-      >
+    <div className="skills-and-hobbies-container profile-page-content">
+      <Row gutter={[20, 20]}>
         <Col span={24}>
-          <Typography.Title level={4}>{t('skills')}</Typography.Title>
+          <Typography.Title
+            className="title"
+            level={4}
+          >
+            {t('skills')}
+          </Typography.Title>
           {!isSkillEditMode ? (
             <SkillsView toggleEditMode={toggleIsSkillEditMode} />
           ) : (
@@ -28,9 +30,7 @@ const SkillsAndHobbies: React.FC = () => {
           )}
         </Col>
       </Row>
-      <Row
-        gutter={[20, 20]}
-      >
+      <Row gutter={[20, 20]}>
         <Col span={24}>
           <Typography.Title level={4}>{t('hobbies')}</Typography.Title>
           {!isHobbyEditMode ? (

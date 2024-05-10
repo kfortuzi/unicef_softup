@@ -279,6 +279,7 @@
       "tipOfTheDay": "Tip of the day"
     },
     "pageWithNavigation": {
+      "profile": "Profili",
       "logOut": "Log Out",
       "home": "Youth career orientation",
       "resumes": "Resumes",
@@ -355,6 +356,12 @@
       "header": "Cover Letter Questionnaire"
     },
     "coverLetterDetails": {
+      "titlePlaceholder": "Shembull: Aplikim per vend pune si marangoz.",
+      "toPlaceholder": "Shembull: Per Zotin/Zonjen: X Y",
+      "companyPlaceholder": "Shembull: Agjensia Kombetare e Punesimit dhe Aftesive",
+      "companyAddressPlaceholder": "Shembull: Rruga Sami Frasheri",
+      "motivePlaceholder": "Motivi juaj per kete leter motivimi",
+      "topicPlaceholder": "Detaje per profesionin tuaj, eksperiencen etj..",
       "header": "Cover Letter",
       "title": "Title",
       "to": "To",

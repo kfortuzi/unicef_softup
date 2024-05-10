@@ -27,9 +27,7 @@
   .slide-container {
     display: flex;
     flex-direction: column;
-    transform: translateX(20%);
-    transition: transform 0.5s;
-    width: 70%;
+    width: 100%;
 
     .cv-header {
       display: flex;
@@ -40,7 +38,15 @@
     }
 
     .my-resume-body {
+      position: relative;
       display: flex;
+
+      .download-icon {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        z-index: 1;
+      }
 
       .contact-section {
         display: flex;
@@ -65,8 +71,4 @@
       height: max-content;
     }
   }
-}
-
-.slide-left {
-  transform: translateX(0%) !important;
 }

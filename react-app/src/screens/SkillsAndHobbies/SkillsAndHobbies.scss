@@ -2,10 +2,12 @@
   display: flex;
   flex-flow: column wrap;
   padding: 0 calc($large * 2);
+  font-family: $poppins-regular;
 
   .title {
-    font-family: $poppins-bold;
     font-size: 150%;
+    font-family: $poppins-regular;
     margin-bottom: $large;
+    margin-top: 0;
   }
 }

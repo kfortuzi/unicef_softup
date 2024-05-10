@@ -24,20 +24,23 @@ const MyCoverLetter: React.FC = () => {
   }
 
   return (
-    <div className='cover-letter-layout'>
-      <div className='slide-container'>
-        <div className='cover-letter-details-header'>
+    <div className="cover-letter-layout">
+      <div className="slide-container">
+        <div className="cover-letter-details-header">
           <h1> {t('header')} </h1>
           <PDFDownloadLink
             document={
-              <CoverLetterPdfView coverLetter={coverLetter as GetCoverLetterResponse} user={user as User} />
+              <CoverLetterPdfView
+                coverLetter={coverLetter as GetCoverLetterResponse}
+                user={user as User}
+              />
             }
             fileName="coverLetter.pdf"
           >
             {t('downloadPdfButtonText')} <DownloadOutlined />
           </PDFDownloadLink>
         </div>
-        <div className='cover-letter-details-body'>
+        <div className="cover-letter-details-body">
           <CoverLetterView
             coverLetter={coverLetter as GetCoverLetterResponse}
             user={user as User}

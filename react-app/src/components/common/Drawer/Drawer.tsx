@@ -3,7 +3,6 @@ import { DrawerProps, Space } from 'antd';
 import { Drawer as AntdDrawer } from 'antd';
 import { useState } from 'react';
 
-import slideResumeLeft from 'src/components/profile/myResume/hooks/useSlideLeft';
 import i18n from 'src/locales';
 
 import Button from '../Button/Button';
@@ -22,12 +21,10 @@ const Drawer: React.FC<Props> = ({ title, children, submitForm, isPending, isCre
 
   const showDrawer = () => {
     setOpen(true);
-    slideResumeLeft(false);
   };
 
   const onClose = () => {
     setOpen(false);
-    slideResumeLeft(true);
   };
 
   const handleSubmit = () => {

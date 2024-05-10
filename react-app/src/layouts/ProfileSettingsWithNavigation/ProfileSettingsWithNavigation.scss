@@ -1,45 +1,24 @@
-.profile-settings-navigation-menu {
-  display: flex;
-  flex-flow: column nowrap;
-  gap: $medium;
-
-  >.ant-menu-item {
-    line-height: 1;
-    height: max-content;
-    text-wrap: wrap;
-  }
-}
-
-.page-with-navigation-container {
-  flex: 1;
-  display: flex;
-  flex-flow: column nowrap;
-  overflow-y: auto;
-  height: 100%;
-  background-color: $layout-background;
-
-  .navigation-bar {
+.profile-page-with-navigation-container {
+  margin-top: 15px;
+  .profile-settings-navigation-menu {
     display: flex;
-    flex-flow: row nowrap;
-    justify-content: flex-end;
-    position: sticky;
-    top: 0;
-    z-index: 1;
-    border-bottom: 1px solid $base-font-color;
+    flex-flow: column nowrap;
 
-    >.ant-menu {
-      min-width: 100%;
-      justify-content: flex-end;
+    >.ant-menu-item {
+      line-height: 1;
+      height: max-content;
+      text-wrap: wrap;
+      align-items: flex-start !important;
+      margin-bottom: 10px;
+      padding: 0 0 16px 0 !important;
     }
   }
 
-  .layout-content {
-    min-height: max-content;
-    background-color: transparent;
-
-    .page-content {
-      display: flex;
-      flex-flow: column nowrap;
-    }
+  .profile-page-content {
+    padding: 24px;
+    background-color: $white;
+    border-radius: 6px;
+    width: 100%;
   }
 }
+

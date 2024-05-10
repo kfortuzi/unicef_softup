@@ -9,11 +9,9 @@ const CoverLetterQuestionnaire: React.FC = () => {
 
   return (
     <div className="cover-letter-questionnaire-container">
-      <Row justify='center'>
-        <Col
-          span={16}
-        >
-          <div className='cover-letter-questionnaire-form'>
+      <Row>
+        <Col span={24}>
+          <div className="cover-letter-questionnaire-form">
             <h1>{t('header')}</h1>
             <CoverLetterQuestionnaireForm />
           </div>

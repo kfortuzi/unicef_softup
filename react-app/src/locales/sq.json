@@ -273,6 +273,7 @@
       "tipOfTheDay": "Keshilla e dites"
     },
     "pageWithNavigation": {
+      "profile": "Profili",
       "logOut": "Dil",
       "home": "Orientim kariere per te rinjte",
       "resumes": "Rezyme",
@@ -349,6 +350,12 @@
       "header": "Pyetësor për Letër Motivimi"
     },
     "coverLetterDetails": {
+      "titlePlaceholder": "Shembull: Aplikim per vend pune si marangoz.",
+      "toPlaceholder": "Shembull: Per Zotin/Zonjen: X Y",
+      "companyPlaceholder": "Shembull: Agjensia Kombetare e Punesimit dhe Aftesive",
+      "companyAddressPlaceholder": "Shembull: Rruga Sami Frasheri",
+      "motivePlaceholder": "Motivi juaj per kete leter motivimi",
+      "topicPlaceholder": "Detaje per profesionin tuaj, eksperiencen etj..",
       "header": "Letra e motivimit",
       "title": "Titulli",
       "to": "Per",

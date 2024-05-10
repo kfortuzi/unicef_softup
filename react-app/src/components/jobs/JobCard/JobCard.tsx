@@ -1,5 +1,5 @@
 import { BankOutlined, EnvironmentOutlined, FileSearchOutlined } from '@ant-design/icons';
-import { Card, Image, } from 'antd';
+import { Card, Image } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -47,11 +47,11 @@ const JobCard: React.FC<JobCardProps> = ({
             )}
             <p className="job-description-group">
               <BankOutlined />
-              <span>{companyName}</span>
+              <span className="job-description">{companyName}</span>
             </p>
             <p className="job-description-group">
               <EnvironmentOutlined />
-              <span>{location}</span>
+              <span className="job-description">{location}</span>
             </p>
           </div>
           <div className="actions-container">
@@ -81,8 +81,8 @@ const JobCard: React.FC<JobCardProps> = ({
             src="/akpa.ico"
           />
         </div>
-      </Card >
-    </div >
+      </Card>
+    </div>
   );
 };
 

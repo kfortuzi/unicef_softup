@@ -1,8 +1,7 @@
-import { BarsOutlined, ContainerOutlined, ProductOutlined, SolutionOutlined } from '@ant-design/icons';
 import { Layout, Menu, MenuProps } from 'antd';
 import { Content } from 'antd/es/layout/layout';
 import Sider from 'antd/es/layout/Sider';
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
@@ -13,40 +12,26 @@ const ProfileSettingsWithNavigation: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  useEffect(() => {
-    if (location.pathname === Route.ROOT) {
-      navigate(`${Route.ROOT}${Route.HOME}`, { replace: true });
-    }
-
-    if (location.pathname === `${Route.ROOT}${Route.PROFILE_SETTINGS}`) {
-      navigate(Route.PERSONAL_INFO, { replace: true });
-    }
-  }, [location.pathname, navigate]);
-
   const navigationItems: MenuProps['items'] = useMemo(
     () => [
       {
         label: t('personalInfoButtonText'),
-        key: 'personalInfo',
-        icon: <ProductOutlined />,
+        key: Route.PERSONAL_INFO,
         onClick: () => navigate(Route.PERSONAL_INFO),
       },
       {
         label: t('skillsAndHobbiesButtonText'),
-        key: 'skillsAndHobbies',
-        icon: <SolutionOutlined />,
+        key: Route.SKILLS_AND_HOBBIES,
         onClick: () => navigate(Route.SKILLS_AND_HOBBIES),
       },
       {
         label: t('changePasswordButtonText'),
-        key: 'changePassword',
-        icon: <ContainerOutlined />,
+        key: Route.CHANGE_PASSWORD,
         onClick: () => navigate(Route.CHANGE_PASSWORD),
       },
       {
         label: t('myResumeButtonText'),
-        key: 'myResume',
-        icon: <BarsOutlined />,
+        key: Route.MY_RESUME,
         onClick: () => navigate(Route.MY_RESUME),
       },
     ],
@@ -56,7 +41,7 @@ const ProfileSettingsWithNavigation: React.FC = () => {
   return (
     <Layout
       hasSider
-      className="page-with-navigation-container"
+      className="profile-page-with-navigation-container"
     >
       <Sider
         breakpoint="lg"
@@ -66,9 +51,10 @@ const ProfileSettingsWithNavigation: React.FC = () => {
         <div className="demo-logo-vertical" />
         <Menu
           mode="inline"
-          theme='dark'
+          theme="dark"
           items={navigationItems}
-          className='profile-settings-navigation-menu'
+          selectedKeys={[location.pathname]}
+          className="profile-settings-navigation-menu"
         />
       </Sider>
       <Layout className="layout-content">

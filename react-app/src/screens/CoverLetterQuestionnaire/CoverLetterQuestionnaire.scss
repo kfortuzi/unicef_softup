@@ -5,8 +5,8 @@
   .cover-letter-questionnaire-form {
     display: flex;
     flex-direction: column;
-    box-shadow: $suggested-box-shadow;
     background-color: white;
     padding: $large;
+    border-radius: 6px;
   }
 }

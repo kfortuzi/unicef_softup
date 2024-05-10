@@ -1,12 +1,3 @@
-import {
-  BarsOutlined,
-  ContainerOutlined,
-  LogoutOutlined,
-  ReadOutlined,
-  SettingOutlined,
-  SolutionOutlined,
-  UserOutlined,
-} from '@ant-design/icons';
 import { Breadcrumb, Layout, Menu, MenuProps } from 'antd';
 import { BreadcrumbItemType } from 'antd/es/breadcrumb/Breadcrumb';
 import { Content, Footer, Header } from 'antd/es/layout/layout';
@@ -16,7 +7,6 @@ import { Outlet, useLocation, useNavigate, useMatches, UIMatch } from 'react-rou
 
 import useLogOut from 'src/api/auth/hooks/useLogOut';
 import useGetResumes from 'src/api/resumes/hooks/useGetResumes';
-import useGetProfile from 'src/api/users/hooks/useGetProfile';
 import logo from 'src/assets/images/logo.png';
 import { Route } from 'src/router/enums';
 
@@ -26,7 +16,6 @@ const PageWithNavigation: React.FC = () => {
   const location = useLocation();
   const [hasBaseCv, setHasBaseCv] = useState(false);
 
-  const { data: user } = useGetProfile();
   const { data: resumes, isFetched } = useGetResumes();
   const { logOut } = useLogOut();
 
@@ -46,17 +35,14 @@ const PageWithNavigation: React.FC = () => {
     () => [
       {
         label: t('resumes'),
-        key: 'resumes',
-        icon: <SolutionOutlined />,
+        key: Route.RESUMES,
         onClick: () => navigate(Route.RESUMES),
         disabled: !hasBaseCv,
       },
       {
         label: t('coverLetters'),
-        key: 'coverLetter',
-        icon: <ContainerOutlined />,
+        key: Route.COVER_LETTERS,
         disabled: !hasBaseCv,
-
         children: [
           {
             label: t('coverLetters'),
@@ -72,15 +58,13 @@ const PageWithNavigation: React.FC = () => {
       },
       {
         label: t('jobs'),
-        key: 'jobs',
-        icon: <BarsOutlined />,
+        key: Route.JOBS,
         onClick: () => navigate(Route.JOBS),
         disabled: !hasBaseCv,
       },
       {
         label: t('training'),
-        key: 'training',
-        icon: <ReadOutlined />,
+        key: Route.TRAINING_VIDEOS,
         disabled: !hasBaseCv,
         children: [
           {
@@ -90,35 +74,32 @@ const PageWithNavigation: React.FC = () => {
           },
           {
             label: t('trainingArticles'),
-            key: 'trainingArticles',
+            key: Route.TRAINING_ARTICLES,
             onClick: () => navigate(Route.TRAINING_ARTICLES),
           },
         ],
       },
       {
-        label: `${user?.firstName || 'John'} ${user?.lastName || 'Doe'}`,
-        key: 'profile-menu',
-        icon: <UserOutlined />,
+        label: t('profile'),
+        key: Route.PERSONAL_INFO,
         disabled: false,
         children: [
           {
             label: t('settings'),
             key: 'settings',
-            icon: <SettingOutlined />,
             onClick: () => navigate(Route.PERSONAL_INFO),
             disabled: !hasBaseCv,
           },
           {
             label: t('logOut'),
             key: 'logOut',
-            icon: <LogoutOutlined />,
             onClick: logOut,
             disabled: false,
           },
         ],
       },
     ],
-    [hasBaseCv, logOut, navigate, t, user?.firstName, user?.lastName],
+    [hasBaseCv, logOut, navigate, t],
   );
 
   type Handle = {
@@ -151,6 +132,7 @@ const PageWithNavigation: React.FC = () => {
             items={navigationItems}
             theme="dark"
             mode="horizontal"
+            selectedKeys={[location.pathname]}
             selectable={false}
           />
         </div>

@@ -18,7 +18,10 @@ const ResumeDetail: React.FC = () => {
   return (
     <div>
       {resume ? (
-        <MyResumeView resume={resume} />
+        <MyResumeView
+          resume={resume}
+          showTitle
+        />
       ) : (
         <div>{t('resumeNotFound')}</div>
       )}
