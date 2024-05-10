@@ -2,11 +2,11 @@ import config from 'src/config';
 
 import { LocalStorageKey, deleteItem, getItem } from './storage';
 
-const makeRequest = async <ResponseType>(
+const makeRequestStream = async <ResponseType>(
   path: string,
   options: RequestInit = { method: 'GET' },
   requiresAuth = true,
-): Promise<ResponseType> => {
+): Promise<ResponseType | undefined | ReadableStream<Uint8Array> | null> => {
   let authorizationHeader: string | undefined;
 
   if (requiresAuth) {
@@ -58,9 +58,7 @@ const makeRequest = async <ResponseType>(
     throw new Error('Invalid response');
   }
 
-  const parsedData = await response.json();
-
-  return parsedData;
+  return response.body;
 };
 
-export default makeRequest;
+export default makeRequestStream;

@@ -46,6 +46,7 @@ export type PostCoverLetterAskWizardRequest = {
 
 export type PostCoverLetterAutogenerateRequest = {
   content: string;
+  coverLetterId: string | undefined;
 };
 
 export type PostCoverLetterAskWizardResponse = {

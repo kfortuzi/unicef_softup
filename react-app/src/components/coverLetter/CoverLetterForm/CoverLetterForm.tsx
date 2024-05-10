@@ -78,6 +78,7 @@ const CoverLetterForm: React.FC = () => {
     setContentLoading(true);
     const data = await postCoverLetterAutogenerate({
       content: autogenerateContent || getValues(FormField.CONTENT) || '',
+      coverLetterId: id,
     });
 
     if (data) {

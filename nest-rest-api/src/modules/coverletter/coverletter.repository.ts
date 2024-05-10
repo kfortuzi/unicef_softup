@@ -32,9 +32,10 @@ export class CoverLetterRepository {
     });
   }
 
-  async findOne(id: string, userId: string): Promise<cover_letters | null> {
+  async findOne(id: string, userId: string) {
     return this.prisma.cover_letters.findUnique({
       where: { id, userId },
+      include: { job: true },
     });
   }
 

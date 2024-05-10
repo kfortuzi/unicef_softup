@@ -256,35 +256,24 @@ export class CoverLetterService {
 
   async autogenerateCoverLetter(
     userId: string,
-    userRequest: AutoGenerateCoverLetterDto,
+    body: AutoGenerateCoverLetterDto,
   ) {
-    try {
-      const messages: ChatCompletionMessageParam[] = [
-        {
-          role: 'system',
-          content: AkpaPrompts.coverLetterWizard,
-        },
-        {
-          role: 'user',
-          content: userRequest.content,
-        },
-      ];
+    const user = await this.userService.findOne(userId);
+    if (!user) throw new NotFoundException('User does not exist!');
 
-      const body: ChatCompletionCreateParamsNonStreaming = {
-        messages,
-        model: AkpaModels.COVER_LETTER,
-      };
+    const coverLetter = await this.coverLetterRepository.findOne(
+      body.coverLetterId,
+      userId,
+    );
+    if (!coverLetter)
+      throw new NotFoundException('Cover letter does not exist!');
 
-      return this.openAIService.generateCompletion(
-        body,
-        userId,
-        PromptType.CoverLetter,
-      );
-    } catch (error) {
-      console.error('Error calling OpenAI API:', error);
-      throw new InternalServerErrorException(
-        'Failed to generate text from OpenAI',
-      );
-    }
+    const job = coverLetter.job ?? null;
+
+    return await this.coverLetterAIService.autogenerateCoverLetter(
+      user,
+      body.content,
+      job,
+    );
   }
 }

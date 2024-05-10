@@ -7,7 +7,7 @@ import {
 import { AkpaModels } from '../openai/models';
 import { OpenAIService } from '../openai/openai.service';
 import { PromptType } from '../openai/promptTypes';
-import { jobs } from '@prisma/client';
+import { jobs, users } from '@prisma/client';
 
 @Injectable()
 export class CoverLetterAIService {
@@ -43,6 +43,44 @@ export class CoverLetterAIService {
       body,
       userId,
       PromptType.CoverLetterWizard,
+    );
+  }
+
+  async autogenerateCoverLetter(
+    user: users,
+    content: string,
+    job: jobs | null,
+  ) {
+    const messages: ChatCompletionMessageParam[] = [
+      {
+        role: 'system',
+        content:
+          'Je nje chatbot i cili permireson permbajtjen e letres sime te motivimit. Pergjigja duhet te jete me patjeter permbajtja e nje letre motivimi dhe  duhet te jete patjeter ne gjuhen shqipe.',
+      },
+      job
+        ? {
+            role: 'user',
+            content: `Kjo eshte letra ime aktuale e motivimit : ${content}.Ky eshte profili im : ${JSON.stringify(
+              user,
+            )}. Permireso letren time te motivimit. Mund te perdoresh profilin tim per tu bazuar ne gjenerimin e letres. Permend pervojat, eksperiencat dhe aftesite e mia me te rendesishme. Perdor nje ton profesional dhe akademik.`,
+          }
+        : {
+            role: 'user',
+            content: `Kjo eshte letra ime aktuale e motivimit : ${content}.Ky eshte profili im : ${JSON.stringify(
+              user,
+            )}, ndersa kjo eshte puna per te cilen po e gjeneroj letren e motivimit : ${job}. Permireso letren time te motivimit. Gjej pikat e perbashketa midis aftesive te mia te punes dhe aftesive qe kerkohen ne pune. Permendi ato ne letren e motivimit. Perdor nje ton profesional dhe akademik.`,
+          },
+    ];
+
+    const body: ChatCompletionCreateParamsNonStreaming = {
+      messages,
+      model: AkpaModels.COVER_LETTER,
+    };
+
+    return this.openAIService.generateCompletion(
+      body,
+      user.id,
+      PromptType.CoverLetter,
     );
   }
 }

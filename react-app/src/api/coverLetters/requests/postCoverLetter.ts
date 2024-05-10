@@ -8,7 +8,7 @@ export const postCoverLetter = async (body: PostCoverLetterRequest): Promise<Bas
     body: JSON.stringify(body),
   });
 
-  return parsedData as unknown as BaseResponse;
+  return parsedData;
 };
 
 export default postCoverLetter;
