@@ -1,4 +1,11 @@
-import { Body, Controller, Post, UseGuards, Request } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  UseGuards,
+  Request,
+  Res,
+} from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiBody,
@@ -10,6 +17,7 @@ import { JwtAuthGuard } from 'src/modules/auth/jwt-auth.guard';
 import { RequestWithUser } from 'src/types/request';
 import { AskAssistantDto } from './dto/ask-assistant.dto';
 import { ChatbotService } from './chatbot.service';
+import { Response } from 'express';
 
 @Controller('chatbot')
 export class ChatbotController {
@@ -26,7 +34,8 @@ export class ChatbotController {
   async sendMessageAssistant(
     @Request() req: RequestWithUser,
     @Body() body: AskAssistantDto,
+    @Res() res: Response,
   ) {
-    return await this.chatbotService.assistant(req.user.id, body);
+    return await this.chatbotService.assistant(req.user.id, body, res);
   }
 }

@@ -83,7 +83,9 @@ export class ChatbotAIService {
       new StringOutputParser(),
     ]);
 
-    return await chain.invoke(question);
+    return await chain.stream(question);
+
+    // return await chain.invoke(question);
   }
 
   async generateChatHistory(userId: string) {

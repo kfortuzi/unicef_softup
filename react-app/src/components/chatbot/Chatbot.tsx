@@ -11,7 +11,7 @@ const Chatbot: React.FC = () => {
   const [firstChatbotConversationMessage, setFirstChatbotConversationMessage] = useState(true);
   const { mutateAsync: postChatbotAsync } = usePostChatbot();
 
-  const sendMessageAndGetAiPrompt = async (text: string): Promise<string | undefined> => {
+  const sendMessageAndGetAiPrompt = async (text: string): Promise<unknown> => {
     const data = await postChatbotAsync({
       message: text,
       firstChatbotConversationMessage,
@@ -38,7 +38,7 @@ const Chatbot: React.FC = () => {
       <AskWizardModal
         open={isOpen}
         setOpen={setOpen}
-        sendMessageAndGetAiPrompt={sendMessageAndGetAiPrompt}
+        sendMessagesToTheMainChatbotGetAiPrompt={sendMessageAndGetAiPrompt}
         isMainChatbot={true}
       />
     </>

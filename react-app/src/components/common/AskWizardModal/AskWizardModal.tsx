@@ -18,7 +18,8 @@ type Message = {
 };
 
 type AskWizardModalProps = ModalProps & {
-  sendMessageAndGetAiPrompt: (message: string) => Promise<string | undefined>;
+  sendMessageAndGetAiPrompt?: (message: string) => Promise<string | undefined>;
+  sendMessagesToTheMainChatbotGetAiPrompt?: (message: string) => Promise<unknown>;
   updateMessageText?: (message: string, content?: string) => void;
   setOpen: (open: boolean) => void;
   open: boolean;
@@ -27,6 +28,7 @@ type AskWizardModalProps = ModalProps & {
 
 const AskWizardModal: React.FC<AskWizardModalProps> = ({
   sendMessageAndGetAiPrompt,
+  sendMessagesToTheMainChatbotGetAiPrompt,
   updateMessageText,
   setOpen,
   open,
@@ -37,16 +39,47 @@ const AskWizardModal: React.FC<AskWizardModalProps> = ({
   const { t } = useTranslation('translation', { keyPrefix: 'askWizardModal' });
 
   const [messages, setMessages] = useState([] as Message[]);
+
   const [loading, setLoading] = useState(false);
 
   const askWizard = async (text: string) => {
     setLoading(true);
     const userMessage = { text: text, type: 'user' } as Message;
-    let aiMessage: Message;
+    let aiMessage: Message = { text: '', type: 'ai', isUsable: true };
     setMessages([...messages, userMessage]);
     try {
-      const systemMessage = await sendMessageAndGetAiPrompt(text);
-      aiMessage = { text: systemMessage, type: 'ai', isUsable: true } as Message;
+      let systemMessage;
+      if (isMainChatbot && sendMessagesToTheMainChatbotGetAiPrompt) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const parsedData: any = await sendMessagesToTheMainChatbotGetAiPrompt(text);
+        try {
+          const reader = parsedData.getReader();
+
+          let chunks = '';
+          // eslint-disable-next-line no-constant-condition
+          while (true) {
+            const { done, value } = await reader.read();
+
+            if (done) {
+              break;
+            }
+
+            const chunk = new TextDecoder().decode(value);
+
+            chunks += chunk;
+
+            if (chunk) {
+              setMessages([...messages, userMessage, { text: chunks, type: 'ai', isUsable: true }]);
+            }
+          }
+        } catch (error) {
+          throw new Error('Error getting chunks');
+        }
+      } else if (sendMessageAndGetAiPrompt) {
+        systemMessage = await sendMessageAndGetAiPrompt(text);
+        aiMessage = { text: systemMessage, type: 'ai', isUsable: true } as Message;
+        setMessages([...messages, userMessage, aiMessage]);
+      }
     } catch (error: unknown) {
       const { message } = error as Error;
       if (message === 'Limit 7 messages per 8 hours reached!') {
@@ -54,10 +87,10 @@ const AskWizardModal: React.FC<AskWizardModalProps> = ({
       } else {
         aiMessage = { text: t('aiErrorMessage'), type: 'ai', isUsable: false } as Message;
       }
+      setMessages([...messages, userMessage, aiMessage]);
     } finally {
       setLoading(false);
     }
-    setMessages([...messages, userMessage, aiMessage]);
   };
 
   const updateMessageTextAndCloseTheModal = (message: string) => {
@@ -138,6 +171,7 @@ const AskWizardModal: React.FC<AskWizardModalProps> = ({
                   <div className="ask-wizard-message-text">
                     <Typography.Paragraph style={{ whiteSpace: 'pre-wrap' }}>
                       {parse(wrapLinks(message.text))}
+                      {/* {message.text} */}
                     </Typography.Paragraph>
                   </div>
                   {message.type === 'ai' && message.isUsable && !isMainChatbot && (

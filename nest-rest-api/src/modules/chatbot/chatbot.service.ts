@@ -21,7 +21,7 @@ export class ChatbotService {
     private userService: UserService,
   ) {}
 
-  async assistant(userId: string, body: AskAssistantDto) {
+  async assistant(userId: string, body: AskAssistantDto, res: any) {
     const { firstChatbotConversationMessage, message: question } = body;
     const user = await this.userService.findOne(userId);
     if (!user) throw new NotFoundException('User does not exist');
@@ -41,10 +41,16 @@ export class ChatbotService {
       ? []
       : await this.chatbotAIService.generateChatHistory(userId);
 
-    const response = await this.chatbotAIService.askAssistant(
+    const stream = await this.chatbotAIService.askAssistant(
       question,
       chatHistory,
     );
+
+    let response = '';
+    for await (const chunk of stream) {
+      res.write(chunk);
+      response += chunk;
+    }
 
     const endDate = new Date();
 
@@ -66,6 +72,6 @@ export class ChatbotService {
       userId,
     });
 
-    return { message: response };
+    return res.end();
   }
 }

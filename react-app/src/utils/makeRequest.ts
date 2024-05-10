@@ -6,7 +6,8 @@ const makeRequest = async <ResponseType>(
   path: string,
   options: RequestInit = { method: 'GET' },
   requiresAuth = true,
-): Promise<ResponseType> => {
+  isJson: boolean = true,
+): Promise<ResponseType | undefined | ReadableStream<Uint8Array> | null> => {
   let authorizationHeader: string | undefined;
 
   if (requiresAuth) {
@@ -58,9 +59,11 @@ const makeRequest = async <ResponseType>(
     throw new Error('Invalid response');
   }
 
-  const parsedData = await response.json();
+  if (isJson) {
+    return response.json();
+  }
 
-  return parsedData;
+  return response.body;
 };
 
 export default makeRequest;
