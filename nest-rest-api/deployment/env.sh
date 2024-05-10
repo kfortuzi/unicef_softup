@@ -7,7 +7,6 @@ check_environment_var
 AWS_REGION=eu-central-1
 
 server_port=3000
-fe_host="https://db6acida7ydfm.cloudfront.net" # TODO: Temp only for demo
 akpa_base_job_url="https://www.puna.gov.al/shkp_api/odoo/getJob/"
 akpa_featured_jobs_url="https://www.puna.gov.al/shkp_api/odoo_post/getFeaturedJobs/5000/1"
 strapi_base_url="http://strapi:1337/api"
@@ -20,8 +19,10 @@ db_name=$(get_secret_value rds-db-instance-credentials/master-$ENVIRONMENT dbnam
 
 if [[ $ENVIRONMENT == 'prod' ]]; then
   strapi_db_name="strapi_db_prod"
+  fe_host="https://d3tbws5k04ln3f.cloudfront.net"
 else
   strapi_db_name="strapi_db_dev"
+  fe_host="https://db6acida7ydfm.cloudfront.net"
 fi
 strapi_token=$(get_secret_value $ENVIRONMENT/strapi/api strapiToken)
 strapi_jwt_secret=$(get_secret_value $ENVIRONMENT/strapi strapiJwtSecret)
