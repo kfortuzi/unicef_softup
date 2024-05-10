@@ -1,5 +1,5 @@
 import { BankOutlined, EnvironmentOutlined, FileSearchOutlined } from '@ant-design/icons';
-import { Card, Image } from 'antd';
+import { Card } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -72,14 +72,6 @@ const JobCard: React.FC<JobCardProps> = ({
               <JobInterviewTipsModal jobId={jobId} />
             </div>
           </div>
-        </div>
-        <div className="logo-container">
-          <Image
-            preview={false}
-            className="logo"
-            width={40}
-            src="/akpa.ico"
-          />
         </div>
       </Card>
     </div>

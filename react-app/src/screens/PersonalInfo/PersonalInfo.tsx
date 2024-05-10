@@ -52,10 +52,7 @@ const PersonalInfo: React.FC = () => {
 
   return (
     <div className="personal-info-container profile-page-content">
-      <Row
-        justify="space-between"
-        gutter={[32, 32]}
-      >
+      <Row gutter={[32, 32]}>
         <Col
           xs={24}
           sm={24}
@@ -66,8 +63,10 @@ const PersonalInfo: React.FC = () => {
           <Image
             preview={false}
             width={200}
+            height={200}
             src={imageUrl || user?.profilePicture}
             fallback={PlaceHolderImage}
+            style={{ objectFit: 'cover', borderRadius: '6px' }}
           />
           <Upload
             {...uploadProps}

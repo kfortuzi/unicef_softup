@@ -1,4 +1,4 @@
-import { Col, Empty, Row, Spin, Typography } from 'antd';
+import { Col, Empty, Row, Spin } from 'antd';
 import Search from 'antd/es/input/Search';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -27,9 +27,6 @@ const Jobs: React.FC = () => {
 
   return (
     <div className="jobs-container">
-      <div className="jobs-header">
-        <Typography.Title className="title">{t('header')}</Typography.Title>
-      </div>
       <h2 className="category">{t('recommendedJobs')}</h2>
 
       {recommendedJobs && recommendedJobs.length > 0 ? (

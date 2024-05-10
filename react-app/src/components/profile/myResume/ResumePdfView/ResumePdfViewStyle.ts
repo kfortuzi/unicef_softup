@@ -3,15 +3,17 @@ import { Font, StyleSheet } from '@react-pdf/renderer';
 const titleFontSize = 20;
 const subTitleFontSize = 14;
 
+const root = import.meta.env.DEV ? 'src/assets' : 'assets';
+
 Font.register({
   family: 'Poppins',
   fonts: [
-    { src: 'src/assets/fonts/Poppins-Thin.ttf', fontWeight: 'thin'},
-    { src: 'src/assets/fonts/Poppins-Light.ttf', fontWeight: 'light' },
-    { src: 'src/assets/fonts/Poppins-Regular.ttf' },
-    { src: 'src/assets/fonts/Poppins-Bold.ttf', fontWeight: 'bold' },
-    { src: 'src/assets/fonts/Poppins-Italic.ttf', fontStyle: 'italic' },
-    { src: 'src/assets/fonts/Poppins-BoldItalic.ttf', fontWeight: 'bold', fontStyle: 'italic' },
+    { src: `${root}/fonts/Poppins-Thin.ttf`, fontWeight: 'thin' },
+    { src: `${root}/fonts/Poppins-Light.ttf`, fontWeight: 'light' },
+    { src: `${root}/fonts/Poppins-Regular.ttf` },
+    { src: `${root}/fonts/Poppins-Bold.ttf`, fontWeight: 'bold' },
+    { src: `${root}/fonts/Poppins-Italic.ttf`, fontStyle: 'italic' },
+    { src: `${root}/fonts/Poppins-BoldItalic.ttf`, fontWeight: 'bold', fontStyle: 'italic' },
   ],
 });
 

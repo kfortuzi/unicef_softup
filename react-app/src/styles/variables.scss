@@ -18,9 +18,10 @@ $poppins-semibolditalic: 'Poppins-SemiBoldItalic';
 $base-font: $poppins-regular;
 $base-font-size: 16px;
 $base-font-color: #36383b;
-$base-border-radius: 5px;
+$base-border-radius: 6px;
 $background-color: #f4f3f2;
 $small-font-size: 12px;
+$big-border-radius: 20px;
 
 // Base dark mode variables
 $base-dark-font-color: #f4f3f2;
@@ -30,6 +31,7 @@ $base-dark-background-color: #1e1e1e;
 $small: 8px;
 $medium: 16px;
 $large: 24px;
+$large-2x: 48px;
 
 // Suggested
 $suggested-form-width: 350px;

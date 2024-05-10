@@ -136,7 +136,7 @@ const PersonalInfoEditForm: React.FC<Props> = ({ toggleEditMode }) => {
           style={{ marginTop: '20px' }}
         />
         <Button
-          type="primary"
+          type="default"
           text={i18n.t('globalStrings.cancel')}
           onClick={toggleEditMode}
           style={{ marginTop: '20px' }}

@@ -1,16 +1,14 @@
-$job-card-border-radius: 20px;
 
 .job-card-container {
-  border-radius: $job-card-border-radius;
-  box-shadow: $suggested-box-shadow;
-  background-color: $card-background-color;
+  border-radius: $big-border-radius;
+  background-color: $white;
   height: 100%;
 
   .job-card-body {
     position: relative;
     background-color: transparent;
     border: 0;
-    border-radius: $job-card-border-radius;
+    border-radius: $big-border-radius;
     width: 100%;
     height: 100%;
 
@@ -33,8 +31,8 @@ $job-card-border-radius: 20px;
       display: flex;
       flex-direction: column;
       gap: $small;
-      color: white;
-      width: 80%;
+      color: $base-font-color;
+      width: 100%;
       justify-content: space-between;
       font-family: $poppins-extralight;
 
@@ -58,7 +56,7 @@ $job-card-border-radius: 20px;
       .position {
         font-family: $poppins-bold;
         margin: 0 0 20px 0;
-        font-size: 16px;
+        font-size: 18px;
       }
 
       .last-updated {
