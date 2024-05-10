@@ -1,7 +1,11 @@
-.profile-form {
-  > div {
-    > span {
-      color: red;
-    }
+.skills-and-hobbies-container {
+  display: flex;
+  flex-flow: column wrap;
+  padding: 0 calc($large * 2);
+
+  .title {
+    font-family: $poppins-bold;
+    font-size: 150%;
+    margin-bottom: $large;
   }
 }

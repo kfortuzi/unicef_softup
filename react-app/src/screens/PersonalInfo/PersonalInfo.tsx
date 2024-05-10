@@ -1,4 +1,4 @@
-import { Col, GetProp, Image, Row, Upload, UploadProps, message } from 'antd';
+import { Col, GetProp, Image, Row, Typography, Upload, UploadProps, message } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -54,17 +54,10 @@ const PersonalInfo: React.FC = () => {
   };
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyItems: 'flex-start',
-        gap: '30px',
-      }}
-    >
-      <h1 style={{ alignSelf: 'center' }}>{t('header')}</h1>
+    <div className='personal-info-container'>
+      <Typography.Title className='title'>{t('header')}</Typography.Title>
       <Row
-        justify="center"
+        justify="space-between"
         gutter={[32, 32]}
       >
         <Col
@@ -73,11 +66,6 @@ const PersonalInfo: React.FC = () => {
           md={8}
           xl={8}
           xxl={8}
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
         >
           <Image
             preview={false}
@@ -101,12 +89,6 @@ const PersonalInfo: React.FC = () => {
           md={12}
           xl={12}
           xxl={12}
-
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
         >
           {isEditMode ? (
             <PersonalInfoEditForm toggleEditMode={toggleIsEditForm} />

@@ -1,3 +1,4 @@
+import { Typography } from 'antd';
 import { t } from 'i18next';
 import React from 'react';
 
@@ -6,7 +7,7 @@ import ChangeResetPasswordForm from 'src/components/profile/changePassword/Chang
 const ChangePassword: React.FC = () => {
   return (
     <div className="change-password-container">
-      <h1 style={{ alignSelf: 'center' }}>{t('profile.changePassword.header')}</h1>
+      <Typography.Title className='title'>{t('profile.changePassword.header')}</Typography.Title>
       <ChangeResetPasswordForm />
     </div>
   );

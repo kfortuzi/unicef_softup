@@ -1,7 +1,22 @@
+.personal-info-container {
+  display: flex;
+  flex-flow: column wrap;
+  align-content: center;
+  height: 100%;
+  text-align: left;
+  width: 100%;
+}
+
 .profile-form {
-  > div {
-    > span {
+  >div {
+    >span {
       color: red;
     }
   }
+}
+
+.title {
+  font-family: $poppins-bold;
+  font-size: 150%;
+  margin-bottom: $large;
 }

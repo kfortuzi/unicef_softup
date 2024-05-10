@@ -3,6 +3,7 @@
   flex-flow: column nowrap;
   box-sizing: border-box;
   padding: $large;
+  gap: calc(2 * $large);
   align-self: center;
 
   .home-header {

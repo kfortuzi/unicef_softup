@@ -1,5 +1,13 @@
 .profile-settings-navigation-menu {
-  height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: $medium;
+
+  >.ant-menu-item {
+    line-height: 1;
+    height: max-content;
+    text-wrap: wrap;
+  }
 }
 
 .page-with-navigation-container {

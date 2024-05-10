@@ -1,6 +1,6 @@
 import { DownloadOutlined } from '@ant-design/icons';
 import { PDFDownloadLink } from '@react-pdf/renderer';
-import { Col, Row } from 'antd';
+import { Col, Row, Typography } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -51,9 +51,7 @@ const MyResumeView: React.FC<MyResumeViewProps> = (props) => {
     >
       <div className="slide-container">
         <div className="cv-header">
-          <h1>
-            {job?.company} {t('header')}
-          </h1>
+          <Typography.Title className="title">{job?.company} {t('header')}</Typography.Title>
           <PDFDownloadLink document={<ResumePdfView resume={resume} />}>
             {t('downloadPdfButtonText')} <DownloadOutlined />
           </PDFDownloadLink>

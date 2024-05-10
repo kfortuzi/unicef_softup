@@ -1,8 +1,6 @@
 .skills-form-edit {
   display: flex;
   flex-flow: column nowrap;
-  max-width: $suggested-form-width;
-  width: 100%;
   gap: $medium;
 
   .button-group-container {
@@ -10,6 +8,7 @@
     flex-flow: row nowrap;
     gap: $small;
   }
+
   .input-element-container {
     display: flex;
     flex-flow: column nowrap;

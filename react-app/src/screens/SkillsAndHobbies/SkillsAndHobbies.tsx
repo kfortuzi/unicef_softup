@@ -1,4 +1,4 @@
-import { Col, Row } from 'antd';
+import { Col, Row, Typography } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -14,21 +14,13 @@ const SkillsAndHobbies: React.FC = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.skillsAndHobbies' });
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '20px',
-      }}
-    >
-      <h1 style={{ alignSelf: 'center' }}>{t('header')}</h1>
+    <div className="skills-and-hobbies-container">
+      <Typography.Title className="title">{t('header')}</Typography.Title>
       <Row
-        justify="center"
-        align="middle"
         gutter={[20, 20]}
       >
-        <Col span={12}>
-          <h2>{t('skills')}</h2>
+        <Col span={24}>
+          <Typography.Title level={4}>{t('skills')}</Typography.Title>
           {!isSkillEditMode ? (
             <SkillsView toggleEditMode={toggleIsSkillEditMode} />
           ) : (
@@ -37,12 +29,10 @@ const SkillsAndHobbies: React.FC = () => {
         </Col>
       </Row>
       <Row
-        justify="center"
-        align="middle"
         gutter={[20, 20]}
       >
-        <Col span={12}>
-          <h2>{t('hobbies')}</h2>
+        <Col span={24}>
+          <Typography.Title level={4}>{t('hobbies')}</Typography.Title>
           {!isHobbyEditMode ? (
             <HobbiesView toggleEditMode={toggleIsHobbyEditMode} />
           ) : (
