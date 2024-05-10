@@ -3,13 +3,15 @@ import makeRequest from 'src/utils/makeRequest';
 import { ResetPasswordRequest, ResetPasswordResponse } from '../types';
 
 const resetPassword = async (request: ResetPasswordRequest): Promise<ResetPasswordResponse> => {
-  const queryParams = new URLSearchParams({ verificationCode: request.verificationCode });
-
   const parsedData = await makeRequest<ResetPasswordResponse>(
-    `/user/${request.id}?${queryParams}`,
+    `/user/reset-password`,
     {
       method: 'PATCH',
-      body: JSON.stringify({ password: request.newPassword }),
+      body: JSON.stringify({
+        userId: request.id,
+        verificationCode: request.verificationCode,
+        password: request.newPassword,
+      }),
     },
     false,
   );
