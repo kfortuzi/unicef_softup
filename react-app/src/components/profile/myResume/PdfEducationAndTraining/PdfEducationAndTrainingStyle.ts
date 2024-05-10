@@ -5,8 +5,7 @@ const styles = StyleSheet.create({
     color: 'blue',
   },
   subTitle: {
-    fontFamily: 'Roboto',
-    fontWeight: 700,
+    fontWeight: 'bold',
   },
 });
 

@@ -4,15 +4,20 @@ const titleFontSize = 20;
 const subTitleFontSize = 14;
 
 Font.register({
-  family: 'Roboto',
+  family: 'Poppins',
   fonts: [
-    { src: 'https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmWUlvAw.ttf', fontWeight: 700 },
-    { src: 'https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Me5Q.ttf', fontWeight: 400 },
+    { src: 'src/assets/fonts/Poppins-Thin.ttf', fontWeight: 'thin'},
+    { src: 'src/assets/fonts/Poppins-Light.ttf', fontWeight: 'light' },
+    { src: 'src/assets/fonts/Poppins-Regular.ttf' },
+    { src: 'src/assets/fonts/Poppins-Bold.ttf', fontWeight: 'bold' },
+    { src: 'src/assets/fonts/Poppins-Italic.ttf', fontStyle: 'italic' },
+    { src: 'src/assets/fonts/Poppins-BoldItalic.ttf', fontWeight: 'bold', fontStyle: 'italic' },
   ],
 });
 
 const styles = StyleSheet.create({
   container: {
+    fontFamily: 'Poppins',
     flex: 12,
     flexDirection: 'row',
   },
@@ -26,11 +31,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   sectionSubTitle: {
-    fontFamily: 'Roboto',
-    fontWeight: 700,
+    fontWeight: 'bold',
     fontSize: subTitleFontSize,
   },
   sectionText: {
+    fontWeight: 'light',
     fontSize: 12,
   },
   section: {

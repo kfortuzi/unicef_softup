@@ -32,7 +32,7 @@ const PdfEducationAndTrainings: React.FC<PdfEducationAndTrainingsProps> = (props
             </Text>
             <Text>{omitFalsyValue(education?.type)}</Text>
           </View>
-          <Text>{omitFalsyValue(education?.location)}</Text>
+          <Text >{omitFalsyValue(education?.location)}</Text>
         </PdfListItem>
       ))}
     </>

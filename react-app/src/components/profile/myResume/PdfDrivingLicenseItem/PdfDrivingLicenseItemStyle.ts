@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   drivingLicensText: {
-    fontFamily: 'Roboto',
+    fontWeight: 'bold',
     fontSize: 12,
   },
 });

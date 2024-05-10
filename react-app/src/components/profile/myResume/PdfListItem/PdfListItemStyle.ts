@@ -19,14 +19,15 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   listItemTitle: {
+    fontWeight: 'bold',
     flexWrap: 'wrap',
     textOverflow: 'ellipsis',
-    fontWeight: 'bold',
     marginTop: '-3px',
     minHeight: 20,
     fontSize: large,
   },
   listBody: {
+    fontWeight: 'light',
     flexDirection: 'row',
     gap: 10,
   },

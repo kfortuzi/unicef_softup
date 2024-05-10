@@ -15,7 +15,6 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   name: {
-    fontFamily: 'Roboto',
     fontWeight: 700,
     fontSize: titleFontSize,
   },
@@ -31,7 +30,6 @@ const styles = StyleSheet.create({
   },
   groupTitle: {
     flexDirection: 'row',
-    fontFamily: 'Roboto',
     fontWeight: 600,
     fontSize: 15,
     gap: 5,
