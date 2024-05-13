@@ -24,7 +24,7 @@ const HobbiesEditForm: React.FC<Props> = ({ toggleEditMode }) => {
 
   return (
     <form
-      className="profile-form-edit"
+      className="hobbies-form-edit"
       onSubmit={submitForm}
     >
       <div className="input-element-container">
@@ -52,7 +52,7 @@ const HobbiesEditForm: React.FC<Props> = ({ toggleEditMode }) => {
           style={{ marginTop: '20px' }}
         />
         <Button
-          type="primary"
+          type="default"
           text={i18n.t('globalStrings.cancel')}
           onClick={toggleEditMode}
           style={{ marginTop: '20px' }}

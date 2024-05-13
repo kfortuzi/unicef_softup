@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 import useGetCoverLetters from 'src/api/coverLetters/hooks/useGetCoverLetters';
 import useGetJob from 'src/api/jobs/hooks/useGetJob';
 import useGetResumes from 'src/api/resumes/hooks/useGetResumes';
+import JobInterviewTipsModal from 'src/components/jobs/InterviewTipsModal/InterviewTipsModal';
 import JobApplyModal from 'src/components/jobs/JobApplyModal/JobApplyModal';
 import dateTimeFormats from 'src/constants/dateTimeFormats';
 
@@ -23,12 +24,21 @@ const JobDetails: React.FC = () => {
   if (isResumesFetched && isJobFetched && isCoverLettersFetched) {
     return (
       <div className="job-details-container">
-        <Title level={3}>{`${t('title')}:${job?.title}`}</Title>
+        <Title level={3}>{job?.title}</Title>
         <div className="job-main-details">
-          <Text><span className='data-name'>{t('company')}: </span> {job?.company}</Text>
-          <Text><span className='data-name'>{t('location')}: </span> {job?.location}</Text>
-          <Text><span className='data-name'>{t('address')}: </span> {job?.address}</Text>
-          <Text><span className="data-name">{t('vacantPositions')}: </span>{job?.vacantPositions}</Text>
+          <Text>
+            <span className="data-name">{t('company')}: </span> {job?.company}
+          </Text>
+          <Text>
+            <span className="data-name">{t('location')}: </span> {job?.location}
+          </Text>
+          <Text>
+            <span className="data-name">{t('address')}: </span> {job?.address}
+          </Text>
+          <Text>
+            <span className="data-name">{t('vacantPositions')}: </span>
+            {job?.vacantPositions}
+          </Text>
           <Text>
             <span className="data-name">{t('dateStart')}: </span>
             {job?.dateStart && dayjs(job?.dateStart).format(dateTimeFormats.albanianDate)}
@@ -38,7 +48,7 @@ const JobDetails: React.FC = () => {
             {job?.dateEnd && dayjs(job?.dateEnd).format(dateTimeFormats.albanianDate)}
           </Text>
         </div>
-        <hr className='divider' />
+        <hr className="divider" />
         <div className="job-details">
           <div className="job-description">
             <Title level={4}>{t('description')}</Title>
@@ -53,7 +63,7 @@ const JobDetails: React.FC = () => {
             <Text>{job?.experience}</Text>
           </div>
         </div>
-        <div className='job-detail-buttons'>
+        <div className="job-detail-buttons">
           <JobApplyModal
             jobId={job?.id}
             companyName={job?.company}
@@ -61,8 +71,9 @@ const JobDetails: React.FC = () => {
             resume={resume}
             coverLetter={coverLetter}
           />
+          {job?.id ? <JobInterviewTipsModal jobId={job.id} /> : null}
         </div>
-      </div >
+      </div>
     );
   }
 };

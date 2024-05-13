@@ -1,19 +1,17 @@
-import { BulbOutlined } from "@ant-design/icons";
-import { Col, Modal, Row, Typography } from "antd";
-import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { BulbOutlined } from '@ant-design/icons';
+import { Col, Modal, Row, Typography } from 'antd';
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import usePostJobTipsAndAdvices from "src/api/jobs/hooks/usePostJobTipsAndAdvices";
-import Button from "src/components/common/Button/Button";
-import LoadingFullPage from "src/components/common/LoadingFullPage/LoadingFullPage";
+import usePostJobTipsAndAdvices from 'src/api/jobs/hooks/usePostJobTipsAndAdvices';
+import Button from 'src/components/common/Button/Button';
+import LoadingFullPage from 'src/components/common/LoadingFullPage/LoadingFullPage';
 
 type JobInterviewTipsModalProps = {
   jobId: string;
 };
 
-const JobInterviewTipsModal: React.FC<JobInterviewTipsModalProps> = ({
-  jobId,
-}) => {
+const JobInterviewTipsModal: React.FC<JobInterviewTipsModalProps> = ({ jobId }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'interviewTips' });
   const { Title, Text } = Typography;
 
@@ -43,12 +41,14 @@ const JobInterviewTipsModal: React.FC<JobInterviewTipsModalProps> = ({
         open={isModalOpen}
         destroyOnClose={false}
         onCancel={handleCancel}
+        width={720}
+        footer={null}
       >
-        {isPending ? <LoadingFullPage /> : (
+        {isPending ? (
+          <LoadingFullPage />
+        ) : (
           <Row>
-            <Col
-              span={24}
-            >
+            <Col span={24}>
               <div>
                 <Title level={4}>{t('tips')}</Title>
                 <Text>{data?.tips}</Text>
@@ -70,6 +70,6 @@ const JobInterviewTipsModal: React.FC<JobInterviewTipsModalProps> = ({
       />
     </>
   );
-}
+};
 
 export default JobInterviewTipsModal;

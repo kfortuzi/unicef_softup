@@ -62,7 +62,7 @@ const Jobs: React.FC = () => {
       ) : (
         <Empty
           className="empty-text"
-          description={t('noAppliedJobs')}
+          description={t('noRecommendedJobs')}
         />
       )}
       <hr className="header-divider" />

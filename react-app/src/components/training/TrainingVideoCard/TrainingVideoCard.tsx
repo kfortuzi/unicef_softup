@@ -11,13 +11,15 @@ type TrainingVideoCardProps = {
 
 const TrainingVideoCard: React.FC<TrainingVideoCardProps> = ({ id, attributes }) => {
   return (
-    <div className="training-card-container">
+    <div className="training-card-container-video">
       <Card
         cover={
-          <Player
-            src={attributes.VideoContent.data.attributes.url}
-            playsInline
-          />
+          <div className="training-card-video">
+            <Player
+              src={attributes.VideoContent.data.attributes.url}
+              playsInline
+            />
+          </div>
         }
         key={id}
         bordered={false}

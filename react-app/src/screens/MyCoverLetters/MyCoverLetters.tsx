@@ -1,4 +1,4 @@
-import { Col, Empty, Row, Typography } from 'antd';
+import { Col, Empty, Row } from 'antd';
 import dayjs from 'dayjs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -17,7 +17,6 @@ const MyCoverLetters: React.FC = () => {
   return (
     <div className="my-cover-letters-container">
       <div className="my-cover-letters-header">
-        <Typography.Title className="title">{t('header')}</Typography.Title>
         <CoverLetterForm />
       </div>
 
@@ -41,6 +40,7 @@ const MyCoverLetters: React.FC = () => {
               <CoverLetterCard
                 id={coverLetter.id}
                 to={coverLetter.to}
+                company={coverLetter.company}
                 createdAt={dayjs(coverLetter.createdAt).format(dateTimeFormats.albanianDate)}
               />
             </Col>

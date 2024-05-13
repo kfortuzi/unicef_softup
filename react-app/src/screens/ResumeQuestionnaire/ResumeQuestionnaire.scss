@@ -3,9 +3,9 @@
   flex-direction: column;
 
   .resume-questionnaire-form {
+    border-radius: $base-border-radius;
     display: flex;
     flex-flow: column nowrap;
-    box-shadow: $suggested-box-shadow;
     background-color: white;
     padding: $large;
   }

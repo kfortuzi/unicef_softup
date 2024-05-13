@@ -130,7 +130,7 @@ const CoverLetterForm: React.FC = () => {
                 value={value}
                 error={error?.message}
                 onChange={onChange}
-                placeholder={t('to')}
+                placeholder={t('toPlaceholder')}
                 className="input-element"
               />
             )}
@@ -146,7 +146,7 @@ const CoverLetterForm: React.FC = () => {
                 value={value}
                 error={error?.message}
                 onChange={onChange}
-                placeholder={t('company')}
+                placeholder={t('companyPlaceholder')}
                 className="input-element"
               />
             )}
@@ -162,7 +162,7 @@ const CoverLetterForm: React.FC = () => {
                 value={value || ''}
                 error={error?.message}
                 onChange={onChange}
-                placeholder={t('companyAddress')}
+                placeholder={t('companyAddressPlaceholder')}
               />
             )}
           />

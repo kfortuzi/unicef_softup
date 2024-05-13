@@ -1,4 +1,4 @@
-import { Col, Empty, Row, Typography } from 'antd';
+import { Col, Empty, Row } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -9,15 +9,16 @@ const MyResumes: React.FC = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'myResumes' });
   const { data: resumesData } = useGetResumes();
 
+  const userGeneratedResumes = resumesData?.filter((resume) => !!resume.referenceId);
+
   return (
     <div className="resumes-container">
-      <Typography.Title className="title">{t('header')}</Typography.Title>
-      {resumesData?.length ? (
+      {userGeneratedResumes?.length ? (
         <Row
           className="list-of-resumes"
           gutter={[32, 32]}
         >
-          {resumesData
+          {userGeneratedResumes
             ?.filter((resume) => resume.referenceId !== null)
             .map((resume) => (
               <Col

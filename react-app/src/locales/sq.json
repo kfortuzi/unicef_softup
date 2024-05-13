@@ -438,6 +438,16 @@
       "softSkills": "Aftësitë Personale",
       "hobbies": "Hobi",
       "summary": "Përmbledhje",
+
+      "experiencesPlaceholder": "Shembull: Kompania X Y, Koha e fillimit, Koha e mbarimit, Pershkrimi i eksperiencave.",
+      "educationsPlaceholder": "Shembull: Fakulteti X, Shkolla e mesme Y, Koha e fillimit, Koha e mbarimit.",
+      "nativeLanguagePlaceholder": "Shembull: Shqip.",
+      "otherLanguagePlaceholder": "Shembull: Anglisht, italisht.",
+      "technicalSkillsPlaceholder": "Shembull: Punim druri, perdorim mjetesh per matjen dhe analizen gjeofizike.",
+      "digitalSkillsPlaceholder": "Shembull: Word, Excel, PowerPoint.",
+      "softSkillsPlaceholder": "Shembull: I komunikueshem, bashkepunimi.",
+      "hobbiesPlaceholder": "Shembull: Futbolli, Formula 1",
+      "summaryPlaceholder": "Përmbledhje ne lidhje me eksperiencat dhe karakterin tuaj.",
       "createSuccessMessage": "CV u krijua me sukses!",
       "createErrorMessage": "CV nuk u krijua me sukses!"
     },

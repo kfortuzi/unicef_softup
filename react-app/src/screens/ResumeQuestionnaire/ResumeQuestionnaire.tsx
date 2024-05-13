@@ -9,11 +9,9 @@ const ResumeQuestionnaire: React.FC = () => {
 
   return (
     <div className="resume-questionnaire-container">
-      <Row justify='center'>
-        <Col
-          span={16}
-        >
-          <div className='resume-questionnaire-form'>
+      <Row justify="center">
+        <Col span={24}>
+          <div className="resume-questionnaire-form">
             <h1>{t('header')}</h1>
             <ResumeQuestionnaireForm />
           </div>

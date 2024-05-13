@@ -1,12 +1,19 @@
-.training-card-container {
+.training-card-container-video {
   display: flex;
   flex-flow: column nowrap;
-  border-radius: $base-border-radius;
-  box-shadow: $suggested-box-shadow;
+
+  .training-card-video {
+
+    div, video {
+      border-top-right-radius: $big-border-radius;
+      border-top-left-radius: $big-border-radius;
+    }
+  }
 
   .training-card-body {
-    background-color: $card-background-color;
-
+    background-color: $white;
+    border-radius: $big-border-radius;
+    box-shadow: none;
     .ant-card-body {
       display: flex;
       flex-flow: column nowrap;
@@ -20,17 +27,11 @@
     flex-flow: column nowrap;
     justify-content: center;
     gap: $small;
-    color: white;
+    color: $base-font-color;
 
     .name {
       font-family: $poppins-bold;
-      font-size: 100%;
-      margin: 0;
-    }
-
-    .last-updated {
-      font-family: $poppins-regular;
-      font-size: 80%;
+      font-size: 16px;
       margin: 0;
     }
   }

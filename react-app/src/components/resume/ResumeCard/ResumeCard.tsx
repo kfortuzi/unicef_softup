@@ -56,6 +56,7 @@ const ResumeCard: React.FC<ResumeCardProps> = ({ resume }) => {
           <Link
             className="tips"
             to={`/jobs/${referenceId}/interview-tips`}
+            state={{ jobTitle: job?.title }}
           >
             {t('interviewTips')}
           </Link>

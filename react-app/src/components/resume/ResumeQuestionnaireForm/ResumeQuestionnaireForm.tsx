@@ -68,7 +68,7 @@ const ResumeQuestionnaireForm: React.FC = () => {
                 value={value}
                 onChange={onChange}
                 error={error?.message}
-                placeholder={t('experiences')}
+                placeholder={t('experiencesPlaceholder')}
                 className="input-textarea"
                 label={t('experiences')}
               />
@@ -84,7 +84,7 @@ const ResumeQuestionnaireForm: React.FC = () => {
                 value={value}
                 onChange={onChange}
                 error={error?.message}
-                placeholder={t('educations')}
+                placeholder={t('educationsPlaceholder')}
                 label={t('educations')}
                 className="input-textarea"
               />
@@ -100,7 +100,7 @@ const ResumeQuestionnaireForm: React.FC = () => {
                 value={value}
                 onChange={onChange}
                 error={error?.message}
-                placeholder={t('nativeLanguage')}
+                placeholder={t('nativeLanguagePlaceholder')}
                 className="input-textarea"
                 label={t('nativeLanguage')}
               />
@@ -116,7 +116,7 @@ const ResumeQuestionnaireForm: React.FC = () => {
                 value={value}
                 onChange={onChange}
                 error={error?.message}
-                placeholder={t('otherLanguage')}
+                placeholder={t('otherLanguagePlaceholder')}
                 className="input-textarea"
                 label={t('otherLanguage')}
               />
@@ -132,7 +132,7 @@ const ResumeQuestionnaireForm: React.FC = () => {
                 value={value}
                 onChange={onChange}
                 error={error?.message}
-                placeholder={t('digitalSkills')}
+                placeholder={t('digitalSkillsPlaceholder')}
                 className="input-textarea"
                 label={t('digitalSkills')}
               />
@@ -148,7 +148,7 @@ const ResumeQuestionnaireForm: React.FC = () => {
                 value={value}
                 onChange={onChange}
                 error={error?.message}
-                placeholder={t('technicalSkills')}
+                placeholder={t('technicalSkillsPlaceholder')}
                 className="input-textarea"
                 label={t('technicalSkills')}
               />
@@ -164,7 +164,7 @@ const ResumeQuestionnaireForm: React.FC = () => {
                 value={value}
                 onChange={onChange}
                 error={error?.message}
-                placeholder={t('softSkills')}
+                placeholder={t('softSkillsPlaceholder')}
                 className="input-textarea"
                 label={t('softSkills')}
               />
@@ -180,7 +180,7 @@ const ResumeQuestionnaireForm: React.FC = () => {
                 value={value}
                 onChange={onChange}
                 error={error?.message}
-                placeholder={t('hobbies')}
+                placeholder={t('hobbiesPlaceholder')}
                 className="input-textarea"
                 label={t('hobbies')}
               />
@@ -196,7 +196,7 @@ const ResumeQuestionnaireForm: React.FC = () => {
                 value={value}
                 onChange={onChange}
                 error={error?.message}
-                placeholder={t('summary')}
+                placeholder={t('summaryPlaceholder')}
                 className="input-textarea"
                 label={t('summary')}
               />

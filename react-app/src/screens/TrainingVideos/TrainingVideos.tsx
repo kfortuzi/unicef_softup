@@ -1,4 +1,4 @@
-import { Col, Empty, Row, Typography } from 'antd';
+import { Col, Empty, Row } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -11,7 +11,6 @@ const TrainingVideos: React.FC = () => {
 
   return (
     <div className="trainings-container">
-      <Typography.Title className="title">{t('header')}</Typography.Title>
       {trainings?.data ? (
         <Row
           className="list-of-trainings"
