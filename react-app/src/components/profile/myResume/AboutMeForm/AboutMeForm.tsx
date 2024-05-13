@@ -2,7 +2,7 @@ import { RobotOutlined } from '@ant-design/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Dropdown, MenuProps } from 'antd';
 import React, { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import usePatchResume from 'src/api/resumes/hooks/usePatchResume';
@@ -36,6 +36,7 @@ const AboutMeForm: React.FC<AboutMeProps> = ({ aboutMe, cvId }) => {
     resolver: yupResolver(validationSchema),
     shouldFocusError: true,
   });
+  const aboutMeValue = useWatch({ control, name: FormField.ABOUT_ME });
   const { mutate: patchResume, isPending } = usePatchResume();
   const submitForm = handleSubmit((values) =>
     patchResume({
@@ -120,6 +121,7 @@ const AboutMeForm: React.FC<AboutMeProps> = ({ aboutMe, cvId }) => {
             placement="bottomLeft"
             trigger={['click']}
             overlayStyle={{ width: 300 }}
+            disabled={!aboutMeValue}
           >
             <Button
               icon={<RobotOutlined />}
@@ -127,7 +129,6 @@ const AboutMeForm: React.FC<AboutMeProps> = ({ aboutMe, cvId }) => {
               text={i18n.t('askWizardModal.enhanceWithAiButtonText')}
             />
           </Dropdown>
-
           <AskWizardModal
             setOpen={setOpen}
             open={isOpen}

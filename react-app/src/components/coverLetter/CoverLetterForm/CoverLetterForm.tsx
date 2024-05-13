@@ -2,7 +2,7 @@ import { RobotOutlined } from '@ant-design/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Dropdown, MenuProps } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
@@ -42,6 +42,8 @@ const CoverLetterForm: React.FC = () => {
     defaultValues: defaultValues,
     shouldFocusError: true,
   });
+
+  const formContentValue = useWatch({ control, name: FormField.CONTENT });
 
   useEffect(() => {
     if (isFetched) {
@@ -187,6 +189,7 @@ const CoverLetterForm: React.FC = () => {
             placement="bottomLeft"
             trigger={['click']}
             overlayStyle={{ width: 300 }}
+            disabled={!formContentValue}
           >
             <Button
               icon={<RobotOutlined />}
@@ -194,7 +197,6 @@ const CoverLetterForm: React.FC = () => {
               text={i18n.t('askWizardModal.enhanceWithAiButtonText')}
             />
           </Dropdown>
-
           <AskWizardModal
             setOpen={setOpen}
             open={isOpen}

@@ -46,6 +46,7 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
     setValue,
     getValues,
     formState: { errors },
+    watch,
   } = useForm({
     defaultValues: { experiences: props.workExperiences || [defaultValues] },
     resolver: yupResolver(fieldsValidationSchema),
@@ -125,6 +126,8 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
   ];
 
   const items: CollapseProps['items'] = fields.map((field, index) => {
+    const responsibilitiesValue = watch(`experiences.${index}.${FormField.RESPONSIBILITIES}`);
+
     return {
       key: field.id,
       label: `${t('headerSingular')} ${index + 1}`,
@@ -222,13 +225,13 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
               />
             )}
           />
-
           <Dropdown
             key={'ask-wizard-dropdown'}
             menu={{ items: wizardModalItems(field, index) }}
             placement="bottomLeft"
             trigger={['click']}
             overlayStyle={{ width: 300 }}
+            disabled={!responsibilitiesValue}
           >
             <Button
               icon={<RobotOutlined />}
@@ -236,7 +239,6 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
               text={i18n.t('askWizardModal.enhanceWithAiButtonText')}
             />
           </Dropdown>
-
           <AskWizardModal
             setOpen={setOpen}
             open={isOpen}
