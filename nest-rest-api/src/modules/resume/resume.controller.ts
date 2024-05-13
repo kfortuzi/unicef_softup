@@ -141,11 +141,14 @@ export class ResumeController {
   @ApiForbiddenResponse({ status: 403, description: 'Forbidden.' })
   async generateResponsibility(
     @Request() req: RequestWithUser,
-    @Body() experiences: string,
+    @Body() experiences: ExperienceDto,
     @Res() res: Response,
   ) {
     return res.json(
-      await this.resumeService.generateResponsibility(req.user.id, experiences),
+      await this.resumeService.autoGenerateResponsibilities(
+        req.user.id,
+        experiences,
+      ),
     );
   }
 

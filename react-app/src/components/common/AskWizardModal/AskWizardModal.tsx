@@ -1,10 +1,12 @@
-import { RightOutlined, RobotOutlined, UserOutlined } from '@ant-design/icons';
+import { RightOutlined } from '@ant-design/icons';
 import { Modal, Typography, ModalProps } from 'antd';
 import Search from 'antd/es/input/Search';
 import parse from 'html-react-parser';
 import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { FaRegUser } from 'react-icons/fa';
+import { VscRobot } from 'react-icons/vsc';
 
 import { wrapLinks } from 'src/utils/wrapLinks';
 
@@ -121,6 +123,8 @@ const AskWizardModal: React.FC<AskWizardModalProps> = ({
             key={'ask-wizard-input'}
             render={({ field: { onChange, value, ref } }) => (
               <Search
+                showCount
+                maxLength={100}
                 placeholder={t('askWizardPlaceholder')}
                 enterButton={t('askWizardButtonText')}
                 loading={loading}
@@ -156,7 +160,6 @@ const AskWizardModal: React.FC<AskWizardModalProps> = ({
         {...rest}
       >
         <div className="ask-wizard-messages">
-          {isMainChatbot ? <MainChatbotMessages askWizard={askWizard} /> : null}
           {messages.map((message, i) => (
             <div key={`message-${i}`}>
               <div
@@ -165,14 +168,26 @@ const AskWizardModal: React.FC<AskWizardModalProps> = ({
                 key={i}
               >
                 <div className="ask-wizard-icon">
-                  {message.type === 'ai' ? <RobotOutlined /> : <UserOutlined />}
+                  {message.type === 'ai' ? (
+                    <VscRobot
+                      size={30}
+                      color="#e53f25"
+                      style={{ marginLeft: -5 }}
+                    />
+                  ) : (
+                    <FaRegUser
+                      size={25}
+                      color="#e53f25"
+                      style={{ marginLeft: -5 }}
+                    />
+                  )}
                 </div>
                 <div className="ask-wizard-message-container">
                   <div className="ask-wizard-message-text">
                     <Typography.Paragraph style={{ whiteSpace: 'pre-wrap' }}>
                       {parse(wrapLinks(message.text))}
-                      {/* {message.text} */}
                     </Typography.Paragraph>
+                    {isMainChatbot && i === 0 ? <MainChatbotMessages askWizard={askWizard} /> : null}
                   </div>
                   {message.type === 'ai' && message.isUsable && !isMainChatbot && (
                     <div className="ask-wizard-button-group">

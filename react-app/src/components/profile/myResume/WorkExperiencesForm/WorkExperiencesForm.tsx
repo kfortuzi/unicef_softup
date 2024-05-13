@@ -133,11 +133,17 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
       key: field.id,
       label: `${t('headerSingular')} ${index + 1}`,
       // eslint-disable-next-line max-len
-      headerClass: `${(errors.experiences as unknown as WorkExperience[])?.find((_, errorIndex) => errorIndex === index)
-        ? 'is-invalid'
-        : 'is-valid'
-        }`,
-      extra: <DeleteItemButton remove={remove} index={index} />,
+      headerClass: `${
+        (errors.experiences as unknown as WorkExperience[])?.find((_, errorIndex) => errorIndex === index)
+          ? 'is-invalid'
+          : 'is-valid'
+      }`,
+      extra: (
+        <DeleteItemButton
+          remove={remove}
+          index={index}
+        />
+      ),
       children: (
         <div className="input-element-container">
           <Controller

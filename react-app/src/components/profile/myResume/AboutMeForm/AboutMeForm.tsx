@@ -29,6 +29,8 @@ const AboutMeForm: React.FC<AboutMeProps> = ({ aboutMe, cvId }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume' });
   const [contentLoading, setContentLoading] = useState(false);
   const [content, setContent] = useState(aboutMe);
+
+  const [autogenerateContent, setAutogenerateContent] = useState(aboutMe);
   const { handleSubmit, control, setValue, reset } = useForm({
     defaultValues: {
       [FormField.ABOUT_ME]: aboutMe || defaultValues.aboutMe,
@@ -64,10 +66,11 @@ const AboutMeForm: React.FC<AboutMeProps> = ({ aboutMe, cvId }) => {
 
   const autoGenerateFromAiAndSetContent = async () => {
     setContentLoading(true);
-    const data = await postResumeSummary({ content: aboutMe || '' });
+    const data = await postResumeSummary({ content: autogenerateContent || '' });
 
     if (data) {
       setValue(FormField.ABOUT_ME, data, { shouldDirty: true });
+      setAutogenerateContent(data);
     }
     setContentLoading(false);
   };

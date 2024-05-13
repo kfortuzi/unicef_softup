@@ -1,4 +1,3 @@
-import { RobotOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
@@ -44,11 +43,8 @@ const MainChatbotMessages: React.FC<MainChatbotMessagesProps> = ({ askWizard }) 
           style={{ flexDirection: 'row' }}
           key={'topic-selection-option-' + i}
         >
-          <div className="ask-wizard-icon">
-            <RobotOutlined />
-          </div>
           <div className="ask-wizard-message-container">
-            <div className="ask-wizard-message-text">{option}</div>
+            <div>{option}</div>
           </div>
         </div>
       ))}

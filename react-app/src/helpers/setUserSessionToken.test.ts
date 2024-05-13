@@ -15,7 +15,7 @@ describe('setUserSessionToken', () => {
     const mockSaveItem = jest.spyOn(storage, 'saveItem');
     mockSaveItem.mockImplementation(jest.fn());
 
-    setUserSessionToken('testToken', false);
+    setUserSessionToken('testToken');
     expect(mockSaveItem).toHaveBeenCalledWith(
       storage.LocalStorageKey.USER_SESSION_TOKEN,
       'testToken',
@@ -27,7 +27,7 @@ describe('setUserSessionToken', () => {
     const mockSaveItem = jest.spyOn(storage, 'saveItem');
     mockSaveItem.mockImplementation(jest.fn());
 
-    setUserSessionToken('testToken', true);
+    setUserSessionToken('testToken');
     expect(mockSaveItem).toHaveBeenCalledWith(
       storage.LocalStorageKey.USER_SESSION_TOKEN,
       'testToken',

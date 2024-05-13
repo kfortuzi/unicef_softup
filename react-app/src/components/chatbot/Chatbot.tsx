@@ -1,6 +1,6 @@
-import { RobotOutlined } from '@ant-design/icons';
 import { FloatButton } from 'antd';
 import React, { useState } from 'react';
+import { VscRobot } from 'react-icons/vsc';
 
 import usePostChatbot from 'src/api/chatbot/hooks/usePostChatbot';
 
@@ -30,9 +30,14 @@ const Chatbot: React.FC = () => {
   return (
     <>
       <FloatButton
-        icon={<RobotOutlined />}
+        icon={
+          <VscRobot
+            size={30}
+            style={{ marginLeft: -5 }}
+          />
+        }
         type="primary"
-        style={{ right: 50, top: 450, width: 50, height: 50 }}
+        style={{ right: 50, bottom: 50, width: 50, height: 50 }}
         onClick={openChatbot}
       />
       <AskWizardModal

@@ -504,31 +504,72 @@ export class ResumeService {
     userId: string,
     userInput: string | ExperienceDto,
   ): Promise<string | null> {
-    try {
-      const messages: ChatCompletionMessageParam[] = [
-        {
-          role: 'system',
-          content: AkpaPrompts.generateResponsibility,
-        },
-        {
-          role: 'user',
-          content: JSON.stringify(userInput),
-        },
-      ];
+    const user = await this.userService.findOne(userId);
+    if (!user) throw new NotFoundException('User does not exist!');
 
-      const body: ChatCompletionCreateParamsNonStreaming = {
-        messages,
-        model: AkpaModels.CHAT,
-      };
+    const messages: ChatCompletionMessageParam[] = [
+      {
+        role: 'system',
+        content: AkpaPrompts.generateResponsibility,
+      },
+      {
+        role: 'user',
+        content: JSON.stringify(userInput),
+      },
+    ];
 
-      return this.openAIService.generateCompletion(
-        body,
-        userId,
-        PromptType.Responsibility,
-      );
-    } catch (error) {
-      throw new InternalServerErrorException(`${error}`);
-    }
+    const body: ChatCompletionCreateParamsNonStreaming = {
+      messages,
+      model: AkpaModels.CHAT,
+    };
+
+    return this.openAIService.generateCompletion(
+      body,
+      userId,
+      PromptType.Responsibility,
+    );
+  }
+
+  async autoGenerateResponsibilities(
+    userId: string,
+    experience: ExperienceDto,
+  ) {
+    const user = await this.userService.findOne(userId);
+    if (!user) throw new NotFoundException('User does not exist!');
+
+    const messages: ChatCompletionMessageParam[] = [
+      {
+        role: 'system',
+        content:
+          'Je nje asistent i cili permireson pergjegjesite dhe detyrat e mia te kryera gjate nje eksperience pune, ne menyre qe te permiresoj CV time.',
+      },
+      {
+        role: 'user',
+        content: `Kjo eshte eksperienca ime: ${experience}.`,
+      },
+      {
+        role: 'assistant',
+        content:
+          'Po, e analizova eksperiencen tende. Cfare duhet te bej me te?',
+      },
+      {
+        role: 'user',
+        content:
+          'Duke u bazuar ne eksperiencen e dhene, permireso, riformulo dhe shto nese mundesh pergjegjesite dhe detyrat e mia pergjate eksperiences. Ne rast se nuk ka, gjenero disa duke u bazuar ne punen e bere. Nese ka, riformulo pergjegjesite dhe detyrat ekzistuese duke perdorur fjale te tjera per te pershkruar dhe gjenero/shto disa detyrime te tjera qe mund te kem pasur, por kam harruar ti shkruaj dhe mungojne ne eksperience. Asnjehere pergjegjesite e gjeneruara nuk duhet te jene shkruar ne te njejten menyre(copy-paste) si ato te meparshmet edhe pse mund te tregojne per te njejtat gjera. Me doemos perdor fjale te tjera te ndryshme per te treguar detyrimet. Perdor nje ton profesional ne pergjigjen e dhene. Pergjigju vetem me pergjegjesite dhe detyrat e eksperiences asnje fjale apo fjali shpjeguese me shume para ose mbrapa tyre. Ky eshte nje shembull sesi pergjigja duhet te duket : “1. Analiza e tregjeve dhe zhvillimi i strategjive të biznesit në përputhje me teknologjitë dhe zhvillimet më të fundit në fushën e ekonomisë dhe financave.\n 2.Planifikimi dhe implementimi i strukturës së financave për të siguruar efikasitet dhe stabilitet financiar për organizatën.3. Krijimi dhe menaxhimi i bazës së të dhënave financiare, duke përdorur teknologji dhe mjete të specializuara për të siguruar që të dhënat të jenë të saktë dhe të mbrohen me përmbajtje të duhur.\n 4. Bashkëpunimi me ekipin e financës dhe menaxhmentin e lartë për të identifikuar dhe implementuar zgjidhje inovative për sfidat financiare dhe biznesore, duke përdorur njohuri të thelluara të ekonomisë dhe financave”. Pergjigja duhet te jete me patjeter ne gjuhen shqipe Pergjigja duhet te permbaje vetem detyrimet dhe asgje tjeter. Nuk duhet te kete fjali si psh: “Keto jane pergjegjesite e tua.”.',
+      },
+    ];
+
+    const body: ChatCompletionCreateParamsNonStreaming = {
+      messages,
+      model: AIModels.gpt_35_turbo_0125,
+      temperature: 0.9,
+    };
+
+    return this.openAIService.generateCompletion(
+      body,
+      userId,
+      PromptType.Responsibility,
+    );
   }
 
   toString(input: any): string {
@@ -563,7 +604,7 @@ export class ResumeService {
     const { content, message } = data;
 
     const user = await this.userService.findOne(userId);
-    if (!user) throw new NotFoundException('User does not exist');
+    if (!user) throw new NotFoundException('User does not exist!');
 
     const messages: ChatCompletionMessageParam[] = [
       {
@@ -596,7 +637,7 @@ export class ResumeService {
     const { content, message } = data;
 
     const user = await this.userService.findOne(userId);
-    if (!user) throw new NotFoundException('User does not exist');
+    if (!user) throw new NotFoundException('User does not exist!');
 
     const last8HourMessages =
       await this.openAIService.findLastMessagesPer8Hours(
@@ -661,21 +702,37 @@ export class ResumeService {
   }
 
   async autoGenerateSummary(userId: string, summary: string) {
+    const user = await this.userService.findOne(userId);
+    if (!user) throw new NotFoundException('User was not found!');
+
     const messages: ChatCompletionMessageParam[] = [
       {
         role: 'system',
         content:
-          'Je nje asistent i cili permireson permbledhjen time aktuale te profilit/ seksionin "Rreth meje", ne menyre qe te permiresoj CV time.',
+          'Je nje asistent i cili permireson permbledhjen time aktuale te seksionit "Rreth meje", ne menyre qe te permiresoj CV time.',
       },
       {
         role: 'user',
-        content: `Kjo eshte permbledhja e profilit tim: ${summary}. Permireso ndjeshem kete seksion "Rreth meje" (summary) te CV sime. Gjenero nje tekst te permiresuar duke perdorur nje ton profesional dhe fjale sinonime dhe me akademike sesa ato qe jane perdorur ne permbledhjen time te vjeter. Rikthe permbledhjen dhe vetem dhe vetem permbledhjen e seksionit "Rreth meje" te permiresuar. Mos shto fjali para ose mbrapa si psh: Kjo eshte permbledhja e profilit tuaj. Kthe vetem permbledhjen. Permbledhja duhet te jete ne veten e pare, ne menyre qe ta vendos direkt ne CV. Pergjigja duhet te jete me patjeter permbledhje e seksionit "Rreth meje" te CV-së dhe te mos permbaje fjali shpjeguese sesi u krijua permbledhja. Pergjigju vetem ne gjuhen shqipe.`,
+        content: `Kjo eshte permbledhja ime aktuale: ${summary}, ndersa ky eshte profili im : ${JSON.stringify(
+          user,
+        )}.`,
+      },
+      {
+        role: 'assistant',
+        content:
+          'Po, i analizova permbledhjen aktuale dhe profilin tend. Cfare duhet te bej me to?',
+      },
+      {
+        role: 'user',
+        content:
+          'Duke u bazuar ne profilin tim, eksperiencat dhe aftesite e mia, gjenero nje permbledhje krejt te re nga ajo aktuale. Permend aftesite dhe gjerat me impresionuese dhe me te rendesishme ne permbledhje. Permbledhja e re duhet te kete nje ndryshim shume te dukshem nga ajo e vjetra duke nisur qe nga fjalet e perdorura. Rikthe permbledhjen dhe vetem dhe vetem permbledhjen e seksionit "Rreth meje" te permiresuar. Mos shto fjali para ose mbrapa si psh: Kjo eshte permbledhja e profilit tuaj. Kurre mos permend emrin tim ne permbledhje. Kthe vetem permbledhjen si pergjigje. Permbledhja duhet te jete ne veten e pare. Ky eshte nje shembull qe gjeta sesi dua qe te jete pergjigja/permbedhja ime: ‘Ekonomist me përvojë 6-vjeçare në analizën financiare dhe menaxhimin e burimeve financiare në sektorin e biznesit. Ekspertizë në interpretimin e të dhënave financiare dhe hartimin e raporteve analitike për të udhëhequr vendimmarrjen strategjike. Aftësi të shquara në modelimin financiar dhe vlerësimin e projekteve të investimeve. Demonstrim i një aftësie të shkëlqyer për të menaxhuar ekipet dhe për të koordinuar me ndërsektorë për të arritur qëllimet e biznesit. Përvojë në përgatitjen dhe monitorimin e buxhetit dhe strategjive të financimit. Pasion për analizën ekonomike dhe përmirësimin e performancës financiare të organizatës’. Gjeneroje permbledhjen e re me te njejtin stil si shembulli i mesiperm, por ne baze te profilit tim. Perdor nje ton profesional dhe gjuhe akademike.  Pergjigju vetem me permbledhjen ne gjuhen shqipe',
       },
     ];
 
     const body: ChatCompletionCreateParamsNonStreaming = {
       messages,
       model: AkpaModels.CHAT,
+      temperature: 0.9,
     };
 
     return this.openAIService.generateCompletion(
