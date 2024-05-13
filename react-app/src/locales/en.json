@@ -16,7 +16,9 @@
         "showPassword": "Show password",
         "failedToLogIn": "Something went wrong, please try again later!",
         "invalidCredentials": "Invalid email or password",
-        "emailIsNotVerified": "Email is not verified"
+        "emailIsNotVerified": "Email is not verified",
+        "disclaimerHeader": "Disclaimer!",
+        "disclaimerMessage": "Our AI resume and cover letter generator provides recommendations based on user input.\n While we aim for accuracy, final content may require manual adjustments.\n We do not claim authority over AI output, nor control the generated AI output."
       },
       "signUp": {
         "header": "Create New Account",

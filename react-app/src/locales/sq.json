@@ -16,7 +16,9 @@
         "showPassword": "Shfaq fjalekalimin",
         "failedToLogIn": "Diçka shkoi keq, ju lutemi provoni përsëri më vonë!",
         "invalidCredentials": "Email ose fjalëkalim i pavlefshëm",
-        "emailIsNotVerified": "Email-i nuk është verifikuar"
+        "emailIsNotVerified": "Email-i nuk është verifikuar",
+        "disclaimerHeader": "Njoftim!",
+        "disclaimerMessage": "Gjenerimi i CV-ve ose Letrave të motivimit me AI ofron rekomandime në bazë të mesazhit të përdoruesit.\n Ndërsa synojmë për saktësi, përmbajtja e fundit e CV-së mund të kërkojë ndryshime manuale.\n Ne nuk pretendojmë autorësi mbi rezultatin e AI-së, dhe as kontrollin e rezultatit të gjeneruar të AI-së."
       },
       "signUp": {
         "header": "Krijoni nje Llogari",

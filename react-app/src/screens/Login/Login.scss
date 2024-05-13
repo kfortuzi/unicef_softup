@@ -7,8 +7,19 @@
   width: 100%;
   padding: $large;
   box-sizing: border-box;
+  gap: 24px;
 
   .header {
     text-align: center;
+  }
+  .title {
+    font-family: $poppins-regular;
+    font-size: 20px;
+  }
+  .disclaimer {
+    max-width: 50%;
+    white-space: pre-line;
+    font-family: $poppins-extralight;
+    font-size: 14px;
   }
 }

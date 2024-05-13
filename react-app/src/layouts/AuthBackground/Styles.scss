@@ -1,11 +1,15 @@
 .auth-background {
   flex: 1;
   display: grid;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  padding-left: 5rem;
   grid-template-columns: repeat(2, minmax(0, 1fr));
 
   .background-image {
     background-image: url('src/assets/images/auth-background.jpg');
     background-size: cover;
     background-position: center;
+    border-radius: 100px;
   }
 }

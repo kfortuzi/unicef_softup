@@ -1,4 +1,4 @@
-import { Typography } from 'antd';
+import { Alert, Typography } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -11,6 +11,13 @@ const Login: React.FC = () => {
     <div className="login-container">
       <Typography.Title className="header">{t('header')}</Typography.Title>
       <LoginForm />
+      <Alert
+        className="disclaimer"
+        message={<span className="title">{t('disclaimerHeader')}</span>}
+        description={t('disclaimerMessage')}
+        type="warning"
+        showIcon
+      />
     </div>
   );
 };
