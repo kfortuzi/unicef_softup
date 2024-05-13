@@ -35,7 +35,7 @@ const ContactInfoForm: React.FC<ContactInfoFormProps> = ({
   nationality,
 }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.contactInfoSection' });
-  const { handleSubmit, control } = useForm({
+  const { handleSubmit, control, reset } = useForm({
     defaultValues: {
       phoneNumber,
       location: address,
@@ -55,6 +55,7 @@ const ContactInfoForm: React.FC<ContactInfoFormProps> = ({
 
   return (
     <Drawer
+      resetForm={reset}
       submitForm={submitForm}
       isPending={isPending}
       title={t('header')}

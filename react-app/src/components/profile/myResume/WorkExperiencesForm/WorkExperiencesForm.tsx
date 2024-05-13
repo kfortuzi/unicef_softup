@@ -45,6 +45,7 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
     control,
     setValue,
     getValues,
+    reset,
     formState: { errors },
     watch,
   } = useForm({
@@ -252,6 +253,7 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
 
   return (
     <Drawer
+      resetForm={reset}
       submitForm={submitForm}
       isPending={isPending}
       title={t('headerPlural')}

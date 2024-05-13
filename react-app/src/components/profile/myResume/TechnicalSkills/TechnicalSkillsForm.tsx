@@ -15,7 +15,7 @@ interface TechnicalSkillsProps {
 
 const TechnicalSkillsForm: React.FC<TechnicalSkillsProps> = ({ cvId, technicalSkills }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.technicalSkillsSection' });
-  const { handleSubmit, control } = useForm({
+  const { handleSubmit, control, reset } = useForm({
     defaultValues: {
       technicalSkills: technicalSkills,
     },
@@ -32,6 +32,7 @@ const TechnicalSkillsForm: React.FC<TechnicalSkillsProps> = ({ cvId, technicalSk
 
   return (
     <Drawer
+      resetForm={reset}
       submitForm={submitForm}
       isPending={isPending}
       title={t('headerPlural')}

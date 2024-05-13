@@ -26,7 +26,7 @@ type CertificatesFormProps = {
 
 const CertificatesForm: React.FC<CertificatesFormProps> = (props) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.certificatesSection' });
-  const { handleSubmit, control, setValue, formState: { errors } } = useForm({
+  const { handleSubmit, control, setValue, reset, formState: { errors } } = useForm({
     defaultValues: { certificates: props.certificates || [defaultValues] },
     resolver: yupResolver(fieldsValidationSchema),
     shouldFocusError: true,
@@ -126,6 +126,7 @@ const CertificatesForm: React.FC<CertificatesFormProps> = (props) => {
 
   return (
     <Drawer
+      resetForm={reset}
       submitForm={submitForm}
       isPending={isPending}
       title={t('headerPlural')}

@@ -1,14 +1,15 @@
 import { EditOutlined } from '@ant-design/icons';
 import { DrawerProps, Space } from 'antd';
 import { Drawer as AntdDrawer } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import i18n from 'src/locales';
 
 import Button from '../Button/Button';
 
 interface Props extends DrawerProps {
-  submitForm: () => void;
+  resetForm: VoidFunction;
+  submitForm: VoidFunction;
   isPending: boolean;
   title: string;
   children: React.ReactNode;
@@ -16,7 +17,15 @@ interface Props extends DrawerProps {
   isCreate?: boolean;
 }
 
-const Drawer: React.FC<Props> = ({ title, children, submitForm, isPending, isCreate, ...rest }) => {
+const Drawer: React.FC<Props> = ({
+  title, 
+  children, 
+  resetForm, 
+  submitForm, 
+  isPending, 
+  isCreate, 
+  ...rest 
+}) => {
   const [open, setOpen] = useState(rest.open || false);
 
   const showDrawer = () => {
@@ -30,6 +39,12 @@ const Drawer: React.FC<Props> = ({ title, children, submitForm, isPending, isCre
   const handleSubmit = () => {
     submitForm();
   };
+
+  useEffect(() => {
+    if (!open) {
+      resetForm();
+    }
+  }, [open, resetForm]);
 
   return (
     <>

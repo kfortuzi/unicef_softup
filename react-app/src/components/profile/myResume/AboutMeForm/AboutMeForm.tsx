@@ -29,7 +29,7 @@ const AboutMeForm: React.FC<AboutMeProps> = ({ aboutMe, cvId }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume' });
   const [contentLoading, setContentLoading] = useState(false);
   const [content, setContent] = useState(aboutMe);
-  const { handleSubmit, control, setValue } = useForm({
+  const { handleSubmit, control, setValue, reset } = useForm({
     defaultValues: {
       [FormField.ABOUT_ME]: aboutMe || defaultValues.aboutMe,
     },
@@ -91,6 +91,7 @@ const AboutMeForm: React.FC<AboutMeProps> = ({ aboutMe, cvId }) => {
 
   return (
     <Drawer
+      resetForm={reset}
       submitForm={submitForm}
       isPending={isPending}
       title={t('aboutMeSection.header')}

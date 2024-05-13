@@ -15,7 +15,7 @@ interface SoftSkillsProps {
 
 const SoftSkillsForm: React.FC<SoftSkillsProps> = ({ cvId, softSkills }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.softSkillsSection' });
-  const { handleSubmit, control } = useForm({
+  const { handleSubmit, control, reset } = useForm({
     defaultValues: {
       softSkills: softSkills,
     },
@@ -30,6 +30,7 @@ const SoftSkillsForm: React.FC<SoftSkillsProps> = ({ cvId, softSkills }) => {
 
   return (
     <Drawer
+      resetForm={reset}
       submitForm={submitForm}
       isPending={isPending}
       title={t('headerPlural')}

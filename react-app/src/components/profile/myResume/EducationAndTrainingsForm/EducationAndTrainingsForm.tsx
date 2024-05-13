@@ -30,6 +30,7 @@ const EducationAndTrainingsForm: React.FC<EducationAndTrainingsFormProps> = (pro
     handleSubmit,
     control,
     setValue,
+    reset,
     formState: { errors }
   } = useForm({
     defaultValues: { educations: props.educationAndTrainings || [defaultValues] },
@@ -161,6 +162,7 @@ const EducationAndTrainingsForm: React.FC<EducationAndTrainingsFormProps> = (pro
 
   return (
     <Drawer
+      resetForm={reset}
       submitForm={submitForm}
       isPending={isPending}
       title={t('headerPlural')}

@@ -109,6 +109,7 @@ const CoverLetterForm: React.FC = () => {
 
   return (
     <Drawer
+      resetForm={reset}
       submitForm={submitForm}
       isPending={isUpdating || isCreating}
       title={t('header')}

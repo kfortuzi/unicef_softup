@@ -26,7 +26,7 @@ interface PublicationsProps {
 
 const PublicationsForm: React.FC<PublicationsProps> = (props) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.publicationsSection' });
-  const { handleSubmit, control, setValue, formState: { errors } } = useForm({
+  const { handleSubmit, control, setValue, reset, formState: { errors } } = useForm({
     defaultValues: {
       publications: props.publications || [defaultValues],
     },
@@ -127,6 +127,7 @@ const PublicationsForm: React.FC<PublicationsProps> = (props) => {
 
   return (
     <Drawer
+      resetForm={reset}
       submitForm={submitForm}
       isPending={isPending}
       title={t('headerPlural')}

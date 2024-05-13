@@ -14,7 +14,7 @@ interface HobbiesProps {
 
 const HobbiesForm: React.FC<HobbiesProps> = ({ cvId, hobbies }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.hobbiesSection' });
-  const { handleSubmit, control } = useForm({
+  const { handleSubmit, control, reset } = useForm({
     defaultValues: {
       hobbies: hobbies,
     },
@@ -25,6 +25,7 @@ const HobbiesForm: React.FC<HobbiesProps> = ({ cvId, hobbies }) => {
 
   return (
     <Drawer
+      resetForm={reset}
       submitForm={submitForm}
       isPending={isPending}
       title={t('headerPlural')}

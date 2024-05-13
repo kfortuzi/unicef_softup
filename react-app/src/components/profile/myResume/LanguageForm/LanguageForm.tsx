@@ -24,7 +24,7 @@ interface LanguagesProps {
 
 const LanguagesForm: React.FC<LanguagesProps> = (props) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.languagesSection' });
-  const { handleSubmit, control, watch, formState: { errors } } = useForm({
+  const { handleSubmit, control, watch, reset, formState: { errors } } = useForm({
     defaultValues: {
       languages: props.languages || [defaultValues],
     },
@@ -164,6 +164,7 @@ const LanguagesForm: React.FC<LanguagesProps> = (props) => {
 
   return (
     <Drawer
+      resetForm={reset}
       submitForm={submitForm}
       isPending={isPending}
       title={t('headerPlural')}

@@ -26,7 +26,7 @@ interface VolunteeringProps {
 
 const VolunteeringForm: React.FC<VolunteeringProps> = (props) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.volunteeringsSection' });
-  const { handleSubmit, control, setValue, formState: { errors } } = useForm({
+  const { handleSubmit, control, setValue, reset, formState: { errors } } = useForm({
     defaultValues: {
       volunteering: props.volunteering || [defaultValues],
     },
@@ -145,6 +145,7 @@ const VolunteeringForm: React.FC<VolunteeringProps> = (props) => {
 
   return (
     <Drawer
+      resetForm={reset}
       submitForm={submitForm}
       isPending={isPending}
       title={t('headerPlural')}

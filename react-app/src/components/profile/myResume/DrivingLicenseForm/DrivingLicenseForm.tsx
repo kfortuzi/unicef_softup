@@ -15,7 +15,7 @@ interface DrivingLicenseProps {
 
 const DrivingLicenseForm: React.FC<DrivingLicenseProps> = ({ cvId, drivingLicense }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.drivingLicensesSection' });
-  const { handleSubmit, control } = useForm({
+  const { handleSubmit, control, reset } = useForm({
     defaultValues: {
       drivingLicense: drivingLicense,
     },
@@ -28,6 +28,7 @@ const DrivingLicenseForm: React.FC<DrivingLicenseProps> = ({ cvId, drivingLicens
 
   return (
     <Drawer
+      resetForm={reset}
       submitForm={submitForm}
       isPending={isPending}
       title="Driving License"
