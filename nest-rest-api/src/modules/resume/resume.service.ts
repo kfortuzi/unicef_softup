@@ -1,5 +1,4 @@
 import {
-  BadRequestException,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
@@ -197,7 +196,7 @@ export class ResumeService {
 
     const baseResume = await this.resumeRepository.findUserResume(userId, null);
     if (baseResume)
-      throw new BadRequestException('A base resume already exists!');
+      throw new UnprocessableEntityException('A base resume already exists!');
 
     const generatedResume = await this.generateResumeJson(userId, userInput);
     if (!generatedResume)
@@ -227,10 +226,11 @@ export class ResumeService {
     if (!user) throw new NotFoundException({ message: 'User not found!' });
 
     const resumeData = await this.resumeRepository.findUserResume(userId, null);
-
     if (!resumeData)
       throw new NotFoundException({ message: 'Resume not found!' });
+
     const jobData = await this.jobService.findJob(jobId);
+
     const existingResume = await this.resumeRepository.findUserResume(
       userId,
       jobId,
@@ -406,7 +406,7 @@ export class ResumeService {
 
     const body: ChatCompletionCreateParamsNonStreaming = {
       messages,
-      model: AkpaModels.CHAT,
+      model: AIModels.gpt_4_1106_preview,
       function_call: { name: 'extractInformationFromAnswers' },
       functions: [extractInformationFromAnswers],
       response_format: { type: 'json_object' },
@@ -678,13 +678,13 @@ export class ResumeService {
       {
         role: 'user',
         content:
-          'I am seeking to generate an impressive summary for my resume. I would like the summary to reflect my expertise and achievements. Please generate a concise summary highlighting my key skills, notable accomplishments and professional background in general without adding details, that will captivate hiring managers. Keep it under 60 words. The language of the generated summary must be in albanian.',
+          'I am seeking to generate an impressive summary for my resume. I would like the summary to reflect my expertise, greatest achievements and the years of experience if there is any. Please generate a concise summary highlighting my key skills, notable accomplishments and professional background in general without adding details, that will captivate hiring managers. Keep it under 60 words. The language of the generated summary must be in albanian.',
       },
       {
         role: 'user',
         content: `Here is my actual resume ${JSON.stringify(
           actualResume,
-        )}. Generate a professional summary based on the my resume given above.  Return only the summary as a string. The summary must be translated in albanian`,
+        )}. Generate a professional summary based on the my resume given above. Calculate and mention the years of experience. Return only the summary as a string. The summary must be translated in albanian. This is an example how I want my summary to be: Full stack developer me 5 vite eksperiencë në fushën e zhvillimit softuerik. Ekspert në zhvillimin e aplikacioneve web dhe mobile, me njohuri të thella në teknologjitë si HTML, CSS, JavaScript, dhe framework-ët si Angular dhe React. Eksperiencë në dizajnim dhe implementim të bazave të të dhënave relationale dhe NoSQL. Demonstrim i aftësive të udhëheqjes së projektit dhe bashkëpunimit të ekipit në çdo nivel të zhvillimit të aplikacioneve. `,
       },
     ];
 

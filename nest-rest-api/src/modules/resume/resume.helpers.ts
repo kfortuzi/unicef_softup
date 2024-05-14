@@ -1,4 +1,5 @@
 import { DrivingLicense, Prisma } from '@prisma/client';
+import { isValidString } from 'src/helpers/strings';
 import { ResumeDto } from './dto/resume.dto';
 
 export const prepareResumeBody = (
@@ -15,7 +16,7 @@ export const prepareResumeBody = (
     technicalSkills: resume?.technicalSkills || [],
     hobbies: resume?.hobbies || [],
     drivingLicense:
-      isValid(resume?.drivingLicense) &&
+      isValidString(resume?.drivingLicense) &&
       isValidDrivingLicense(resume?.drivingLicense)
         ? resume?.drivingLicense
         : undefined,
@@ -44,21 +45,6 @@ export const prepareResumeBody = (
       : [],
     userId,
   };
-};
-
-const isValid = (input: unknown) => {
-  if (
-    input === 'undefined' ||
-    input === 'null' ||
-    input === 'not provided' ||
-    input === '*' ||
-    input === 'N/A' ||
-    input === ' ' ||
-    input === 'not specified' ||
-    input === '-'
-  )
-    return false;
-  return !!input;
 };
 
 function isValidDrivingLicense(licence: string | undefined) {

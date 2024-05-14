@@ -53,12 +53,18 @@ export const extractInformationFromAnswers: ChatCompletionCreateParams.Function 
             properties: {
               title: {
                 type: 'string',
+                description:
+                  'Extract the field of study. For example: Computer Science, Electrical Engineering, etc.',
               },
               type: {
                 type: 'string',
+                description:
+                  'Extract the type of education. For example: Bachelor, Master, etc.',
               },
               location: {
                 type: 'string',
+                description:
+                  'Extract the address or location where the education took place. For example: University of California, Los Angeles, etc.',
               },
               startDate: {
                 type: 'string',
@@ -80,6 +86,8 @@ export const extractInformationFromAnswers: ChatCompletionCreateParams.Function 
             properties: {
               position: {
                 type: 'string',
+                description:
+                  'Extract the position. For example: Software Engineer, etc.',
               },
               startDate: {
                 type: 'string',
@@ -91,9 +99,12 @@ export const extractInformationFromAnswers: ChatCompletionCreateParams.Function 
               },
               company: {
                 type: 'string',
+                description:
+                  'Extract the name of the company. For example: Google, etc.',
               },
               responsibilities: {
                 type: 'string',
+                description: 'Extract the responsibilities.',
               },
             },
             required: [
@@ -119,12 +130,18 @@ export const extractInformationFromAnswers: ChatCompletionCreateParams.Function 
               },
               reading: {
                 type: 'string',
+                description:
+                  'Extract the level or reading. Must be of type A1,A2,B1,B2,C1,C2.',
               },
               listening: {
                 type: 'string',
+                description:
+                  'Extract the level or listening. Must be of type A1,A2,B1,B2,C1,C2.',
               },
               speaking: {
                 type: 'string',
+                description:
+                  'Extract the level or speaking. Must be of type A1,A2,B1,B2,C1,C2.',
               },
             },
           },
