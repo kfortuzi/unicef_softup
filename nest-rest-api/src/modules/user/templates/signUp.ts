@@ -17,7 +17,7 @@ export const getSignUpTemplate = (
               text-align: center;
               text-decoration: none;
               outline: none;
-              color: #fff;
+              color: white;
               background-color: #4CAF50;
               border: none;
               border-radius: 15px;
