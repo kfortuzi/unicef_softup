@@ -22,6 +22,8 @@ import utc from 'dayjs/plugin/utc';
 import { S3Service } from 'src/modules/s3/s3.service';
 import { SesService } from 'src/modules/ses/ses.service';
 import { SendRequestVerificationCodeDto } from './dto/request-verification-code-dto';
+import { getResetPasswordTemplate } from './templates/forgotPassword';
+import { getSignUpTemplate } from './templates/signUp';
 dayjs.extend(utc);
 
 const userExcludedData = [
@@ -135,10 +137,10 @@ export class UserService {
         expiresAt,
       );
       const result = exclude(createdUser, ['password']);
-      const link = `<a href="${this.config.feHost}/#/access/confirm-user?id=${createdUser.id}&verificationCode=${verificationCode}">Link to confirm</a>`;
+      const template = getSignUpTemplate(this.config.feHost, verificationCode);
       await this.sesService.sendEmail(
         'Verify Your Email',
-        `Please click on the following link to verify your email: ${link}`,
+        template,
         createdUser.email,
       );
 
@@ -217,11 +219,11 @@ export class UserService {
       'PASSWORD_RESET',
       expiresAt,
     );
-    const link = `<a href=${this.config.feHost}/#/access/reset-password?id=${user.id}&verificationCode=${resetCode}> Link to reset password</a>`;
 
-    this.sesService.sendEmail(
+    const template = getResetPasswordTemplate(this.config.feHost, resetCode);
+    await this.sesService.sendEmail(
       'Reset Your Password',
-      `Please click on the following link to reset your password: ${link}`,
+      template,
       user.email,
     );
     return { description: 'An reset password email has been send.' };
