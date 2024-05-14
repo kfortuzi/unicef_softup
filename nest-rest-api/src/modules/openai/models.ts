@@ -10,4 +10,6 @@ export enum AkpaModels {
 export enum AIModels {
   gpt_35_turbo_0125 = 'gpt-3.5-turbo-0125',
   gpt_4_1106_preview = 'gpt-4-1106-preview',
+  gpt_4o = 'gpt-4o',
+  gpt_4_turbo = 'gpt-4-turbo',
 }

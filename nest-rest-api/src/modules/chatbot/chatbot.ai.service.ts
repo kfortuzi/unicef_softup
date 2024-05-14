@@ -29,7 +29,7 @@ export class ChatbotAIService {
   ) {
     const model = new ChatOpenAI({
       openAIApiKey: this.config.openAiApiKey,
-      modelName: AIModels.gpt_4_1106_preview,
+      modelName: AIModels.gpt_4_turbo,
     });
 
     const pineconeIndex = pinecone.Index(this.config.pineconeIndex);
@@ -84,8 +84,6 @@ export class ChatbotAIService {
     ]);
 
     return await chain.stream(question);
-
-    // return await chain.invoke(question);
   }
 
   async generateChatHistory(userId: string) {

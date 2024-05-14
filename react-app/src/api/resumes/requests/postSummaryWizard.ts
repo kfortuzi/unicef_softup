@@ -2,10 +2,10 @@ import makeRequest from 'src/utils/makeRequest';
 
 import { PostResumeAskWizardRequest, PostResumeAskWizardResponse } from '../types';
 
-export const postResumeAskWizard = async (
+export const postSummaryWizard = async (
   request: PostResumeAskWizardRequest,
 ): Promise<PostResumeAskWizardResponse> => {
-  const parsedData = makeRequest<PostResumeAskWizardResponse>(`/resumes/ask-wizard`, {
+  const parsedData = makeRequest<PostResumeAskWizardResponse>(`/resumes/summary-wizard`, {
     method: 'POST',
     body: JSON.stringify(request),
   });
@@ -13,4 +13,4 @@ export const postResumeAskWizard = async (
   return parsedData;
 };
 
-export default postResumeAskWizard;
+export default postSummaryWizard;

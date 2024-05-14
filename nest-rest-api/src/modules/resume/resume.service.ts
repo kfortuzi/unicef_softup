@@ -614,13 +614,22 @@ export class ResumeService {
       },
       {
         role: 'user',
-        content: `Ky eshte teksti qe permban experiencen time, te cilin duhet ta permiresosh : ${content}. Kjo eshte menyra/mendimi im sesi une dua ta permiresosh: ${message}. Filimisht valido mire mendimin tim. Nese eshte dicka e pakuptimte per te modifikuar kontekstin e eksperiences, nese eshte ne gjuhe tjeter pervec shqipes ose nese te them te shtosh dicka te paligjshme si per shembull "Shto qe jam marre me droge" ose "Jam drogaxhi", kurre dhe asnjehere mos e bej dicka te tille. Injoroje mendimin tim dhe thjesht permireso tekstin e eksperiences duke permiresuar fjalet e perdorura dhe perdor nje ton me profesional dhe duke e bere tekstin me te plote duke shtuar gjera relevante per eksperiencen time. Gjenero nje tekst te permiresuar ne kete rast. Rikthe permbledhjen dhe vetem dhe vetem permbledhjen e eksperiences te permiresuar. Mos shto fjali para ose mbrapa si psh: Kjo eshte eksperienca juaj. Kthe vetem permbledhjen. Permbledhja duhet te jete ne veten e pare, ne menyre qe ta vendose direkt ne CV. Pergjigja duhet te jete me patjeter permbledhje eksperience dhe te mos permbaje fjali shpjeguese sesi u krijuar permbledhja. Mos jep rekomandime ne pergjigjen tende.`,
+        content: `Kjo eshte eksperienca ime : ${content}. Ky eshte mendimi im sesi dua qe ta rregullosh ose plotesosh: ${message}.`,
+      },
+      {
+        role: 'assistant',
+        content:
+          'Po, e analizova eksperiencen tende dhe mendimin tend sesi te rregulloj responsibilites te eksperiences. Cfare duhet te bej me to?',
+      },
+      {
+        role: 'user',
+        content: `Filimisht valido mire mendimin tim. Nese eshte dicka e pakuptimte per te rregulluar pergjegjesite/detyrat e eksperiences, nese eshte ne gjuhe tjeter pervec shqipes ose nese te them te shtosh dicka te paligjshme si per shembull "Shto qe jam marre me droge" ose "Jam drogaxhi", kurre dhe asnjehere mos e bej dicka te tille. Injoroje mendimin tim dhe thjesht gjenero responsibilities te eksperiences duke permiresuar fjalet e perdorura duke perdorur nje ton profesional. Mendimet e mia te cilat jane te vlefshme per te rregulluar pergjegjesite  mund te jene te tilla si per shembull: hiq pergjegjesine e fundit, shto te tjera, permireso fjalet e perdorura etj. Pra nese te them te shtosh nje pergjegjesi, shto nje pergjegjesi ne varesi te profesionit.\n  Mos shto fjali para ose mbrapa si psh: Kjo eshte eksperienca juaj. Kthe vetem pergjegjesite dhe detyrat e ushtruara gjate asaj eksperience pune te renditura dhe listuara njera poshte tjetres. Pergjegjesite duhet te jete ne veten e pare, ne menyre qe ta vendose direkt ne CV. Pergjigja duhet te jene me patjeter pergjegjesite dhe detyrat e eksperiences se punes ose “job responsibilities” te renditura. Pergjigja nuk duhet te permbaje fjali shpjeguese sesi u krijuar permbledhja. Mos jep rekomandime ne pergjigjen tende.`,
       },
     ];
 
     const body: ChatCompletionCreateParamsNonStreaming = {
       messages,
-      model: AkpaModels.CHAT,
+      model: AIModels.gpt_4o,
     };
 
     return this.openAIService.generateCompletion(
@@ -644,6 +653,7 @@ export class ResumeService {
         userId,
         PromptType.AskResumeSummaryWizard,
       );
+
     if (last8HourMessages >= 7)
       throw new UnprocessableEntityException(
         'Limit 7 messages per 8 hours reached!',
@@ -663,7 +673,7 @@ export class ResumeService {
 
     const body: ChatCompletionCreateParamsNonStreaming = {
       messages,
-      model: AkpaModels.CHAT,
+      model: AIModels.gpt_4o,
     };
 
     return this.openAIService.generateCompletion(

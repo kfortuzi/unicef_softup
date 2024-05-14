@@ -6,8 +6,8 @@ import { Controller, useForm, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import usePatchResume from 'src/api/resumes/hooks/usePatchResume';
-import postResumeAskWizard from 'src/api/resumes/requests/postResumeAskWizard';
 import postResumeSummary from 'src/api/resumes/requests/postResumeSummary';
+import postSummaryWizard from 'src/api/resumes/requests/postSummaryWizard';
 import { WorkExperience } from 'src/api/resumes/types';
 import AskWizardModal from 'src/components/common/AskWizardModal/AskWizardModal';
 import Button from 'src/components/common/Button/Button';
@@ -80,7 +80,7 @@ const AboutMeForm: React.FC<AboutMeProps> = ({ aboutMe, cvId }) => {
   };
 
   const sendMessageAndGetAiPrompt = async (text: string): Promise<string | undefined> => {
-    const data = await postResumeAskWizard({
+    const data = await postSummaryWizard({
       message: text,
       content: content || '',
     });
