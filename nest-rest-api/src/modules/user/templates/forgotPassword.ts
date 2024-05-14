@@ -1,4 +1,8 @@
-export const getResetPasswordTemplate = (host: string, resetCode: string) => {
+export const getResetPasswordTemplate = (
+  host: string,
+  userId: string,
+  resetCode: string,
+) => {
   return `
   <!DOCTYPE html>
   <html>
@@ -20,7 +24,7 @@ export const getResetPasswordTemplate = (host: string, resetCode: string) => {
               color: white;
           }
           .button:hover {background-color: #0069d9; color: white;}
-      
+
           .button:active {
               background-color: #005cbf;
               box-shadow: 0 2px #004085; /* Even darker shade for the pressed effect */
@@ -28,11 +32,11 @@ export const getResetPasswordTemplate = (host: string, resetCode: string) => {
           }
       </style>
       </head>
-      
+
   <body>
       <p>Përshëndetje,</p>
       <p>Ju së fundmi bëtë një kërkesë për të ndryshuar fjalekalimin e llogarise tuaj. Klikoni butonin e meposhtëm për ta ndryshuar:</p>
-      <a href="${host}/#/reset-password?code=${resetCode}" class="button">Ndrysho fjalëkalimin</a>
+      <a href="${host}/#/access/reset-password?id=${userId}&verificationCode=${resetCode}" class="button">Ndrysho fjalëkalimin</a>
       <p>Nëse nuk keni bërë një kërkesë për të ndryshuar fjalëkalimin e llogarise tuaj, ju lutem injorojeni këtë email ose kontaktoni suportin tonë për më shumë informacion.</p>
       <p>Linku per te ndryshuar fjalekalimin do te skadoje pas 24 oresh.</p>
       <p>Agjencia Kombëtare e Punësimit dhe Aftësive</p>

@@ -224,7 +224,11 @@ export class UserService {
       expiresAt,
     );
 
-    const template = getResetPasswordTemplate(this.config.feHost, resetCode);
+    const template = getResetPasswordTemplate(
+      this.config.feHost,
+      user.id,
+      resetCode,
+    );
     await this.sesService.sendEmail(
       'Reset Your Password',
       template,

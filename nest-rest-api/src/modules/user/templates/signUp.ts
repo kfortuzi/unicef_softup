@@ -24,7 +24,7 @@ export const getSignUpTemplate = (
               box-shadow: 0 9px #999;
           }
           .button:hover {background-color: #3e8e41}
-  
+
           .button:active {
               background-color: #3e8e41;
               box-shadow: 0 5px #666;
@@ -33,9 +33,9 @@ export const getSignUpTemplate = (
       </style>
       </head>
   <body>
-      <p>Hello,</p>
+      <p>Pershendetje,</p>
       <p>Ju faleminderit për regjistrimin. Ju lutem klikoni butonin e mëposhtëm për të konfirmuar adresen tuaj të emailit dhe për të përfunduar regjistrimin.</p>
-      <a href="${host}/#/access/confirm-user?id=${userId}&code=${code}" class="button">Konfirmo llogarinë</a>
+      <a href="${host}/#/access/confirm-user?id=${userId}&verificationCode=${code}" class="button">Konfirmo llogarinë</a>
       <p> Nëse nuk keni krijuar një llogari, asnjë veprim pasues nuk është i nevojshëm.</p>
       <p>Agjencia Kombëtare e Punësimit dhe Aftësive</p>
   </body>
