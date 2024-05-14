@@ -132,7 +132,6 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
     return {
       key: field.id,
       label: `${t('headerSingular')} ${index + 1}`,
-      // eslint-disable-next-line max-len
       headerClass: `${
         (errors.experiences as unknown as WorkExperience[])?.find((_, errorIndex) => errorIndex === index)
           ? 'is-invalid'

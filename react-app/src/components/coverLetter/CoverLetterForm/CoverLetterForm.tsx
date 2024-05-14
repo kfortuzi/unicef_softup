@@ -6,7 +6,6 @@ import { Controller, useForm, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
-import useGetCoverLetter from 'src/api/coverLetters/hooks/useGetCoverLetter';
 import usePatchCoverLetter from 'src/api/coverLetters/hooks/usePatchCoverLetter';
 import usePostCoverLetter from 'src/api/coverLetters/hooks/usePostCoverLetter';
 import usePostCoverLetterAskWizard from 'src/api/coverLetters/hooks/usePostCoverLetterAskWizard';
@@ -23,10 +22,14 @@ import { defaultValues } from './constants';
 import { FormField } from './enums';
 import validationSchema from './validation';
 
-const CoverLetterForm: React.FC = () => {
+interface Props {
+  coverLetter?: GetCoverLetterResponse;
+  isFetched?: boolean;
+}
+
+const CoverLetterForm: React.FC<Props> = ({ coverLetter, isFetched = false }) => {
   const { id } = useParams();
   const { t } = useTranslation('translation', { keyPrefix: 'coverLetterDetails' });
-  const { data: coverLetter, isFetched } = useGetCoverLetter({ id } as GetCoverLetterResponse);
   const { mutate: patchCoverLetter, isPending: isUpdating } = usePatchCoverLetter();
   const { mutate: postCoverLetter, isPending: isCreating } = usePostCoverLetter();
   const { mutateAsync: postCoverLetterAskWizardAsync } = usePostCoverLetterAskWizard();
@@ -46,8 +49,8 @@ const CoverLetterForm: React.FC = () => {
   const formContentValue = useWatch({ control, name: FormField.CONTENT });
 
   useEffect(() => {
-    if (isFetched) {
-      reset(coverLetter as GetCoverLetterResponse);
+    if (isFetched && coverLetter) {
+      reset(coverLetter);
     }
   }, [isFetched, reset, coverLetter]);
 

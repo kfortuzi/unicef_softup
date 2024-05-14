@@ -16,7 +16,7 @@ const MyCoverLetter: React.FC = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'coverLetterDetails' });
 
   const { id } = useParams();
-  const { data: coverLetter, isFetching } = useGetCoverLetter({ id });
+  const { data: coverLetter, isFetching, isFetched } = useGetCoverLetter({ id });
   const { data: user } = useGetProfile();
 
   if (isFetching) {
@@ -43,6 +43,7 @@ const MyCoverLetter: React.FC = () => {
         <div className="cover-letter-details-body">
           <CoverLetterView
             coverLetter={coverLetter as GetCoverLetterResponse}
+            isFetched={isFetched}
             user={user as User}
           />
         </div>

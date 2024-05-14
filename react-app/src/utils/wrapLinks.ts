@@ -1,5 +1,3 @@
-/* eslint-disable operator-linebreak */
-
 export function wrapLinks(str: string): string {
   // eslint-disable-next-line no-useless-escape
   const urlRegex = /(https?:\/\/[^\s(){}\[\]]+)/g;

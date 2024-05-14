@@ -9,36 +9,36 @@ module.exports = {
     indent: [
       'error',
       2,
-      { SwitchCase: 1, ignoredNodes: ['TemplateLiteral', 'ConditionalExpression'], offsetTernaryExpressions: true },
+      {
+        SwitchCase: 1,
+        ignoredNodes: ['TemplateLiteral', 'ConditionalExpression'],
+        offsetTernaryExpressions: true,
+      },
     ],
     'import-helpers/order-imports': [
-      "error",
+      'error',
       {
-        'newlinesBetween': 'always',
-        'groups': [
-          'module',
-          '/prop-types/',
-          '/^src/',
-          '/^[./]/',
-          '/styles/'
-        ],
-        'alphabetize': {
-          'order': 'asc',
-          'ignoreCase': true
-        }
-      }
+        newlinesBetween: 'always',
+        groups: ['module', '/prop-types/', '/^src/', '/^[./]/', '/styles/'],
+        alphabetize: {
+          order: 'asc',
+          ignoreCase: true,
+        },
+      },
     ],
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     'newline-before-return': 'error',
-    'max-len': ['error', {
-      code: 110,
-      ignorePattern: "^import\\s.+\\sfrom\\s.+;$",
-      ignoreUrls: true
-    }],
+    'max-len': [
+      'error',
+      {
+        code: 110,
+        ignorePattern: '^import\\s.+\\sfrom\\s.+;$',
+        ignoreUrls: true,
+      },
+    ],
     'function-call-argument-newline': ['error', 'consistent'],
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
-    'operator-linebreak': ['error', 'before'],
     'array-element-newline': ['error', 'consistent'],
     'array-bracket-newline': ['error', { multiline: true }],
     'object-curly-newline': ['error', { consistent: true, multiline: true }],
