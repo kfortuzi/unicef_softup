@@ -1,4 +1,8 @@
-export const getSignUpTemplate = (host: string, code: string) => {
+export const getSignUpTemplate = (
+  host: string,
+  code: string,
+  userId: string,
+) => {
   return `
   <!DOCTYPE html>
   <html>
@@ -31,9 +35,9 @@ export const getSignUpTemplate = (host: string, code: string) => {
   <body>
       <p>Hello,</p>
       <p>Ju faleminderit për regjistrimin. Ju lutem klikoni butonin e mëposhtëm për të konfirmuar adresen tuaj të emailit dhe për të përfunduar regjistrimin.</p>
-      <a href="/${host}/#/access/confirm-user?id=\${createdUser.id}&code=/${code}" class="button">Konfirmo llogarinë</a>
+      <a href="${host}/#/access/confirm-user?id=${userId}&code=${code}" class="button">Konfirmo llogarinë</a>
       <p> Nëse nuk keni krijuar një llogari, asnjë veprim pasues nuk është i nevojshëm.</p>
-      <p>Me respekt,<br>Agjencia Kombëtare e Punësimit dhe Aftësive</p>
+      <p>Agjencia Kombëtare e Punësimit dhe Aftësive</p>
   </body>
   </html>
   `;

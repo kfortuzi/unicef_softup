@@ -32,10 +32,10 @@ export const getResetPasswordTemplate = (host: string, resetCode: string) => {
   <body>
       <p>Përshëndetje,</p>
       <p>Ju së fundmi bëtë një kërkesë për të ndryshuar fjalekalimin e llogarise tuaj. Klikoni butonin e meposhtëm për ta ndryshuar:</p>
-      <a href="/${host}/#/reset-password?code=/${resetCode}" class="button">Ndrysho fjalëkalimin</a>
+      <a href="${host}/#/reset-password?code=/${resetCode}" class="button">Ndrysho fjalëkalimin</a>
       <p>Nëse nuk keni bërë një kërkesë për të ndryshuar fjalëkalimin e llogarise tuaj, ju lutem injorojeni këtë email ose kontaktoni suportin tonë për më shumë informacion.</p>
       <p>Linku per te ndryshuar fjalekalimin do te skadoje pas 24 oresh.</p>
-      <p>Me respekt,<br>Agjencia Kombëtare e Punësimit dhe Aftësive</p>
+      <p>Agjencia Kombëtare e Punësimit dhe Aftësive</p>
   </body>
   </html>
   `;

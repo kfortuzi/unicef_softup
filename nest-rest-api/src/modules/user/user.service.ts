@@ -137,7 +137,11 @@ export class UserService {
         expiresAt,
       );
       const result = exclude(createdUser, ['password']);
-      const template = getSignUpTemplate(this.config.feHost, verificationCode);
+      const template = getSignUpTemplate(
+        this.config.feHost,
+        verificationCode,
+        createdUser.id,
+      );
       await this.sesService.sendEmail(
         'Verify Your Email',
         template,
