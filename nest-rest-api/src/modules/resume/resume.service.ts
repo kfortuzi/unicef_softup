@@ -536,7 +536,6 @@ export class ResumeService {
   ) {
     const user = await this.userService.findOne(userId);
     if (!user) throw new NotFoundException('User does not exist!');
-    console.log('Experience', experience);
 
     const messages: ChatCompletionMessageParam[] = [
       {
