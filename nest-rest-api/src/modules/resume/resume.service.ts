@@ -536,16 +536,17 @@ export class ResumeService {
   ) {
     const user = await this.userService.findOne(userId);
     if (!user) throw new NotFoundException('User does not exist!');
+    console.log('Experience', experience);
 
     const messages: ChatCompletionMessageParam[] = [
       {
         role: 'system',
         content:
-          'Je nje asistent i cili permireson pergjegjesite dhe detyrat e mia te kryera gjate nje eksperience pune, ne menyre qe te permiresoj CV time.',
+          'Je nje asistent i cili permireson dhe ploteson pergjegjesite dhe detyrat e mia te kryera gjate nje eksperience pune.',
       },
       {
         role: 'user',
-        content: `Kjo eshte eksperienca ime: ${experience}.`,
+        content: `Kjo eshte eksperienca ime: ${JSON.stringify(experience)}.`,
       },
       {
         role: 'assistant',
@@ -555,7 +556,7 @@ export class ResumeService {
       {
         role: 'user',
         content:
-          'Duke u bazuar ne eksperiencen e dhene, permireso, riformulo dhe shto nese mundesh pergjegjesite dhe detyrat e mia pergjate eksperiences. Ne rast se nuk ka, gjenero disa duke u bazuar ne punen e bere. Nese ka, riformulo pergjegjesite dhe detyrat ekzistuese duke perdorur fjale te tjera per te pershkruar dhe gjenero/shto disa detyrime te tjera qe mund te kem pasur, por kam harruar ti shkruaj dhe mungojne ne eksperience. Asnjehere pergjegjesite e gjeneruara nuk duhet te jene shkruar ne te njejten menyre(copy-paste) si ato te meparshmet edhe pse mund te tregojne per te njejtat gjera. Me doemos perdor fjale te tjera te ndryshme per te treguar detyrimet. Perdor nje ton profesional ne pergjigjen e dhene. Pergjigju vetem me pergjegjesite dhe detyrat e eksperiences asnje fjale apo fjali shpjeguese me shume para ose mbrapa tyre. Ky eshte nje shembull sesi pergjigja duhet te duket : “1. Analiza e tregjeve dhe zhvillimi i strategjive të biznesit në përputhje me teknologjitë dhe zhvillimet më të fundit në fushën e ekonomisë dhe financave.\n 2.Planifikimi dhe implementimi i strukturës së financave për të siguruar efikasitet dhe stabilitet financiar për organizatën.3. Krijimi dhe menaxhimi i bazës së të dhënave financiare, duke përdorur teknologji dhe mjete të specializuara për të siguruar që të dhënat të jenë të saktë dhe të mbrohen me përmbajtje të duhur.\n 4. Bashkëpunimi me ekipin e financës dhe menaxhmentin e lartë për të identifikuar dhe implementuar zgjidhje inovative për sfidat financiare dhe biznesore, duke përdorur njohuri të thelluara të ekonomisë dhe financave”. Pergjigja duhet te jete me patjeter ne gjuhen shqipe Pergjigja duhet te permbaje vetem detyrimet dhe asgje tjeter. Nuk duhet te kete fjali si psh: “Keto jane pergjegjesite e tua.”.',
+          'Duke u bazuar ne eksperiencen time, permireso, riformulo dhe ploteso pergjegjesite dhe detyrat e mia ne pune. Ne rast se nuk ka asnje responsibility, gjenero dhe shto disa duke u bazuar ne titullin/pozicionin e punes se bere. Nese ka, riformulo pergjegjesite dhe detyrat ekzistuese duke perdorur fjale te tjera per te pershkruar dhe gjenero/shto disa detyrime te tjera qe lidhen me profesionin tim. Asnjehere pergjegjesite e gjeneruara nuk duhet te jene shkruar ne te njejten menyre(copy-paste) si ato te meparshmet edhe pse mund te tregojne per te njejtat gjera. Me doemos perdor fjale te tjera te ndryshme per te treguar detyrimet. Perdor nje ton profesional ne pergjigjen e dhene. Pergjigju vetem me pergjegjesite e  dhe detyrat e eksperiences te renditura, asnje fjale apo fjali shpjeguese me shume para ose mbrapa tyre. Pergjigju me maksimumi 6 detyra(responsbility). Pergjigja duhet te jete me patjeter ne gjuhen shqipe. Pergjigja duhet te permbaje vetem detyrimet dhe asgje tjeter. Nuk duhet te kete fjali si psh: “Keto jane pergjegjesite e tua.”.',
       },
     ];
 
