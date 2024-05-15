@@ -207,7 +207,10 @@ export class ResumeService {
     const resume: ResumeDto = extractJSON(generatedResume);
     const summary = await this.improveSummary(resume, userId);
     if (summary) resume.summary = summary;
-    const resumeBody = prepareResumeBody(userId, resume);
+    const resumeBody = prepareResumeBody(userId, {
+      ...resume,
+      profilePicture: '',
+    });
 
     await Promise.all([
       this.wizardService.saveWizardAnswers(

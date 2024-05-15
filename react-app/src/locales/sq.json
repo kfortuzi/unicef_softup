@@ -1,5 +1,10 @@
 {
   "translation": {
+    "disclaimer": {
+      "disclaimerHeader": "Njoftim!",
+      "disclaimerMessage": "Gjenerimi i CV-ve ose Letrave të motivimit me AI ofron rekomandime në bazë të mesazhit të përdoruesit.\n Ndërsa synojmë për saktësi, përmbajtja e fundit e CV-së mund të kërkojë ndryshime manuale.\n Ne nuk pretendojmë autorësi mbi rezultatin e AI-së, dhe as kontrollin e rezultatit të gjeneruar të AI-së.",
+      "accept": "Pranoj"
+    },
     "auth": {
       "login": {
         "header": "Miresevini!",
@@ -16,9 +21,7 @@
         "showPassword": "Shfaq fjalekalimin",
         "failedToLogIn": "Diçka shkoi keq, ju lutemi provoni përsëri më vonë!",
         "invalidCredentials": "Email ose fjalëkalim i pavlefshëm",
-        "emailIsNotVerified": "Email-i nuk është verifikuar",
-        "disclaimerHeader": "Njoftim!",
-        "disclaimerMessage": "Gjenerimi i CV-ve ose Letrave të motivimit me AI ofron rekomandime në bazë të mesazhit të përdoruesit.\n Ndërsa synojmë për saktësi, përmbajtja e fundit e CV-së mund të kërkojë ndryshime manuale.\n Ne nuk pretendojmë autorësi mbi rezultatin e AI-së, dhe as kontrollin e rezultatit të gjeneruar të AI-së."
+        "emailIsNotVerified": "Email-i nuk është verifikuar"
       },
       "signUp": {
         "header": "Krijoni nje Llogari",
@@ -261,7 +264,7 @@
       "goBack": "Kthehu Ne Kryefaqe"
     },
     "home": {
-      "header": "PORTALI KOMBËTAR I PUNËSIMIT",
+      "header": "Asistenti virtual i punesimit",
       "subHeader": "Ndërtimi i Suksesit të Karrierës: Gjenerimi i CV dhe Letrës së Përmbledhjes me Ndihmën e Inteligjencës Artificiale",
       "learnMore": "Meso me shume",
       "servicesStepsText": "Tre hapa. Tre minuta.",
@@ -283,9 +286,9 @@
       "createCoverLetter": "Krijo",
       "coverLetterWizard": "Asistenti",
       "jobs": "Punet",
-      "training": "Trajnim",
-      "trainingVideos": "Video trajnime",
-      "trainingArticles": "Artikuj trajnimi",
+      "training": "Këshillime",
+      "trainingVideos": "Video",
+      "trainingArticles": "Artikuj",
       "settings": "Cilësimet",
       "footerText": "Copyright AKPA 2024",
       "developedBy": "Powered by Softup Technologies ShPK"

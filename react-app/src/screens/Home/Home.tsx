@@ -29,8 +29,9 @@ const Home: React.FC = () => {
           >
             {t('header')}
           </Typography.Title>
-          <hr className='header-divider' />
-          <Typography.Paragraph className='header-subtitle'>{t('subHeader')}</Typography.Paragraph>
+          <hr className="header-divider" />
+          <Typography.Paragraph className="header-subtitle">{t('subHeader')}</Typography.Paragraph>
+          <Chatbot />
         </Col>
         <Col
           className="picture-container"
@@ -45,7 +46,6 @@ const Home: React.FC = () => {
             className="header-picture"
           />
         </Col>
-        <Chatbot />
       </Row>
       <Row
         className="services"
@@ -61,7 +61,11 @@ const Home: React.FC = () => {
           sm={24}
           xs={24}
         >
-          <Image src={generateResumeImage} className="icon" preview={false} />
+          <Image
+            src={generateResumeImage}
+            className="icon"
+            preview={false}
+          />
           <Typography.Title className="title">{t('service1')}</Typography.Title>
           <Typography.Paragraph className="description">{t('service1Description')}</Typography.Paragraph>
         </Col>
@@ -71,7 +75,11 @@ const Home: React.FC = () => {
           sm={24}
           xs={24}
         >
-          <Image src={generateCoverLetterImage} className="icon" preview={false} />
+          <Image
+            src={generateCoverLetterImage}
+            className="icon"
+            preview={false}
+          />
           <Typography.Title className="title">{t('service2')}</Typography.Title>
           <Typography.Paragraph className="description">{t('service2Description')}</Typography.Paragraph>
         </Col>
@@ -81,23 +89,30 @@ const Home: React.FC = () => {
           sm={24}
           xs={24}
         >
-          <Image src={counselingImage} className="icon" preview={false} />
+          <Image
+            src={counselingImage}
+            className="icon"
+            preview={false}
+          />
           <Typography.Title className="title">{t('service3')}</Typography.Title>
           <Typography.Paragraph className="description">{t('service3Description')}</Typography.Paragraph>
         </Col>
       </Row>
-      <div className='tip-of-the-day-border-wrapper'>
+      <div className="tip-of-the-day-border-wrapper">
         <Row
           className="tip-of-the-day"
           align="middle"
         >
           <Col
-            className='tip-of-the-day-icon'
+            className="tip-of-the-day-icon"
             md={8}
             sm={6}
             xs={10}
           >
-            <Image src={lambImage} preview={false} />
+            <Image
+              src={lambImage}
+              preview={false}
+            />
           </Col>
           <Col
             md={16}

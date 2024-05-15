@@ -37,20 +37,11 @@ const ContactInfoView: React.FC<ContactInfoViewProps> = (props) => {
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string>();
   const omittedFalsyProps = Object.fromEntries(
-    Object.entries(props).map(([key, value]) => [key, omitFalsyValue(value)])
+    Object.entries(props).map(([key, value]) => [key, omitFalsyValue(value)]),
   );
 
-  const {
-    cvId,
-    firstName,
-    nationality,
-    phoneNumber,
-    email,
-    linkedinUrl,
-    address,
-    linkedinText,
-    surname
-  } = omittedFalsyProps;
+  const { cvId, firstName, nationality, phoneNumber, email, linkedinUrl, address, linkedinText, surname } =
+    omittedFalsyProps;
 
   const uploadProps: UploadProps = {
     name: 'file',
@@ -65,8 +56,7 @@ const ContactInfoView: React.FC<ContactInfoViewProps> = (props) => {
         setLoading(true);
 
         return;
-      }
-      else if (info.file.status === 'done') {
+      } else if (info.file.status === 'done') {
         message.success(i18n.t('globalStrings.uploadSuccess'));
         getBase64(info.file.originFileObj as FileType, (url) => {
           setLoading(false);
@@ -88,7 +78,10 @@ const ContactInfoView: React.FC<ContactInfoViewProps> = (props) => {
           src={imageUrl || props.profilePicture || UserPlaceHolderImage}
           key={imageKey}
         />
-        <Upload {...uploadProps} beforeUpload={beforeUpload}>
+        <Upload
+          {...uploadProps}
+          beforeUpload={beforeUpload}
+        >
           <Button
             text={t('uploadProfilePicture')}
             type="primary"
@@ -105,40 +98,63 @@ const ContactInfoView: React.FC<ContactInfoViewProps> = (props) => {
       <div className="info-section">
         <div className="info-group">
           <div className="group-title-container">
-            <Image src={NationalityIcon} preview={false} className='contact-info-icon' />
-            <Typography.Text className='group-title-text'>{t('nationality')}</Typography.Text>
+            <Image
+              src={NationalityIcon}
+              preview={false}
+              className="contact-info-icon"
+            />
+            <Typography.Text className="group-title-text">{t('nationality')}</Typography.Text>
           </div>
           <p className="group-value">{nationality}</p>
         </div>
         <div className="info-group">
           <div className="group-title-container">
-            <Image src={PhoneIcon} preview={false} className='contact-info-icon' />
-            <Typography.Text className='group-title-text'>{t('phoneNumber')}</Typography.Text>
+            <Image
+              src={PhoneIcon}
+              preview={false}
+              className="contact-info-icon"
+            />
+            <Typography.Text className="group-title-text">{t('phoneNumber')}</Typography.Text>
           </div>
           <p className="group-value">{phoneNumber}</p>
         </div>
         <div className="info-group">
           <div className="group-title-container">
-            <Image src={EmailIcon} preview={false} className='contact-info-icon' />
-            <Typography.Text className='group-title-text'>{t('email')}</Typography.Text>
+            <Image
+              src={EmailIcon}
+              preview={false}
+              className="contact-info-icon"
+            />
+            <Typography.Text className="group-title-text">{t('email')}</Typography.Text>
           </div>
           <p className="group-value">{email}</p>
         </div>
         <div className="info-group">
           <div className="group-title-container">
-            <Image src={LinkedinIcon} preview={false} className='contact-info-icon' />
-            <Typography.Text className='group-title-text'>{t('linkedin')}</Typography.Text>
+            <Image
+              src={LinkedinIcon}
+              preview={false}
+              className="contact-info-icon"
+            />
+            <Typography.Text className="group-title-text">{t('linkedin')}</Typography.Text>
           </div>
           {linkedinUrl && (
-            <a href={linkedinUrl} className="group-value linkedin-link">
+            <a
+              href={linkedinUrl}
+              className="group-value linkedin-link"
+            >
               {linkedinText}
             </a>
           )}
         </div>
         <div className="info-group">
           <div className="group-title-container">
-            <Image src={AddressIcon} preview={false} className='contact-info-icon' />
-            <Typography.Text className='group-title-text'>{t('address')}</Typography.Text>
+            <Image
+              src={AddressIcon}
+              preview={false}
+              className="contact-info-icon"
+            />
+            <Typography.Text className="group-title-text">{t('address')}</Typography.Text>
           </div>
           <p className="group-value">{address}</p>
         </div>

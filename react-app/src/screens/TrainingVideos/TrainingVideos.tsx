@@ -3,11 +3,14 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import useGetTrainingVideos from 'src/api/assets/hooks/useGetTrainingVideos';
+import LoadingFullPage from 'src/components/common/LoadingFullPage/LoadingFullPage';
 import TrainingVideoCard from 'src/components/training/TrainingVideoCard/TrainingVideoCard';
 
 const TrainingVideos: React.FC = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'trainingVideos' });
-  const { data: trainings } = useGetTrainingVideos({ take: 10 });
+  const { data: trainings, isLoading } = useGetTrainingVideos({ take: 10 });
+
+  if (isLoading) return <LoadingFullPage />;
 
   return (
     <div className="trainings-container">

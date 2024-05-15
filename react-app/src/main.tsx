@@ -24,5 +24,5 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <ReactQueryDevtools initialIsOpen={false} />
       </I18nextProvider>
     </QueryClientProvider>
-  </GoogleOAuthProvider>
+  </GoogleOAuthProvider>,
 );

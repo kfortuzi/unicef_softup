@@ -4,6 +4,8 @@ import { Navigate, Outlet } from 'react-router-dom';
 import useGetProfile from 'src/api/users/hooks/useGetProfile';
 import { Route } from 'src/router/enums';
 
+import DisclaimerModal from '../disclaimer/DisclaimerModal';
+
 const PrivateRoute: React.FC = () => {
   const { data: user, isFetching } = useGetProfile();
 
@@ -16,7 +18,12 @@ const PrivateRoute: React.FC = () => {
     );
   }
 
-  return <Outlet />;
+  return (
+    <>
+      <DisclaimerModal />
+      <Outlet />
+    </>
+  );
 };
 
 export default PrivateRoute;

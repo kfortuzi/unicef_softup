@@ -1,4 +1,4 @@
-import { FloatButton } from 'antd';
+import { Button } from 'antd';
 import React, { useState } from 'react';
 import { VscRobot } from 'react-icons/vsc';
 
@@ -29,17 +29,20 @@ const Chatbot: React.FC = () => {
 
   return (
     <>
-      <FloatButton
+      <Button
         icon={
           <VscRobot
-            size={30}
-            style={{ marginLeft: -5 }}
+            size={25}
+            style={{ marginBottom: -5 }}
           />
         }
         type="primary"
-        style={{ right: 50, bottom: 50, width: 50, height: 50 }}
+        size="large"
+        className="chatbot-button"
         onClick={openChatbot}
-      />
+      >
+        Assistenti Virtual
+      </Button>
       <AskWizardModal
         open={isOpen}
         setOpen={setOpen}
