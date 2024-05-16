@@ -20,7 +20,6 @@ export type PostCoverLetterRequest = {
 
 export type PatchCoverLetterRequest = {
   id: string;
-  userId: string;
   to: string;
   company: string;
   companyAddress: string;

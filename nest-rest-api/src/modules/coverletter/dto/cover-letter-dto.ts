@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 export class CoverLetterDto {
   @IsString()
   @ApiProperty({ type: String })
@@ -9,9 +9,13 @@ export class CoverLetterDto {
   @ApiProperty({ type: String })
   readonly company: string;
 
+  @IsString()
+  @IsOptional()
   @ApiPropertyOptional({ type: String })
   readonly companyAddress?: string;
 
+  @IsString()
+  @IsOptional()
   @ApiPropertyOptional({ type: String })
   readonly content?: string;
 }

@@ -54,11 +54,12 @@ const CoverLetterForm: React.FC<Props> = ({ coverLetter, isFetched = false }) =>
     }
   }, [isFetched, reset, coverLetter]);
 
-  const submitForm = handleSubmit((data) => {
+  const submitForm = handleSubmit(({ to, company, companyAddress, content }) => {
+    const data = { company, companyAddress: companyAddress || '', content, to };
     if (isCreateMode) {
       postCoverLetter(data);
     } else {
-      patchCoverLetter({ id, ...data } as GetCoverLetterResponse);
+      patchCoverLetter({ id, ...data });
     }
   });
 

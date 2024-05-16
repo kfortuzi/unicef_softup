@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
 export class ResumeWizardDto {
   @ApiProperty()
@@ -16,6 +16,7 @@ export class ResumeWizardDto {
 
   @ApiPropertyOptional()
   @IsString()
+  @IsOptional()
   otherLanguage?: string;
 
   @ApiProperty()
@@ -28,13 +29,16 @@ export class ResumeWizardDto {
 
   @ApiPropertyOptional()
   @IsString()
+  @IsOptional()
   softSkills?: string;
 
   @ApiPropertyOptional()
   @IsString()
+  @IsOptional()
   hobbies?: string;
 
   @ApiPropertyOptional()
   @IsString()
+  @IsOptional()
   summary?: string;
 }

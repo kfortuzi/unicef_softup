@@ -69,7 +69,7 @@ export class CoverLetterService {
 
   async updateCoverLetter(id: string, userId: string, data: CoverLetterDto) {
     await this.findCoverLetterById(id, userId);
-    return this.coverLetterRepository.updateResume(id, data);
+    return this.coverLetterRepository.updateCoverLetter(id, data);
   }
 
   async deleteCoverLetter(id: string, userId: string) {

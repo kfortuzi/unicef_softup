@@ -15,17 +15,21 @@ export class ExperienceDto {
   position: string;
 
   @ApiPropertyOptional()
+  @IsOptional()
   startDate?: Date;
 
   @ApiPropertyOptional()
+  @IsOptional()
   endDate?: Date;
 
   @ApiPropertyOptional()
   @IsString()
+  @IsOptional()
   company?: string;
 
   @ApiPropertyOptional()
   @IsString()
+  @IsOptional()
   responsibilities?: string;
 }
 
@@ -44,10 +48,12 @@ class EducationDto {
 
   @ApiPropertyOptional()
   @IsDate()
+  @IsOptional()
   startDate?: Date;
 
   @ApiPropertyOptional()
   @IsDate()
+  @IsOptional()
   endDate?: Date;
 }
 
@@ -62,14 +68,17 @@ class LanguageDto {
 
   @ApiPropertyOptional()
   @IsString()
+  @IsOptional()
   reading?: string;
 
   @ApiPropertyOptional()
   @IsString()
+  @IsOptional()
   listening?: string;
 
   @ApiPropertyOptional()
   @IsString()
+  @IsOptional()
   speaking?: string;
 }
 
@@ -80,10 +89,12 @@ class CertificateDto {
 
   @ApiPropertyOptional()
   @IsDate()
+  @IsOptional()
   receivedDate?: Date;
 
   @ApiPropertyOptional()
   @IsDate()
+  @IsOptional()
   expirationDate?: Date;
 }
 
@@ -155,18 +166,22 @@ export class ResumeDto {
   @ApiPropertyOptional()
   @IsString()
   @IsOptional()
+  @IsOptional()
   summary?: string;
 
   @ApiPropertyOptional({ type: [EducationDto] })
   @Type(() => EducationDto)
+  @IsOptional()
   educations?: EducationDto[];
 
   @ApiPropertyOptional({ type: [ExperienceDto] })
   @Type(() => ExperienceDto)
+  @IsOptional()
   experiences?: ExperienceDto[];
 
   @ApiPropertyOptional({ type: [LanguageDto] })
   @Type(() => LanguageDto)
+  @IsOptional()
   languages?: LanguageDto[];
 
   @ApiPropertyOptional()
@@ -191,14 +206,17 @@ export class ResumeDto {
 
   @ApiPropertyOptional({ type: [CertificateDto] })
   @Type(() => CertificateDto)
+  @IsOptional()
   certificates?: CertificateDto[];
 
   @ApiPropertyOptional({ type: [VolunteeringDto] })
   @Type(() => VolunteeringDto)
+  @IsOptional()
   volunteering?: VolunteeringDto[];
 
   @ApiPropertyOptional({ type: [PublicationDto] })
   @Type(() => PublicationDto)
+  @IsOptional()
   publications?: PublicationDto[];
 
   @ApiPropertyOptional()

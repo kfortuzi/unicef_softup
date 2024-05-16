@@ -39,7 +39,7 @@ export class CoverLetterRepository {
     });
   }
 
-  async updateResume(
+  async updateCoverLetter(
     id: string,
     data: Prisma.cover_lettersUpdateInput,
   ): Promise<cover_letters> {
