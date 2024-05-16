@@ -5,7 +5,6 @@ import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
 import { PrismaModule } from './modules/commons/prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
-import { CaslModule } from './modules/casl/casl.module';
 import { LoggerModule } from 'nestjs-pino';
 import { LoggerMiddleware } from './modules/logger/logger.middleware';
 import { JobModule } from './modules/job/job.module';
@@ -24,7 +23,6 @@ import { Config } from 'config';
     AuthModule,
     UserModule,
     ConfigModule.forRoot(),
-    CaslModule,
     LoggerModule.forRoot({
       pinoHttp: {
         transport: {

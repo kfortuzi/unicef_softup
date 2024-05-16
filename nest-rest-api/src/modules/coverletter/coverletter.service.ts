@@ -9,7 +9,7 @@ import {
   ChatCompletionCreateParamsNonStreaming,
   ChatCompletionMessageParam,
 } from 'openai/resources/chat';
-import { AkpaModels } from '../openai/models';
+import { AIModels, AkpaModels } from '../openai/models';
 import { AkpaPrompts } from '../openai/promptContent';
 import { CoverLetterWizardDto } from './dto/cover-letter-wizard.dto';
 import { UserService } from 'src/modules/user/user.service';
@@ -215,6 +215,7 @@ export class CoverLetterService {
     userId: string,
     data: CoverLetterChatbotDto,
   ): Promise<string | null> {
+    console.log('>>>>', JSON.stringify(data));
     const user = await this.userService.findOne(userId);
     if (!user) throw new NotFoundException('User does not exist');
 
@@ -244,7 +245,7 @@ export class CoverLetterService {
 
     const body: ChatCompletionCreateParamsNonStreaming = {
       messages,
-      model: AkpaModels.COVER_LETTER,
+      model: AIModels.gpt_4o,
     };
 
     return this.openAIService.generateCompletion(

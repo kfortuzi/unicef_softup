@@ -115,10 +115,12 @@ class PublicationDto {
 
   @ApiPropertyOptional()
   @IsString()
+  @IsOptional()
   link?: string;
 
   @ApiPropertyOptional()
   @IsDate()
+  @IsOptional()
   releaseDate?: Date;
 }
 
@@ -165,7 +167,6 @@ export class ResumeDto {
 
   @ApiPropertyOptional()
   @IsString()
-  @IsOptional()
   @IsOptional()
   summary?: string;
 

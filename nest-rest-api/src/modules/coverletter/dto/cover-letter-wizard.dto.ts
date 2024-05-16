@@ -1,4 +1,4 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString } from 'class-validator';
 export class CoverLetterWizardDto {
   @IsNotEmpty()
@@ -7,19 +7,19 @@ export class CoverLetterWizardDto {
   readonly title: string;
 
   @IsString()
-  @ApiPropertyOptional({ type: String })
+  @ApiProperty({ type: String })
   readonly company: string;
 
   @IsString()
-  @ApiPropertyOptional({ type: String })
+  @ApiProperty({ type: String })
   readonly companyAddress: string;
 
   @IsString()
-  @ApiPropertyOptional({ type: String })
+  @ApiProperty({ type: String })
   readonly toPerson: string;
 
   @IsString()
-  @ApiPropertyOptional({ type: String })
+  @ApiProperty({ type: String })
   readonly motive: string;
 
   @IsNotEmpty()
