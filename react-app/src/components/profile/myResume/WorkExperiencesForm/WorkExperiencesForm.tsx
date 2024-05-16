@@ -32,13 +32,11 @@ interface WorkExperiencesProps {
 
 const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
   const { workExperiences } = props;
+
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.workExperiencesSection' });
   const [contentLoading, setContentLoading] = useState(false);
   const { mutateAsync: postResumeResponsibilityAsync } = usePostResumeResponsibility();
   const { mutateAsync: postResumeAskWizardAsync } = usePostResumeAskWizard();
-
-  const experiencesResponsibilities = workExperiences.map((experience) => experience.responsibilities);
-  const [contents, setContents] = useState(experiencesResponsibilities);
 
   const {
     handleSubmit,
@@ -49,7 +47,7 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
     formState: { errors },
     watch,
   } = useForm({
-    defaultValues: { experiences: props.workExperiences || [defaultValues] },
+    defaultValues: { experiences: workExperiences || [defaultValues] },
     resolver: yupResolver(fieldsValidationSchema),
     shouldFocusError: true,
   });
@@ -97,16 +95,15 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
   };
 
   const sendMessageAndGetAiPrompt = async (text: string, index: number): Promise<string | undefined> => {
-    const content = contents[index];
+    const experiences = getValues('experiences');
+    const experience = experiences[index];
+
     const data = await postResumeAskWizardAsync({
-      content: content || '',
+      content: experience.responsibilities || '',
       message: text,
     });
 
     if (data) {
-      const newContents = contents.map((content, idx) => (idx === index ? data : content));
-      setContents(newContents);
-
       return data;
     }
   };
