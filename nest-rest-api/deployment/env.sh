@@ -25,6 +25,8 @@ else
   fe_host="https://db6acida7ydfm.cloudfront.net"
 fi
 strapi_token=$(get_secret_value $ENVIRONMENT/strapi/api strapiToken)
+api_jwt_secret=$(get_secret_value $ENVIRONMENT/strapi/api apiJwtSecret)
+
 strapi_jwt_secret=$(get_secret_value $ENVIRONMENT/strapi strapiJwtSecret)
 strapi_admin_jwt_secret=$(get_secret_value $ENVIRONMENT/strapi strapiAdminJwtSecret)
 strapi_app_keys=$(get_secret_value $ENVIRONMENT/strapi strapiAppKeys)
@@ -56,6 +58,7 @@ echo "AWS_REGION=$AWS_REGION" >> .env.$ENVIRONMENT
 echo "OPENAI_API_KEY=$openai_api_key" >> .env.$ENVIRONMENT
 echo "PINECONE_KEY=$pinecone_key" >> .env.$ENVIRONMENT
 echo "PINECONE_INDEX=$pinecone_index" >> .env.$ENVIRONMENT
+echo "API_JWT_SECRET=$api_jwt_secret" >> .env.$ENVIRONMENT
 
 # Strapi env file
 

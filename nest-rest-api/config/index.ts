@@ -16,6 +16,7 @@ export class Config {
   public smCookieKey: string;
   public pineconeKey: string;
   public pineconeIndex: string;
+  public apiJwtSecret: string;
 
   constructor() {
     const config = new ConfigService();
@@ -35,5 +36,6 @@ export class Config {
     this.smCookieKey = 'akpa-cookie';
     this.pineconeKey = config.get('PINECONE_KEY') || '';
     this.pineconeIndex = config.get('PINECONE_INDEX') || '';
+    this.apiJwtSecret = config.get('API_JWT_SECRET') || 'secret';
   }
 }

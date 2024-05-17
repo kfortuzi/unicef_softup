@@ -215,7 +215,6 @@ export class CoverLetterService {
     userId: string,
     data: CoverLetterChatbotDto,
   ): Promise<string | null> {
-    console.log('>>>>', JSON.stringify(data));
     const user = await this.userService.findOne(userId);
     if (!user) throw new NotFoundException('User does not exist');
 
