@@ -15,7 +15,7 @@ const SkillsAndHobbies: React.FC = () => {
 
   return (
     <div className="skills-and-hobbies-container profile-page-content">
-      <Row gutter={[20, 20]}>
+      <Row>
         <Col span={24}>
           <Typography.Title
             className="title"
@@ -30,7 +30,7 @@ const SkillsAndHobbies: React.FC = () => {
           )}
         </Col>
       </Row>
-      <Row gutter={[20, 20]}>
+      <Row>
         <Col span={24}>
           <Typography.Title level={4}>{t('hobbies')}</Typography.Title>
           {!isHobbyEditMode ? (

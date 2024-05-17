@@ -1,0 +1,44 @@
+.floating-chatbot-button {
+  position: sticky;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  z-index: 1000;
+  height: 0;
+  width: 100%;
+  box-sizing: border-box;
+
+  button {
+    flex: 1;
+    height: 3rem;
+    width: 3rem;
+    max-width: 3rem;
+    max-height: 3rem;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: $large;
+    margin-right: $large;
+    border: none;
+
+    .ant-btn-icon {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .robot-icon {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5rem;
+      }
+    }
+  }
+}

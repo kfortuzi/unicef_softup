@@ -1,3 +1,4 @@
+import { MenuOutlined } from '@ant-design/icons';
 import { Breadcrumb, Layout, Menu, MenuProps } from 'antd';
 import { BreadcrumbItemType } from 'antd/es/breadcrumb/Breadcrumb';
 import { Content, Footer, Header } from 'antd/es/layout/layout';
@@ -8,6 +9,7 @@ import { Outlet, useLocation, useNavigate, useMatches, UIMatch } from 'react-rou
 import useLogOut from 'src/api/auth/hooks/useLogOut';
 import useGetResumes from 'src/api/resumes/hooks/useGetResumes';
 import logo from 'src/assets/images/logo.png';
+import FloatingChatbot from 'src/components/chatbot/FloatingChatbot';
 import { Route } from 'src/router/enums';
 
 const PageWithNavigation: React.FC = () => {
@@ -113,10 +115,12 @@ const PageWithNavigation: React.FC = () => {
     })
     .map((match) => (match.handle?.crumb ? match.handle.crumb() : undefined));
 
-  const breadCrumbItems: BreadcrumbItemType[] = crumbs.map((crumb) => ({
-    key: crumb,
-    title: crumb,
-  }));
+  const breadCrumbItems: BreadcrumbItemType[] | undefined = crumbs.length
+    ? crumbs.map((crumb) => ({
+        key: crumb,
+        title: crumb,
+      }))
+    : undefined;
 
   return (
     <Layout className="page-with-navigation-container">
@@ -134,18 +138,22 @@ const PageWithNavigation: React.FC = () => {
             mode="horizontal"
             selectedKeys={[location.pathname]}
             selectable={false}
+            overflowedIndicator={<MenuOutlined />}
           />
         </div>
       </Header>
       <Layout className="layout-content">
         <Content className="page-content">
-          <Breadcrumb
-            className={'breadcrumb-container'}
-            items={breadCrumbItems}
-          />
+          {breadCrumbItems && (
+            <Breadcrumb
+              className={'breadcrumb-container'}
+              items={breadCrumbItems}
+            />
+          )}
           <Outlet />
         </Content>
       </Layout>
+      <FloatingChatbot />
       <Footer className="footer">
         <div className="footer-wrapper">
           <span>{t('footerText')}</span>

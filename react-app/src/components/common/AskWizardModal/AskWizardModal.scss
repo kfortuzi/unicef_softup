@@ -1,14 +1,16 @@
 .ask-wizard-messages {
   display: flex;
   flex-direction: column;
-  gap: $large;
-  margin-bottom: 10px;
+  gap: $medium;
+  margin-top: 10px;
+  overflow: auto;
 
   .ask-wizard-message {
     display: flex;
     gap: $medium;
     min-width: 250px;
     max-width: 80%;
+    overflow: hidden;
 
     &.user {
       margin-left: auto;
@@ -16,36 +18,59 @@
 
     .ask-wizard-icon {
       display: flex;
-      font-size: $large;
       align-items: start;
       justify-content: end;
-      font-size: $large;
+      font-size: 2em;
+      min-width: 1em;
     }
 
     .ask-wizard-message-text {
       font-size: $medium;
       border: 1px solid gray;
       border-radius: 5px;
-      padding: 10px;
-      padding-bottom: 0px;
+      padding: $medium;
+
+      .ant-typography {
+        margin: 0;
+      }
     }
   }
 
   .ask-wizard-message-container {
     display: flex;
     flex-direction: column;
-    gap: $small;
+    gap: $medium;
+    overflow: hidden;
+
+    .common-button {
+      flex: 1;
+      max-width: 100%;
+      overflow: hidden;
+
+      button {
+        overflow: hidden;
+        max-width: 100%;
+      }
+    }
   }
 
   .ask-wizard-button-group {
     display: flex;
-    gap: $small;
+    gap: $medium;
 
     button {
       padding: 5px;
       line-height: 1;
       border-radius: 5px;
       border: none;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .ask-wizard-messages {
+    .ask-wizard-message {
+      min-width: 120px;
     }
   }
 }

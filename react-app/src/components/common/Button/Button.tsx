@@ -1,10 +1,10 @@
-import { Button as AntButton, ButtonProps } from 'antd';
+import { Button as AntButton, ButtonProps, Typography } from 'antd';
 import { BaseButtonProps } from 'antd/es/button/button';
 import React, { MouseEventHandler } from 'react';
 
 interface Props extends ButtonProps {
   type?: BaseButtonProps['type'];
-  text: string;
+  text?: string;
   onClick?: MouseEventHandler<HTMLElement>;
   htmlType?: ButtonProps['htmlType'];
   loading?: boolean;
@@ -31,7 +31,7 @@ const Button: React.FC<Props> = ({
       icon={icon}
       {...rest}
     >
-      {text}
+      {text && <Typography.Text ellipsis={{ tooltip: true }}>{text}</Typography.Text>}
     </AntButton>
   </div>
 );

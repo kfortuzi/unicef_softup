@@ -43,9 +43,7 @@ const MainChatbotMessages: React.FC<MainChatbotMessagesProps> = ({ askWizard }) 
           style={{ flexDirection: 'row' }}
           key={'topic-selection-option-' + i}
         >
-          <div className="ask-wizard-message-container">
-            <div>{option}</div>
-          </div>
+          <div className="ask-wizard-message-container">{option}</div>
         </div>
       ))}
     </div>

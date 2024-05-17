@@ -12,7 +12,6 @@
 @import '../components/common/Breadcrumb/Breadcrumb.scss';
 @import '../components/common/DeleteItemButton/DeleteItemButton.scss';
 
-
 // login
 @import '../components/auth/login/LoginForm/LoginForm.scss';
 // signup
@@ -25,6 +24,8 @@
 @import '../components/common/ResultComponent/ResultComponent.scss';
 // chatbot
 @import '../components/chatbot/Chatbot.scss';
+// floating chatbot
+@import '../components/chatbot/FloatingChatbot.scss';
 // profile
 @import '../components/profile/personalInfo/PersonalInfoDescription/PersonalInfoDescription.scss';
 @import '../components/profile/personalInfo/PersonalInfoEditForm/PersonalInfoEditForm.scss';
@@ -64,7 +65,6 @@
 @import '../components/coverLetter/CoverLetterCard/CoverLetterCard.scss';
 @import '../components/coverLetter/CoverLetterQuestionnaireForm/CoverLetterQuestionnaireForm.scss';
 @import '../components/resume/ResumeQuestionnaireForm/ResumeQuestionnaireForm.scss';
-
 
 // jobs
 @import '../components/jobs/JobCard/JobCard.scss';

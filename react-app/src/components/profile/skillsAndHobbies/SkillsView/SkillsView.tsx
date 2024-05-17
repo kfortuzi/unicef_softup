@@ -14,21 +14,12 @@ const SkillsView: React.FC<Props> = ({ toggleEditMode }) => {
 
   return (
     <div className="profile-form-view">
-      <div className="info-group">
-        {skills?.map((skill) => (
-          <Tag
-            key={skill.id}
-          >
-            {skill.name}
-          </Tag>
-        ))}
-      </div>
+      <div className="info-group">{skills?.map((skill) => <Tag key={skill.id}>{skill.name}</Tag>)}</div>
       <div className="info-group">
         <Button
           type="primary"
           text={i18n.t('globalStrings.edit')}
           onClick={toggleEditMode}
-          style={{ marginTop: '20px' }}
         />
       </div>
     </div>

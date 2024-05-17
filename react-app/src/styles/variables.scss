@@ -17,14 +17,14 @@ $poppins-semibolditalic: 'Poppins-SemiBoldItalic';
 // Base variables
 $base-font: $poppins-regular;
 $base-font-size: 16px;
-$base-font-color: #36383b;
+$base-font-color: #000000;
 $base-border-radius: 6px;
-$background-color: #f4f3f2;
+$background-color: #f9f9f9;
 $small-font-size: 12px;
 $big-border-radius: 20px;
 
 // Base dark mode variables
-$base-dark-font-color: #f4f3f2;
+$base-dark-font-color: #f9f9f9;
 $base-dark-background-color: #1e1e1e;
 
 // Padding, Margin, Gap
@@ -46,7 +46,7 @@ $error-color: #f5222d;
 $error-hover-color: #ffccc7;
 $info-color: #559afc;
 $link-color: #559afc;
-$layout-background: #f4f3f2;
+$layout-background: #f9f9f9;
 $card-background-color: #36383b;
 $light-gray: #e0e0e0;
 $white: #ffffff;

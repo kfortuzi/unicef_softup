@@ -1,4 +1,4 @@
-import { EditOutlined } from '@ant-design/icons';
+import { CloudUploadOutlined, LoadingOutlined } from '@ant-design/icons';
 import { Upload, UploadProps, message, Image, Typography, Avatar, GetProp } from 'antd';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -9,7 +9,6 @@ import LinkedinIcon from 'src/assets/icons/linkedin-icon.png';
 import NationalityIcon from 'src/assets/icons/nationality-icon.png';
 import PhoneIcon from 'src/assets/icons/phone-icon.png';
 import UserPlaceHolderImage from 'src/assets/images/user-placeholder.jpeg';
-import Button from 'src/components/common/Button/Button';
 import config from 'src/config';
 import i18n from 'src/locales';
 import { beforeUpload, getBase64 } from 'src/utils/imageUtils';
@@ -73,24 +72,38 @@ const ContactInfoView: React.FC<ContactInfoViewProps> = (props) => {
   return (
     <div className="contact-info-view-section">
       <div className="profile-pic-section">
-        <Avatar
-          size={160}
-          src={imageUrl || props.profilePicture || UserPlaceHolderImage}
-          key={imageKey}
-        />
-        <Upload
+        <div className={`image-upload-container ${loading ? 'loading' : ''}`}>
+          <Upload
+            {...uploadProps}
+            beforeUpload={beforeUpload}
+          >
+            {loading ? (
+              <div className="overlay">
+                <LoadingOutlined />
+              </div>
+            ) : (
+              <div className="overlay">
+                <CloudUploadOutlined />
+                <span className="info">{t('uploadProfilePicture')}</span>
+              </div>
+            )}
+            <Avatar
+              size={150}
+              src={imageUrl || props.profilePicture || UserPlaceHolderImage}
+              key={imageKey}
+            />
+          </Upload>
+        </div>
+        {/* <Upload
           {...uploadProps}
           beforeUpload={beforeUpload}
         >
-          <Button
-            text={t('uploadProfilePicture')}
-            type="primary"
-            icon={<EditOutlined />}
-            size="middle"
-            style={{ marginTop: '10px' }}
-            loading={loading}
+          <Avatar
+            size={150}
+            src={imageUrl || props.profilePicture || UserPlaceHolderImage}
+            key={imageKey}
           />
-        </Upload>
+        </Upload> */}
         <p className="name">
           {firstName} {surname}
         </p>

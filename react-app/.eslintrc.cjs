@@ -11,8 +11,7 @@ module.exports = {
       2,
       {
         SwitchCase: 1,
-        ignoredNodes: ['TemplateLiteral', 'ConditionalExpression'],
-        offsetTernaryExpressions: true,
+        ignoredNodes: ['TemplateLiteral', 'ConditionalExpression', 'ObjectExpression'],
       },
     ],
     'import-helpers/order-imports': [

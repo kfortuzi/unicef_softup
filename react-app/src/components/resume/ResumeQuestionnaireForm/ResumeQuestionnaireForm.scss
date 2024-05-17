@@ -3,17 +3,18 @@
   flex-direction: column;
   width: 100%;
   padding: 0 20px;
+  box-sizing: border-box;
 
   .input-textarea {
     label {
       margin-bottom: 10px;
     }
   }
-}
 
-.button-group-container {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  margin-top: 20px;
+  .button-group-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+  }
 }

@@ -107,104 +107,102 @@ const AskWizardModal: React.FC<AskWizardModalProps> = ({
   }, [t]);
 
   return (
-    <div>
-      <Modal
-        title={t('header')}
-        centered
-        open={open}
-        onOk={() => setOpen(false)}
-        onCancel={() => setOpen(false)}
-        width={1000}
-        key={'ask-wizard-modal'}
-        footer={[
-          <Controller
-            control={control}
-            name="chat"
-            key={'ask-wizard-input'}
-            render={({ field: { onChange, value, ref } }) => (
-              <Search
-                showCount
-                maxLength={100}
-                placeholder={t('askWizardPlaceholder')}
-                enterButton={t('askWizardButtonText')}
-                loading={loading}
-                ref={ref}
-                name="chat"
-                disabled={loading}
-                value={value}
-                onChange={onChange}
-                onPressEnter={async () => {
-                  if (!value) return;
-                  setValue('chat', '');
-                  await askWizard(value);
-                }}
-                onSearch={async () => {
-                  if (!value) return;
-                  setValue('chat', '');
-                  await askWizard(value);
-                }}
-                suffix={<RightOutlined />}
-              />
-            )}
-          />,
-        ]}
-        styles={{
-          body: {
-            display: 'flex',
-            flexDirection: 'column-reverse',
-            overflow: 'auto',
-            height: 500,
-            padding: 20,
-          },
-        }}
-        {...rest}
-      >
-        <div className="ask-wizard-messages">
-          {messages.map((message, i) => (
-            <div key={`message-${i}`}>
-              <div
-                className={`ask-wizard-message ${message.type === 'ai' ? 'ai' : 'user'}`}
-                style={{ flexDirection: message.type === 'ai' ? 'row' : 'row-reverse' }}
-                key={i}
-              >
-                <div className="ask-wizard-icon">
-                  {message.type === 'ai' ? (
-                    <VscRobot
-                      size={30}
-                      color="#e53f25"
-                      style={{ marginLeft: -5 }}
-                    />
-                  ) : (
-                    <FaRegUser
-                      size={25}
-                      color="#e53f25"
-                      style={{ marginLeft: -5 }}
-                    />
-                  )}
+    <Modal
+      title={t('header')}
+      centered
+      open={open}
+      onOk={() => setOpen(false)}
+      onCancel={() => setOpen(false)}
+      width={1000}
+      key={'ask-wizard-modal'}
+      footer={[
+        <Controller
+          control={control}
+          name="chat"
+          key={'ask-wizard-input'}
+          render={({ field: { onChange, value, ref } }) => (
+            <Search
+              showCount
+              maxLength={100}
+              placeholder={t('askWizardPlaceholder')}
+              enterButton={t('askWizardButtonText')}
+              loading={loading}
+              ref={ref}
+              name="chat"
+              disabled={loading}
+              value={value}
+              onChange={onChange}
+              onPressEnter={async () => {
+                if (!value) return;
+                setValue('chat', '');
+                await askWizard(value);
+              }}
+              onSearch={async () => {
+                if (!value) return;
+                setValue('chat', '');
+                await askWizard(value);
+              }}
+              suffix={<RightOutlined />}
+            />
+          )}
+        />,
+      ]}
+      styles={{
+        body: {
+          display: 'flex',
+          flexDirection: 'column-reverse',
+          overflow: 'auto',
+          height: 500,
+          padding: 20,
+        },
+      }}
+      {...rest}
+    >
+      <div className="ask-wizard-messages">
+        {messages.map((message, i) => (
+          <div key={`message-${i}`}>
+            <div
+              className={`ask-wizard-message ${message.type === 'ai' ? 'ai' : 'user'}`}
+              style={{ flexDirection: message.type === 'ai' ? 'row' : 'row-reverse' }}
+              key={i}
+            >
+              <div className="ask-wizard-icon">
+                {message.type === 'ai' ? (
+                  <VscRobot
+                    size={30}
+                    color="#e53f25"
+                    style={{ marginLeft: -5 }}
+                  />
+                ) : (
+                  <FaRegUser
+                    size={25}
+                    color="#e53f25"
+                    style={{ marginLeft: -5 }}
+                  />
+                )}
+              </div>
+              <div className="ask-wizard-message-container">
+                <div className="ask-wizard-message-text">
+                  <Typography.Paragraph style={{ whiteSpace: 'pre-wrap' }}>
+                    {parse(wrapLinks(message.text))}
+                  </Typography.Paragraph>
+                  {isMainChatbot && i === 0 ? <MainChatbotMessages askWizard={askWizard} /> : null}
                 </div>
-                <div className="ask-wizard-message-container">
-                  <div className="ask-wizard-message-text">
-                    <Typography.Paragraph style={{ whiteSpace: 'pre-wrap' }}>
-                      {parse(wrapLinks(message.text))}
-                    </Typography.Paragraph>
-                    {isMainChatbot && i === 0 ? <MainChatbotMessages askWizard={askWizard} /> : null}
+                {message.type === 'ai' && message.isUsable && !isMainChatbot && (
+                  <div className="ask-wizard-button-group">
+                    <Button
+                      text={t('useButtonText')}
+                      type="primary"
+                      onClick={() => updateMessageTextAndCloseTheModal(message.text)}
+                    />
                   </div>
-                  {message.type === 'ai' && message.isUsable && !isMainChatbot && (
-                    <div className="ask-wizard-button-group">
-                      <Button
-                        text={t('useButtonText')}
-                        type="primary"
-                        onClick={() => updateMessageTextAndCloseTheModal(message.text)}
-                      />
-                    </div>
-                  )}
-                </div>
+                )}
               </div>
             </div>
-          ))}
-        </div>
-      </Modal>
-    </div>
+          </div>
+        ))}
+      </div>
+    </Modal>
   );
 };
 

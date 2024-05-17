@@ -1,21 +1,18 @@
+import { CloudUploadOutlined, LoadingOutlined } from '@ant-design/icons';
 import { Col, GetProp, Image, Row, Upload, UploadProps, message } from 'antd';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import useGetProfile from 'src/api/users/hooks/useGetProfile';
 import PlaceHolderImage from 'src/assets/images/user-placeholder.jpeg';
-import Button from 'src/components/common/Button/Button';
 import PersonalInfoDescription from 'src/components/profile/personalInfo/PersonalInfoDescription/PersonalInfoDescription';
 import PersonalInfoEditForm from 'src/components/profile/personalInfo/PersonalInfoEditForm/PersonalInfoEditForm';
 import config from 'src/config';
 import i18n from 'src/locales';
-import { Route } from 'src/router/enums';
 import { beforeUpload, getBase64 } from 'src/utils/imageUtils';
 import { LocalStorageKey, getItem } from 'src/utils/storage';
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
 const PersonalInfo: React.FC = () => {
-  const navigate = useNavigate();
   const [isEditMode, setIsEditMode] = useState(false);
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string>();
@@ -51,51 +48,45 @@ const PersonalInfo: React.FC = () => {
   };
 
   return (
-    <div className="personal-info-container profile-page-content">
-      <Row gutter={[32, 32]}>
-        <Col
-          xs={24}
-          sm={24}
-          md={8}
-          xl={8}
-          xxl={8}
+    <Row className="personal-info-container">
+      <Col className={`image-upload-container ${loading ? 'loading' : ''}`}>
+        <Upload
+          {...uploadProps}
+          beforeUpload={beforeUpload}
         >
+          {loading ? (
+            <div className="overlay">
+              <LoadingOutlined />
+            </div>
+          ) : (
+            <div className="overlay">
+              <CloudUploadOutlined />
+              <span className="info">{i18n.t('globalStrings.changePhotoButtonText')}</span>
+            </div>
+          )}
           <Image
             preview={false}
-            width={200}
-            height={200}
+            width={150}
+            height={150}
             src={imageUrl || user?.profilePicture}
             fallback={PlaceHolderImage}
-            style={{ objectFit: 'cover', borderRadius: '6px' }}
           />
-          <Upload
-            {...uploadProps}
-            beforeUpload={beforeUpload}
-          >
-            <Button
-              type="primary"
-              text={i18n.t('globalStrings.changePhotoButtonText')}
-              onClick={() => navigate(Route.PERSONAL_INFO)}
-              style={{ marginTop: '20px' }}
-              loading={loading}
-            />
-          </Upload>
-        </Col>
-        <Col
-          xs={24}
-          sm={24}
-          md={12}
-          xl={12}
-          xxl={12}
-        >
-          {isEditMode ? (
-            <PersonalInfoEditForm toggleEditMode={toggleIsEditForm} />
-          ) : (
-            <PersonalInfoDescription toggleEditMode={toggleIsEditForm} />
-          )}
-        </Col>
-      </Row>
-    </div>
+        </Upload>
+      </Col>
+      <Col
+        xs={24}
+        sm={24}
+        md={16}
+        xl={16}
+        xxl={16}
+      >
+        {isEditMode ? (
+          <PersonalInfoEditForm toggleEditMode={toggleIsEditForm} />
+        ) : (
+          <PersonalInfoDescription toggleEditMode={toggleIsEditForm} />
+        )}
+      </Col>
+    </Row>
   );
 };
 

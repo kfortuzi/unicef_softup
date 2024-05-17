@@ -1,3 +1,14 @@
 .common-button {
   all: unset;
+
+  button {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+
+    span {
+      color: unset;
+    }
+  }
 }

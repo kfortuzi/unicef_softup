@@ -14,5 +14,9 @@
     display: flex;
     flex-flow: column nowrap;
     gap: $small;
+
+    .input-textarea {
+      margin-bottom: 0;
+    }
   }
 }

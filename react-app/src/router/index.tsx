@@ -36,7 +36,6 @@ import TrainingVideos from 'src/screens/TrainingVideos/TrainingVideos';
 import { Route } from './enums';
 
 const Router: React.FC = () => {
-
   const { isFetching } = useGetProfile();
   const { t } = useTranslation('translation', { keyPrefix: 'breadcrumb' });
 
@@ -54,7 +53,7 @@ const Router: React.FC = () => {
           children: [
             {
               path: Route.HOME,
-              element: <Home />
+              element: <Home />,
             },
             {
               path: Route.RESUMES,
@@ -65,10 +64,11 @@ const Router: React.FC = () => {
                     crumbs={[
                       {
                         to: '#',
-                        children: t('resumes')
-                      }
+                        children: t('resumes'),
+                      },
                     ]}
-                  />)
+                  />
+                ),
               },
             },
             {
@@ -80,11 +80,11 @@ const Router: React.FC = () => {
                     crumbs={[
                       {
                         to: '#',
-                        children: t('coverLetters')
-                      }
+                        children: t('coverLetters'),
+                      },
                     ]}
                   />
-                )
+                ),
               },
             },
             {
@@ -96,15 +96,15 @@ const Router: React.FC = () => {
                     crumbs={[
                       {
                         to: Route.COVER_LETTERS,
-                        children: t('coverLetters')
+                        children: t('coverLetters'),
                       },
                       {
                         to: '#',
-                        children: t('coverLetterDetails')
-                      }
+                        children: t('coverLetterDetails'),
+                      },
                     ]}
                   />
-                )
+                ),
               },
             },
             {
@@ -116,11 +116,11 @@ const Router: React.FC = () => {
                     crumbs={[
                       {
                         to: '#',
-                        children: t('jobs')
-                      }
+                        children: t('jobs'),
+                      },
                     ]}
                   />
-                )
+                ),
               },
             },
             {
@@ -132,15 +132,15 @@ const Router: React.FC = () => {
                     crumbs={[
                       {
                         to: Route.JOBS,
-                        children: t('jobs')
+                        children: t('jobs'),
                       },
                       {
                         to: '#',
-                        children: t('jobDetails')
-                      }
+                        children: t('jobDetails'),
+                      },
                     ]}
                   />
-                )
+                ),
               },
             },
             {
@@ -152,11 +152,11 @@ const Router: React.FC = () => {
                     crumbs={[
                       {
                         to: '#',
-                        children: t('trainingVideos')
-                      }
+                        children: t('trainingVideos'),
+                      },
                     ]}
                   />
-                )
+                ),
               },
             },
             {
@@ -168,11 +168,11 @@ const Router: React.FC = () => {
                     crumbs={[
                       {
                         to: '#',
-                        children: t('trainingArticles')
-                      }
+                        children: t('trainingArticles'),
+                      },
                     ]}
                   />
-                )
+                ),
               },
             },
             {
@@ -188,11 +188,11 @@ const Router: React.FC = () => {
                         crumbs={[
                           {
                             to: '#',
-                            children: t('personalInfo')
-                          }
+                            children: t('personalInfo'),
+                          },
                         ]}
                       />
-                    )
+                    ),
                   },
                 },
                 {
@@ -204,11 +204,11 @@ const Router: React.FC = () => {
                         crumbs={[
                           {
                             to: '#',
-                            children: t('skillsAndHobbies')
-                          }
+                            children: t('skillsAndHobbies'),
+                          },
                         ]}
                       />
-                    )
+                    ),
                   },
                 },
                 {
@@ -220,11 +220,11 @@ const Router: React.FC = () => {
                         crumbs={[
                           {
                             to: '#',
-                            children: t('changePassword')
-                          }
+                            children: t('changePassword'),
+                          },
                         ]}
                       />
-                    )
+                    ),
                   },
                 },
                 {
@@ -236,11 +236,11 @@ const Router: React.FC = () => {
                         crumbs={[
                           {
                             to: '#',
-                            children: t('myResume')
-                          }
+                            children: t('myResume'),
+                          },
                         ]}
                       />
-                    )
+                    ),
                   },
                 },
               ],
@@ -254,15 +254,15 @@ const Router: React.FC = () => {
                     crumbs={[
                       {
                         to: Route.COVER_LETTERS,
-                        children: t('coverLetters')
+                        children: t('coverLetters'),
                       },
                       {
                         to: '#',
-                        children: t('coverLetterWizard')
-                      }
+                        children: t('coverLetterWizard'),
+                      },
                     ]}
                   />
-                )
+                ),
               },
             },
             {
@@ -278,15 +278,15 @@ const Router: React.FC = () => {
                     crumbs={[
                       {
                         to: Route.RESUMES,
-                        children: t('resumes')
+                        children: t('resumes'),
                       },
                       {
                         to: '#',
-                        children: t('interviewTips')
-                      }
+                        children: t('interviewTips'),
+                      },
                     ]}
                   />
-                )
+                ),
               },
             },
             {
@@ -298,15 +298,15 @@ const Router: React.FC = () => {
                     crumbs={[
                       {
                         to: Route.RESUMES,
-                        children: t('resumes')
+                        children: t('resumes'),
                       },
                       {
                         to: '#',
-                        children: t('resumeDetails')
-                      }
+                        children: t('resumeDetails'),
+                      },
                     ]}
                   />
-                )
+                ),
               },
             },
           ],

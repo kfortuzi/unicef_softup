@@ -70,7 +70,8 @@
         "failedToRequestNewPassword": "Failed to reset password!",
         "userDoesNotExist": "User not found",
         "passwordResetEmailSent": "Password reset email was sent",
-        "invalidOrExpiredResetCode": "Invalid or expired reset code"
+        "invalidOrExpiredResetCode": "Invalid or expired reset code",
+        "invalidPassword": "Password does not complete all the requirements"
       },
       "confirmUser": {
         "confirming": "Confirming...",
@@ -113,12 +114,9 @@
         "header": "Reset Password",
         "oldPassword": "Old Password",
         "newPassword": "New Password",
-        "confirmPassword": "Confirm Password",
         "passwordsMustMatch": "Passwords do not match",
-        "oldPasswordRequired": "Old password is required",
-        "newPasswordRequired": "New password is required",
-        "confirmPasswordRequired": "Password must be confirmed",
-        "showPassword": "Show password"
+        "showPassword": "Show password",
+        "confirmNewPassword": "Confirm new password"
       },
       "myResume": {
         "header": "My Resume",
@@ -129,9 +127,7 @@
         "resumeNotFound": "Resume not found",
         "submit": "Save",
         "present": "Present",
-        "educationAndTraining": "Education & Training",
         "downloadPdfButtonText": "Download PDF",
-        "workExperience": "Work Experience",
         "createSuccessMessage": "Your resume was created successfully!",
         "createErrorMessage": "Failed to create resume!",
         "deleteSuccessMessage": "Your resume was deleted successfully!",
@@ -199,11 +195,6 @@
           "headerPlural": "Soft Skills",
           "headerSingular": "Soft Skill"
         },
-        "drivingLicenseSection": {
-          "headerPlural": "Driving Licenses",
-          "headerSingular": "Driving License",
-          "noDrivingLicense": "None"
-        },
         "hobbiesSection": {
           "headerPlural": "Hobbies",
           "headerSingular": "Hobby"
@@ -242,7 +233,12 @@
           "addButtonTitle": "Add",
           "removeButtonTitle": "Remove"
         },
-        "required": "{{field}} is required"
+        "required": "{{field}} is required",
+        "drivingLicensesSection": {
+          "headerPlural": "Driving license",
+          "headerSingular": "Driving license",
+          "noDrivingLicense": "None"
+        }
       }
     },
     "globalStrings": {
@@ -343,7 +339,8 @@
       "jobOpportunities": "Explore Job Opportunities",
       "craftResume": "Craft a Winning Resume",
       "careerAdvice": "Receive Career Guidance",
-      "careerAdviceMessage": "I need career advice"
+      "careerAdviceMessage": "I need career advice",
+      "buttonText": "Virtual Assistant"
     },
     "myCoverLetters": {
       "header": "My Cover Letters",
@@ -450,7 +447,6 @@
       "softSkills": "Soft Skills",
       "hobbies": "Hobbies",
       "summary": "Summary",
-
       "experiencesPlaceholder": "Example: Software Engineer at Google, started at 2019 and ended at 2020. Worked on Google Maps, Google Analytics. .",
       "educationsPlaceholder": "Example: University of Oxford, started at 2019 and ended at 2022,  Master in Computer Science.",
       "nativeLanguagePlaceholder": "Example: English.",

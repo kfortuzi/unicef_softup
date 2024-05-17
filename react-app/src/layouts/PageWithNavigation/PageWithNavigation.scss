@@ -8,39 +8,61 @@
 
   .breadcrumb-container {
     margin: $medium 0;
+
+    &:empty {
+      display: none;
+    }
   }
 
   .navigation-bar {
     display: flex;
     flex-flow: row nowrap;
-    margin-left: 0px;
+    justify-content: center;
+    margin: 0;
     position: sticky;
     top: 0;
     z-index: 2;
-    border-bottom: 1px solid $light-gray;
-    justify-content: center;
+    height: auto;
+    box-sizing: border-box;
+    backdrop-filter: blur(20px);
+    background-color: rgba($background-color, 0.8);
+    border-bottom: 0.1px solid $light-gray;
+    padding: 0;
 
     .navigation-wrapper {
-      max-width: 1080px;
-      display: flex;
       flex: 1;
-
-      .navigation-menu {
-        flex: 1;
-        min-width: 0px;
-        justify-content: flex-end;
-      }
+      max-width: 1080px;
+      padding: 0 $large;
+      display: flex;
+      gap: $large;
+      overflow: hidden;
 
       .logo {
         border: 0;
         list-style: none;
         min-width: 250px;
-        height: 100%;
-        padding: 10px;
+        height: 80px;
+        padding: $large 0;
         cursor: pointer;
+        box-sizing: border-box;
+        margin-right: auto;
+      }
+
+      .navigation-menu {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+        overflow: hidden;
+
+        .ant-menu-overflow-item,
+        .ant-menu-submenu-title {
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
       }
     }
-
 
   }
 
@@ -57,29 +79,33 @@
     .page-content {
       display: flex;
       flex-flow: column nowrap;
-      padding: 0 $small;
+      padding: $large $large calc(4 * $large-2x);
     }
   }
 
   .footer {
     display: flex;
     justify-content: center;
-    border-top: 0.2px solid $light-gray;
+    background-color: rgba($background-color, 0.8);
+    backdrop-filter: blur(20px);
+    border-top: 0.1px solid $light-gray;
     flex-flow: row nowrap;
     bottom: 0;
     z-index: 1;
-    padding: 10px 0px;
-    margin-top: 70px;
+    padding: $large 0;
 
     .footer-wrapper {
+      flex: 1;
+      display: flex;
+      justify-content: space-between;
+      gap: $large;
+      max-width: 1080px;
+      padding-inline: $large;
+      text-align: center;
+
       span {
         margin: 0
       }
-
-      display: flex;
-      justify-content: space-between;
-      flex: 1;
-      max-width: 1080px;
     }
   }
 }

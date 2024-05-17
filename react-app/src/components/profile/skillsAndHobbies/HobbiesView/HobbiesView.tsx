@@ -26,7 +26,6 @@ const HobbiesView: React.FC<Props> = ({ toggleEditMode }) => {
           type="primary"
           text={i18n.t('globalStrings.edit')}
           onClick={toggleEditMode}
-          style={{ marginTop: '20px' }}
         />
       </div>
     </div>

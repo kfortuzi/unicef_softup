@@ -1,17 +1,17 @@
 {
   "components": {
     "Layout": {
-      "headerBg": "#F4F3F2",
-      "siderBg": "#F4F3F2"
+      "headerBg": "#f9f9f9",
+      "siderBg": "#f9f9f9"
     },
     "Menu": {
       "darkItemBg": "transparent",
       "darkItemSelectedBg": "transparent",
       "darkSubMenuItemBg": "transparent",
-      "darkPopupBg": "#F4F3F2",
+      "darkPopupBg": "#f9f9f9",
       "horizontalItemHoverColor": "transparent",
       "horizontalItemSelectedColor": "transparent",
-      "colorTextLightSolid": "#36383B"
+      "colorTextLightSolid": "#000000"
     }
   },
   "token": {
@@ -22,7 +22,7 @@
     "colorSuccess": "#52C41A",
     "colorWarning": "#FAAD14",
     "colorError": "#F5222D",
-    "colorTextBase": "#36383B",
+    "colorTextBase": "#000000",
     "fontSize": 16,
     "borderRadius": 5,
     "fontFamily": "Poppins-Regular"

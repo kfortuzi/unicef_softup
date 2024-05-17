@@ -1,24 +1,27 @@
 .profile-page-with-navigation-container {
-  margin-top: 15px;
+  background: transparent;
+  gap: $large;
+
+  .ant-layout {
+    .ant-layout-content {
+      padding: 0;
+      overflow: hidden;
+    }
+  }
+
   .profile-settings-navigation-menu {
     display: flex;
     flex-flow: column nowrap;
 
-    >.ant-menu-item {
+    > .ant-menu-item {
       line-height: 1;
       height: max-content;
       text-wrap: wrap;
       align-items: flex-start !important;
-      margin-bottom: 10px;
-      padding: 0 0 16px 0 !important;
+      margin-bottom: $medium;
+      margin-inline: 0;
+      padding: 0 !important;
+      box-sizing: border-box;
     }
   }
-
-  .profile-page-content {
-    padding: 24px;
-    background-color: $white;
-    border-radius: $base-border-radius;
-    width: 100%;
-  }
 }
-

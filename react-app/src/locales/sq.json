@@ -114,7 +114,9 @@
         "header": "Rivendos Fjalekalimin",
         "oldPassword": "Fjalekalimi i vjeter",
         "newPassword": "Fjalekalimi i ri",
-        "confirmNewPassword": "Konfirmo Fjalekalimin e ri"
+        "confirmNewPassword": "Konfirmo Fjalekalimin e ri",
+        "passwordsMustMatch": "Fjalekalimet nuk perputhen",
+        "showPassword": "Shfaq fjalekalimin"
       },
       "myResume": {
         "header": "Jeteshkrimi im",
@@ -251,7 +253,7 @@
       "create": "Krijo",
       "download": "Shkarko",
       "required": "{{field}} eshte i detyrueshem",
-      "changePhotoButtonText": "Ndrysho foton",
+      "changePhotoButtonText": "Ndrysho foton e profilit",
       "uploading": "Duke ngarkuar foton...",
       "uploadSuccess": "Fotoja u ngarkua me sukses",
       "uploadError": "Fotoja nuk u ngarkua me sukses",
@@ -297,7 +299,7 @@
       "personalInfo": "Informacione Personale",
       "skillsAndHobbies": "Aftesi & Hobi",
       "resetPassword": "Ndrysho fjalekalimin",
-      "myResume": "Rezymenë time"
+      "myResume": "Jeteshkrimi im"
     },
     "breadcrumb": {
       "home": "Kryefaqja",
@@ -316,7 +318,7 @@
       "personalInfo": "Informacione Personale",
       "skillsAndHobbies": "Aftesi & Hobi",
       "changePassword": "Ndrysho fjalekalimin",
-      "myResume": "Rezymenë time"
+      "myResume": "Jeteshkrimi im"
     },
     "myResumes": {
       "header": "CV-të e mia",
@@ -337,7 +339,8 @@
       "jobOpportunities": "Eksploro Mundesi Punesimi",
       "craftResume": "Krijo Nje Resume te Mire",
       "careerAdvice": "Merr Udhezime per Karrieren",
-      "careerAdviceMessage": "Dua udhezime per karrieren"
+      "careerAdviceMessage": "Dua udhezime per karrieren",
+      "buttonText": "Assistenti Virtual"
     },
     "myCoverLetters": {
       "header": "Letrat e mia te motivimit",
@@ -443,7 +446,6 @@
       "softSkills": "Aftësitë Personale",
       "hobbies": "Hobi",
       "summary": "Përmbledhje",
-
       "experiencesPlaceholder": "Shembull: Programues ne Google, fillova ne 2019 dhe mbarova ne 2020. U morra me Google Maps, Google Analytics etj.",
       "educationsPlaceholder": "Shembull: Universiteti Politeknik i Tiranes, Bachelor ne Inxhinier Informatike, fillova në 2018 dhe mbarova nga 2021, Gjimnazi Ismail Qemali, viti 2015... .",
       "nativeLanguagePlaceholder": "Shembull: Shqip.",
@@ -454,7 +456,8 @@
       "hobbiesPlaceholder": "Shembull: Futbolli, Formula 1, të degjoj muzikë...",
       "summaryPlaceholder": "Përmbledhje ne lidhje me eksperiencat dhe karakterin tuaj.",
       "createSuccessMessage": "CV u krijua me sukses!",
-      "createErrorMessage": "CV nuk u krijua me sukses!"
+      "createErrorMessage": "CV nuk u krijua me sukses!",
+      "submit": "Dergo"
     },
     "trainingVideos": {
       "header": "Video trajnime",

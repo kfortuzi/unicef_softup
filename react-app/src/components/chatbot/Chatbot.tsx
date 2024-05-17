@@ -1,12 +1,14 @@
-import { Button } from 'antd';
 import React, { useState } from 'react';
-import { VscRobot } from 'react-icons/vsc';
+import { useTranslation } from 'react-i18next';
 
 import usePostChatbot from 'src/api/chatbot/hooks/usePostChatbot';
 
 import AskWizardModal from '../common/AskWizardModal/AskWizardModal';
+import Button from '../common/Button/Button';
 
 const Chatbot: React.FC = () => {
+  const { t } = useTranslation('translation', { keyPrefix: 'chatbot' });
+
   const [isOpen, setOpen] = useState(false);
   const [firstChatbotConversationMessage, setFirstChatbotConversationMessage] = useState(true);
   const { mutateAsync: postChatbotAsync } = usePostChatbot();
@@ -30,19 +32,12 @@ const Chatbot: React.FC = () => {
   return (
     <>
       <Button
-        icon={
-          <VscRobot
-            size={25}
-            style={{ marginBottom: -5 }}
-          />
-        }
         type="primary"
         size="large"
         className="chatbot-button"
         onClick={openChatbot}
-      >
-        Assistenti Virtual
-      </Button>
+        text={t('buttonText')}
+      />
       <AskWizardModal
         open={isOpen}
         setOpen={setOpen}

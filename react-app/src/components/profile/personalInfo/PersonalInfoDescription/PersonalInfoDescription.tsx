@@ -18,7 +18,7 @@ const PersonalInfoDescription: React.FC<Props> = ({ toggleEditMode }) => {
   const { firstName, lastName, phoneNumber, profession, birthdayDate } = user as User;
 
   return (
-    <div className="profile-form-view profile-form-container">
+    <div className="profile-form-view">
       <div className="info-group">
         <span>{t('firstName')}: </span>
         <span>{firstName}</span>
@@ -44,7 +44,6 @@ const PersonalInfoDescription: React.FC<Props> = ({ toggleEditMode }) => {
           type="primary"
           text={i18n.t('globalStrings.edit')}
           onClick={toggleEditMode}
-          style={{ marginTop: '20px' }}
         />
       </div>
     </div>

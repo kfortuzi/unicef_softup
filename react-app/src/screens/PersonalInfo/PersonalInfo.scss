@@ -1,19 +1,93 @@
 .personal-info-container {
-  display: flex;
-  flex-flow: column wrap;
-  align-content: flex-start;
-}
+  padding: $large;
+  background-color: $white;
+  border-radius: $base-border-radius;
+  box-sizing: border-box;
+  margin-left: 0;
+  margin-right: 0;
+  gap: $large;
 
-.profile-form {
-  >div {
-    >span {
-      color: red;
+  .image-upload-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: max-content;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    overflow: hidden;
+    border-radius: $base-border-radius;
+    box-sizing: border-box;
+    transition: all 0.1s ease-in;
+
+    &:hover,
+    &.loading {
+      background-color: $base-font-color;
+
+      .ant-upload {
+        .overlay {
+          opacity: 1;
+        }
+
+        .ant-image {
+          filter: opacity(0.5);
+        }
+      }
+    }
+
+    .ant-upload-wrapper,
+    .ant-upload-select,
+    .ant-upload {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+
+      .overlay {
+        position: absolute;
+        opacity: 0;
+        z-index: 1;
+        color: $white;
+        transition: all 0.1s ease-in;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: $medium;
+
+        .anticon {
+          font-size: 1.25em;
+        }
+
+        .info {
+          font-size: 0.75em;
+        }
+      }
+
+      .ant-image {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        object-fit: cover;
+        object-position: center;
+        transition: all 0.1s ease-in;
+      }
     }
   }
-}
 
-.title {
-  font-family: $poppins-bold;
-  font-size: 150%;
-  margin-bottom: $large;
+  .profile-form {
+    > div {
+      > span {
+        color: red;
+      }
+    }
+  }
+
+  .title {
+    font-family: $poppins-bold;
+    font-size: 150%;
+    margin-bottom: $large;
+  }
 }

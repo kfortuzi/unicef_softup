@@ -22,7 +22,6 @@ const MyResume: React.FC = () => {
         flexDirection: 'column',
         alignItems: 'center',
         gap: '5px',
-        marginBottom: '20px',
       }}
     >
       {baseResume ? (

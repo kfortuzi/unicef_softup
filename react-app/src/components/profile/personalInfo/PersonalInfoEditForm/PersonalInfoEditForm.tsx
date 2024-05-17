@@ -133,13 +133,11 @@ const PersonalInfoEditForm: React.FC<Props> = ({ toggleEditMode }) => {
           text={i18n.t('globalStrings.submit')}
           htmlType="submit"
           loading={isPending}
-          style={{ marginTop: '20px' }}
         />
         <Button
           type="default"
           text={i18n.t('globalStrings.cancel')}
           onClick={toggleEditMode}
-          style={{ marginTop: '20px' }}
         />
       </div>
     </form>
