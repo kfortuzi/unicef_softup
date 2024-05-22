@@ -71,7 +71,9 @@
         "userDoesNotExist": "User not found",
         "passwordResetEmailSent": "Password reset email was sent",
         "invalidOrExpiredResetCode": "Invalid or expired reset code",
-        "invalidPassword": "Password does not complete all the requirements"
+        "invalidPassword": "Password does not complete all the requirements",
+        "resendEmail": "Resend Email",
+        "sendMeToLogin": "Send Me To Login"
       },
       "confirmUser": {
         "confirming": "Confirming...",

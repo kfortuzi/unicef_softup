@@ -71,7 +71,9 @@
         "failedToRequestNewPassword": "Diçka shkoi keq, ju lutemi provoni përsëri më vonë!",
         "userDoesNotExist": "Ky perdorues nuk ekziston",
         "passwordResetEmailSent": "Nje email me instruksionet per rivendosjen e fjalekalimit u dergua ne email-in tuaj.",
-        "invalidOrExpiredResetCode": "Kodi i rivendosjes se fjalekalimit eshte i pavlefshem ose ka skaduar"
+        "invalidOrExpiredResetCode": "Kodi i rivendosjes se fjalekalimit eshte i pavlefshem ose ka skaduar",
+        "resendEmail": "Dergo emailin perseri",
+        "sendMeToLogin": "Me Dergo Ne Login"
       },
       "confirmUser": {
         "confirming": "Duke konfirmuar...",

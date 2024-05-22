@@ -73,7 +73,6 @@ export class UserRepository {
     return this.prismaService.user_skills.findUnique({ where: { id } });
   }
 
-  // TODO: Create it with upsert
   async createUserSkill(userId: string, name: string) {
     return this.prismaService.user_skills.create({
       data: {
@@ -121,6 +120,18 @@ export class UserRepository {
       where: {
         userId,
         code,
+        type,
+        expiresAt: {
+          gte: new Date(),
+        },
+      },
+    });
+  }
+
+  async findCodeByUserId(userId: string, type: CodeType) {
+    return await this.prismaService.user_code.findFirst({
+      where: {
+        userId,
         type,
         expiresAt: {
           gte: new Date(),

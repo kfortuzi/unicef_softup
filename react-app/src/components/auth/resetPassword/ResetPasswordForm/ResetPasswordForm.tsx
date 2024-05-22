@@ -2,11 +2,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 import useResetPassword from 'src/api/users/hooks/useResetPassword';
 import Button from 'src/components/common/Button/Button';
 import InputCheckbox from 'src/components/common/InputCheckbox/InputCheckbox';
 import InputText from 'src/components/common/InputText/InputText';
+import { Route } from 'src/router/enums';
 
 import { defaultValues } from './constants';
 import { FormField } from './enums';
@@ -19,10 +21,12 @@ interface Props {
 
 const ResetPasswordForm: React.FC<Props> = ({ id, verificationCode }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'auth.resetPassword' });
-
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
-  const { mutate: resetPassword, isPending } = useResetPassword();
+  const { mutate: resetPassword, isPending, error } = useResetPassword();
+
+  console.log(error?.message);
 
   const { handleSubmit, control } = useForm({
     defaultValues: defaultValues,
@@ -37,6 +41,29 @@ const ResetPasswordForm: React.FC<Props> = ({ id, verificationCode }) => {
       verificationCode,
     }),
   );
+
+  const renderResendEmail = () => {
+    if (error?.message === 'Invalid or expired reset code.') {
+      return (
+        <div className="resend-email-group">
+          <Button
+            type="default"
+            text={t('sendMeToLogin')}
+            className="action"
+            onClick={() => navigate(`${Route.ACCESS}/${Route.LOGIN}`, { replace: true })}
+          />
+          <Button
+            type="default"
+            text={t('resendEmail')}
+            className="action"
+            onClick={() => navigate(`${Route.ACCESS}/${Route.FORGOT_PASSWORD}`)}
+          />
+        </div>
+      );
+    }
+
+    return null;
+  };
 
   return (
     <form
@@ -91,6 +118,7 @@ const ResetPasswordForm: React.FC<Props> = ({ id, verificationCode }) => {
           className="reset-password-form-button"
           loading={isPending}
         />
+        {renderResendEmail()}
       </div>
     </form>
   );

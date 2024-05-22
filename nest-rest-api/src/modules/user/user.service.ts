@@ -187,6 +187,25 @@ export class UserService {
       throw new InternalServerErrorException('User not found.');
     }
 
+    const verifiedUser = await this.userRepository.findVerifiedUser(user.email);
+
+    if (verifiedUser)
+      throw new UnprocessableEntityException('User already verified');
+
+    const existingCode = await this.userRepository.findCodeByUserId(
+      user.id,
+      'VERIFICATION',
+    );
+
+    if (
+      existingCode &&
+      !existingCode?.confirmedAt &&
+      dayjs.utc(existingCode.expiresAt).isAfter(dayjs().utc())
+    )
+      throw new UnprocessableEntityException(
+        'There is already a valid code to be confirmed',
+      );
+
     const verificationCode = uuidv4();
     const expiresAt = dayjs().add(24, 'hour').toDate();
 
@@ -196,23 +215,37 @@ export class UserService {
       'VERIFICATION',
       expiresAt,
     );
-    const link = `<a href="${this.config.feHost}/#/access/confirm-user?id=${user.id}&verificationCode=${verificationCode}">Link to confirm</a>`;
-    await this.sesService.sendEmail(
-      'Verify Your Email',
-      `Please click on the following link to verify your email: ${link}`,
-      user.email,
+    const template = getSignUpTemplate(
+      this.config.feHost,
+      verificationCode,
+      user.id,
     );
+    await this.sesService.sendEmail('Verify Your Email', template, user.email);
+
     return { message: 'Verification email sent.' };
   }
 
   async sendResetPassword({ email }: SendResetPasswordUserDto) {
     const user = await this.userRepository.findOneByEmail(email);
-
     if (!user)
       throw new UnprocessableEntityException({
         errorCode: 422,
         message: 'User does not exists!',
       });
+
+    const existingCode = await this.userRepository.findCodeByUserId(
+      user.id,
+      'PASSWORD_RESET',
+    );
+
+    if (
+      existingCode &&
+      !existingCode?.confirmedAt &&
+      dayjs.utc(existingCode.expiresAt).isAfter(dayjs().utc())
+    )
+      throw new UnprocessableEntityException(
+        'There is already a valid code to be confirmed',
+      );
 
     const resetCode = uuidv4();
     const expiresAt = dayjs().add(1, 'hour').toDate();
@@ -250,6 +283,7 @@ export class UserService {
       verificationCode,
       'PASSWORD_RESET',
     );
+
     if (!codeValid) {
       throw new ForbiddenException({
         message: 'Invalid or expired reset code.',
