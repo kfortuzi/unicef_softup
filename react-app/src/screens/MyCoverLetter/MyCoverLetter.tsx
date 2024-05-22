@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 
 import useGetCoverLetter from 'src/api/coverLetters/hooks/useGetCoverLetter';
 import { GetCoverLetterResponse } from 'src/api/coverLetters/types';
+import useGetJob from 'src/api/jobs/hooks/useGetJob';
 import useGetProfile from 'src/api/users/hooks/useGetProfile';
 import { User } from 'src/api/users/types';
 import LoadingFullPage from 'src/components/common/LoadingFullPage/LoadingFullPage';
@@ -18,10 +19,16 @@ const MyCoverLetter: React.FC = () => {
   const { id } = useParams();
   const { data: coverLetter, isFetching, isFetched } = useGetCoverLetter({ id });
   const { data: user } = useGetProfile();
+  const { data: job } = useGetJob({ id: coverLetter?.referenceId });
 
   if (isFetching) {
     return <LoadingFullPage />;
   }
+
+  const isEnhancedCoverLetter = !!coverLetter?.referenceId;
+  const fileName = isEnhancedCoverLetter
+    ? `${user?.firstName}-${user?.lastName}-${job?.title}.pdf`
+    : `${user?.firstName}-${user?.lastName}.pdf`;
 
   return (
     <div className="cover-letter-layout">
@@ -35,7 +42,7 @@ const MyCoverLetter: React.FC = () => {
                 user={user as User}
               />
             }
-            fileName="coverLetter.pdf"
+            fileName={fileName}
           >
             {t('downloadPdfButtonText')} <DownloadOutlined />
           </PDFDownloadLink>

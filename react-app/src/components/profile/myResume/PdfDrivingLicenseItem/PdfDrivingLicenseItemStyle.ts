@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   },
   drivingLicensText: {
     fontWeight: 'bold',
-    fontSize: 12,
+    fontSize: 11,
   },
 });
 

@@ -26,8 +26,6 @@ const ResetPasswordForm: React.FC<Props> = ({ id, verificationCode }) => {
 
   const { mutate: resetPassword, isPending, error } = useResetPassword();
 
-  console.log(error?.message);
-
   const { handleSubmit, control } = useForm({
     defaultValues: defaultValues,
     resolver: yupResolver(validationSchema),

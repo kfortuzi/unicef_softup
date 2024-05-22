@@ -41,18 +41,17 @@ const ResumePdfView: React.FC<ResumePdfViewProps> = ({ resume }) => {
             imgUrl={resume.profilePicture}
           />
           <View style={styles.contentSection}>
-
             {/* About Me*/}
             <PdfSection title={t('aboutMeSection.header')}>
               <PdfAboutMe description={resume.summary} />
             </PdfSection>
 
             {/* Education And Training*/}
-            {resume.educations && resume.educations?.length > 0 && (
+            {resume.educations && resume.educations?.length > 0 ? (
               <PdfSection title={t('educationAndTrainingsSection.headerPlural')}>
                 <PdfEducationAndTrainings educationAndTrainings={resume.educations} />
               </PdfSection>
-            )}
+            ) : null}
 
             {/* Work Experience*/}
             {resume.experiences && resume.experiences?.length > 0 && (
@@ -92,7 +91,12 @@ const ResumePdfView: React.FC<ResumePdfViewProps> = ({ resume }) => {
             {resume.digitalSkills && resume.digitalSkills.length > 0 && (
               <PdfSection title={t('digitalSkillsSection.headerPlural')}>
                 {resume.digitalSkills?.map((skill) => (
-                  <Text key={skill} style={styles.sectionText}>{skill}</Text>
+                  <Text
+                    key={skill}
+                    style={styles.sectionText}
+                  >
+                    {skill}
+                  </Text>
                 ))}
               </PdfSection>
             )}
@@ -101,7 +105,12 @@ const ResumePdfView: React.FC<ResumePdfViewProps> = ({ resume }) => {
             {resume.softSkills && resume.softSkills.length > 0 && (
               <PdfSection title={t('softSkillsSection.headerPlural')}>
                 {resume.softSkills?.map((skill) => (
-                  <Text key={skill} style={styles.sectionText}>{skill}</Text>
+                  <Text
+                    key={skill}
+                    style={styles.sectionText}
+                  >
+                    {skill}
+                  </Text>
                 ))}
               </PdfSection>
             )}
@@ -110,7 +119,12 @@ const ResumePdfView: React.FC<ResumePdfViewProps> = ({ resume }) => {
             {resume.technicalSkills && resume.technicalSkills.length > 0 && (
               <PdfSection title={t('technicalSkillsSection.headerPlural')}>
                 {resume.technicalSkills?.map((skill) => (
-                  <Text key={skill} style={styles.sectionText}>{skill}</Text>
+                  <Text
+                    key={skill}
+                    style={styles.sectionText}
+                  >
+                    {skill}
+                  </Text>
                 ))}
               </PdfSection>
             )}
@@ -119,7 +133,12 @@ const ResumePdfView: React.FC<ResumePdfViewProps> = ({ resume }) => {
             {resume.hobbies && resume.hobbies.length > 0 && (
               <PdfSection title={t('hobbiesSection.headerPlural')}>
                 {resume.hobbies?.map((hobby) => (
-                  <Text key={hobby} style={styles.sectionText}>{hobby}</Text>
+                  <Text
+                    key={hobby}
+                    style={styles.sectionText}
+                  >
+                    {hobby}
+                  </Text>
                 ))}
               </PdfSection>
             )}

@@ -1,13 +1,13 @@
 import { StyleSheet } from '@react-pdf/renderer';
 
-const medium = 12; 
+const medium = 11;
 const large = 14;
 
 const styles = StyleSheet.create({
   listItem: {
     flexDirection: 'row',
     fontSize: medium,
-    margin:0,
+    margin: 0,
   },
   listDecoration: {
     flexDirection: 'column',
@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
   listBody: {
     fontWeight: 'light',
     flexDirection: 'row',
+    fontSize: 11,
     gap: 10,
   },
   listBullet: {
@@ -46,7 +47,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'blue',
     overflow: 'hidden',
   },
-  
 });
 
 export default styles;

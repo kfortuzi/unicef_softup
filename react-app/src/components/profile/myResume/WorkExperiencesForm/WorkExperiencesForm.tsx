@@ -34,7 +34,7 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
   const { workExperiences } = props;
 
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.workExperiencesSection' });
-  const [contentLoading, setContentLoading] = useState(false);
+  const [contentLoading, setContentLoading] = useState<number | null>(null);
   const { mutateAsync: postResumeResponsibilityAsync } = usePostResumeResponsibility();
   const { mutateAsync: postResumeAskWizardAsync } = usePostResumeAskWizard();
 
@@ -80,14 +80,14 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
   const [isOpen, setOpen] = useState(false);
 
   const handleAutoGenerate = async (field: WorkExperience, index: number) => {
-    setContentLoading(true);
+    setContentLoading(index);
     const responsibilitiesValue = getValues(`experiences.${index}.${FormField.RESPONSIBILITIES}`);
     const data = await postResumeResponsibilityAsync({ ...field, responsibilities: responsibilitiesValue });
 
     if (data) {
       setValue(`experiences.${index}.${FormField.RESPONSIBILITIES}`, data, { shouldDirty: true });
     }
-    setContentLoading(false);
+    setContentLoading(null);
   };
 
   const updateMessageText = async (text: string, index: number) => {
@@ -125,6 +125,7 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
 
   const items: CollapseProps['items'] = fields.map((field, index) => {
     const responsibilitiesValue = watch(`experiences.${index}.${FormField.RESPONSIBILITIES}`);
+    const loading = index === contentLoading;
 
     return {
       key: field.id,
@@ -220,8 +221,8 @@ const WorkExperiencesForm: React.FC<WorkExperiencesProps> = (props) => {
                 label={t('responsibilities')}
                 inputRef={ref}
                 name={name}
-                value={contentLoading ? i18n.t('globalStrings.loading') : value || ''}
-                disabled={contentLoading}
+                value={loading ? i18n.t('globalStrings.loading') : value || ''}
+                disabled={loading}
                 onChange={onChange}
                 placeholder={t('responsibilities')}
                 className="input-element"

@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   },
   sectionText: {
     fontWeight: 'light',
-    fontSize: 12,
+    fontSize: 11,
   },
   section: {
     padding: 10,
@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
   page: {
     flexDirection: 'row',
     backgroundColor: 'white',
+    lineHeight: 1.5,
   },
 });
 

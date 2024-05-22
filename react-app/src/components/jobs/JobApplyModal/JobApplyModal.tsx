@@ -1,18 +1,18 @@
-import { DownloadOutlined, QuestionCircleOutlined } from "@ant-design/icons";
-import { PDFDownloadLink } from "@react-pdf/renderer";
-import { Modal, Popconfirm, Tooltip } from "antd";
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { DownloadOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import { Modal, Popconfirm, Tooltip } from 'antd';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
-import usePostCoverLetterForJob from "src/api/coverLetters/hooks/usePostCoverLetterForJob";
-import { GetCoverLetterResponse } from "src/api/coverLetters/types";
-import usePostResumeForJob from "src/api/resumes/hooks/usePostResumeForJob";
-import { GetResumeResponse } from "src/api/resumes/types";
-import useGetProfile from "src/api/users/hooks/useGetProfile";
-import Button from "src/components/common/Button/Button";
-import CoverLetterPdfView from "src/components/coverLetter/CoverLetterPdfView/CoverLetterPdfView";
-import ResumePdfView from "src/components/profile/myResume/ResumePdfView/ResumePdfView";
+import usePostCoverLetterForJob from 'src/api/coverLetters/hooks/usePostCoverLetterForJob';
+import { GetCoverLetterResponse } from 'src/api/coverLetters/types';
+import usePostResumeForJob from 'src/api/resumes/hooks/usePostResumeForJob';
+import { GetResumeResponse } from 'src/api/resumes/types';
+import useGetProfile from 'src/api/users/hooks/useGetProfile';
+import Button from 'src/components/common/Button/Button';
+import CoverLetterPdfView from 'src/components/coverLetter/CoverLetterPdfView/CoverLetterPdfView';
+import ResumePdfView from 'src/components/profile/myResume/ResumePdfView/ResumePdfView';
 
 type JobApplyModalProps = {
   jobId?: string;
@@ -20,16 +20,10 @@ type JobApplyModalProps = {
   resume?: GetResumeResponse;
   coverLetter?: GetCoverLetterResponse;
   referenceId?: string;
+  title?: string;
 };
 
-const JobApplyModal: React.FC<JobApplyModalProps> = ({
-  jobId,
-  companyName,
-  resume,
-  coverLetter,
-  referenceId,
-}) => {
-
+const JobApplyModal: React.FC<JobApplyModalProps> = ({ jobId, title, resume, coverLetter, referenceId }) => {
   const navigate = useNavigate();
   const { t } = useTranslation('translation', { keyPrefix: 'jobs' });
 
@@ -120,16 +114,15 @@ const JobApplyModal: React.FC<JobApplyModalProps> = ({
   const getResumeButtons = () => {
     if (resume) {
       return (
-
-        <div className='generated-info-group'>
+        <div className="generated-info-group">
           <Button
             text={t('viewResumeButtonText')}
-            type='link'
+            type="link"
             onClick={() => navigate(`/resumes/${resume?.id}`)}
           />
           <PDFDownloadLink
             document={<ResumePdfView resume={resume} />}
-            fileName={`${resume?.firstName}-${companyName}.pdf`}
+            fileName={`${user?.firstName}-${user?.lastName}-${title}.pdf`}
           >
             <DownloadOutlined />
           </PDFDownloadLink>
@@ -143,24 +136,28 @@ const JobApplyModal: React.FC<JobApplyModalProps> = ({
         text={t('tailorResumeButtonText')}
         onClick={() => postResumeForJob({ jobId })}
         loading={isResumePending}
-        className='generate-button'
+        className="generate-button"
       />
     );
-  }
+  };
 
   const getCoverLetterButtons = () => {
     if (coverLetter) {
       return (
-
-        <div className='generated-info-group'>
+        <div className="generated-info-group">
           <Button
             text={t('viewCoverLetterButtonText')}
-            type='link'
+            type="link"
             onClick={() => navigate(`/cover-letters/${coverLetter?.id}`)}
           />
           <PDFDownloadLink
-            document={<CoverLetterPdfView coverLetter={coverLetter} user={user} />}
-            fileName={`${coverLetter?.to} - ${coverLetter?.company}.pdf`}
+            document={
+              <CoverLetterPdfView
+                coverLetter={coverLetter}
+                user={user}
+              />
+            }
+            fileName={`${user?.firstName}-${user?.lastName}-${title}.pdf`}
           >
             <DownloadOutlined />
           </PDFDownloadLink>
@@ -174,10 +171,10 @@ const JobApplyModal: React.FC<JobApplyModalProps> = ({
         text={t('generateCoverLetterButtonText')}
         onClick={() => postCoverLetterForJob({ jobId })}
         loading={isCoverLetterPending}
-        className='generate-button'
+        className="generate-button"
       />
     );
-  }
+  };
 
   const footerButtons = getFooterButtons();
   const coverLetterButtons = getCoverLetterButtons();
@@ -200,15 +197,18 @@ const JobApplyModal: React.FC<JobApplyModalProps> = ({
         onCancel={handleCancel}
         key={`job-apply-modal-${jobId}`}
         destroyOnClose={true}
-        footer={[
-          <Button
-            key={`job-apply-modal-${jobId}-back`}
-            type="link"
-            text={t('cancelButtonText')}
-            onClick={handleCancel}
-          />,
-          footerButtons
-        ]}
+        footer={
+          <div style={{ display: 'flex' }}>
+            {footerButtons}
+            <Button
+              key={`job-apply-modal-${jobId}-back`}
+              type="default"
+              style={{ marginLeft: 10 }}
+              text={t('cancelButtonText')}
+              onClick={handleCancel}
+            />
+          </div>
+        }
       >
         {resumeButtons}
         {coverLetterButtons}
@@ -219,8 +219,8 @@ const JobApplyModal: React.FC<JobApplyModalProps> = ({
         text={t('applyButtonText')}
         size="middle"
       />
-    </div >
+    </div>
   );
-}
+};
 
 export default JobApplyModal;

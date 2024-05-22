@@ -10,7 +10,8 @@ const styles = StyleSheet.create({
   },
   content: {
     fontWeight: 'light',
-    flexShrink:1,
+    flexShrink: 1,
+    fontSize: 11,
     flexWrap: 'wrap',
   },
 });

@@ -32,7 +32,7 @@ const colors = {
 
 const baseVariables = {
   font: fonts.poppinsRegular,
-  fontSize: '12px',
+  fontSize: '11px',
   fontColor: '#36383B',
   borderRadius: '5px',
   backgroundColor: 'white',

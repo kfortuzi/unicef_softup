@@ -69,6 +69,7 @@ const JobDetails: React.FC = () => {
             companyName={job?.company}
             referenceId={job?.referenceId}
             resume={resume}
+            title={job?.title}
             coverLetter={coverLetter}
           />
           {job?.id ? <JobInterviewTipsModal jobId={job.id} /> : null}

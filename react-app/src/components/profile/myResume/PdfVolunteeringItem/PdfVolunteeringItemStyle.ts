@@ -8,10 +8,12 @@ const styles = StyleSheet.create({
     fontSize: listTitleFontSize,
   },
   volunteeringOrganization: {
-    fontSize: 12,
+    fontSize: 11,
+    fontWeight: 'light',
   },
   volunteeringDate: {
-    fontSize: 12,
+    fontSize: 11,
+    fontWeight: 'light',
   },
 });
 

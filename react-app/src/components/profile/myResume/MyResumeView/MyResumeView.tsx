@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import useGetJob from 'src/api/jobs/hooks/useGetJob';
 import { GetResumeResponse } from 'src/api/resumes/types';
+import useGetProfile from 'src/api/users/hooks/useGetProfile';
 
 import AboutMeForm from '../AboutMeForm/AboutMeForm';
 import AboutMeView from '../AboutMeView/AboutMeView';
@@ -42,8 +43,14 @@ const MyResumeView: React.FC<MyResumeViewProps> = (props) => {
   const resume = props.resume;
 
   const { data: job } = useGetJob({ id: resume?.referenceId });
+  const { data: user } = useGetProfile();
 
   const { firstName, email, linkedinUrl, location, profilePicture, summary, phoneNumber, lastName } = resume;
+
+  const isEnhancedResume = !!resume?.referenceId;
+  const fileName = isEnhancedResume
+    ? `${user?.firstName}-${user?.lastName}-${job?.title}.pdf`
+    : `${user?.firstName}-${user?.lastName}.pdf`;
 
   return (
     <div
@@ -62,7 +69,10 @@ const MyResumeView: React.FC<MyResumeViewProps> = (props) => {
 
         <div className="my-resume-body">
           <div className="download-icon">
-            <PDFDownloadLink document={<ResumePdfView resume={resume} />}>
+            <PDFDownloadLink
+              fileName={fileName}
+              document={<ResumePdfView resume={resume} />}
+            >
               <DownloadOutlined style={{ fontSize: '28px', color: 'black' }} />
             </PDFDownloadLink>
           </div>

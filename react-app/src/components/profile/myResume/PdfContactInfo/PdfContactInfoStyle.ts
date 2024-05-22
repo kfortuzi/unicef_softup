@@ -35,7 +35,8 @@ const styles = StyleSheet.create({
     gap: 5,
   },
   groupValue: {
-    fontSize: 12,
+    fontSize: 11,
+    fontWeight: 'light',
   },
 });
 

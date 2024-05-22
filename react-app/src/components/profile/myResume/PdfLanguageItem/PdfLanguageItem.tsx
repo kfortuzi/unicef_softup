@@ -9,7 +9,7 @@ type PdfLanguageItemProps = Language;
 
 const PdfLanguageItem: React.FC<PdfLanguageItemProps> = (props) => {
   const omittedFalsyProps = Object.fromEntries(
-    Object.entries(props).map(([key, value]) => [key, omitFalsyValue(value)])
+    Object.entries(props).map(([key, value]) => [key, omitFalsyValue(value)]),
   );
 
   const { name, reading, writing, speaking } = omittedFalsyProps;
@@ -19,15 +19,15 @@ const PdfLanguageItem: React.FC<PdfLanguageItemProps> = (props) => {
       <Text style={styles.languageTitle}>{name}</Text>
       <View style={styles.languageLevelContainer}>
         <Text style={styles.languageLevelText}>Reading:</Text>
-        <Text>{reading}</Text>
+        <Text style={styles.languageLevelText}>{reading}</Text>
       </View>
       <View style={styles.languageLevelContainer}>
         <Text style={styles.languageLevelText}>Writing:</Text>
-        <Text>{writing}</Text>
+        <Text style={styles.languageLevelText}>{writing}</Text>
       </View>
       <View style={styles.languageLevelContainer}>
         <Text style={styles.languageLevelText}>Speaking:</Text>
-        <Text>{speaking}</Text>
+        <Text style={styles.languageLevelText}>{speaking}</Text>
       </View>
     </View>
   );

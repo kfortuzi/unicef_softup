@@ -65,6 +65,7 @@ const JobCard: React.FC<JobCardProps> = ({
               <JobApplyModal
                 jobId={jobId}
                 companyName={companyName}
+                title={title}
                 resume={resume}
                 coverLetter={coverLetter}
                 referenceId={referenceId}

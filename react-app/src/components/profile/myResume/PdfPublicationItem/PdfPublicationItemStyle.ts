@@ -2,7 +2,8 @@ import { StyleSheet } from '@react-pdf/renderer';
 
 const styles = StyleSheet.create({
   publicationText: {
-    fontSize: 12,
+    fontSize: 11,
+    fontWeight: 'light',
   },
   publicationItem: {
     flexDirection: 'row',

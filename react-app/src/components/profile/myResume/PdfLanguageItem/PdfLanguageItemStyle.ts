@@ -8,12 +8,14 @@ const styles = StyleSheet.create({
     fontSize: listTitleFontSize,
   },
   languageLevelContainer: {
-    fontSize: 12,
+    fontSize: 11,
     display: 'flex',
     flexDirection: 'row',
   },
   languageLevelText: {
     minWidth: 70,
+    fontWeight: 'light',
+    fontSize: 11,
   },
 });
 

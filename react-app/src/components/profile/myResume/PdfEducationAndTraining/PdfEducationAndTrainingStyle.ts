@@ -7,6 +7,10 @@ const styles = StyleSheet.create({
   subTitle: {
     fontWeight: 'bold',
   },
+  content: {
+    fontSize: 11,
+    fontWeight: 'light',
+  },
 });
 
 export default styles;
