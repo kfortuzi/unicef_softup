@@ -27,9 +27,7 @@ const ConfirmUser: React.FC = () => {
     verificationCode,
   });
 
-  const {
-    mutate: requestVerification,
-  } = useUserRequestVerification();
+  const { mutate: requestVerification } = useUserRequestVerification();
 
   const pageContent = error ? (
     <ResultComponent
@@ -38,7 +36,7 @@ const ConfirmUser: React.FC = () => {
       status="error"
       className="confirm-user-result-component"
       extra={
-        <div className='confirm-user-button-group'>
+        <div className="confirm-user-button-group">
           <Button
             type="default"
             text={t('backToLogin')}

@@ -13,9 +13,16 @@
     .confirm-user-result-component {
       max-width: $suggested-result-component-width;
 
+      .ant-result-extra {
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+      }
+
       .confirm-user-button-group {
         display: flex;
-        flex-direction: column;
+        flex-flow: column nowrap;
+        align-items: center;
         gap: $small;
       }
     }
