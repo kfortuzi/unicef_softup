@@ -11,7 +11,7 @@ type PdfVolunteeringItemItemProps = Volunteering;
 
 const PdfVolunteeringItem: React.FC<PdfVolunteeringItemItemProps> = (props) => {
   const omittedFalsyProps = Object.fromEntries(
-    Object.entries(props).map(([key, value]) => [key, omitFalsyValue(value)])
+    Object.entries(props).map(([key, value]) => [key, omitFalsyValue(value)]),
   );
   const { organization, role, startDate, endDate } = omittedFalsyProps;
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume' });

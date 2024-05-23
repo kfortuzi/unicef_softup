@@ -1,19 +1,22 @@
 .section {
   display: flex;
   flex-direction: column;
-  p {
-    margin: 0;
-  }
+  gap: $medium;
   padding: $medium;
 
+  p,
+  ul {
+    margin: 0;
+  }
+
   .edit-button {
-    margin-block-start: $large;
+    margin-block-start: $medium;
   }
 
   .section-title {
     font-size: $large;
     font-weight: bold;
-    margin-bottom: $small;
+    margin-bottom: $medium;
   }
 
   .section-sub-title {

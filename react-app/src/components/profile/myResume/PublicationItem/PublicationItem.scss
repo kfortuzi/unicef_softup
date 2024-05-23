@@ -1,13 +1,15 @@
 .publication-item {
   display: flex;
-  flex-direction: row;
-  gap: 5px;
+  flex-flow: column nowrap;
 
-  p {
-    margin: 0;
+  .publication-name {
+    font-family: $poppins-bold;
+    font-weight: bold;
+    font-size: 15px;
   }
 
-  .publication-text {
-    font-size: $medium;
+  .publication-date,
+  .publication-link {
+    font-size: 12px;
   }
 }

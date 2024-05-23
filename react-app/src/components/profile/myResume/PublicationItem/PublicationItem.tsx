@@ -8,19 +8,12 @@ const PublicationItem: React.FC<PublicationItemProps> = (props) => {
 
   return (
     <div className="publication-item">
-      <p className="publication-text">{name}</p>
-      <p className="publication-text">&#8226;</p>
-      <p className="publication-text">{formatDate(releaseDate)}</p>
+      <p className="publication-name">{name}</p>
+      <p className="publication-date">{formatDate(releaseDate)}</p>
       {link ? (
-        <>
-          <p className="publication-text">&#8226;</p>
-          <a
-            href={link}
-            className="publication-text"
-          >
-            {link}
-          </a>
-        </>
+        <p className="publication-link">
+          <a href={link}>{link}</a>
+        </p>
       ) : null}
     </div>
   );

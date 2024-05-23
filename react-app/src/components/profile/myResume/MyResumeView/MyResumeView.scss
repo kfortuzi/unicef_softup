@@ -1,8 +1,9 @@
 .my-resume-layout {
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
+  overflow: hidden;
   border-radius: $base-border-radius;
+  width: 100%;
 
   p {
     margin: 0;

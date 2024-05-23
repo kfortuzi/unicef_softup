@@ -1,13 +1,19 @@
 import { StyleSheet } from '@react-pdf/renderer';
 
+const listTitleFontSize = 15;
+
 const styles = StyleSheet.create({
-  publicationText: {
+  publicationName: {
+    fontWeight: 'bold',
+    fontSize: listTitleFontSize,
+  },
+  publicationDate: {
     fontSize: 11,
     fontWeight: 'light',
   },
-  publicationItem: {
-    flexDirection: 'row',
-    gap: 5,
+  publicationLink: {
+    fontSize: 11,
+    fontWeight: 'light',
   },
 });
 

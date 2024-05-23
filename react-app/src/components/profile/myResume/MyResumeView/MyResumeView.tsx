@@ -79,7 +79,6 @@ const MyResumeView: React.FC<MyResumeViewProps> = (props) => {
           <Row
             justify="center"
             wrap={true}
-            style={{ width: '100%' }}
           >
             <Col
               className="contact-section"
@@ -121,146 +120,144 @@ const MyResumeView: React.FC<MyResumeViewProps> = (props) => {
               xxl={16}
               className="content-section"
             >
-              <div>
-                <Section title={t('aboutMeSection.header')}>
-                  <AboutMeView description={summary} />
-                  <AboutMeForm
-                    cvId={resume.id}
-                    aboutMe={summary}
-                    workExperiences={resume?.experiences}
+              <Section title={t('aboutMeSection.header')}>
+                <AboutMeView description={summary} />
+                <AboutMeForm
+                  cvId={resume.id}
+                  aboutMe={summary}
+                  workExperiences={resume?.experiences}
+                />
+              </Section>
+              {/* Education And Training*/}
+              <Section title={t('educationAndTrainingsSection.headerPlural')}>
+                <EducationAndTrainings educationAndTrainings={resume.educations} />
+                <EducationAndTrainingsForm
+                  cvId={resume.id}
+                  educationAndTrainings={resume.educations}
+                />
+              </Section>
+              {/* Work Experience*/}
+              <Section title={t('workExperiencesSection.headerPlural')}>
+                <WorkExperiencesView workExperiences={resume.experiences || []} />
+                <WorkExperiencesForm
+                  cvId={resume.id}
+                  workExperiences={resume.experiences || []}
+                />
+              </Section>
+              {/* Languages*/}
+              <Section title={t('languagesSection.headerPlural')}>
+                <div className="section-text">
+                  <p className="section-subtitle">{t('languagesSection.motherTongue')} </p>
+                  {resume?.languages
+                    ?.filter((language) => language.isNative)
+                    .map((language) => <p>{language.name}</p>)}
+                </div>
+                <div className="other-languages-container">
+                  <p className="section-subtitle">{t('languagesSection.otherLanguages')} </p>
+                  {resume?.languages
+                    ?.filter((language) => !language.isNative)
+                    .map((language) => (
+                      <LanguageItem
+                        key={language.name}
+                        name={language.name}
+                        reading={language.reading}
+                        writing={language.writing}
+                        speaking={language.speaking}
+                        isNative={language.isNative}
+                      />
+                    ))}
+                </div>
+                <LanguagesForm
+                  cvId={resume.id}
+                  languages={resume?.languages}
+                />
+              </Section>
+              {/* Digital Skills*/}
+              <Section title={t('digitalSkillsSection.headerPlural')}>
+                <ul style={{ paddingLeft: '1rem' }}>
+                  {resume?.digitalSkills?.map((skill) => <li key={skill}>{skill}</li>)}
+                </ul>
+                <DigitalSkillsForm
+                  cvId={resume.id}
+                  digitalSkills={resume?.digitalSkills || []}
+                />
+              </Section>
+              {/* Technical Skills*/}
+              <Section title={t('technicalSkillsSection.headerPlural')}>
+                <ul style={{ paddingLeft: '1rem' }}>
+                  {resume?.technicalSkills?.map((skill) => <li key={skill}>{skill}</li>)}
+                </ul>
+                <TechnicalSkillsForm
+                  cvId={resume.id}
+                  technicalSkills={resume?.technicalSkills || []}
+                />
+              </Section>
+              {/* Soft Skills*/}
+              <Section title={t('softSkillsSection.headerPlural')}>
+                <ul style={{ paddingLeft: '1rem' }}>
+                  {resume?.softSkills?.map((skill) => <li key={skill}>{skill}</li>)}
+                </ul>
+                <SoftSkillsForm
+                  cvId={resume.id}
+                  softSkills={resume?.softSkills || []}
+                />
+              </Section>
+              {/* Hobbies and Interests*/}
+              <Section title={t('hobbiesSection.headerPlural')}>
+                <ul style={{ paddingLeft: '1rem' }}>
+                  {resume?.hobbies?.map((hobby) => <li key={hobby}>{hobby}</li>)}
+                </ul>
+                <HobbiesForm
+                  cvId={resume.id}
+                  hobbies={resume?.hobbies}
+                />
+              </Section>
+              {/* Certificates*/}
+              <Section title={t('certificatesSection.headerPlural')}>
+                <CertificatesView certificates={resume?.certificates || []} />
+                <CertificatesForm
+                  cvId={resume.id}
+                  certificates={resume?.certificates || []}
+                />
+              </Section>
+              {/* Volunteering*/}
+              <Section title={t('volunteeringsSection.headerPlural')}>
+                {resume?.volunteering?.map((volunteering, index) => (
+                  <VolunteeringItem
+                    key={index}
+                    role={volunteering.role}
+                    organization={volunteering.organization}
+                    startDate={volunteering.startDate}
+                    endDate={volunteering.endDate}
                   />
-                </Section>
-                {/* Education And Training*/}
-                <Section title={t('educationAndTrainingsSection.headerPlural')}>
-                  <EducationAndTrainings educationAndTrainings={resume.educations} />
-                  <EducationAndTrainingsForm
-                    cvId={resume.id}
-                    educationAndTrainings={resume.educations}
+                ))}
+                <VolunteeringForm
+                  cvId={resume.id}
+                  volunteering={resume?.volunteering || []}
+                />
+              </Section>
+              {/* Publications*/}
+              <Section title={t('publicationsSection.headerPlural')}>
+                {resume?.publications?.map((publication, index) => (
+                  <PublicationItem
+                    key={index}
+                    name={publication.name}
+                    releaseDate={publication?.releaseDate}
+                    link={publication.link}
                   />
-                </Section>
-                {/* Work Experience*/}
-                <Section title={t('workExperiencesSection.headerPlural')}>
-                  <WorkExperiencesView workExperiences={resume.experiences || []} />
-                  <WorkExperiencesForm
-                    cvId={resume.id}
-                    workExperiences={resume.experiences || []}
-                  />
-                </Section>
-                {/* Languages*/}
-                <Section title={t('languagesSection.headerPlural')}>
-                  <div className="section-text">
-                    <p className="section-subtitle">{t('languagesSection.motherTongue')} </p>
-                    {resume?.languages
-                      ?.filter((language) => language.isNative)
-                      .map((language) => <p>{language.name}</p>)}
-                  </div>
-                  <div className="other-languages-container">
-                    <p className="section-subtitle">{t('languagesSection.otherLanguages')} </p>
-                    {resume?.languages
-                      ?.filter((language) => !language.isNative)
-                      .map((language) => (
-                        <LanguageItem
-                          key={language.name}
-                          name={language.name}
-                          reading={language.reading}
-                          writing={language.writing}
-                          speaking={language.speaking}
-                          isNative={language.isNative}
-                        />
-                      ))}
-                  </div>
-                  <LanguagesForm
-                    cvId={resume.id}
-                    languages={resume?.languages}
-                  />
-                </Section>
-                {/* Digital Skills*/}
-                <Section title={t('digitalSkillsSection.headerPlural')}>
-                  <ul style={{ paddingLeft: '1rem' }}>
-                    {resume?.digitalSkills?.map((skill) => <li key={skill}>{skill}</li>)}
-                  </ul>
-                  <DigitalSkillsForm
-                    cvId={resume.id}
-                    digitalSkills={resume?.digitalSkills || []}
-                  />
-                </Section>
-                {/* Technical Skills*/}
-                <Section title={t('technicalSkillsSection.headerPlural')}>
-                  <ul style={{ paddingLeft: '1rem' }}>
-                    {resume?.technicalSkills?.map((skill) => <li key={skill}>{skill}</li>)}
-                  </ul>
-                  <TechnicalSkillsForm
-                    cvId={resume.id}
-                    technicalSkills={resume?.technicalSkills || []}
-                  />
-                </Section>
-                {/* Soft Skills*/}
-                <Section title={t('softSkillsSection.headerPlural')}>
-                  <ul style={{ paddingLeft: '1rem' }}>
-                    {resume?.softSkills?.map((skill) => <li key={skill}>{skill}</li>)}
-                  </ul>
-                  <SoftSkillsForm
-                    cvId={resume.id}
-                    softSkills={resume?.softSkills || []}
-                  />
-                </Section>
-                {/* Hobbies and Interests*/}
-                <Section title={t('hobbiesSection.headerPlural')}>
-                  <ul style={{ paddingLeft: '1rem' }}>
-                    {resume?.hobbies?.map((hobby) => <li key={hobby}>{hobby}</li>)}
-                  </ul>
-                  <HobbiesForm
-                    cvId={resume.id}
-                    hobbies={resume?.hobbies}
-                  />
-                </Section>
-                {/* Certificates*/}
-                <Section title={t('certificatesSection.headerPlural')}>
-                  <CertificatesView certificates={resume?.certificates || []} />
-                  <CertificatesForm
-                    cvId={resume.id}
-                    certificates={resume?.certificates || []}
-                  />
-                </Section>
-                {/* Volunteering*/}
-                <Section title={t('volunteeringsSection.headerPlural')}>
-                  {resume?.volunteering?.map((volunteering, index) => (
-                    <VolunteeringItem
-                      key={index}
-                      role={volunteering.role}
-                      organization={volunteering.organization}
-                      startDate={volunteering.startDate}
-                      endDate={volunteering.endDate}
-                    />
-                  ))}
-                  <VolunteeringForm
-                    cvId={resume.id}
-                    volunteering={resume?.volunteering || []}
-                  />
-                </Section>
-                {/* Publications*/}
-                <Section title={t('publicationsSection.headerPlural')}>
-                  {resume?.publications?.map((publication, index) => (
-                    <PublicationItem
-                      key={index}
-                      name={publication.name}
-                      releaseDate={publication?.releaseDate}
-                      link={publication.link}
-                    />
-                  ))}
-                  <PublicationsForm
-                    cvId={resume.id}
-                    publications={resume?.publications || []}
-                  />
-                </Section>
-                <Section title={t('drivingLicensesSection.headerSingular')}>
-                  <DrivingLicenseView drivingLicense={resume?.drivingLicense || ''} />
-                  <DrivingLicenseForm
-                    cvId={resume.id}
-                    drivingLicense={resume?.drivingLicense || ''}
-                  />
-                </Section>
-              </div>
+                ))}
+                <PublicationsForm
+                  cvId={resume.id}
+                  publications={resume?.publications || []}
+                />
+              </Section>
+              <Section title={t('drivingLicensesSection.headerSingular')}>
+                <DrivingLicenseView drivingLicense={resume?.drivingLicense || ''} />
+                <DrivingLicenseForm
+                  cvId={resume.id}
+                  drivingLicense={resume?.drivingLicense || ''}
+                />
+              </Section>
             </Col>
           </Row>
         </div>

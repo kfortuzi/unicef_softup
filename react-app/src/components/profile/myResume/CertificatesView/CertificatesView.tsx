@@ -15,7 +15,7 @@ const CertificatesView: React.FC<CertificatesProps> = (props) => {
   const { certificates } = props;
 
   return (
-    <>
+    <div>
       {certificates?.map((certificate, index) => (
         <ListItem
           title={omitFalsyValue(certificate.name)}
@@ -30,7 +30,7 @@ const CertificatesView: React.FC<CertificatesProps> = (props) => {
             : null}
         </ListItem>
       ))}
-    </>
+    </div>
   );
 };
 

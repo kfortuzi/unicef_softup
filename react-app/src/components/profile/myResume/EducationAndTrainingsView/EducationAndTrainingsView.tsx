@@ -17,7 +17,7 @@ const EducationAndTrainings: React.FC<EducationAndTrainingsProps> = (props) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume' });
 
   return (
-    <>
+    <div>
       {educationAndTrainings?.map((education, index) => {
         return (
           <ListItem
@@ -26,16 +26,14 @@ const EducationAndTrainings: React.FC<EducationAndTrainingsProps> = (props) => {
             titleStyle={{ color: 'blue' }}
           >
             <div className="education-subtitle">
-              <p>
-                {`${formatDate(education?.startDate)} - ${formatDate(education?.endDate, t('present'))}`}
-              </p>
+              <p>{`${formatDate(education?.startDate)} - ${formatDate(education?.endDate, t('present'))}`}</p>
               <p>{omitFalsyValue(education?.type)}</p>
             </div>
             <p>{omitFalsyValue(education?.location)}</p>
           </ListItem>
         );
       })}
-    </>
+    </div>
   );
 };
 

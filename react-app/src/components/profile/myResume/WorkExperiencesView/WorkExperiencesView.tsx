@@ -15,7 +15,7 @@ const WorkExperiencesView: React.FC<WorkExperiencesProps> = (props) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume' });
 
   return (
-    <>
+    <div>
       {workExperiences.map((experience, index) => {
         return (
           <ListItem
@@ -24,16 +24,14 @@ const WorkExperiencesView: React.FC<WorkExperiencesProps> = (props) => {
             titleStyle={{ color: 'blue' }}
           >
             <div className="work-experience-title">
-              <p>
-                {`${formatDate(experience.startDate)} - ${formatDate(experience.endDate, t('present'))}`}
-              </p>
+              <p>{`${formatDate(experience.startDate)} - ${formatDate(experience.endDate, t('present'))}`}</p>
               <p>{omitFalsyValue(experience?.company)}</p>
             </div>
             <p>{omitFalsyValue(experience?.responsibilities)}</p>
           </ListItem>
         );
       })}
-    </>
+    </div>
   );
 };
 

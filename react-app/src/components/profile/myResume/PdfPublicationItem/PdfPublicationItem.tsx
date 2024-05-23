@@ -10,22 +10,23 @@ type PdfPublicationItemProps = Publication;
 
 const PdfPublicationItem: React.FC<PdfPublicationItemProps> = (props) => {
   const omittedFalsyProps = Object.fromEntries(
-    Object.entries(props).map(([key, value]) => [key, omitFalsyValue(value)])
+    Object.entries(props).map(([key, value]) => [key, omitFalsyValue(value)]),
   );
 
   const { name, releaseDate, link } = omittedFalsyProps;
 
   return (
-    <View style={styles.publicationItem}>
-      <Text style={styles.publicationText}>{name}</Text>
-      <Text style={styles.publicationText}>&#8226;</Text>
-      <Text style={styles.publicationText}>{formatDate(releaseDate)}</Text>
-      {link ? (
-        <>
-          <Text style={styles.publicationText}>&#8226;</Text>
-          <Text style={styles.publicationText}>{link}</Text>
-        </>
-      ) : null}
+    <View
+      style={{
+        flexDirection: 'row',
+        gap: 10,
+      }}
+    >
+      <View>
+        <Text style={styles.publicationName}>{name}</Text>
+        <Text style={styles.publicationDate}>{formatDate(releaseDate)}</Text>
+        {link ? <Text style={styles.publicationLink}>{link}</Text> : null}
+      </View>
     </View>
   );
 };
