@@ -24,8 +24,10 @@ else
   strapi_db_name="strapi_db_dev"
   fe_host="https://db6acida7ydfm.cloudfront.net"
 fi
+
 strapi_token=$(get_secret_value $ENVIRONMENT/strapi/api strapiToken)
 api_jwt_secret=$(get_secret_value $ENVIRONMENT/strapi/api apiJwtSecret)
+openai_api_key=$(get_secret_value $ENVIRONMENT/strapi/api openAiApiKey)
 
 strapi_jwt_secret=$(get_secret_value $ENVIRONMENT/strapi strapiJwtSecret)
 strapi_admin_jwt_secret=$(get_secret_value $ENVIRONMENT/strapi strapiAdminJwtSecret)
@@ -43,7 +45,6 @@ akpa_strapi_s3_stack_output=$(stack_output akpa-ai-strapi-s3-$ENVIRONMENT)
 strapi_s3_bucket_name=$(param_from_stack_output "$akpa_strapi_s3_stack_output" BucketName)
 
 db_connection_url="postgresql://$db_user:$db_password@$db_host:$db_port/$db_name?schema=public"
-openai_api_key="$OPEN_AI_KEY_DEV"
 
 # API env file
 echo "DATABASE_URL=$db_connection_url" >> .env.$ENVIRONMENT
@@ -61,7 +62,6 @@ echo "PINECONE_INDEX=$pinecone_index" >> .env.$ENVIRONMENT
 echo "API_JWT_SECRET=$api_jwt_secret" >> .env.$ENVIRONMENT
 
 # Strapi env file
-
 echo "DATABASE_CLIENT=postgres" >> .env.strapi.$ENVIRONMENT
 echo "DATABASE_NAME=$strapi_db_name" >> .env.strapi.$ENVIRONMENT
 echo "DATABASE_HOST=$db_host" >> .env.strapi.$ENVIRONMENT
