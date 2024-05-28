@@ -223,9 +223,9 @@ export class CoverLetterService {
         userId,
         PromptType.AskCoverLetterWizard,
       );
-    if (last8HourMessages >= 7)
+    if (last8HourMessages >= 500)
       throw new UnprocessableEntityException(
-        'Limit 7 messages per 8 hours reached!',
+        'Limit 500 messages per 8 hours reached!',
       );
 
     const { content, message } = data;

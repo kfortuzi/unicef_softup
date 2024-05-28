@@ -84,7 +84,7 @@ const AskWizardModal: React.FC<AskWizardModalProps> = ({
       }
     } catch (error: unknown) {
       const { message } = error as Error;
-      if (message === 'Limit 7 messages per 8 hours reached!') {
+      if (message === 'Limit 500 messages per 8 hours reached!') {
         aiMessage = { text: t('aiLimitReached'), type: 'ai', isUsable: false } as Message;
       } else {
         aiMessage = { text: t('aiErrorMessage'), type: 'ai', isUsable: false } as Message;
