@@ -22,7 +22,6 @@ import { CoverLetterWizardDto } from './dto/cover-letter-wizard.dto';
 import { JwtAuthGuard } from 'src/modules/auth/jwt-auth.guard';
 import { RequestWithUser } from 'src/types/request';
 import { CoverLetterDto } from './dto/cover-letter-dto';
-import { MessageDto } from 'src/modules/chatbot/dto/message.dto';
 import { Response } from 'express';
 import { AutoGenerateCoverLetterDto } from './dto/cover-letter-autogenerate.dto';
 import { CoverLetterChatbotDto } from './dto/cover-letter-chatbot.dto';
@@ -153,7 +152,7 @@ export class CoverLetterController {
   @ApiBearerAuth()
   @ApiTags('cover-letters')
   @UseGuards(JwtAuthGuard)
-  @ApiBody({ type: MessageDto })
+  @ApiBody({ type: AutoGenerateCoverLetterDto })
   @ApiCreatedResponse({
     description: 'Cover letter wizard is ON!',
   })

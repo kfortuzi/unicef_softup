@@ -6,6 +6,7 @@ export class AutoGenerateCoverLetterDto {
   @ApiProperty({ type: String })
   readonly content: string;
 
+  @IsString()
   @ApiProperty({ type: String })
   readonly coverLetterId: string;
 }

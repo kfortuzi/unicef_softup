@@ -81,17 +81,21 @@ const CoverLetterForm: React.FC<Props> = ({ coverLetter, isFetched = false }) =>
   ];
 
   const autoGenerateFromAiAndSetContent = async () => {
-    setContentLoading(true);
-    const data = await postCoverLetterAutogenerate({
-      content: autogenerateContent || getValues(FormField.CONTENT) || '',
-      coverLetterId: id,
-    });
+    try {
+      setContentLoading(true);
+      const data = await postCoverLetterAutogenerate({
+        content: autogenerateContent || getValues(FormField.CONTENT) || '',
+        coverLetterId: id,
+      });
 
-    if (data) {
-      setAutogenerateContent(data);
-      setValue(FormField.CONTENT, data, { shouldDirty: true });
+      if (data) {
+        setAutogenerateContent(data);
+        setValue(FormField.CONTENT, data, { shouldDirty: true });
+      }
+      setContentLoading(false);
+    } finally {
+      setContentLoading(false);
     }
-    setContentLoading(false);
   };
 
   const updateMessageText = async (text: string) => {
