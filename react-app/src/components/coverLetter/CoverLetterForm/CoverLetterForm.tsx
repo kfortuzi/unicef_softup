@@ -198,7 +198,7 @@ const CoverLetterForm: React.FC<Props> = ({ coverLetter, isFetched = false }) =>
             placement="bottomLeft"
             trigger={['click']}
             overlayStyle={{ width: 300 }}
-            disabled={!formContentValue}
+            disabled={!formContentValue || isCreateMode}
           >
             <Button
               icon={<RobotOutlined />}
