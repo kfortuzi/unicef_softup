@@ -40,13 +40,14 @@ const SoftSkillsForm: React.FC<SoftSkillsProps> = ({ cvId, softSkills }) => {
           <Controller
             control={control}
             name={FormField.SOFT_SKILLS}
-            render={({ field: { onChange, value, ref, name } }) => (
+            render={({ field: { onChange, value, ref, name }, fieldState: { error } }) => (
               <InputSelect
                 placeholder={t('headerPlural')}
                 label={t('headerPlural')}
                 inputRef={ref}
                 name={name}
                 value={value}
+                error={error?.message}
                 onChange={onChange}
                 tokenSeparators={[',']}
                 mode="tags"

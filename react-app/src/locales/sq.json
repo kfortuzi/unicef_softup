@@ -442,7 +442,7 @@
       "experiences": "Eksperiencat",
       "educations": "Edukimi",
       "nativeLanguage": "Gjuha Amtare",
-      "otherLanguage": "Gjuha e Dyte",
+      "otherLanguage": "Gjuha e Dytë",
       "technicalSkills": "Aftësitë Teknike",
       "digitalSkills": "Aftësitë dixhitale",
       "softSkills": "Aftësitë Personale",
@@ -459,7 +459,10 @@
       "summaryPlaceholder": "Përmbledhje ne lidhje me eksperiencat dhe karakterin tuaj.",
       "createSuccessMessage": "CV u krijua me sukses!",
       "createErrorMessage": "CV nuk u krijua me sukses!",
-      "submit": "Dergo"
+      "submit": "Dergo",
+      "otherLanguageLevel": "Niveli i gjuhës së dytë",
+      "otherLanguageLevelPlaceholder": "Shembull: A1",
+      "addOtherLanguages": "Shto Gjuhë të Dytë"
     },
     "trainingVideos": {
       "header": "Video trajnime",
@@ -471,6 +474,19 @@
     },
     "trainingCard": {
       "openArticle": "Hape artikullin"
+    },
+    "languages": {
+      "albanian": "Shqip",
+      "english": "Anglisht",
+      "italian": "Italisht",
+      "croatian": "Kroacisht",
+      "greek": "Greqisht",
+      "macedonian": "Maqedonisht",
+      "montenegrin": "Malazeze",
+      "serbian": "Serbisht",
+      "slovenian": "Sllovakisht",
+      "french": "Frëngjisht",
+      "german": "Gjermanisht"
     }
   }
 }

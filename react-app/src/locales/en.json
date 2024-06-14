@@ -459,7 +459,10 @@
       "hobbiesPlaceholder": "Example: Football, Formula 1",
       "summaryPlaceholder": "Example: I am a software engineer with 5 years of experience. I love working with computers...",
       "createSuccessMessage": "Questionnaire was saved successfully!",
-      "createErrorMessage": "Failed to save questionnaire!"
+      "createErrorMessage": "Failed to save questionnaire!",
+      "otherLanguageLevel": "Other Language Level",
+      "otherLanguageLevelPlaceholder": "Example: A1",
+      "addOtherLanguages": "Add Other Languages"
     },
     "trainingVideos": {
       "header": "Training Videos",
@@ -471,6 +474,19 @@
     },
     "trainingCard": {
       "openArticle": "Open Article"
+    },
+    "languages": {
+      "albanian": "Albanian",
+      "english": "English",
+      "italian": "Italian",
+      "croatian": "Croatian",
+      "greek": "Greek",
+      "macedonian": "Macedonian",
+      "montenegrin": "Montenegrin",
+      "serbian": "Serbian",
+      "slovenian": "Slovenian",
+      "french": "French",
+      "german": "German"
     }
   }
 }

@@ -1,6 +1,5 @@
 import { object, string, array, boolean } from 'yup';
 
-import { Language } from 'src/api/resumes/types';
 import i18n from 'src/locales';
 
 import { FormField } from './enums';
@@ -8,10 +7,11 @@ import { FormField } from './enums';
 const basePrefix = 'profile.myResume';
 const sectionPrefix = `${basePrefix}.languagesSection`;
 
-const validationSchema = object<Language>().shape({
-  [FormField.NAME]: string().required(
+const validationSchema = object().shape({
+  [FormField.NAME]: array().of(string().required(
     i18n.t(`${basePrefix}.required`, { field: i18n.t(`${sectionPrefix}.name`) }),
-  ),
+  ))
+    .min(1, i18n.t(`${basePrefix}.required`, { field: i18n.t(`${sectionPrefix}.name`) })),
   [FormField.IS_NATIVE]: boolean().required(
     i18n.t(`${basePrefix}.required`, { field: i18n.t(`${sectionPrefix}.isNative`) }),
   ),

@@ -11,10 +11,12 @@ import Button from 'src/components/common/Button/Button';
 import DeleteItemButton from 'src/components/common/DeleteItemButton/DeleteItemButton';
 import Drawer from 'src/components/common/Drawer/Drawer';
 import InputSelect from 'src/components/common/InputSelect/InputSelect';
-import InputText from 'src/components/common/InputText/InputText';
+import languageLevels from 'src/constants/languageLevels';
+import languageOptions from 'src/constants/languageOptions';
 
-import { defaultValues, languageLevels } from './constants';
+import { defaultValues } from './constants';
 import { FormField } from './enums';
+import generateDefaultValues from './helpers/generateDefaultValues';
 import fieldsValidationSchema from './validation';
 
 interface LanguagesProps {
@@ -26,7 +28,7 @@ const LanguagesForm: React.FC<LanguagesProps> = (props) => {
   const { t } = useTranslation('translation', { keyPrefix: 'profile.myResume.languagesSection' });
   const { handleSubmit, control, watch, reset, formState: { errors } } = useForm({
     defaultValues: {
-      languages: props.languages || [defaultValues],
+      languages: generateDefaultValues(props.languages),
     },
     resolver: yupResolver(fieldsValidationSchema),
     shouldFocusError: false,
@@ -42,9 +44,11 @@ const LanguagesForm: React.FC<LanguagesProps> = (props) => {
   };
 
   const { mutate: patchResume, isPending } = usePatchResume();
-  const submitForm = handleSubmit((values) =>
-    patchResume({ id: props.cvId, languages: values.languages as Language[] }),
-  );
+  const submitForm = handleSubmit((values) => {
+    const requestBody = values.languages.map((language) => ({ ...language, name: language.name?.[0] }))
+
+    patchResume({ id: props.cvId, languages: requestBody as Language[] })
+  });
 
   const [activeKeys, setActiveKeys] = useState<string[]>();
 
@@ -71,14 +75,18 @@ const LanguagesForm: React.FC<LanguagesProps> = (props) => {
             control={control}
             name={`languages.${index}.${FormField.NAME}`}
             render={({ field: { name, value, onChange, ref }, fieldState: { error } }) => (
-              <InputText
+              <InputSelect
                 label={t('name')}
+                placeholder={t('name')}
                 inputRef={ref}
-                error={error?.message}
                 name={name}
+                error={error?.message}
                 value={value}
                 onChange={onChange}
-                placeholder={t('name')}
+                tokenSeparators={[',']}
+                maxCount={1}
+                mode="tags"
+                options={languageOptions}
                 className="input-element"
               />
             )}
@@ -92,7 +100,7 @@ const LanguagesForm: React.FC<LanguagesProps> = (props) => {
                 inputRef={ref}
                 error={error?.message}
                 name={name}
-                value={value ? Number(value) : undefined}
+                value={Number(value)}
                 onChange={onChange}
                 options={[
                   { label: t('yes'), value: 1 },
