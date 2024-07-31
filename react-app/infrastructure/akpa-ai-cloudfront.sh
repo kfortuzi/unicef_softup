@@ -16,12 +16,12 @@ oac_output=$(stack_output akpa-ai-cloudfront-oac-$ENVIRONMENT)
 oac_id=$(param_from_stack_output "$oac_output" OriginAccessControlID)
 
 # TODO: Domain name example
-tld='akpa-ai.de'
-if [[ $ENVIRONMENT == 'prod' ]]; then
-  domain_name="example.$tld"
-else
-  domain_name="example-$ENVIRONMENT.$tld"
-fi
+tld='punesim.ai'
+# if [[ $ENVIRONMENT == 'prod' ]]; then
+#   domain_name="example.$tld"
+# else
+#   domain_name="example-$ENVIRONMENT.$tld"
+# fi
 
 aws cloudformation deploy \
   --region $AWS_REGION \
@@ -31,4 +31,4 @@ aws cloudformation deploy \
   --parameter-overrides EnvironmentName="$ENVIRONMENT" \
                         BucketName="$bucket_name" \
                         OriginAccessControlID="$oac_id" \
-                        DomainName="$domain_name"
+                        DomainName="$tld"

@@ -12,9 +12,9 @@ Parameters:
     Description: ID of the OAC
     Type: String
   # TODO: Record to be created in Route 53
-  # DomainName:
-  #   Description: Name of the domain to which CloudFront will be connected
-  #   Type: String
+  DomainName:
+    Description: Name of the domain to which CloudFront will be connected
+    Type: String
 
 Resources:
   CloudFrontDistribution:
@@ -23,8 +23,8 @@ Resources:
       DistributionConfig:
         Comment: !Sub Akpa Ai ${EnvironmentName}
         Enabled: 'true'
-        # Aliases:
-        #   - !Ref DomainName
+        Aliases:
+          - !Ref DomainName
         Origins:
           - Id: AkpaAiUi
             DomainName: !Sub ${BucketName}.s3.amazonaws.com
@@ -47,11 +47,10 @@ Resources:
           Compress: 'true'
         PriceClass: PriceClass_100
         HttpVersion: http2and3
-        # ViewerCertificate:
-        #   # TODO: Create a certificate in ACM and put the ARN here
-        #   AcmCertificateArn: ''
-        #   MinimumProtocolVersion: 'TLSv1.2_2021'
-        #   SslSupportMethod: 'sni-only'
+        ViewerCertificate:
+          AcmCertificateArn: 'arn:aws:acm:us-east-1:618228892382:certificate/eb2773a1-0ebd-421f-9faf-adb8dc766c94'
+          MinimumProtocolVersion: 'TLSv1.2_2021'
+          SslSupportMethod: 'sni-only'
 
 Outputs:
   CloudFrontDomain:
