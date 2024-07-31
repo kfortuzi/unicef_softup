@@ -22,7 +22,7 @@ if [[ $ENVIRONMENT == 'prod' ]]; then
   fe_host="https://d3tbws5k04ln3f.cloudfront.net"
 else
   strapi_db_name="strapi_db_dev"
-  fe_host="https://db6acida7ydfm.cloudfront.net"
+  fe_host="https://punesim.ai"
 fi
 
 strapi_token=$(get_secret_value $ENVIRONMENT/strapi/api strapiToken)
